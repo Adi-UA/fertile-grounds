@@ -3,8 +3,6 @@ package com.fertilegrounds;
 import com.fertilegrounds.block.ModBlocks;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.resources.ResourceLocation;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +18,5 @@ public class FertileGrounds implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Fertile Grounds initializing");
 		ModBlocks.register();
-	}
-
-	public static ResourceLocation id(String path) {
-		return new ResourceLocation(MOD_ID, path);
 	}
 }

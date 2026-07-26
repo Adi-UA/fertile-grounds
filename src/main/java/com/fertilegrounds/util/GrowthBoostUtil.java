@@ -12,9 +12,9 @@ import net.minecraft.world.level.block.state.BlockState;
  * boosted block in this mod (both farmland tiers and enriched sand), so each
  * block's randomTick is a single call instead of a copy-pasted check.
  */
-public final class GrowthBooster {
+public final class GrowthBoostUtil {
 
-    private GrowthBooster() {
+    private GrowthBoostUtil() {
     }
 
     /**

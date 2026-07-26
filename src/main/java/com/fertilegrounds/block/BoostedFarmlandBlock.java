@@ -1,7 +1,7 @@
 package com.fertilegrounds.block;
 
 import com.fertilegrounds.FertileGrounds;
-import com.fertilegrounds.util.GrowthBooster;
+import com.fertilegrounds.util.GrowthBoostUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -36,9 +36,17 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BoostedFarmlandBlock extends FarmBlock {
 
+    private static final float TRAMPLE_ROLL_FALL_DISTANCE_OFFSET = 0.5F;
+    private static final float MIN_TRAMPLE_BOUNDING_BOX_VOLUME = 0.512F;
+
     private final float growthBoostChance;
     private final Block driedOutBlock;
 
+    /**
+     * @param properties block properties, e.g. from {@code ModBlockProperties.farmlandProperties()}
+     * @param growthBoostChance per-random-tick probability (0.0-1.0) of fertilizing the plant above
+     * @param driedOutBlock the block this reverts to on trample or drought (this tier's own dirt)
+     */
     public BoostedFarmlandBlock(final Properties properties, final float growthBoostChance, final Block driedOutBlock) {
         super(properties);
         this.growthBoostChance = growthBoostChance;
@@ -48,24 +56,45 @@ public class BoostedFarmlandBlock extends FarmBlock {
     @Override
     public void randomTick(final BlockState state, final ServerLevel world, final BlockPos pos, final RandomSource random) {
         tickMoisture(state, world, pos);
-        GrowthBooster.tryBoostAbove(world, pos, random, this.growthBoostChance);
+        GrowthBoostUtil.tryBoostAbove(world, pos, random, this.growthBoostChance);
     }
 
     @Override
     public void fallOn(final Level level, final BlockState state, final BlockPos pos, final Entity entity, final float fallDistance) {
-        // Same trample roll and conditions as FarmBlock.fallOn: only living
-        // entities heavy/wide enough, only when mobGriefing allows it for
-        // non-players, harder falls are more likely to trigger it. The only
-        // change is the revert target.
-        if (!level.isClientSide
-                && level.getRandom().nextFloat() < fallDistance - 0.5F
-                && entity instanceof LivingEntity
-                && (entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
-                && entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight() > 0.512F) {
-            revertToDriedOutBlock(state, level, pos, entity);
+        maybeTrampleToDirt(level, state, pos, entity, fallDistance);
+        entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
+    }
+
+    /**
+     * Same trample roll and conditions as vanilla {@code FarmBlock.fallOn}: only
+     * living entities heavy/wide enough, only when mobGriefing allows it for
+     * non-players, harder falls are more likely to trigger it. The only change
+     * is the revert target (see {@link #revertToDriedOutBlock}).
+     *
+     * <p>Written as early-return guard clauses, in the same order as vanilla's
+     * original {@code &&} chain, so the client-side check still runs first and
+     * the RNG roll still never happens on the client — collapsing this into
+     * eagerly-evaluated booleans up front would change that.
+     */
+    private void maybeTrampleToDirt(final Level level, final BlockState state, final BlockPos pos, final Entity entity, final float fallDistance) {
+        if (level.isClientSide || !(entity instanceof LivingEntity)) {
+            return;
         }
 
-        entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
+        final boolean mobGriefingAllowsRevert = entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+        if (!mobGriefingAllowsRevert) {
+            return;
+        }
+
+        final boolean isBigEnoughToTrample = entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight() > MIN_TRAMPLE_BOUNDING_BOX_VOLUME;
+        if (!isBigEnoughToTrample) {
+            return;
+        }
+
+        final boolean passesTrampleRoll = level.getRandom().nextFloat() < fallDistance - TRAMPLE_ROLL_FALL_DISTANCE_OFFSET;
+        if (passesTrampleRoll) {
+            revertToDriedOutBlock(state, level, pos, entity);
+        }
     }
 
     /**

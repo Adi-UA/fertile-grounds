@@ -2,6 +2,7 @@ package com.fertilegrounds.block;
 
 import com.fertilegrounds.FertileGrounds;
 import com.fertilegrounds.mixin.HoeItemAccessor;
+import com.fertilegrounds.util.ModIdsUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,10 +10,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 
 /**
  * Registers all blocks this mod adds. Registration order matters here: each
@@ -27,23 +24,29 @@ public final class ModBlocks {
     /** Tier 3 (Super Enriched Dirt): ~3.3x tier 1, gated behind Glowstone Dust. */
     private static final float SUPER_ENRICHED_BOOST_CHANCE = 0.5F;
 
-    public static final Block ENRICHED_DIRT = registerBlockWithItem("enriched_dirt", new Block(dirtProperties()));
+    // ---- Tier 1: Enriched — cheap ingredients, modest boost ----
+
+    public static final Block ENRICHED_DIRT = registerBlockWithItem("enriched_dirt", new Block(ModBlockProperties.dirtProperties()));
 
     public static final Block ENRICHED_FARMLAND = registerBlockOnly(
             "enriched_farmland",
-            new BoostedFarmlandBlock(farmlandProperties(), ENRICHED_BOOST_CHANCE, ENRICHED_DIRT)
+            new BoostedFarmlandBlock(ModBlockProperties.farmlandProperties(), ENRICHED_BOOST_CHANCE, ENRICHED_DIRT)
     );
 
-    public static final Block SUPER_ENRICHED_DIRT = registerBlockWithItem("super_enriched_dirt", new Block(dirtProperties()));
-
-    public static final Block SUPER_ENRICHED_FARMLAND = registerBlockOnly(
-            "super_enriched_farmland",
-            new BoostedFarmlandBlock(farmlandProperties(), SUPER_ENRICHED_BOOST_CHANCE, SUPER_ENRICHED_DIRT)
-    );
+    // ---- Tier 2: Enriched Sand — boosts existing sand-grown plants, no tilling ----
 
     public static final Block ENRICHED_SAND = registerBlockWithItem(
             "enriched_sand",
-            new GrowthBoostedSandBlock(sandProperties(), ENRICHED_BOOST_CHANCE)
+            new GrowthBoostedSandBlock(ModBlockProperties.sandProperties(), ENRICHED_BOOST_CHANCE)
+    );
+
+    // ---- Tier 3: Super Enriched — Glowstone Dust gated, ~3.3x boost ----
+
+    public static final Block SUPER_ENRICHED_DIRT = registerBlockWithItem("super_enriched_dirt", new Block(ModBlockProperties.dirtProperties()));
+
+    public static final Block SUPER_ENRICHED_FARMLAND = registerBlockOnly(
+            "super_enriched_farmland",
+            new BoostedFarmlandBlock(ModBlockProperties.farmlandProperties(), SUPER_ENRICHED_BOOST_CHANCE, SUPER_ENRICHED_DIRT)
     );
 
     private ModBlocks() {
@@ -70,41 +73,12 @@ public final class ModBlocks {
     }
 
     private static Block registerBlockOnly(final String path, final Block block) {
-        return Registry.register(BuiltInRegistries.BLOCK, FertileGrounds.id(path), block);
+        return Registry.register(BuiltInRegistries.BLOCK, ModIdsUtil.id(path), block);
     }
 
     private static Block registerBlockWithItem(final String path, final Block block) {
         final Block registered = registerBlockOnly(path, block);
-        Registry.register(BuiltInRegistries.ITEM, FertileGrounds.id(path), new BlockItem(registered, new Item.Properties()));
+        Registry.register(BuiltInRegistries.ITEM, ModIdsUtil.id(path), new BlockItem(registered, new Item.Properties()));
         return registered;
-    }
-
-    private static BlockBehaviour.Properties dirtProperties() {
-        // Matches vanilla Blocks.DIRT's own properties.
-        return BlockBehaviour.Properties.of()
-                .mapColor(MapColor.DIRT)
-                .strength(0.5F)
-                .sound(SoundType.GRAVEL);
-    }
-
-    private static BlockBehaviour.Properties farmlandProperties() {
-        // Matches vanilla Blocks.FARMLAND's own properties.
-        return BlockBehaviour.Properties.of()
-                .mapColor(MapColor.DIRT)
-                .randomTicks()
-                .strength(0.6F)
-                .sound(SoundType.GRAVEL)
-                .isViewBlocking(Blocks::always)
-                .isSuffocating(Blocks::always);
-    }
-
-    private static BlockBehaviour.Properties sandProperties() {
-        // Matches vanilla Blocks.SAND's own properties, plus randomTicks()
-        // (vanilla sand has no passive tick behavior; ours needs one).
-        return BlockBehaviour.Properties.of()
-                .mapColor(MapColor.SAND)
-                .randomTicks()
-                .strength(0.5F)
-                .sound(SoundType.SAND);
     }
 }
