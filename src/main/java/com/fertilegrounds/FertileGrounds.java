@@ -1,5 +1,6 @@
 package com.fertilegrounds;
 
+import com.fertilegrounds.block.ModBlocks;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +19,7 @@ public class FertileGrounds implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Fertile Grounds initializing");
+		ModBlocks.register();
 	}
 
 	public static ResourceLocation id(String path) {
