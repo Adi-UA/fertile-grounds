@@ -1,31 +1,28 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "fertilegrounds",
 	"version": "${version}",
-	"name": "Example Mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Fertile Grounds",
+	"description": "Tiered soil enrichment blocks that passively boost nearby crop growth.",
 	"authors": [
-		"Me!"
+		"Adi Banerjee"
 	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
+	"contact": {},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/fertilegrounds/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"com.fertilegrounds.FertileGrounds"
 		],
 		"client": [
-			"com.example.client.ExampleModClient"
+			"com.fertilegrounds.client.FertileGroundsClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"fertilegrounds.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "fertilegrounds.client.mixins.json",
 			"environment": "client"
 		}
 	],

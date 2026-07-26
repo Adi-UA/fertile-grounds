@@ -1,4 +1,4 @@
-package com.example.client.mixin;
+package com.fertilegrounds.client.mixin;
 
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
