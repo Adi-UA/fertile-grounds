@@ -8,31 +8,27 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A farmland variant that passively fertilizes whatever crop is planted on
  * top of it, on top of vanilla farmland's normal moisture/hydration behavior.
  *
- * <p>Two vanilla {@link FarmBlock} behaviors are deliberately not inherited
- * as-is, since both would destroy a crafted block over a passive world event
- * with no player mistake involved:
- * <ul>
- *   <li>Trampling (a player/mob jumping on it) normally has a chance to turn
- *   farmland back to dirt. That's free to undo for vanilla farmland (just
- *   re-till), but this block cost a crafting recipe, so trampling is a no-op
- *   here beyond the normal fall damage.
- *   <li>Drying out completely (no water nearby, nothing maintaining it) also
- *   reverts farmland to dirt in vanilla, but vanilla hardcodes the target as
- *   {@code Blocks.DIRT} specifically. Left unchanged, that would silently
- *   downgrade this block into plain vanilla dirt. Moisture tracking itself is
- *   kept (it still affects growth speed via vanilla's {@code CropBlock}), but
- *   the "ran dry" case reverts to this tier's own dirt block instead.
- * </ul>
+ * <p>Vanilla {@link FarmBlock} has two ways to revert to dirt on its own
+ * (trampling and drying out), and both hardcode the target as
+ * {@code Blocks.DIRT} specifically. Left unchanged, either would silently
+ * downgrade a crafted block into plain vanilla dirt instead of this tier's
+ * own dirt block. Both are reimplemented here to revert to
+ * {@link #driedOutBlock} instead — same vanilla conditions and odds, just a
+ * corrected target.
  *
  * <p>Crops won't actually accept this block as valid ground without
  * {@code CropBlockMixin} widening vanilla's hardcoded farmland identity
@@ -57,8 +53,18 @@ public class BoostedFarmlandBlock extends FarmBlock {
 
     @Override
     public void fallOn(final Level level, final BlockState state, final BlockPos pos, final Entity entity, final float fallDistance) {
-        // Intentionally skips FarmBlock's trample-to-dirt roll; this replicates
-        // only Block's default fall-damage behavior, not FarmBlock's override.
+        // Same trample roll and conditions as FarmBlock.fallOn: only living
+        // entities heavy/wide enough, only when mobGriefing allows it for
+        // non-players, harder falls are more likely to trigger it. The only
+        // change is the revert target.
+        if (!level.isClientSide
+                && level.getRandom().nextFloat() < fallDistance - 0.5F
+                && entity instanceof LivingEntity
+                && (entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
+                && entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight() > 0.512F) {
+            revertToDriedOutBlock(state, level, pos, entity);
+        }
+
         entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
     }
 
@@ -84,7 +90,7 @@ public class BoostedFarmlandBlock extends FarmBlock {
         }
 
         if (!world.getBlockState(pos.above()).is(BlockTags.MAINTAINS_FARMLAND)) {
-            revertToDriedOutBlock(state, world, pos);
+            revertToDriedOutBlock(state, world, pos, null);
         }
     }
 
@@ -97,10 +103,10 @@ public class BoostedFarmlandBlock extends FarmBlock {
         return false;
     }
 
-    private void revertToDriedOutBlock(final BlockState state, final ServerLevel world, final BlockPos pos) {
+    private void revertToDriedOutBlock(final BlockState state, final Level world, final BlockPos pos, @Nullable final Entity cause) {
         final BlockState newState = Block.pushEntitiesUp(state, this.driedOutBlock.defaultBlockState(), world, pos);
         world.setBlockAndUpdate(pos, newState);
-        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(newState));
-        FertileGrounds.LOGGER.debug("{} dried out at {}, reverted to {}", state.getBlock(), pos, this.driedOutBlock);
+        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(cause, newState));
+        FertileGrounds.LOGGER.debug("{} reverted to {} at {} (cause: {})", state.getBlock(), this.driedOutBlock, pos, cause);
     }
 }
