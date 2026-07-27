@@ -1,6 +1,6 @@
 # Fertile Grounds
 
-A Fabric mod for Minecraft 1.20.1 adding tiered soil-enrichment blocks that passively boost nearby crop growth, on top of vanilla's normal tilling and hydration mechanics.
+Tired of standing over your crops with a bone meal stack in hand? Fertile Grounds is a Fabric mod for Minecraft 1.20.1 that adds tiered soil-enrichment blocks: till or place them once, and they keep quietly bone-mealing whatever grows on top for as long as they're there. No more babysitting a farm block by block, just a small, honest convenience upgrade, not a "click once and every crop in the world is instant" mod. It still plays by vanilla's rules: till it, water it, watch it flood, dry out, or get trampled like normal soil.
 
 ![Fertile Grounds demo: vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, showing the growth speed difference over time](docs/hero.gif)
 
