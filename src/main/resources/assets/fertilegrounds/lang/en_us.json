@@ -3,5 +3,6 @@
   "block.fertilegrounds.enriched_farmland": "Enriched Farmland",
   "block.fertilegrounds.super_enriched_dirt": "Super Enriched Dirt",
   "block.fertilegrounds.super_enriched_farmland": "Super Enriched Farmland",
-  "block.fertilegrounds.enriched_sand": "Enriched Sand"
+  "block.fertilegrounds.enriched_sand": "Enriched Sand",
+  "itemGroup.fertilegrounds.main": "Fertile Grounds"
 }

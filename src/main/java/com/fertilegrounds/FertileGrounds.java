@@ -1,6 +1,7 @@
 package com.fertilegrounds;
 
 import com.fertilegrounds.block.ModBlocks;
+import com.fertilegrounds.item.ModItemGroups;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,5 +18,6 @@ public class FertileGrounds implements ModInitializer {
   public void onInitialize() {
     LOGGER.info("Fertile Grounds initializing");
     ModBlocks.register();
+    ModItemGroups.register();
   }
 }
