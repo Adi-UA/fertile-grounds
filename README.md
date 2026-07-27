@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/icon.png" width="96" alt="Fertile Grounds icon">
+</p>
+
 # Fertile Grounds
 
 Fertile Grounds is a Fabric mod for Minecraft 1.20.1 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. That works out to roughly 4x faster growth on Tier 1/Tier 2 soil and roughly 11x faster on Super Enriched soil, for a single well-watered crop. It's a convenience upgrade, not a balance-breaking one: the soil still floods, dries out, and gets trampled like normal dirt or sand.
@@ -20,7 +24,7 @@ All three are craftable (shapeless, 1:1:1, no crafting table shape required) and
 
 **Enriched Dirt / Super Enriched Dirt** work exactly like vanilla dirt: till them into farmland with a hoe, only the farmland form accepts crops. Their farmland reverts back to their *own* dirt tier (not vanilla dirt) on drought or trampling, and shows a darker, moist texture at full hydration, same as vanilla farmland.
 
-**Enriched Sand** behaves like vanilla sand, including letting sugar cane be planted on it near water. No tilling involved, it boosts whatever's growing directly on top of it.
+**Enriched Sand** behaves like vanilla sand (sugar cane can still be planted on it near water), no tilling involved. It boosts whatever bonemealable plant is directly on top of it, bamboo is the clearest example since it can grow on sand; sugar cane and cactus don't accept bone meal in vanilla, so they grow at normal speed on it either way.
 
 All three items live in their own creative-inventory tab, "Fertile Grounds."
 
@@ -49,3 +53,7 @@ The mod jar is output to `build/libs/fertilegrounds-<version>.jar`. Drop it in y
 ## License
 
 MIT. See `LICENSE`.
+
+---
+
+*AI (Claude) was used to help write some of the code and generate the icon artwork for this project. It's a practice project, and I'm not much of an artist.*
