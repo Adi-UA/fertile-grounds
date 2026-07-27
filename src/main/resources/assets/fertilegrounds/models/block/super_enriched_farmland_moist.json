@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "fertilegrounds:block/super_enriched_dirt",
+    "top": "fertilegrounds:block/super_enriched_farmland_top_moist"
+  }
+}

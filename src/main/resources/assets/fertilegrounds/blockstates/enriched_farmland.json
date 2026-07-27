@@ -7,6 +7,6 @@
     "moisture=4": { "model": "fertilegrounds:block/enriched_farmland" },
     "moisture=5": { "model": "fertilegrounds:block/enriched_farmland" },
     "moisture=6": { "model": "fertilegrounds:block/enriched_farmland" },
-    "moisture=7": { "model": "fertilegrounds:block/enriched_farmland" }
+    "moisture=7": { "model": "fertilegrounds:block/enriched_farmland_moist" }
   }
 }
