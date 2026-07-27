@@ -1,6 +1,7 @@
 plugins {
 	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
 	id 'maven-publish'
+	id 'com.diffplug.spotless' version '8.8.0'
 }
 
 version = project.mod_version
@@ -46,6 +47,21 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
+}
+
+spotless {
+	java {
+		target 'src/*/java/**/*.java'
+		googleJavaFormat()
+		removeUnusedImports()
+		importOrder()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+
+tasks.named('check') {
+	dependsOn 'spotlessCheck'
 }
 
 java {
