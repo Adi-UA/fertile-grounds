@@ -48,4 +48,4 @@ The mod jar is output to `build/libs/fertilegrounds-<version>.jar`. Drop it in y
 
 ## License
 
-CC0-1.0. See `LICENSE`.
+MIT. See `LICENSE`.

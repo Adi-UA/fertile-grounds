@@ -8,7 +8,7 @@
 		"Adi Banerjee"
 	],
 	"contact": {},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/fertilegrounds/icon.png",
 	"environment": "*",
 	"entrypoints": {
