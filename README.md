@@ -53,7 +53,3 @@ The mod jar is output to `build/libs/fertilegrounds-<version>.jar`. Drop it in y
 ## License
 
 MIT. See `LICENSE`.
-
----
-
-*AI (Claude) was used to help write some of the code and generate the icon artwork for this project. Block textures were hand-edited by me in Aseprite. It's a practice project, and I'm not much of an artist.*
