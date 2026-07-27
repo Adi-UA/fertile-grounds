@@ -1,6 +1,6 @@
 # Fertile Grounds
 
-Fertile Grounds is a Fabric mod for Minecraft 1.20.1 that adds tiered soil-enrichment blocks. Place one once, and it keeps bone-mealing whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. It's a small convenience upgrade, not a balance-breaking one: crops still grow at a normal pace most of the time, and the soil still floods, dries out, and gets trampled like normal dirt or sand.
+Fertile Grounds is a Fabric mod for Minecraft 1.20.1 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. It's a small convenience upgrade, not a balance-breaking one: crops still grow at a normal pace most of the time, and the soil still floods, dries out, and gets trampled like normal dirt or sand.
 
 ![Fertile Grounds demo: vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, showing the growth speed difference over time](docs/hero.gif)
 
