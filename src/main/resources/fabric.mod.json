@@ -20,11 +20,7 @@
 		]
 	},
 	"mixins": [
-		"fertilegrounds.mixins.json",
-		{
-			"config": "fertilegrounds.client.mixins.json",
-			"environment": "client"
-		}
+		"fertilegrounds.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
