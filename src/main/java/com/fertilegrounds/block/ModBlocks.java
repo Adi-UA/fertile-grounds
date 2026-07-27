@@ -32,7 +32,7 @@ public final class ModBlocks {
   public static final Block ENRICHED_FARMLAND =
       registerBlockOnly(
           "enriched_farmland",
-          new BoostedFarmlandBlock(
+          new GrowthBoostedFarmlandBlock(
               ModBlockProperties.farmlandProperties(), ENRICHED_BOOST_CHANCE, ENRICHED_DIRT));
 
   // ---- Tier 2: Enriched Sand — boosts existing sand-grown plants, no tilling ----
@@ -50,7 +50,7 @@ public final class ModBlocks {
   public static final Block SUPER_ENRICHED_FARMLAND =
       registerBlockOnly(
           "super_enriched_farmland",
-          new BoostedFarmlandBlock(
+          new GrowthBoostedFarmlandBlock(
               ModBlockProperties.farmlandProperties(),
               SUPER_ENRICHED_BOOST_CHANCE,
               SUPER_ENRICHED_DIRT));

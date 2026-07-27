@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>Crops won't actually accept this block as valid ground without {@code CropBlockMixin} widening
  * vanilla's hardcoded farmland identity checks to also match {@code instanceof FarmBlock}.
  */
-public class BoostedFarmlandBlock extends FarmBlock {
+public class GrowthBoostedFarmlandBlock extends FarmBlock {
 
   private static final float TRAMPLE_ROLL_FALL_DISTANCE_OFFSET = 0.5F;
   private static final float MIN_TRAMPLE_BOUNDING_BOX_VOLUME = 0.512F;
@@ -44,7 +44,7 @@ public class BoostedFarmlandBlock extends FarmBlock {
    * @param growthBoostChance per-random-tick probability (0.0-1.0) of fertilizing the plant above
    * @param driedOutBlock the block this reverts to on trample or drought (this tier's own dirt)
    */
-  public BoostedFarmlandBlock(
+  public GrowthBoostedFarmlandBlock(
       final Properties properties, final float growthBoostChance, final Block driedOutBlock) {
     super(properties);
     this.growthBoostChance = growthBoostChance;
