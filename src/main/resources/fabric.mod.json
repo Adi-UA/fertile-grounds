@@ -19,9 +19,6 @@
 			"com.fertilegrounds.client.FertileGroundsClient"
 		]
 	},
-	"mixins": [
-		"fertilegrounds.mixins.json"
-	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~26.1",

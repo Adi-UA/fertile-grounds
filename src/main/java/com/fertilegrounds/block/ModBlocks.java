@@ -1,9 +1,8 @@
 package com.fertilegrounds.block;
 
 import com.fertilegrounds.FertileGrounds;
-import com.fertilegrounds.mixin.HoeItemAccessor;
 import com.fertilegrounds.util.ModIdsUtil;
-import com.mojang.datafixers.util.Pair;
+import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
@@ -58,10 +57,9 @@ public final class ModBlocks {
   private ModBlocks() {}
 
   /**
-   * Wires up hoe-tilling for the two dirt tiers. Must run explicitly from {@link
-   * FertileGrounds#onInitialize()} rather than a static initializer here, since it depends on
-   * Mixins having already been applied to {@code HoeItem} by the time it runs — true for mod init,
-   * not guaranteed for class-loading order otherwise.
+   * Wires up hoe-tilling for the two dirt tiers, via Fabric API's {@link TillableBlockRegistry}
+   * rather than a mixin — this Minecraft version already exposes tilling registration as a public
+   * API instead of {@code HoeItem}'s old package-private map.
    */
   public static void register() {
     registerTillable(ENRICHED_DIRT, ENRICHED_FARMLAND);
@@ -71,10 +69,7 @@ public final class ModBlocks {
   }
 
   private static void registerTillable(final Block untilled, final Block tilled) {
-    HoeItemAccessor.fertilegrounds$getTillables()
-        .put(
-            untilled,
-            Pair.of(HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(tilled.defaultBlockState())));
+    TillableBlockRegistry.register(untilled, HoeItem::onlyIfAirAbove, tilled.defaultBlockState());
   }
 
   private static Block registerBlockOnly(final String path, final Block block) {
