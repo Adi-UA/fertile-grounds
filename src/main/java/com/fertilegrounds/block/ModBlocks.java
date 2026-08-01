@@ -98,7 +98,10 @@ public final class ModBlocks {
    * Same as {@link #registerBlockOnly}, plus a {@link BlockItem} so it's obtainable/stackable.
    * {@code Item}'s constructor has the same id-before-construction requirement as {@code Block}'s,
    * and {@code Item.BY_BLOCK} (the map {@code Block.asItem()} reads from) has to be populated
-   * explicitly too — vanilla's {@code Items.java} does both as part of its own registration helper.
+   * explicitly too — vanilla's {@code Items.java} does both as part of its own registration helper,
+   * which is also where {@code useBlockDescriptionPrefix()} comes from: without it, the item's
+   * translation key defaults to {@code item.<ns>.<path>} instead of reusing the block's {@code
+   * block.<ns>.<path>} entry, which is the only one this mod's lang file defines.
    */
   private static <T extends Block> T registerBlockWithItem(
       final String path,
@@ -106,7 +109,8 @@ public final class ModBlocks {
       final BlockBehaviour.Properties properties) {
     final T registered = registerBlockOnly(path, factory, properties);
     final ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, ModIdsUtil.id(path));
-    final BlockItem item = new BlockItem(registered, new Item.Properties().setId(itemKey));
+    final BlockItem item =
+        new BlockItem(registered, new Item.Properties().setId(itemKey).useBlockDescriptionPrefix());
     item.registerBlocks(Item.BY_BLOCK, item);
     Registry.register(BuiltInRegistries.ITEM, itemKey, item);
     return registered;
