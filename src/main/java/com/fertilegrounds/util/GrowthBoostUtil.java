@@ -36,7 +36,7 @@ public final class GrowthBoostUtil {
     if (!(aboveState.getBlock() instanceof BonemealableBlock bonemealable)) {
       return;
     }
-    if (!bonemealable.isValidBonemealTarget(world, abovePos, aboveState, false)) {
+    if (!bonemealable.isValidBonemealTarget(world, abovePos, aboveState)) {
       return;
     }
     if (!bonemealable.isBonemealSuccess(world, random, abovePos, aboveState)) {

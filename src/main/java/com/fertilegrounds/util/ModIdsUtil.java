@@ -17,6 +17,6 @@ public final class ModIdsUtil {
    *     fertilegrounds:enriched_dirt}
    */
   public static ResourceLocation id(final String path) {
-    return new ResourceLocation(FertileGrounds.MOD_ID, path);
+    return ResourceLocation.fromNamespaceAndPath(FertileGrounds.MOD_ID, path);
   }
 }
