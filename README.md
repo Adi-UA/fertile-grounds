@@ -6,6 +6,8 @@
 
 [![build](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml/badge.svg)](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml)
 
+Available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds) and [Modrinth](https://modrinth.com/mod/fertile-grounds).
+
 Fertile Grounds is a Fabric mod for Minecraft 26.2 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. That works out to roughly 4x faster growth on Tier 1/Tier 2 soil and roughly 11x faster on Super Enriched soil, for a single well-watered crop. It's a convenience upgrade, not a balance-breaking one: the soil still floods, dries out, and gets trampled like normal dirt or sand.
 
 ![Fertile Grounds demo: vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, showing the growth speed difference over time](docs/hero.gif)
