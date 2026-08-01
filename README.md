@@ -30,6 +30,17 @@ All three are craftable (shapeless, 1:1:1, no crafting table shape required) and
 
 All three items live in their own creative-inventory tab, "Fertile Grounds."
 
+## Minecraft version
+
+This branch targets Minecraft 1.20.1. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
+
+| Branch | Minecraft version |
+|---|---|
+| `1.20.1` | 1.20.1 (this branch) |
+| `1.21.1` | 1.21.1 |
+| `26.1` | 26.1 |
+| `main` | latest supported version |
+
 ## Requirements
 
 - Minecraft 1.20.1
@@ -43,7 +54,7 @@ All three items live in their own creative-inventory tab, "Fertile Grounds."
 ./gradlew build
 ```
 
-The mod jar is output to `build/libs/fertilegrounds-<version>.jar`. Drop it in your `mods/` folder alongside Fabric API.
+The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-1.0.0+1.20.1.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
 
 ## Development
 
