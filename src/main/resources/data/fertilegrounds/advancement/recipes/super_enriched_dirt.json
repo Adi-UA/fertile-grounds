@@ -3,9 +3,7 @@
   "criteria": {
     "has_glowstone_dust": {
       "conditions": {
-        "items": [
-          { "items": ["minecraft:glowstone_dust"] }
-        ]
+        "items": [{ "items": "minecraft:glowstone_dust" }]
       },
       "trigger": "minecraft:inventory_changed"
     },
