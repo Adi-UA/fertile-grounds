@@ -10,28 +10,28 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * A farmland variant that passively fertilizes whatever crop is planted on top of it, on top of
  * vanilla farmland's normal moisture/hydration behavior.
  *
- * <p>Vanilla {@link FarmBlock} has two ways to revert to dirt on its own (trampling and drying
+ * <p>Vanilla {@link FarmlandBlock} has two ways to revert to dirt on its own (trampling and drying
  * out), and both hardcode the target as {@code Blocks.DIRT} specifically. Left unchanged, either
  * would silently downgrade a crafted block into plain vanilla dirt instead of this tier's own dirt
  * block. Both are reimplemented here to revert to {@link #driedOutBlock} instead — same vanilla
  * conditions and odds, just a corrected target.
  *
  * <p>Crops won't actually accept this block as valid ground without {@code CropBlockMixin} widening
- * vanilla's hardcoded farmland identity checks to also match {@code instanceof FarmBlock}.
+ * vanilla's hardcoded farmland identity checks to also match {@code instanceof FarmlandBlock}.
  */
-public class GrowthBoostedFarmlandBlock extends FarmBlock {
+public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
 
   private static final float TRAMPLE_ROLL_FALL_DISTANCE_OFFSET = 0.5F;
   private static final float MIN_TRAMPLE_BOUNDING_BOX_VOLUME = 0.512F;
@@ -67,13 +67,13 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
       final BlockState state,
       final BlockPos pos,
       final Entity entity,
-      final float fallDistance) {
+      final double fallDistance) {
     maybeTrampleToDirt(level, state, pos, entity, fallDistance);
     entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
   }
 
   /**
-   * Same trample roll and conditions as vanilla {@code FarmBlock.fallOn}: only living entities
+   * Same trample roll and conditions as vanilla {@code FarmlandBlock.fallOn}: only living entities
    * heavy/wide enough, only when mobGriefing allows it for non-players, harder falls are more
    * likely to trigger it. The only change is the revert target (see {@link
    * #revertToDriedOutBlock}).
@@ -87,13 +87,16 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
       final BlockState state,
       final BlockPos pos,
       final Entity entity,
-      final float fallDistance) {
-    if (level.isClientSide || !(entity instanceof LivingEntity)) {
+      final double fallDistance) {
+    if (level.isClientSide() || !(entity instanceof LivingEntity)) {
       return;
     }
 
+    // fallOn only reaches here server-side (checked above), so level is always a ServerLevel in
+    // practice — game rules are only queryable through that concrete type in this API.
     final boolean mobGriefingAllowsRevert =
-        entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+        entity instanceof Player
+            || ((ServerLevel) level).getGameRules().get(GameRules.MOB_GRIEFING);
     if (!mobGriefingAllowsRevert) {
       return;
     }
@@ -113,9 +116,9 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
   }
 
   /**
-   * Reimplementation of {@code FarmBlock}'s moisture tick: vanilla's version is unusable as a base
-   * to extend because its water/maintenance checks are private, and its dry-out case is hardcoded
-   * to revert to {@code Blocks.DIRT}.
+   * Reimplementation of {@code FarmlandBlock}'s moisture tick: vanilla's version is unusable as a
+   * base to extend because its water/maintenance checks are private, and its dry-out case is
+   * hardcoded to revert to {@code Blocks.DIRT}.
    */
   private void tickMoisture(final BlockState state, final ServerLevel world, final BlockPos pos) {
     final int moisture = state.getValue(MOISTURE);

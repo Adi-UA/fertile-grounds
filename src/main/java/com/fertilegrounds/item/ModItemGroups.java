@@ -2,7 +2,7 @@ package com.fertilegrounds.item;
 
 import com.fertilegrounds.block.ModBlocks;
 import com.fertilegrounds.util.ModIdsUtil;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +24,7 @@ public final class ModItemGroups {
     Registry.register(
         BuiltInRegistries.CREATIVE_MODE_TAB,
         MAIN,
-        FabricItemGroup.builder()
+        FabricCreativeModeTab.builder()
             .title(Component.translatable("itemGroup.fertilegrounds.main"))
             .icon(() -> new ItemStack(ModBlocks.SUPER_ENRICHED_DIRT))
             .displayItems(
