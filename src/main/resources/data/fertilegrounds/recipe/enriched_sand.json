@@ -6,6 +6,6 @@
     { "item": "minecraft:bone_meal" }
   ],
   "result": {
-    "item": "fertilegrounds:enriched_sand"
+    "id": "fertilegrounds:enriched_sand"
   }
 }

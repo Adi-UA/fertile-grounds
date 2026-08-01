@@ -7,6 +7,6 @@
     { "item": "minecraft:glowstone_dust" }
   ],
   "result": {
-    "item": "fertilegrounds:super_enriched_dirt"
+    "id": "fertilegrounds:super_enriched_dirt"
   }
 }
