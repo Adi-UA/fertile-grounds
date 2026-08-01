@@ -14,13 +14,22 @@
         "recipe": "fertilegrounds:super_enriched_dirt"
       },
       "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_the_recipe_from_enriched_dirt": {
+      "conditions": {
+        "recipe": "fertilegrounds:super_enriched_dirt_from_enriched_dirt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
-    ["has_glowstone_dust", "has_the_recipe"]
+    ["has_glowstone_dust", "has_the_recipe", "has_the_recipe_from_enriched_dirt"]
   ],
   "rewards": {
-    "recipes": ["fertilegrounds:super_enriched_dirt"]
+    "recipes": [
+      "fertilegrounds:super_enriched_dirt",
+      "fertilegrounds:super_enriched_dirt_from_enriched_dirt"
+    ]
   },
   "sends_telemetry_event": false
 }
