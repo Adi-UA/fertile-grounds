@@ -4,7 +4,7 @@ plugins {
 	id 'com.diffplug.spotless' version '8.8.0'
 }
 
-version = project.mod_version
+version = "${project.mod_version}+${project.minecraft_version}"
 group = project.maven_group
 
 repositories {
