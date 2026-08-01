@@ -6,7 +6,7 @@
 
 [![build](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml/badge.svg)](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml)
 
-Fertile Grounds is a Fabric mod for Minecraft 1.20.1 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. That works out to roughly 4x faster growth on Tier 1/Tier 2 soil and roughly 11x faster on Super Enriched soil, for a single well-watered crop. It's a convenience upgrade, not a balance-breaking one: the soil still floods, dries out, and gets trampled like normal dirt or sand.
+Fertile Grounds is a Fabric mod for Minecraft 1.21.1 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. That works out to roughly 4x faster growth on Tier 1/Tier 2 soil and roughly 11x faster on Super Enriched soil, for a single well-watered crop. It's a convenience upgrade, not a balance-breaking one: the soil still floods, dries out, and gets trampled like normal dirt or sand.
 
 ![Fertile Grounds demo: vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, showing the growth speed difference over time](docs/hero.gif)
 
@@ -30,11 +30,22 @@ All three are craftable (shapeless, 1:1:1, no crafting table shape required) and
 
 All three items live in their own creative-inventory tab, "Fertile Grounds."
 
+## Minecraft version
+
+This branch targets Minecraft 1.21.1. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
+
+| Branch | Minecraft version |
+|---|---|
+| `1.20.1` | 1.20.1 |
+| `1.21.1` | 1.21.1 (this branch) |
+| `26.1` | 26.1 |
+| `main` | latest supported version |
+
 ## Requirements
 
-- Minecraft 1.20.1
+- Minecraft 1.21.1
 - [Fabric Loader](https://fabricmc.net/) 0.19.3+
-- [Fabric API](https://modrinth.com/mod/fabric-api) 0.92.11+1.20.1
+- [Fabric API](https://modrinth.com/mod/fabric-api) 0.116.15+1.21.1
 - Java 17+
 
 ## Building from source
