@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": ["fertilegrounds:enriched_dirt", "minecraft:glowstone_dust"],
+  "result": {
+    "id": "fertilegrounds:super_enriched_dirt"
+  }
+}
