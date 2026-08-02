@@ -1,10 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "ingredients": [
-    { "item": "minecraft:dirt" },
-    { "item": "minecraft:bone_meal" }
-  ],
+  "ingredients": ["minecraft:dirt", "minecraft:bone_meal"],
   "result": {
     "id": "fertilegrounds:enriched_dirt"
   }

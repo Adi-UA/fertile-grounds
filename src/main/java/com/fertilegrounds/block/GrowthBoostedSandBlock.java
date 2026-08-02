@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -43,6 +44,11 @@ public class GrowthBoostedSandBlock extends FallingBlock {
   @Override
   protected MapCodec<? extends FallingBlock> codec() {
     return CODEC;
+  }
+
+  @Override
+  public int getDustColor(final BlockState state, final BlockGetter world, final BlockPos pos) {
+    return state.getMapColor(world, pos).col;
   }
 
   @Override

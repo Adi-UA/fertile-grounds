@@ -3,9 +3,7 @@
   "criteria": {
     "has_bone_meal": {
       "conditions": {
-        "items": [
-          { "items": ["minecraft:bone_meal"] }
-        ]
+        "items": [{ "items": "minecraft:bone_meal" }]
       },
       "trigger": "minecraft:inventory_changed"
     },

@@ -10,12 +10,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -67,7 +67,7 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
       final BlockState state,
       final BlockPos pos,
       final Entity entity,
-      final float fallDistance) {
+      final double fallDistance) {
     maybeTrampleToDirt(level, state, pos, entity, fallDistance);
     entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
   }
@@ -87,13 +87,16 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
       final BlockState state,
       final BlockPos pos,
       final Entity entity,
-      final float fallDistance) {
-    if (level.isClientSide || !(entity instanceof LivingEntity)) {
+      final double fallDistance) {
+    if (level.isClientSide() || !(entity instanceof LivingEntity)) {
       return;
     }
 
+    // fallOn only reaches here server-side (checked above), so level is always a ServerLevel in
+    // practice — game rules are only queryable through that concrete type in this API.
     final boolean mobGriefingAllowsRevert =
-        entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+        entity instanceof Player
+            || ((ServerLevel) level).getGameRules().get(GameRules.MOB_GRIEFING);
     if (!mobGriefingAllowsRevert) {
       return;
     }
