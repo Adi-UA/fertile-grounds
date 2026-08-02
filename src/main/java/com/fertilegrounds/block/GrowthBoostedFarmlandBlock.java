@@ -10,12 +10,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -96,7 +96,7 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
     // practice — game rules are only queryable through that concrete type in this API.
     final boolean mobGriefingAllowsRevert =
         entity instanceof Player
-            || ((ServerLevel) level).getGameRules().get(GameRules.MOB_GRIEFING);
+            || ((ServerLevel) level).getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
     if (!mobGriefingAllowsRevert) {
       return;
     }

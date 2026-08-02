@@ -8,7 +8,7 @@
 
 Available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds) and [Modrinth](https://modrinth.com/mod/fertile-grounds).
 
-Fertile Grounds is a Fabric mod for Minecraft 1.21.11 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. That works out to roughly 4x faster growth on Tier 1/Tier 2 soil and roughly 11x faster on Super Enriched soil, for a single well-watered crop. It's a convenience upgrade, not a balance-breaking one: the soil still floods, dries out, and gets trampled like normal dirt or sand.
+Fertile Grounds is a Fabric mod for Minecraft 1.21.10 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. That works out to roughly 4x faster growth on Tier 1/Tier 2 soil and roughly 11x faster on Super Enriched soil, for a single well-watered crop. It's a convenience upgrade, not a balance-breaking one: the soil still floods, dries out, and gets trampled like normal dirt or sand.
 
 ![Fertile Grounds demo: vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, showing the growth speed difference over time](docs/hero.gif)
 
@@ -34,21 +34,22 @@ All three items live in their own creative-inventory tab, "Fertile Grounds."
 
 ## Minecraft version
 
-This branch targets Minecraft 1.21.1. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
+This branch targets Minecraft 1.21.10. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
 
 | Branch | Minecraft version |
 |---|---|
 | `1.20.1` | 1.20.1 |
 | `1.21.1` | 1.21.1 |
-| `1.21.11` | 1.21.11 (this branch) |
+| `1.21.10` | 1.21.10 (this branch) |
+| `1.21.11` | 1.21.11 |
 | `26.1` | 26.1 |
 | `main` | latest supported version |
 
 ## Requirements
 
-- Minecraft 1.21.11
+- Minecraft 1.21.10
 - [Fabric Loader](https://fabricmc.net/) 0.19.3+
-- [Fabric API](https://modrinth.com/mod/fabric-api) 0.141.6+1.21.11
+- [Fabric API](https://modrinth.com/mod/fabric-api) 0.138.4+1.21.10
 - Java 17+
 
 ## Building from source
@@ -57,7 +58,7 @@ This branch targets Minecraft 1.21.1. Other supported versions live on their own
 ./gradlew build
 ```
 
-The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-1.1.0+1.21.11.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
+The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-1.1.0+1.21.10.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
 
 ## Development
 

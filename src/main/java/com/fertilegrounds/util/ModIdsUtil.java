@@ -1,11 +1,11 @@
 package com.fertilegrounds.util;
 
 import com.fertilegrounds.FertileGrounds;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
- * Builds namespaced {@link Identifier}s for this mod's own registry entries (blocks, items, loot
- * tables, etc.), so the mod's namespace string only has to be correct in one place.
+ * Builds namespaced {@link ResourceLocation}s for this mod's own registry entries (blocks, items,
+ * loot tables, etc.), so the mod's namespace string only has to be correct in one place.
  */
 public final class ModIdsUtil {
 
@@ -13,9 +13,10 @@ public final class ModIdsUtil {
 
   /**
    * @param path the registry path, e.g. {@code "enriched_dirt"}
-   * @return a {@link Identifier} in this mod's namespace, e.g. {@code fertilegrounds:enriched_dirt}
+   * @return a {@link ResourceLocation} in this mod's namespace, e.g. {@code
+   *     fertilegrounds:enriched_dirt}
    */
-  public static Identifier id(final String path) {
-    return Identifier.fromNamespaceAndPath(FertileGrounds.MOD_ID, path);
+  public static ResourceLocation id(final String path) {
+    return ResourceLocation.fromNamespaceAndPath(FertileGrounds.MOD_ID, path);
   }
 }
