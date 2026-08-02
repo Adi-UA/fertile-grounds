@@ -40,6 +40,7 @@ This branch targets Minecraft 1.21.1. Other supported versions live on their own
 |---|---|
 | `1.20.1` | 1.20.1 |
 | `1.21.1` | 1.21.1 (this branch) |
+| `1.21.10` | 1.21.10 |
 | `1.21.11` | 1.21.11 |
 | `26.1` | 26.1 |
 | `main` | latest supported version |
