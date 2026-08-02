@@ -40,6 +40,7 @@ This branch targets Minecraft 26.2. Other supported versions live on their own b
 |---|---|
 | `1.20.1` | 1.20.1 |
 | `1.21.1` | 1.21.1 |
+| `1.21.11` | 1.21.11 |
 | `26.1` | 26.1 |
 | `26.2` / `main` | 26.2 (this branch, latest supported version) |
 
