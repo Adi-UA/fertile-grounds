@@ -34,12 +34,13 @@ All three items live in their own creative-inventory tab, "Fertile Grounds."
 
 ## Minecraft version
 
-This branch targets Minecraft 1.21.1. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
+This branch targets Minecraft 1.21.11. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
 
 | Branch | Minecraft version |
 |---|---|
 | `1.20.1` | 1.20.1 |
 | `1.21.1` | 1.21.1 |
+| `1.21.10` | 1.21.10 |
 | `1.21.11` | 1.21.11 (this branch) |
 | `26.1` | 26.1 |
 | `main` | latest supported version |
