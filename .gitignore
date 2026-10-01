@@ -28,8 +28,8 @@ bin/
 
 *.DS_Store
 
-# claude
-.claude/
+# claude (personal overrides only; shared config is tracked)
+.claude/settings.local.json
 
 # fabric
 
@@ -42,5 +42,3 @@ replay_*.log
 *.hprof
 *.jfr
 
-# scratch working files for texture editing, not shipped assets
-art-source/
