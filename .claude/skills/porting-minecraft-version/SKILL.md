@@ -45,7 +45,7 @@ Update the branch's `README.md` (version line, requirements, branch table), then
 
 ## Known differences between versions
 
-Add a row each time a hop turns up a change. Only list changes that were checked against real code.
+Add a row each time a hop turns up a change. Only list changes that were checked against real code; a range like "1.21.2 to 1.21.10" means the change happened somewhere between those two supported versions.
 
 | Changed in | Area | Before | After |
 |---|---|---|---|
@@ -65,12 +65,12 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.1 | Build setup | Obfuscated: `mappings loom.officialMojangMappings()` and `modImplementation` | Unobfuscated: plain `implementation`, no mappings |
 | 1.21.11 | `ResourceLocation` | `net.minecraft.resources.ResourceLocation` | Renamed `Identifier` |
 | 1.21.11 | Game rule names | camelCase (`randomTickSpeed`) | snake_case (`random_tick_speed`) |
-| 1.21.2 | Entity rendering | `MobRenderer<Entity, Model>`, `HierarchicalModel` with `root()` and `setupAnim(entity, limbSwing, ..., ageInTicks, ...)`; reset pose yourself with `getAllParts().forEach(ModelPart::resetPose)` | Render states: `MobRenderer<Entity, State, Model>`, `createRenderState()`, `setupAnim(state)` resets the pose |
-| 1.21.2 | Entity creation and ids | `EntityType.create(level)`, `Builder.build(String)` (logs a harmless dev-only "No data fixer" error) | `create(level, EntitySpawnReason)`, `Builder.build(ResourceKey)` |
-| 1.21.2 | Item ids | `new Item.Properties()` | `Properties.setId(key)` before building |
-| 1.21.2 | Night check | `level.isNight()` | `level.isDarkOutside()` |
-| 1.21.2 | Goal helpers | Cast `(ServerLevel) mob.level()` | `Goal.getServerLevel(mob)` |
-| 1.21.2 | Recipe ingredients | `{"item": "<id>"}` objects | Plain `"<id>"` strings |
-| 1.21.4 | Item models | Only `models/item/<id>.json` | Also needs `items/<id>.json` |
-| 1.21.5 | Spawn eggs | `new SpawnEggItem(type, bgColor, spotColor, props)`, tinted by colors (white keeps a painted texture as is) | `Properties.spawnEgg(type)`, per-mob texture |
-| 1.21.10 | Renderer registration | Vanilla `EntityRenderers.register` is private; use Fabric `EntityRendererRegistry` | Public |
+| 1.21.2 to 1.21.10 | Entity rendering | `MobRenderer<Entity, Model>`, `HierarchicalModel` with `root()` and `setupAnim(entity, limbSwing, ..., ageInTicks, ...)`; reset pose yourself with `getAllParts().forEach(ModelPart::resetPose)` | Render states: `MobRenderer<Entity, State, Model>`, `createRenderState()`, `setupAnim(state)` resets the pose |
+| 1.21.2 to 1.21.10 | Entity creation and ids | `EntityType.create(level)`, `Builder.build(String)` (logs a harmless dev-only "No data fixer" error) | `create(level, EntitySpawnReason)`, `Builder.build(ResourceKey)` |
+| 1.21.2 to 1.21.10 | Item ids | `new Item.Properties()` | `Properties.setId(key)` before building |
+| 1.21.2 to 1.21.10 | Night check | `level.isNight()` | `level.isDarkOutside()` |
+| 1.21.2 to 1.21.10 | Goal helpers | Cast `(ServerLevel) mob.level()` | `Goal.getServerLevel(mob)` |
+| 1.21.2 to 1.21.10 | Recipe ingredients | `{"item": "<id>"}` objects | Plain `"<id>"` strings |
+| 1.21.2 to 1.21.10 | Item models | Only `models/item/<id>.json` | Also needs `items/<id>.json` |
+| 1.21.2 to 1.21.10 | Spawn eggs | `new SpawnEggItem(type, bgColor, spotColor, props)`, tinted by colors (white keeps a painted texture as is) | `Properties.spawnEgg(type)`, per-mob texture |
+| 1.21.2 to 1.21.10 | Renderer registration | Vanilla `EntityRenderers.register` is private; use Fabric `EntityRendererRegistry` | Public |
