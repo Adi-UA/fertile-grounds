@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fertilegrounds:item/bean_fairy_spawn_egg"
+  }
+}
