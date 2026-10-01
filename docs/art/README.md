@@ -43,8 +43,8 @@ The placeholder is vanilla's Allay spawn egg recolored green. Recolor it the sam
 
 ## Regenerating
 
-`~/Documents/helper-scripts/bean_fairy_art.py` rebuilds the template, the guide, and every placeholder. It overwrites your painted textures, so only run it before you start painting or after you move parts in `BeanFairyModel.java`:
+`scripts/bean_fairy_art.py` rebuilds the template, the guide, and every placeholder. It overwrites your painted textures, so only run it before you start painting or after you move parts in `BeanFairyModel.java`:
 
 ```
-uv run ~/Documents/helper-scripts/bean_fairy_art.py . ~/.gradle/caches/fabric-loom/<mc version>/minecraft-client.jar
+uv run scripts/bean_fairy_art.py . ~/.gradle/caches/fabric-loom/<mc version>/minecraft-client.jar
 ```

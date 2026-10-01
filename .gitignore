@@ -28,8 +28,8 @@ bin/
 
 *.DS_Store
 
-# claude
-.claude/
+# claude (personal overrides only; shared config is tracked)
+.claude/settings.local.json
 
 # fabric
 
