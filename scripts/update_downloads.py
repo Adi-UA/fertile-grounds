@@ -3,7 +3,6 @@
 Run before pushing: python3 scripts/update_downloads.py
 """
 
-import datetime
 import json
 import pathlib
 import re
@@ -25,11 +24,9 @@ def fetch_json(url: str) -> dict:
 
 def badge_line(modrinth: int, curseforge: int) -> str:
     total = modrinth + curseforge
-    today = datetime.date.today().isoformat()
     return (
         f"{BADGE_PREFIX}(https://img.shields.io/badge/downloads-{total}-brightgreen)]"
-        f"(https://modrinth.com/mod/fertile-grounds) "
-        f"{total} downloads as of {today}: {modrinth} on Modrinth, {curseforge} on CurseForge."
+        f"(https://modrinth.com/mod/fertile-grounds)"
     )
 
 
