@@ -14,6 +14,12 @@ Fertile Grounds is a Fabric mod for Minecraft 1.21.11 that adds tiered soil-enri
 
 *Recorded with `/gamerule randomTickSpeed 100` to make the difference visible in a short clip. Default random tick speed (3) looks the same relative to each other, just much slower in real time.*
 
+![Bean Fairy demo: a Bean Fairy visiting a farm at night and fully growing the crops](docs/bean_fairy.gif)
+
+**New in version 1.2.0: Bean Fairies.** Like Stardew Valley's Crop Fairy, one can show up on any night and fully grow a patch of your crops. Or craft Fairy Dust and sprinkle it on a crop to guarantee a visit that night.
+
+Coming Soon: Put Bean Fairies in a jar to ...?
+
 ## What it adds
 
 Three tiers, each a drop-in soil upgrade that behaves like its vanilla counterpart (till it, plant on it, it still floods/dries/tramples) but with a chance per random tick to instantly advance whatever's growing on top of it, as if bone-mealed:
@@ -30,7 +36,15 @@ All three are craftable (shapeless, 1:1:1, no crafting table shape required) and
 
 **Enriched Sand** behaves like vanilla sand (sugar cane can still be planted on it near water), no tilling involved. It boosts whatever bonemealable plant is directly on top of it, bamboo is the clearest example since it can grow on sand; sugar cane and cactus don't accept bone meal in vanilla, so they grow at normal speed on it either way.
 
-All three items live in their own creative-inventory tab, "Fertile Grounds."
+All of the mod's items live in their own creative-inventory tab, "Fertile Grounds."
+
+### Bean Fairy
+
+Like Stardew Valley's Crop Fairy, a Bean Fairy (a tiny winged edamame pod) sometimes visits a farm at night and fully grows every crop in a 5x5 patch. Each night, every player in the Overworld has a 1% chance of a visit to a random crop within 16 blocks. If everyone sleeps through it, the crops are grown at dawn anyway.
+
+To call one on purpose, craft **Fairy Dust** (shapeless: Glowstone Dust + Amethyst Shard + Bone Meal) and use it on a growing crop. Fairies still only come at night: within about 30 seconds if it's already dark, otherwise at nightfall. Only crops in the vanilla `#minecraft:crops` tag count (wheat, carrots, potatoes, beetroots, melon and pumpkin stems, torchflowers, pitcher plants).
+
+The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop.
 
 ## Minecraft version
 
@@ -43,7 +57,8 @@ This branch targets Minecraft 1.21.11. Other supported versions live on their ow
 | `1.21.10` | 1.21.10 |
 | `1.21.11` | 1.21.11 (this branch) |
 | `26.1` | 26.1 |
-| `main` | latest supported version |
+| `26.2` | 26.2 |
+| `26.3` / `main` | 26.3 (latest supported version) |
 
 ## Requirements
 
@@ -58,7 +73,7 @@ This branch targets Minecraft 1.21.11. Other supported versions live on their ow
 ./gradlew build
 ```
 
-The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-1.1.0+1.21.11.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
+The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-1.2.0+1.21.11.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
 
 ## Development
 
@@ -66,6 +81,12 @@ The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft ver
 ./gradlew runClient      # launch a dev client with the mod loaded
 ./gradlew spotlessApply  # auto-format code
 ```
+
+## Art
+
+The art in the repo is partially AI generated. I am using AI to help me learn pixel art and so I get it to draw guides for me which I trace over. I also ask it for help for to learn Aseprite better and also slowly learn color theory and how Minecraft models work. I am open to suggestions for other ways to learn in a way where I can still keep learning to build Minecraft mods at the same pace
+
+I am just tracing over vanilla textures to avoid stealing stylistic choices from others.
 
 ## License
 
