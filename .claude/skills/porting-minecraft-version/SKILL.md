@@ -74,3 +74,8 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 1.21.2 to 1.21.10 | Item models | Only `models/item/<id>.json` | Also needs `items/<id>.json` |
 | 1.21.2 to 1.21.10 | Spawn eggs | `new SpawnEggItem(type, bgColor, spotColor, props)`, tinted by colors (white keeps a painted texture as is) | `Properties.spawnEgg(type)`, per-mob texture |
 | 1.21.2 to 1.21.10 | Renderer registration | Vanilla `EntityRenderers.register` is private; use Fabric `EntityRendererRegistry` | Public |
+| 1.20.2 to 1.21.1 | Bone meal | `isValidBonemealTarget(level, pos, state, isClient)` | No `isClient` argument |
+| 1.20.2 to 1.21.1 | `ItemStack.consume` | Missing; use `shrink(1)` (creative mode restores the stack) | `consume(amount, entity)` |
+| 1.20.2 to 1.21.1 | `EntityType.Builder.eyeHeight` | Missing; the default eye height is used | Present |
+| 1.20.2 to 1.21.1 | Data folders | Plural: `recipes/`, `advancements/`, `loot_tables/`, `tags/blocks/`. Singular folders are silently ignored, so check every new data file's path | Singular: `recipe/`, `advancement/`, `loot_table/`, `tags/block/` |
+| 1.20.2 to 1.21.1 | Recipe result | `"result": {"item": "<id>"}` | `"result": {"id": "<id>"}` |
