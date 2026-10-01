@@ -78,7 +78,7 @@ The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft ver
 
 ## Art
 
-The art in the repo is partially AI generated. I am using AI to help me learn pixel art and so I get it to draw guides for me which I trace over and ask for help for to learn Aseprite better and also slowly learn color theory and how Minecraft models work. I am open to suggestions for other ways to learn in a way where I can still keep learning to build Minecraft mods at the same pace
+The art in the repo is partially AI generated. I am using AI to help me learn pixel art and so I get it to draw guides for me which I trace over. I also ask it for help for to learn Aseprite better and also slowly learn color theory and how Minecraft models work. I am open to suggestions for other ways to learn in a way where I can still keep learning to build Minecraft mods at the same pace
 
 I am just tracing over vanilla textures to avoid stealing stylistic choices from others.
 
