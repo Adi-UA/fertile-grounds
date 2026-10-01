@@ -37,7 +37,7 @@ unzip -p <common jar> data/minecraft/advancement/recipes/building_blocks/coarse_
 
 ## 4. Verify
 
-Run the `AGENTS.md` verification steps on this branch. In `scripts/server_smoke_test.py`, use that version's game rule name and command syntax: 26.3 uses `random_tick_speed`, and older versions use the camelCase `randomTickSpeed` (check the branch's `GameRules.java`).
+Run the `AGENTS.md` verification steps on this branch. In `scripts/server_smoke_test.py`, use that version's game rule name and command syntax: 1.21.11 and newer use `random_tick_speed`, and older versions use the camelCase `randomTickSpeed` (check the branch's `GameRules` class).
 
 ## 5. Finish
 
@@ -45,7 +45,7 @@ Update the branch's `README.md` (version line, requirements, branch table), then
 
 ## Known differences between versions
 
-Add a row each time a hop turns up a change. Only list changes that were checked against real code.
+Add a row each time a hop turns up a change. Only list changes that were checked against real code; a range like "1.21.2 to 1.21.10" means the change happened somewhere between those two supported versions.
 
 | Changed in | Area | Before | After |
 |---|---|---|---|
@@ -59,3 +59,23 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.3 | Entity renderer registration | Fabric `EntityRendererRegistry.register` | Deprecated; vanilla `EntityRenderers.register` is public |
 | 26.3 | `BlockPos.withinManhattan` | `(origin, reachX, reachY, reachZ)` | `(origin, reach)`; per-axis forms are `withinClippedManhattan` and `withinBoxByManhattanDistance` |
 | 26.2 | `FlyingMoveControl` | Not generic: `new FlyingMoveControl(mob, ...)` | Generic: `new FlyingMoveControl<>(mob, ...)` |
+| 26.1 | Fabric server tick event | `ServerTickEvents.END_WORLD_TICK` | `END_LEVEL_TICK` |
+| 26.1 | Hotbar message | `player.displayClientMessage(component, true)` | `player.sendOverlayMessage(component)` |
+| 26.1 | Fabric model layers | `EntityModelLayerRegistry.registerModelLayer` | `ModelLayerRegistry.registerModelLayer` |
+| 26.1 | Build setup | Obfuscated: `mappings loom.officialMojangMappings()` and `modImplementation` | Unobfuscated: plain `implementation`, no mappings |
+| 1.21.11 | `ResourceLocation` | `net.minecraft.resources.ResourceLocation` | Renamed `Identifier` |
+| 1.21.11 | Game rule names | camelCase (`randomTickSpeed`) | snake_case (`random_tick_speed`) |
+| 1.21.2 to 1.21.10 | Entity rendering | `MobRenderer<Entity, Model>`, `HierarchicalModel` with `root()` and `setupAnim(entity, limbSwing, ..., ageInTicks, ...)`; reset pose yourself with `getAllParts().forEach(ModelPart::resetPose)` | Render states: `MobRenderer<Entity, State, Model>`, `createRenderState()`, `setupAnim(state)` resets the pose |
+| 1.21.2 to 1.21.10 | Entity creation and ids | `EntityType.create(level)`, `Builder.build(String)` (logs a harmless dev-only "No data fixer" error) | `create(level, EntitySpawnReason)`, `Builder.build(ResourceKey)` |
+| 1.21.2 to 1.21.10 | Item ids | `new Item.Properties()` | `Properties.setId(key)` before building |
+| 1.21.2 to 1.21.10 | Night check | `level.isNight()` | `level.isDarkOutside()` |
+| 1.21.2 to 1.21.10 | Goal helpers | Cast `(ServerLevel) mob.level()` | `Goal.getServerLevel(mob)` |
+| 1.21.2 to 1.21.10 | Recipe ingredients | `{"item": "<id>"}` objects | Plain `"<id>"` strings |
+| 1.21.2 to 1.21.10 | Item models | Only `models/item/<id>.json` | Also needs `items/<id>.json` |
+| 1.21.2 to 1.21.10 | Spawn eggs | `new SpawnEggItem(type, bgColor, spotColor, props)`, tinted by colors (white keeps a painted texture as is) | `Properties.spawnEgg(type)`, per-mob texture |
+| 1.21.2 to 1.21.10 | Renderer registration | Vanilla `EntityRenderers.register` is private; use Fabric `EntityRendererRegistry` | Public |
+| 1.20.2 to 1.21.1 | Bone meal | `isValidBonemealTarget(level, pos, state, isClient)` | No `isClient` argument |
+| 1.20.2 to 1.21.1 | `ItemStack.consume` | Missing; use `shrink(1)` (creative mode restores the stack) | `consume(amount, entity)` |
+| 1.20.2 to 1.21.1 | `EntityType.Builder.eyeHeight` | Missing; the default eye height is used | Present |
+| 1.20.2 to 1.21.1 | Data folders | Plural: `recipes/`, `advancements/`, `loot_tables/`, `tags/blocks/`. Singular folders are silently ignored, so check every new data file's path | Singular: `recipe/`, `advancement/`, `loot_table/`, `tags/block/` |
+| 1.20.2 to 1.21.1 | Recipe result | `"result": {"item": "<id>"}` | `"result": {"id": "<id>"}` |
