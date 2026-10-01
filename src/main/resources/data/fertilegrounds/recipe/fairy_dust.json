@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glowstone_dust",
+    "minecraft:amethyst_shard",
+    "minecraft:bone_meal"
+  ],
+  "result": {
+    "id": "fertilegrounds:fairy_dust"
+  }
+}

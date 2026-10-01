@@ -4,5 +4,12 @@
   "block.fertilegrounds.super_enriched_dirt": "Super Enriched Dirt",
   "block.fertilegrounds.super_enriched_farmland": "Super Enriched Farmland",
   "block.fertilegrounds.enriched_sand": "Enriched Sand",
-  "itemGroup.fertilegrounds.main": "Fertile Grounds"
+  "itemGroup.fertilegrounds.main": "Fertile Grounds",
+  "item.fertilegrounds.fairy_dust": "Fairy Dust",
+  "item.fertilegrounds.bean_fairy_spawn_egg": "Bean Fairy Spawn Egg",
+  "entity.fertilegrounds.bean_fairy": "Bean Fairy",
+  "message.fertilegrounds.fairy_dust.coming_now": "A Bean Fairy is on its way...",
+  "message.fertilegrounds.fairy_dust.coming_tonight": "A Bean Fairy will visit tonight",
+  "message.fertilegrounds.fairy_dust.already_coming": "A Bean Fairy is already coming to this crop",
+  "message.fertilegrounds.fairy_dust.no_night": "Bean Fairies only visit where night falls"
 }

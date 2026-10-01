@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew build*)",
+      "Bash(./gradlew test*)",
+      "Bash(./gradlew spotlessApply*)",
+      "Bash(./gradlew compileJava*)",
+      "Bash(./gradlew compileClientJava*)",
+      "Bash(./gradlew genSources*)",
+      "Bash(python3 scripts/server_smoke_test.py)",
+      "Bash(curl -s https://meta.fabricmc.net/*)",
+      "Bash(curl -s https://maven.fabricmc.net/*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git --no-pager *)"
+    ]
+  }
+}
