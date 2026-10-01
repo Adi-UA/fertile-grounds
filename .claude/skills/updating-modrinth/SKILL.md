@@ -94,4 +94,4 @@ Check each new row: the right jar, Minecraft version, `release`, exactly one Fab
 
 ## 6. Report
 
-Tell the user what changed, link `https://modrinth.com/mod/fertile-grounds`, and list anything skipped or that needs their review. Don't publish anything to CurseForge; that's a separate step for the user.
+Tell the user what changed, link `https://modrinth.com/mod/fertile-grounds`, and list anything skipped or that needs their review. Close the tab and the Claude tab group, then mirror the release to CurseForge with `.claude/skills/updating-curseforge/SKILL.md`.
