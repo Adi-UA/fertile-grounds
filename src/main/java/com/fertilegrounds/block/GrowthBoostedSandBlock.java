@@ -1,9 +1,6 @@
 package com.fertilegrounds.block;
 
 import com.fertilegrounds.util.GrowthBoostUtil;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -19,17 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class GrowthBoostedSandBlock extends FallingBlock {
 
-  public static final MapCodec<GrowthBoostedSandBlock> CODEC =
-      RecordCodecBuilder.mapCodec(
-          instance ->
-              instance
-                  .group(
-                      propertiesCodec(),
-                      Codec.FLOAT
-                          .fieldOf("growth_boost_chance")
-                          .forGetter(block -> block.growthBoostChance))
-                  .apply(instance, GrowthBoostedSandBlock::new));
-
   private final float growthBoostChance;
 
   /**
@@ -39,11 +25,6 @@ public class GrowthBoostedSandBlock extends FallingBlock {
   public GrowthBoostedSandBlock(final Properties properties, final float growthBoostChance) {
     super(properties);
     this.growthBoostChance = growthBoostChance;
-  }
-
-  @Override
-  protected MapCodec<? extends FallingBlock> codec() {
-    return CODEC;
   }
 
   @Override

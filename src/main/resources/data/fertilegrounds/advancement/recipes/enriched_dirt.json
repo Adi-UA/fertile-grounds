@@ -9,7 +9,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fertilegrounds:enriched_dirt"
+        "recipes": "fertilegrounds:enriched_dirt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

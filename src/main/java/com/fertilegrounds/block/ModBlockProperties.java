@@ -37,7 +37,6 @@ final class ModBlockProperties {
         .randomTicks()
         .strength(0.6F)
         .sound(SoundType.GRAVEL)
-        .isViewBlocking(Blocks::always)
         .isSuffocating(Blocks::always);
   }
 

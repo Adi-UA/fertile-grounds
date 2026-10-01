@@ -9,13 +9,13 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fertilegrounds:super_enriched_dirt"
+        "recipes": "fertilegrounds:super_enriched_dirt"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
     "has_the_recipe_from_enriched_dirt": {
       "conditions": {
-        "recipe": "fertilegrounds:super_enriched_dirt_from_enriched_dirt"
+        "recipes": "fertilegrounds:super_enriched_dirt_from_enriched_dirt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

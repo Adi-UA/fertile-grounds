@@ -9,7 +9,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fertilegrounds:enriched_sand"
+        "recipes": "fertilegrounds:enriched_sand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

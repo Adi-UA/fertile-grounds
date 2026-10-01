@@ -1,7 +1,8 @@
 {
-  "parent": "minecraft:block/template_farmland",
+  "parent": "minecraft:block/template_cube_bottom_top_indented",
   "textures": {
-    "dirt": "fertilegrounds:block/enriched_dirt",
+    "bottom": "fertilegrounds:block/enriched_dirt",
+    "side": "fertilegrounds:block/enriched_dirt",
     "top": "fertilegrounds:block/enriched_farmland_top"
   }
 }

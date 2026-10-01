@@ -4,6 +4,7 @@ import com.fertilegrounds.FertileGrounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -36,14 +37,16 @@ public final class GrowthBoostUtil {
     if (!(aboveState.getBlock() instanceof BonemealableBlock bonemealable)) {
       return;
     }
-    if (!bonemealable.isValidBonemealTarget(world, abovePos, aboveState)) {
+    if (!bonemealable.isValidBonemealTarget(
+        world, abovePos, aboveState, BonemealSource.INTERACTION)) {
       return;
     }
-    if (!bonemealable.isBonemealSuccess(world, random, abovePos, aboveState)) {
+    if (!bonemealable.isBonemealSuccess(
+        world, random, abovePos, aboveState, BonemealSource.INTERACTION)) {
       return;
     }
 
-    bonemealable.performBonemeal(world, random, abovePos, aboveState);
+    bonemealable.performBonemeal(world, random, abovePos, aboveState, BonemealSource.INTERACTION);
     FertileGrounds.LOGGER.debug("Passively fertilized {} at {}", aboveState.getBlock(), abovePos);
   }
 }

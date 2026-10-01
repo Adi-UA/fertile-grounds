@@ -3,16 +3,18 @@ package com.fertilegrounds.block;
 import com.fertilegrounds.FertileGrounds;
 import com.fertilegrounds.util.ModIdsUtil;
 import java.util.function.Function;
-import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 
 /**
  * Registers all blocks this mod adds. Registration order matters here: each "farmland" tier's
@@ -63,9 +65,9 @@ public final class ModBlocks {
   private ModBlocks() {}
 
   /**
-   * Wires up hoe-tilling for the two dirt tiers, via Fabric API's {@link TillableBlockRegistry}
-   * rather than a mixin — this Minecraft version already exposes tilling registration as a public
-   * API instead of {@code HoeItem}'s old package-private map.
+   * Wires up hoe-tilling for the two dirt tiers, via Fabric API's {@link BlockTransformerHelper}.
+   * Since 26.3, hoe tilling is a data-driven "block transformer" instead of {@code HoeItem}'s old
+   * code map, and this helper appends our rules to vanilla's hoe transformer.
    */
   public static void register() {
     registerTillable(ENRICHED_DIRT, ENRICHED_FARMLAND);
@@ -74,8 +76,13 @@ public final class ModBlocks {
         "Fertile Grounds: registered 5 blocks (2 tillable pairs + enriched sand)");
   }
 
+  /** Same rule as vanilla dirt: only tills when the block above is air. */
   private static void registerTillable(final Block untilled, final Block tilled) {
-    TillableBlockRegistry.register(untilled, HoeItem::onlyIfAirAbove, tilled.defaultBlockState());
+    BlockTransformerHelper.registerTilling(
+        BlockPredicate.allOf(
+            BlockPredicate.matchesBlocks(untilled),
+            BlockPredicate.matchesTag(Direction.UP, BlockTags.AIR)),
+        tilled);
   }
 
   /**
