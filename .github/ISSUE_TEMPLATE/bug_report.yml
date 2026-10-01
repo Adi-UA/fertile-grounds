@@ -1,0 +1,38 @@
+name: Bug report
+description: Something in Fertile Grounds is broken or crashes
+labels: [bug]
+body:
+  - type: input
+    id: mod_version
+    attributes:
+      label: Fertile Grounds version
+      placeholder: 1.2.0+1.21.11
+    validations:
+      required: true
+  - type: input
+    id: fabric_api
+    attributes:
+      label: Minecraft, Fabric Loader and Fabric API versions
+      placeholder: 1.21.11, Loader 0.19.3, API 0.141.0+1.21.11
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log or crash report
+      description: Paste a link (mclo.gs works well) or attach latest.log.
+  - type: input
+    id: other_mods
+    attributes:
+      label: Other mods installed
+      description: Say "none" if you tested with only Fabric API.

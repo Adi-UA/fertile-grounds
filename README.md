@@ -90,6 +90,10 @@ The art in the repo is partially AI generated. I am using AI to help me learn pi
 
 I am just tracing over vanilla textures to avoid stealing stylistic choices from others.
 
+## Feedback
+
+Found a bug or have an idea? [Open an issue](https://github.com/Adi-UA/fertile-grounds/issues/new/choose). For questions or to show what you built, use [Discussions](https://github.com/Adi-UA/fertile-grounds/discussions).
+
 ## License
 
 MIT. See `LICENSE`.
