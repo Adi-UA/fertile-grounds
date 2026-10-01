@@ -9,6 +9,7 @@ Each check is a console command that prints a marker with `say` when it passes. 
 Usage (from the repo root): python3 scripts/server_smoke_test.py
 """
 
+import shutil
 import subprocess
 import sys
 import time
@@ -50,6 +51,8 @@ ERROR_MARKERS = ("Registry loading errors", "Failed to load datapacks", "Excepti
 def main() -> int:
     run_dir = Path("run")
     run_dir.mkdir(exist_ok=True)
+    # Always start from a fresh world: an older version can't load a world a newer one saved.
+    shutil.rmtree(run_dir / "world", ignore_errors=True)
     (run_dir / "eula.txt").write_text("eula=true\n")
 
     server = subprocess.Popen(
