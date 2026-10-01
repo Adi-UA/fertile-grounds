@@ -18,6 +18,8 @@ Fertile Grounds is a Fabric mod for Minecraft 26.3 that adds tiered soil-enrichm
 
 **New in version 1.2.0: Bean Fairies.** Like Stardew Valley's Crop Fairy, one can show up on any night and fully grow a patch of your crops. Or craft Fairy Dust and sprinkle it on a crop to guarantee a visit that night.
 
+Coming Soon: Put Bean Fairies in a jar to ...?
+
 ## What it adds
 
 Three tiers, each a drop-in soil upgrade that behaves like its vanilla counterpart (till it, plant on it, it still floods/dries/tramples) but with a chance per random tick to instantly advance whatever's growing on top of it, as if bone-mealed:
