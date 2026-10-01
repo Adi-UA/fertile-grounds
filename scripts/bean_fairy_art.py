@@ -26,13 +26,14 @@ from PIL import Image, ImageDraw, ImageFont
 
 TEX = 32
 ZOOM = 16
+LEGEND_HEIGHT = 230
 
 # Must match BeanFairyModel.createBodyLayer(): name, texOffs u, v, box size w, h, d.
 PARTS = [
-    ("left bean", 0, 0, 3, 3, 3),
-    ("right bean", 0, 6, 3, 3, 3),
-    ("stem", 16, 0, 1, 1, 1),
-    ("wings", 0, 12, 4, 5, 0),
+    ("left bean", 0, 0, 5, 4, 4),
+    ("right bean", 0, 8, 5, 4, 4),
+    ("stem", 20, 0, 1, 1, 1),
+    ("wings", 0, 16, 5, 6, 0),
 ]
 
 
@@ -70,7 +71,7 @@ WING_VEIN = (169, 216, 238)
 
 def template_and_guide(out_dir: Path):
     template = Image.new("RGBA", (TEX, TEX), (0, 0, 0, 0))
-    guide = Image.new("RGBA", (TEX * ZOOM, TEX * ZOOM), (40, 40, 40, 255))
+    guide = Image.new("RGBA", (TEX * ZOOM, TEX * ZOOM + LEGEND_HEIGHT), (40, 40, 40, 255))
     draw_t = ImageDraw.Draw(template)
     draw_g = ImageDraw.Draw(guide)
     font = ImageFont.load_default()
@@ -89,8 +90,8 @@ def template_and_guide(out_dir: Path):
     for n in range(TEX + 1):
         draw_g.line([(n * ZOOM, 0), (n * ZOOM, TEX * ZOOM)], fill=(70, 70, 70, 255))
         draw_g.line([(0, n * ZOOM), (TEX * ZOOM, n * ZOOM)], fill=(70, 70, 70, 255))
-    # Numbered legend in the empty bottom half of the texture.
-    top = 18 * ZOOM
+    # Numbered legend below the texture grid.
+    top = TEX * ZOOM
     for n, (color, text) in enumerate(legend):
         col, row = divmod(n, 12)
         x, y = 8 + col * 256, top + 6 + row * 18
@@ -122,8 +123,11 @@ def placeholder(path: Path):
             else:
                 draw.rectangle(rect, fill=POD)
                 if label == "FRONT (face)":
-                    # One eye per bean, in the middle pixel of each 3x3 front face.
+                    # A pair of eyes per bean, plus a darker column where the beans meet.
                     draw.point((x + 1, y + 1), fill=EYE)
+                    draw.point((x + 3, y + 1), fill=EYE)
+                    seam_x = x + w - 1 if name == "left bean" else x
+                    draw.line([seam_x, y, seam_x, y + h - 1], fill=POD_SHADOW)
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
 

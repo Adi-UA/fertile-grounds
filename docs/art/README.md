@@ -8,7 +8,7 @@ The fairy's 3D shape lives in code (`BeanFairyModel.java`). Each flat face of ea
 
 ![guide](bean_fairy_guide.png)
 
-The pod is two 3x3x3 beans side by side (left bean, right bean), plus a 1-pixel stem on top. Faces marked "inner end (hidden)" touch the other bean, so nobody sees them. Both wings share one 4x5 area (the right wing is a mirror image of the left), seen from the front in area 19 and from behind in area 20.
+The pod is two beans side by side (left bean, right bean), each 5 wide, 4 tall and 4 deep, plus a 1-pixel stem on top. Faces marked "inner end (hidden)" touch the other bean, so nobody sees them. Both wings share one 5x6 area (the right wing is a mirror image of the left), seen from the front in area 19 and from behind in area 20.
 
 Steps in Aseprite:
 
@@ -31,7 +31,12 @@ A starting palette, matching the placeholder:
 | Wings | `#E6F7FF` |
 | Wing veins | `#A9D8EE` |
 
-Tips: put one eye on each bean's FRONT face (areas 4 and 10), shade the bottom row of each side face one step darker, and draw a darker line where the two beans meet so they read as a pair.
+What makes it read as one pod with two beans, not one big bean:
+
+- **Two pairs of eyes.** Each bean's FRONT face (areas 4 and 10) is 5x4. Put eyes at columns 2 and 4, row 2 (counting from 1), so each bean gets its own pair: `. E . E .`
+- **A seam.** Darken the column where the beans meet: the rightmost column of area 4 and the leftmost column of area 10. Do the same on the tops (rightmost column of area 1, leftmost of area 7). The backs are drawn as seen from behind, so they flip: leftmost column of area 6, rightmost of area 12.
+- **Round each bean.** Shade the outer corners of each front face one step darker, so each bean looks like its own bump.
+- Optional: a 1-pixel blush (pink) under each pair of eyes, or a 1-pixel smile on row 3, column 3.
 
 ## Fairy Dust (`textures/item/fairy_dust.png`, 16x16)
 

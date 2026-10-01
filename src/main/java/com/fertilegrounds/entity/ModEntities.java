@@ -15,13 +15,13 @@ public final class ModEntities {
   private static final ResourceKey<EntityType<?>> BEAN_FAIRY_KEY =
       ResourceKey.create(Registries.ENTITY_TYPE, ModIdsUtil.id("bean_fairy"));
 
-  /** Small hitbox (0.4 blocks) to match the tiny model; no loot table since it drops nothing. */
+  /** Small hitbox to match the 10-pixel-wide model; no loot table since it drops nothing. */
   public static final EntityType<BeanFairy> BEAN_FAIRY =
       Registry.register(
           BuiltInRegistries.ENTITY_TYPE,
           BEAN_FAIRY_KEY,
           EntityType.Builder.of(BeanFairy::new, MobCategory.MISC)
-              .sized(0.4F, 0.4F)
+              .sized(0.6F, 0.4F)
               .eyeHeight(0.2F)
               .noLootTable()
               .clientTrackingRange(8)

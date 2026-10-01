@@ -14,8 +14,8 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
- * The Bean Fairy's shape: an edamame pod made of two 3-pixel beans side by side, a 1-pixel stem,
- * and two flat wings on its back.
+ * The Bean Fairy's shape: an edamame pod made of two 5-pixel-wide beans side by side (wide enough
+ * for a pair of eyes each), a 1-pixel stem, and two flat wings on its back.
  *
  * <p>Each {@code texOffs(u, v)} below is the top-left corner of that part's area in the 32x32
  * texture; {@code docs/art/bean_fairy_guide.png} shows the same layout with each face labeled.
@@ -48,27 +48,27 @@ public class BeanFairyModel extends EntityModel<LivingEntityRenderState> {
 
     pod.addOrReplaceChild(
         "left_bean",
-        CubeListBuilder.create().texOffs(0, 0).addBox(-3, -1.5F, -1.5F, 3, 3, 3),
+        CubeListBuilder.create().texOffs(0, 0).addBox(-5, -2, -2, 5, 4, 4),
         PartPose.ZERO);
     pod.addOrReplaceChild(
         "right_bean",
-        CubeListBuilder.create().texOffs(0, 6).addBox(0, -1.5F, -1.5F, 3, 3, 3),
+        CubeListBuilder.create().texOffs(0, 8).addBox(0, -2, -2, 5, 4, 4),
         PartPose.ZERO);
     pod.addOrReplaceChild(
         "stem",
-        CubeListBuilder.create().texOffs(16, 0).addBox(-2, -2.5F, -0.5F, 1, 1, 1),
+        CubeListBuilder.create().texOffs(20, 0).addBox(-3, -3, -0.5F, 1, 1, 1),
         PartPose.ZERO);
 
     // Wings are flat (zero depth). The tiny deformation stops their two faces from flickering.
     final CubeDeformation flat = new CubeDeformation(0.001F);
     pod.addOrReplaceChild(
         "left_wing",
-        CubeListBuilder.create().texOffs(0, 12).addBox(0, -4, 0, 4, 5, 0, flat),
-        PartPose.offset(0.5F, -0.5F, 1.5F));
+        CubeListBuilder.create().texOffs(0, 16).addBox(0, -5, 0, 5, 6, 0, flat),
+        PartPose.offset(0.5F, -1, 2));
     pod.addOrReplaceChild(
         "right_wing",
-        CubeListBuilder.create().texOffs(0, 12).mirror().addBox(-4, -4, 0, 4, 5, 0, flat),
-        PartPose.offset(-0.5F, -0.5F, 1.5F));
+        CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-5, -5, 0, 5, 6, 0, flat),
+        PartPose.offset(-0.5F, -1, 2));
 
     return LayerDefinition.create(mesh, TEXTURE_SIZE, TEXTURE_SIZE);
   }

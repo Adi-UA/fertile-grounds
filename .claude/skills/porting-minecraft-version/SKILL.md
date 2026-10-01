@@ -56,3 +56,4 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.3 | `Properties.isViewBlocking` | Took `Blocks::always` | Takes an `AABB` predicate; vanilla farmland no longer sets it |
 | 26.3 | Farmland model | Parent `block/template_farmland` | Parent `block/template_cube_bottom_top_indented` with `bottom`/`side`/`top` textures |
 | 26.3 | Recipe-unlock advancement | `"recipe": "<id>"` | `"recipes": "<id>"` |
+| 26.3 | Entity renderer registration | Fabric `EntityRendererRegistry.register` | Deprecated; vanilla `EntityRenderers.register` is public |
