@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.goal.Goal;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The Bean Fairy's whole visit, as three phases: fly down to the crop, hover over it sparkling,
@@ -25,8 +26,8 @@ class VisitCropGoal extends Goal {
   private static final int HOVER_TICKS = 60;
   private static final int LEAVE_TICKS = 40;
 
-  /** Gives up and vanishes after a minute, in case something blocks the way to the crop. */
-  private static final int GIVE_UP_TICKS = 1200;
+  /** Gives up and vanishes after 20 seconds, so a fairy never lingers if something goes wrong. */
+  private static final int GIVE_UP_TICKS = 400;
 
   /** How close (in blocks, squared) counts as "arrived" above the crop. */
   private static final double ARRIVED_DISTANCE_SQR = 0.5;
@@ -60,7 +61,14 @@ class VisitCropGoal extends Goal {
   @Override
   public void start() {
     final BlockPos assigned = this.fairy.getTargetCrop();
-    this.target = assigned != null ? assigned : findNearestCrop();
+    final BlockPos crop = assigned != null ? assigned : findNearestCrop();
+    if (crop == null) {
+      // Nothing to grow (a spawn-egg fairy far from any crop), so just fly away.
+      this.target = this.fairy.blockPosition();
+      nextPhase(Phase.LEAVE);
+      return;
+    }
+    this.target = crop;
   }
 
   @Override
@@ -103,7 +111,8 @@ class VisitCropGoal extends Goal {
     }
   }
 
-  /** A spawn-egg fairy has no assigned crop; use the closest one, or hover where it is. */
+  /** A spawn-egg fairy has no assigned crop, so it uses the closest one, or null if none. */
+  @Nullable
   private BlockPos findNearestCrop() {
     final BlockPos origin = this.fairy.blockPosition();
     for (final BlockPos pos : BlockPos.withinManhattan(origin, SPAWN_EGG_SEARCH_RADIUS)) {
@@ -111,7 +120,7 @@ class VisitCropGoal extends Goal {
         return pos.immutable();
       }
     }
-    return origin.below();
+    return null;
   }
 
   private void flyTo(final double y) {

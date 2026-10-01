@@ -26,6 +26,17 @@ public class BeanFairy extends PathfinderMob {
     this.setNoGravity(true);
   }
 
+  /**
+   * Flies through blocks, the same way vanilla's Vex does, so a fairy can reach crops under a roof
+   * or behind a wall instead of getting stuck against them.
+   */
+  @Override
+  public void tick() {
+    this.noPhysics = true;
+    super.tick();
+    this.noPhysics = false;
+  }
+
   public static AttributeSupplier.Builder createAttributes() {
     return Mob.createMobAttributes()
         .add(Attributes.MAX_HEALTH, 4.0)

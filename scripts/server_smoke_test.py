@@ -18,12 +18,21 @@ BOOT_TIMEOUT_SECONDS = 300
 
 # (command, seconds to wait after it). Commands run at y=200 so terrain never interferes.
 SETUP = [
-    ("forceload add 0 0", 2),
-    ("gamerule random_tick_speed 0", 0),  # only the fairy may grow crops
+    ("forceload add -16 -16 31 31", 2),
+    ("gamerule random_tick_speed 0", 0),  # only fairies may grow crops
+    # Open field: a 5x5 wheat patch plus a carrot just outside the fairy's reach.
     ("fill -2 200 -2 3 200 2 minecraft:farmland", 0),
     ("fill -2 201 -2 2 201 2 minecraft:wheat[age=0]", 0),
-    ("setblock 3 201 0 minecraft:carrots[age=0]", 1),
-    ("summon fertilegrounds:bean_fairy 0 205 0", 12),
+    ("setblock 3 201 0 minecraft:carrots[age=0]", 0),
+    # Roofed: one wheat under glass, which the fairy has to fly through.
+    ("setblock 12 200 0 minecraft:farmland", 0),
+    ("setblock 12 201 0 minecraft:wheat[age=0]", 0),
+    ("fill 11 203 -1 13 203 1 minecraft:glass", 0),
+    # No crops within reach: this fairy has nothing to do and should leave.
+    ("fill 28 200 -1 30 200 1 minecraft:stone", 1),
+    ("summon fertilegrounds:bean_fairy 0 205 0", 0),
+    ("summon fertilegrounds:bean_fairy 12 206 0", 0),
+    ("summon fertilegrounds:bean_fairy 29 201 0", 12),
 ]
 
 # marker -> command that prints the marker only when the check passes.
@@ -31,7 +40,8 @@ CHECKS = {
     "CENTER_GROWN": "execute if block 0 201 0 minecraft:wheat[age=7] run say CENTER_GROWN",
     "CORNER_GROWN": "execute if block 2 201 2 minecraft:wheat[age=7] run say CORNER_GROWN",
     "OUTSIDE_UNTOUCHED": "execute if block 3 201 0 minecraft:carrots[age=0] run say OUTSIDE_UNTOUCHED",
-    "FAIRY_GONE": "execute unless entity @e[type=fertilegrounds:bean_fairy] run say FAIRY_GONE",
+    "ROOFED_GROWN": "execute if block 12 201 0 minecraft:wheat[age=7] run say ROOFED_GROWN",
+    "FAIRIES_GONE": "execute unless entity @e[type=fertilegrounds:bean_fairy] run say FAIRIES_GONE",
 }
 
 ERROR_MARKERS = ("Registry loading errors", "Failed to load datapacks", "Exception in server tick")
