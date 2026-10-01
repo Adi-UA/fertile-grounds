@@ -42,5 +42,3 @@ replay_*.log
 *.hprof
 *.jfr
 
-# scratch working files for texture editing, not shipped assets
-art-source/

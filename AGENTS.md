@@ -15,8 +15,7 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `src/client/` | Fairy model and renderer, client registration |
 | `src/test/` | JUnit tests for the Minecraft-free logic |
 | `scripts/server_smoke_test.py` | Boots a server and checks the fairy in a real world |
-| `scripts/bean_fairy_art.py` | Rebuilds the fairy texture template, guide, and placeholder art |
-| `docs/art/` | Texture template, labeled guide, painting steps |
+| `art_source/` | The user's Aseprite source files and the fairy texture guide |
 
 Keep one job per class. Registration lives in the `Mod*` classes; the entry points only call `register()`. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Comments explain Minecraft quirks for someone new to modding, not what the code already says.
 
@@ -45,7 +44,7 @@ Never guess a Minecraft signature or data format. After `genSources`, the decomp
 
 ## Art
 
-The user paints textures in Aseprite from templates; never overwrite a painted texture. `docs/art/README.md` covers the workflow, including the generator script that rebuilds the template and placeholders. Moving a model part's `texOffs` changes the texture layout, so regenerate the template and tell the user.
+The user paints textures in Aseprite and keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. `art_source/bean_fairy_guide.png` labels which part of the 32x32 fairy texture maps to which model face. Moving a model part's `texOffs` changes that layout, so tell the user before doing it.
 
 ## Git and releases
 

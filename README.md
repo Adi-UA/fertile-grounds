@@ -38,7 +38,7 @@ Like Stardew Valley's Crop Fairy, a Bean Fairy (a tiny winged edamame pod) somet
 
 To call one on purpose, craft **Fairy Dust** (shapeless: Glowstone Dust + Amethyst Shard + Bone Meal) and use it on a growing crop. Fairies still only come at night: within about 30 seconds if it's already dark, otherwise at nightfall. Only crops in the vanilla `#minecraft:crops` tag count (wheat, carrots, potatoes, beetroots, melon and pumpkin stems, torchflowers, pitcher plants).
 
-The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop. To repaint the fairy or its items, see [docs/art/README.md](docs/art/README.md).
+The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop.
 
 ## Minecraft version
 
@@ -75,6 +75,10 @@ The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft ver
 ./gradlew runClient      # launch a dev client with the mod loaded
 ./gradlew spotlessApply  # auto-format code
 ```
+
+## Art
+
+The art in the repo is partially AI generated. I am using AI to help me learn pixel art and so I get it to draw guides for me which I trace over and ask for help for to learn Aseprite better and also slowly learn color theory and how Minecraft models work. I am open to suggestions for other ways to learn in a way where I can still keep learning to build Minecraft mods at the same pace
 
 ## License
 

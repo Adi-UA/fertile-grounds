@@ -18,7 +18,7 @@ import net.minecraft.util.Mth;
  * for a pair of eyes each), a 1-pixel stem, and two flat wings on its back.
  *
  * <p>Each {@code texOffs(u, v)} below is the top-left corner of that part's area in the 32x32
- * texture; {@code docs/art/bean_fairy_guide.png} shows the same layout with each face labeled.
+ * texture; {@code art_source/bean_fairy_guide.png} shows the same layout with each face labeled.
  * Moving a part's {@code texOffs} here means repainting the texture to match.
  */
 public class BeanFairyModel extends EntityModel<LivingEntityRenderState> {
