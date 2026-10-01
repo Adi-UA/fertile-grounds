@@ -48,4 +48,4 @@ The user paints textures in Aseprite and keeps the sources in `art_source/`; nev
 
 ## Git and releases
 
-Use Conventional Commits, one commit per step per branch. Never push; the user pushes and publishes releases. Jar versions are `<mod_version>+<minecraft_version>` (set in `build.gradle`); bump `mod_version` by semver on every branch and release all branch jars together.
+Use Conventional Commits, one commit per step per branch. Never push; the user pushes and publishes releases. Jar versions are `<mod_version>+<minecraft_version>` (set in `build.gradle`); bump `mod_version` by semver on every branch and release all branch jars together. Mirror each GitHub release to Modrinth with `.claude/skills/updating-modrinth/SKILL.md`.
