@@ -17,6 +17,13 @@
 - **Full moon from the level's moon phase.** Read the 26.3 and 1.21.11 sources for the moon phase call first, because 1.21.11 moved some sky values into environment attributes; record any difference in the divergence table.
 - **Translated chat message** for Harvest Moon over an overlay message, because nightfall can happen while the player is reading another overlay.
 
+## Look and sound
+
+| Moment | Look | Sound | Particle |
+|---|---|---|---|
+| Flowers or hives near crops | Passive, nothing shown | None | None |
+| Harvest Moon nightfall | Chat message | `block.bell.resonate`, quiet, at each Overworld player | None |
+
 ## Risks / Trade-offs
 
 - [Players stack flowers in a tiny space] → the cap and "distinct types only" rule limit it to +100% of base.

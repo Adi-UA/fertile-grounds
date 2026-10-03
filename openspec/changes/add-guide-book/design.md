@@ -2,7 +2,7 @@
 
 ## Context
 
-Written books store pages as text components in the `written_book_content` data component on every 1.3.0 target. Text components can be `translate` keys, which the client resolves in its own language.
+Written books store pages as text components in the `written_book_content` data component on every 2.0.0 target. Text components can be `translate` keys, which the client resolves in its own language.
 
 ## Goals / Non-Goals
 

@@ -27,9 +27,13 @@ With Jade, looking at a fairy crop with a pending visit SHALL show a translated 
 - **WHEN** a player uses Fairy Dust on wheat during the day and looks at it
 - **THEN** the tooltip shows the coming-tonight line
 
-### Requirement: Jar tooltip
-With Jade, looking at a filled Fairy Jar SHALL show its days left and friendship progress out of 8, or "Permanent" for a permanent jar.
+### Requirement: Hotel tooltip
+With Jade, looking at an occupied Fairy Hotel or Chime Hotel SHALL show a translated "Petted today" or "Ready for a brush" line. Looking at a Chime Hotel SHALL also show the grown and total fairy crops it counts, for example "Crops ready: 41/50".
 
-#### Scenario: Jar in progress
-- **WHEN** a player looks at a jar with 4.2 days left and 5 counted flowers
-- **THEN** the tooltip shows 4 days left and Friendship 5/8
+#### Scenario: Morning check
+- **WHEN** a player who hasn't brushed their hotel today looks at it
+- **THEN** the tooltip shows "Ready for a brush"
+
+#### Scenario: Chime Hotel mid-season
+- **WHEN** a player looks at a Chime Hotel with 30 of 50 nearby crops grown
+- **THEN** the tooltip shows "Crops ready: 30/50"

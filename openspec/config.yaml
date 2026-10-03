@@ -5,8 +5,8 @@ context: |
   mods (Farmer's Delight, Jade) instead of copying them, read shared tags so other mods' content
   works without code, and keep the vanilla look. docs/ROADMAP.md holds the release plan and the
   implementation order of changes.
-  Release 1.3.0 targets Minecraft 1.21.11, 26.1, 26.2, and 26.3 only. Build every change on 26.3
-  (main) first; backport to older branches only after every 1.3.0 change works on 26.3.
+  Release 2.0.0 targets Minecraft 1.21.11, 26.1, 26.2, and 26.3 only. Build every change on 26.3
+  (main) first; backport to older branches only after every 2.0.0 change works on 26.3.
   Every tunable number sits behind a gamerule. Every player-facing string uses a translation key.
   No AI art ships: the user draws or traces every texture in Aseprite from vanilla textures, and AI
   only supplies guides, templates, palettes, and placeholders. Specs describe the look, never pixels.
@@ -21,8 +21,10 @@ rules:
     - Write numbers as defaults and name the gamerule that changes them.
   design:
     - Name any Minecraft or Fabric API that differs between 1.21.11 and 26.3, and add it to the porting divergence table.
+    - Include a "Look and sound" table with one row per player-facing moment (placing, breaking, using, ambient), naming its look, one vanilla sound, and one vanilla particle, all present in 1.21.11. Glowing parts use an emissive model layer the user paints.
   tasks:
     - "Each task names its verification: a JUnit test, `python3 scripts/server_smoke_test.py`, a `runClient` log check, or an in-game checklist item for the user."
+    - Include one task that checks the design's Look and sound table in `runClient` and adds it to the in-game checklist.
     - Keep Minecraft-free rules in their own class so JUnit covers them.
 
 operations:

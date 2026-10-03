@@ -32,5 +32,5 @@ Each tunable number SHALL be an integer gamerule with the `fertilegrounds:` name
 `fertilegrounds:enriched_boost_chance` (default 15) SHALL set the per-random-tick boost chance of Enriched Dirt, Enriched Farmland, and Enriched Sand. `fertilegrounds:super_enriched_boost_chance` (default 50) SHALL set it for Super Enriched Dirt and Farmland.
 
 #### Scenario: Defaults match 1.2.0
-- **WHEN** a 1.2.0 world loads in 1.3.0 for the first time
+- **WHEN** a 1.2.0 world loads in 2.0.0 for the first time
 - **THEN** the gamerules read 15 and 50, and soil behaves exactly as in 1.2.0

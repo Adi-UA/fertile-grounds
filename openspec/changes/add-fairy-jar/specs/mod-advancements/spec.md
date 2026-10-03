@@ -2,16 +2,16 @@
 
 ## ADDED Requirements
 
-### Requirement: First jar advancement
-The Fertile Grounds tab SHALL contain an advancement earned the first time a player catches a fairy in a jar.
+### Requirement: First catch advancement
+The Fertile Grounds tab SHALL contain an advancement earned the first time a player catches a fairy in a bottle.
 
 #### Scenario: First catch
 - **WHEN** a player catches their first fairy
-- **THEN** the player earns the first jar advancement
+- **THEN** the player earns the first catch advancement
 
-### Requirement: Permanent jar advancement
-The tab SHALL contain a challenge advancement earned the first time a jar a player feeds becomes permanent.
+### Requirement: First hotel advancement
+The tab SHALL contain a goal advancement earned the first time a player moves a fairy into a Fairy Hotel.
 
-#### Scenario: Friendship complete
-- **WHEN** a player's 8th counted flower makes a jar permanent
-- **THEN** that player earns the permanent jar advancement
+#### Scenario: Moving in
+- **WHEN** a player uses a Jarred Fairy on an Empty Fairy Hotel for the first time
+- **THEN** that player earns the first hotel advancement

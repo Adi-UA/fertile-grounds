@@ -12,7 +12,7 @@
 
 ## Decisions
 
-- **Tags as `TagKey` constants in a new `ModTags` class**, matching the `Mod*` registration pattern in `AGENTS.md`. Default tag JSON references the vanilla tag (`"#minecraft:crops"`) so new vanilla crops join automatically.
+- **Tags as `TagKey` constants in a new `ModTags` class**, matching the `Mod*` registration pattern in `AGENTS.md`. Default tag JSON references the vanilla tag (`"#minecraft:crops"`) so new vanilla crops join automatically. `fairy_flowers` also lists `{"id": "#c:flowers/small", "required": false}`; Fabric's convention tags define `c:flowers/small` as both a block and item tag, but `c:crops` only as an item tag, so crops have no conventional block tag to read.
 - **Gamerules in a new `ModGameRules` class**, using Fabric's gamerule API (`GameRuleRegistry` with `GameRuleFactory.createIntRule(default, min, max)` on older versions). Read the 26.3 and 1.21.11 Fabric API jars with `javap` before writing code, and record any difference in the porting divergence table.
 - **Chances stay pure math in `FairyTiming`**, which takes the gamerule value as a parameter, so JUnit tests the math without a world.
 - **Percent integers over floats**, because gamerules only store integers and booleans.

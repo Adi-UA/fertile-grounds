@@ -14,3 +14,4 @@
 
 - [ ] 3.1 Send the translated message at full-moon nightfall; verify the smoke test log shows it once, and add "see the Harvest Moon message" to the in-game checklist
 - [ ] 3.2 Add a Harvest Moon note to `README.md`; verify the numbers match the gamerule defaults
+- [ ] 3.3 Check every row of the design's Look and sound table in `runClient` and add it to the in-game checklist

@@ -5,6 +5,7 @@
 - [ ] 1.1 Add `ModTags` with `FAIRY_CROPS` (block) and `FAIRY_FLOWERS` (block and item), plus default tag JSON files; verify `./gradlew build` passes
 - [ ] 1.2 Switch `CropGrowthUtil.canGrow` to `FAIRY_CROPS`; verify the smoke test still sees a fairy grow wheat
 - [ ] 1.3 Extend the smoke test to load a datapack that removes carrots from `fairy_crops` and confirm Fairy Dust on carrots fails
+- [ ] 1.4 Verify the smoke test resolves `#fertilegrounds:fairy_flowers` with and without `c:flowers/small` defined, with no tag load error
 
 ## 2. Gamerules
 

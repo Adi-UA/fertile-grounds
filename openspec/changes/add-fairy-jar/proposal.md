@@ -2,27 +2,28 @@
 
 ## Why
 
-Players see a fairy for a few seconds and then it's gone. A jar lets them keep one as a glowing farm companion, the feature the README already teases. Jars need a cost so the mod never rewards trapping fairies forever for free. A jarred fairy leaves after 7 days unless the player cares for it, and caring for it over several days earns a permanent friend.
+Players see a fairy for a minute and then it's gone. A Fairy Hotel lets them give one a permanent home on their farm, the feature the README teases. Fairies must never be trapped, so a bottled fairy is only a short trip to its new home: if it isn't moved into a hotel within 3 days, it slips away and leaves a flower.
 
 ## What Changes
 
-- **Capture:** use a Glass Bottle or an Empty Fairy Jar on a fairy that has finished growing its patch to get a **Fairy Jar**. Catching never interrupts a visit.
-- **Fairy Jar block:** looks like a vanilla lantern tinted green with a fairy inside, and gives light.
-- **Lifespan:** 7 in-game days from capture (gamerule), counting down everywhere: placed, in a chest, or in an inventory. The glow dims on the last day.
-- **Feeding:** using a `#fertilegrounds:fairy_flowers` item on the jar adds 1 day, up to 7 days left.
-- **Friendship:** at most 2 flowers count toward friendship per in-game day. After 8 counted flowers (at least 4 days of care), the jar becomes permanent and never expires.
-- **Expiry:** at zero, the fairy flies away, with no gift, and the block becomes an **Empty Fairy Jar**, which looks like a Bottle o' Enchanting and can catch another fairy.
-- Advancements for the first jarred fairy and the first permanent jar.
+- **Catch:** use a Glass Bottle on a fairy that has finished growing its patch (the linger window from `add-fairy-visit-polish`) to get a **Jarred Fairy**. Catching never interrupts a visit. A Jarred Fairy does nothing on its own.
+- **Slipping away:** a Jarred Fairy lasts `fertilegrounds:jarred_fairy_days` in-game days (default 3), counting down everywhere. When time runs out it becomes a random `#fertilegrounds:fairy_flowers` flower, and the holder sees "Your Bean Fairy slipped away and left a Poppy behind." (or the chest version when found in a container).
+- **Fairy Hotel:** crafted from 7 fairy flowers, 1 Firefly Bush, and 1 Lantern. An **Empty Fairy Hotel** is a dim, wood-accented lantern.
+- **Moving in:** use a Jarred Fairy on an Empty Fairy Hotel to get an **Occupied Fairy Hotel**, a glowing green lantern that keeps its fairy forever. The bottle comes back.
+- **Portable:** breaking an Occupied Fairy Hotel drops it with the fairy inside.
+- Advancements for the first catch and the first hotel move-in.
 
-Out of scope: the jar's effects on crops, creepers, trampling, and bees (`add-jar-garden-effects`), and comparator output (`add-redstone-integration`).
+Removed from the earlier plan: the 7-day Fairy Jar block, flower feeding, the 8-flower friendship, the Empty Fairy Jar, and jar expiry on blocks.
 
-New art: Fairy Jar block and item (green lantern with a fairy), Empty Fairy Jar block and item (Bottle o' Enchanting look). Optional animated texture for the fairy.
+Out of scope: what an occupied hotel does to the farm, and petting (`add-jar-garden-effects`); the Chime Hotel (`add-chime-hotel`); comparator output (`add-redstone-integration`).
+
+New art: Jarred Fairy item (bottle with a glowing fairy, with an emissive layer), Empty Fairy Hotel block and item (dim wood-accented lantern, faint emissive wick), Occupied Fairy Hotel block and item (green lantern with a fairy, emissive layer).
 
 ## Capabilities
 
 ### New Capabilities
 
-- `fairy-jar`: Catching a fairy, the jar's lifespan, feeding, friendship, permanence, and expiry.
+- `fairy-hotel`: Catching a fairy, the Jarred Fairy's 3-day limit, building a Fairy Hotel, moving a fairy in, and carrying a hotel.
 
 ### Modified Capabilities
 
@@ -30,4 +31,4 @@ None. Two advancements are ADDED to `mod-advancements`.
 
 ## Impact
 
-New blocks, block entity, items, a data component for jar state on items, `BeanFairy.mobInteract`, `VisitCropGoal` (expose "done growing"), gamerules, loot tables, lang keys. Depends on `add-fairy-tags-and-gamerules` and `add-visit-feedback`.
+New Jarred Fairy item with a data component for its expiry, two hotel blocks and items, a recipe, `BeanFairy.mobInteract`, a container-open hook and an item-entity hook for expiry, a gamerule, loot tables, lang keys. Depends on `add-fairy-tags-and-gamerules`, `add-visit-feedback`, and `add-fairy-visit-polish`.

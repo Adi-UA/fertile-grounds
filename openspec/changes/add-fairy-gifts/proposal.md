@@ -21,7 +21,7 @@ A visit today only grows crops, so after the first few there's nothing new to lo
 - Each tier is a data-driven loot table that packs can override.
 - Adds a "first gift" advancement.
 
-Out of scope: gifts from jarred fairies, and gifts when a fairy flies away from a jar (the user rejected that).
+Out of scope: gifts from hotel fairies, and gifts when a Jarred Fairy slips away (it leaves only a flower).
 
 New art: none.
 

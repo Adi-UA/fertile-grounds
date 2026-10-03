@@ -2,12 +2,14 @@
 
 ## Why
 
-Redstone players build reminder lamps, sorters, and automatic farms around vanilla signals. Exposing jar and soil state through comparators and dispensers lets them build around Fertile Grounds without new mechanics to learn.
+Redstone players build harvest alarms, sorters, and automatic farms around vanilla signals. Exposing the Chime Hotel's "crops are ready" moment and soil tiers through comparators lets them build around Fertile Grounds without new mechanics to learn.
 
 ## What Changes
 
-- **Comparators** read a Fairy Jar's days left (0 to 15) and a soil block's tier.
-- **Dispensers** feed fairy flowers to a jar in front of them, adding days but not friendship, so permanence still needs a player's care.
+- **Comparators** next to a Chime Hotel get a 1-second pulse of 15 when it chimes, so a harvest alarm or auto-harvester can start from it.
+- **Comparators** read a soil block's tier.
+
+Removed from the earlier plan: jar days-left output and dispenser flower feeding, since hotels have no timer and no feeding (`add-fairy-jar`).
 
 Out of scope: new redstone blocks, and sculk sensors detecting fairy arrival (deferred by the user).
 
@@ -17,7 +19,7 @@ New art: none.
 
 ### New Capabilities
 
-- `redstone-signals`: The redstone signals and dispenser behaviors Fertile Grounds blocks provide.
+- `redstone-signals`: The redstone signals Fertile Grounds blocks provide.
 
 ### Modified Capabilities
 
@@ -25,4 +27,4 @@ None.
 
 ## Impact
 
-Fairy Jar and soil blocks (`hasAnalogOutputSignal`), and a dispenser behavior for the flower tag. Depends on `add-fairy-jar`.
+Chime Hotel and soil blocks (`hasAnalogOutputSignal`), a `RINGING` block state on the Chime Hotel. Depends on `add-chime-hotel`.

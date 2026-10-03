@@ -22,7 +22,11 @@ The mod SHALL treat a block as a fairy crop only when it is in the `fertilegroun
 - **THEN** Fairy Dust used on carrots does nothing and natural visits never target carrots
 
 ### Requirement: Fairy flowers tag
-The mod SHALL define `fertilegrounds:fairy_flowers` as both a block tag and an item tag, each containing `#minecraft:small_flowers` by default. Every flower-based feature SHALL read these tags.
+The mod SHALL define `fertilegrounds:fairy_flowers` as both a block tag and an item tag, each containing `#minecraft:small_flowers` and `#c:flowers/small` by default, with the conventional tag marked optional so the game loads when no mod defines it. Every flower-based feature SHALL read these tags.
+
+#### Scenario: Modded flower with conventional tags
+- **WHEN** another mod puts its flower in `#c:flowers/small` and no datapack is installed
+- **THEN** every flower-based feature treats it the same as a vanilla poppy
 
 #### Scenario: Modded flower added by datapack
 - **WHEN** a datapack adds a modded flower to both `fertilegrounds:fairy_flowers` tags

@@ -9,5 +9,6 @@
 
 - [ ] 2.1 Add the soil provider with server-sent chance; add "look at soil with Jade" to the in-game checklist
 - [ ] 2.2 Add the pending visit provider; add "use dust, look at the crop" to the in-game checklist
-- [ ] 2.3 Add the jar provider; add "look at a jar mid-friendship and a permanent jar" to the in-game checklist
+- [ ] 2.3 Add the hotel provider; add "look at a hotel before and after brushing, and at a Chime Hotel" to the in-game checklist
 - [ ] 2.4 Add tooltip lang keys (asset test covers them) and a Jade note in `README.md`
+- [ ] 2.5 Check that tooltip lines use Jade's default styling and colors in `runClient`; no extra sound or particles, since a tooltip is passive

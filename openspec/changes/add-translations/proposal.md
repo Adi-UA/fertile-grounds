@@ -26,4 +26,4 @@ None.
 
 ## Impact
 
-`CONTRIBUTING.md`, `README.md`, possibly a translation service config file. Runs last so every 1.3.0 string exists.
+`CONTRIBUTING.md`, `README.md`, possibly a translation service config file. Runs last so every 2.0.0 string exists.

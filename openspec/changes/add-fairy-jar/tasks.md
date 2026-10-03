@@ -1,20 +1,28 @@
 # Tasks
 
-## 1. Rules and state
+## 1. Rules
 
-- [ ] 1.1 Add `FairyJarRules` and `FairyJarState` with JUnit tests for every spec scenario (feeding cap, daily friendship cap, permanence after 4 days, refused feeding, light level, expiry)
-- [ ] 1.2 Add the `fairy_jar_days` gamerule; verify its default in the smoke test server
+- [ ] 1.1 Add `JarredFairyRules` with JUnit tests for every expiry scenario (before, at, and after 3 days; flower pick; empty tag falls back to Poppy)
+- [ ] 1.2 Add the `jarred_fairy_days` gamerule; verify its default in the smoke test server
 
-## 2. Blocks and items
+## 2. Items and blocks
 
-- [ ] 2.1 Ask the user for jar textures (filled green lantern, empty Bottle o' Enchanting look); verify no missing-texture warnings in the `runClient` log
-- [ ] 2.2 Register Fairy Jar and Empty Fairy Jar blocks, block entity, items, data component, loot tables, and lang keys; verify the smoke test places both and breaking a filled jar drops it with its state
-- [ ] 2.3 Add the `GLOW` property, scheduled tick, and chunk-load expiry; verify the smoke test advances time with `/time add` and sees light 10, then 5, then an empty jar
+- [ ] 2.1 Ask the user for the Jarred Fairy, Empty Fairy Hotel, and Occupied Fairy Hotel textures and emissive layers (offer UV guides); verify no missing-texture warnings in the `runClient` log
+- [ ] 2.2 Register the Jarred Fairy item and data component, both hotel blocks and items, loot tables, and lang keys; verify the smoke test places both hotels, reads light levels 5 and 12, and breaking an occupied hotel drops an occupied hotel
+- [ ] 2.3 Add the hotel recipe; verify the smoke test crafts it with mixed flowers and the recipe loads with no parse error
 
-## 3. Catching, feeding, expiry
+## 3. Catching and moving in
 
-- [ ] 3.1 Add the `finishedVisit` flag and capture in `mobInteract`; verify the smoke test uses a fake player with a bottle on a finished fairy and gets a jar
-- [ ] 3.2 Add flower feeding and permanence with particles and message; verify the smoke test feeds over 4 simulated days and the jar becomes permanent
-- [ ] 3.3 Add inventory expiry and the fly-away effect; add "watch a fairy leave its jar" and "carry a jar until it empties" to the in-game checklist
-- [ ] 3.4 Add the first jar and permanent jar advancements; verify the smoke test earns both through real actions
-- [ ] 3.5 Document jars in `README.md` and add any 1.21.11 data component difference to the porting divergence table
+- [ ] 3.1 Add capture in `mobInteract`; verify the smoke test uses a fake player with a bottle on a lingering fairy and gets a Jarred Fairy, and on a flying-in fairy gets the busy message
+- [ ] 3.2 Add moving in; verify the smoke test uses a Jarred Fairy on an empty hotel, sees an occupied hotel, and gets a bottle back
+
+## 4. Slipping away
+
+- [ ] 4.1 Add the inventory, container-open, and item-entity expiry checks with both messages; verify the smoke test advances time with `/time add` and sees a flower in a fake player's inventory, in a chest after opening, and on the ground
+- [ ] 4.2 Add "carry a Jarred Fairy until it slips away" and "find one in a chest" to the in-game checklist
+
+## 5. Finish
+
+- [ ] 5.1 Add the first catch and first hotel advancements; verify the smoke test earns both through real actions
+- [ ] 5.2 Check every row of the Look and sound table in `runClient` and add "catch a fairy and move it into a hotel" to the in-game checklist
+- [ ] 5.3 Document hotels in `README.md` and add any 1.21.11 data component, recipe, or container hook difference to the porting divergence table

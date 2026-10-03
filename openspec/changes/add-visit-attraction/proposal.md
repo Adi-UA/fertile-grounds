@@ -11,7 +11,7 @@ Natural visits are a flat 1% per player per night, so nothing a player builds ch
 - **Harvest Moon:** on full-moon nights, the final chance is multiplied, and Overworld players see a message at nightfall.
 - New gamerules for each bonus.
 
-Out of scope: Harvest Moon gift effects (in `add-fairy-gifts`), and bee behavior near jars (in `add-jar-garden-effects`).
+Out of scope: Harvest Moon gift effects (in `add-fairy-gifts`), and bee behavior near Fairy Hotels (in `add-jar-garden-effects`).
 
 New art: none.
 

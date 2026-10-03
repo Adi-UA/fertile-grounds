@@ -7,10 +7,10 @@ Teaches players every Fertile Grounds mechanic in game through a vanilla written
 ## ADDED Requirements
 
 ### Requirement: Book on first join
-A player joining a world for the first time with 1.3.0 or later SHALL receive one Fertile Grounds Guide, unless `fertilegrounds:give_guide_book` is false (default true). A player SHALL receive it only once per world.
+A player joining a world for the first time with 2.0.0 or later SHALL receive one Fertile Grounds Guide, unless `fertilegrounds:give_guide_book` is false (default true). A player SHALL receive it only once per world.
 
 #### Scenario: Existing world after update
-- **WHEN** a player who played in 1.2.0 joins the same world on 1.3.0
+- **WHEN** a player who played in 1.2.0 joins the same world on 2.0.0
 - **THEN** they receive the guide once
 
 #### Scenario: Rejoin
@@ -40,8 +40,8 @@ Every page and the title SHALL use translation keys, so the book shows in each p
 - **THEN** the pages show in that language
 
 ### Requirement: Coverage
-The guide SHALL have pages for soil tiers, Fertilizer, fairy visits, what attracts fairies, Harvest Moon, gifts, Fairy Jars and friendship, jar effects, and redstone.
+The guide SHALL have pages for soil tiers, Fertilizer, fairy visits, what attracts fairies, Harvest Moon, gifts, catching fairies, Fairy Hotels, hotel effects and petting, the Chime Hotel, and redstone.
 
-#### Scenario: Reader looks up jars
-- **WHEN** a player opens the guide to the jar pages
-- **THEN** they learn how to catch, feed, and befriend a fairy, and what happens when a jar runs out
+#### Scenario: Reader looks up hotels
+- **WHEN** a player opens the guide to the hotel pages
+- **THEN** they learn how to catch a fairy, build a hotel, move the fairy in within 3 days, and what happens if they don't

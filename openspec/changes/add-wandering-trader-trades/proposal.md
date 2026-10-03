@@ -8,7 +8,7 @@ New players only find Fairy Dust and Fertilizer through recipes. A Wandering Tra
 
 - The Wandering Trader can offer Fairy Dust and Fertilizer among its rare trades.
 
-Out of scope: villager profession trades, and selling Fairy Jars (catching stays the only way to get one).
+Out of scope: villager profession trades, and selling Jarred Fairies or occupied hotels (catching stays the only way to get a fairy).
 
 New art: none.
 

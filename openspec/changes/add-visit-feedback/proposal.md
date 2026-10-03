@@ -8,7 +8,7 @@ Players can miss a fairy visit entirely, especially one that happens while they 
 
 - A soft chime and subtitle play when a fairy arrives, and nearby players see "A Bean Fairy is visiting nearby."
 - After a visit that happened while players slept, nearby players see "A Bean Fairy visited your farm" at dawn.
-- A "Fertile Grounds" advancement tab with a root and the first entries: first fairy visit, first Fertilizer use. Later changes add their own entries (gift, jar, permanent jar, Harvest Moon visit).
+- A "Fertile Grounds" advancement tab with a root and the first entries: first fairy visit, first Fertilizer use. Later changes add their own entries (gift, first catch, first hotel, Harvest Moon visit).
 - A `fertilegrounds:fairy_visit` advancement trigger that datapacks and quest mods can use.
 
 Out of scope: a visit history or journal.

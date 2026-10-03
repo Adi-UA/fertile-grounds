@@ -17,6 +17,14 @@ Visits grow crops in two places: `VisitCropGoal` (a fairy flew) and `FairyVisitS
 - **One dawn message per player** by collecting players across all dawn visits into a set before messaging.
 - **Sound**: register `fertilegrounds:entity.bean_fairy.arrive` reusing vanilla amethyst chime sound files via `sounds.json`, so no new audio files are needed.
 
+## Look and sound
+
+| Moment | Look | Sound | Particle |
+|---|---|---|---|
+| Fairy arrives | Overlay message for players within 32 blocks | `fertilegrounds:entity.bean_fairy.arrive` (amethyst chime files) with subtitle | `end_rod`, 5 at the fairy |
+| Dawn after an overnight visit | Chat message | None, players are just waking | `happy_villager` on grown crops, as today |
+| Advancement earned | Vanilla toast | Vanilla toast sound | None |
+
 ## Risks / Trade-offs
 
 - [Item-used trigger fires on failed use] → the location predicate checks the result block, so failed uses don't count.
