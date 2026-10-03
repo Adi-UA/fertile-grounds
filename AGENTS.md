@@ -15,7 +15,6 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `src/client/` | Fairy model and renderer, client registration |
 | `src/test/` | JUnit tests for the Minecraft-free logic |
 | `scripts/server_smoke_test.py` | Boots a server and checks the fairy in a real world |
-| `scripts/update_downloads.py` | Refreshes the README download badge from Modrinth and CurseForge |
 | `art_source/` | The user's Aseprite source files and the fairy texture guide |
 
 Keep one job per class. Registration lives in the `Mod*` classes; the entry points only call `register()`. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Comments explain Minecraft quirks for someone new to modding, not what the code already says.
@@ -31,7 +30,6 @@ There's one branch per Minecraft version (the list is in `README.md`), and `main
 ./gradlew spotlessApply               # format Java (google-java-format)
 ./gradlew test                        # unit tests only
 python3 scripts/server_smoke_test.py  # real-world check, exits 1 on failure
-python3 scripts/update_downloads.py   # refresh the README download count
 ./gradlew runClient                   # dev client, for models and textures
 ./gradlew genSources                  # decompile Minecraft to read real signatures
 ```
@@ -50,4 +48,4 @@ The user paints textures in Aseprite and keeps the sources in `art_source/`; nev
 
 ## Git and releases
 
-Use Conventional Commits, one commit per step per branch. Never push; the user pushes and publishes releases. Jar versions are `<mod_version>+<minecraft_version>` (set in `build.gradle`); bump `mod_version` by semver on every branch and release all branch jars together. Before the user pushes, run `scripts/update_downloads.py` and commit the README change on every branch you touched, so the download count stays current. Mirror each GitHub release to Modrinth with `.claude/skills/updating-modrinth/SKILL.md`, then to CurseForge with `.claude/skills/updating-curseforge/SKILL.md`.
+Use Conventional Commits, one commit per step per branch. Never push; the user pushes and publishes releases. Jar versions are `<mod_version>+<minecraft_version>` (set in `build.gradle`); bump `mod_version` by semver on every branch and release all branch jars together. Mirror each GitHub release to Modrinth with `.claude/skills/updating-modrinth/SKILL.md`, then to CurseForge with `.claude/skills/updating-curseforge/SKILL.md`.
