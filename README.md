@@ -6,7 +6,7 @@
 
 [![build](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml/badge.svg)](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml)
 
-[![downloads](https://img.shields.io/badge/downloads-596-brightgreen)](https://modrinth.com/mod/fertile-grounds)
+[![downloads](https://img.shields.io/badge/downloads-719-brightgreen)](https://modrinth.com/mod/fertile-grounds)
 
 Available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds) and [Modrinth](https://modrinth.com/mod/fertile-grounds).
 
