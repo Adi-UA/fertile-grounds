@@ -1,0 +1,19 @@
+# Tasks
+
+## 1. Visit owner
+
+- [ ] 1.1 Add `source` and `owner` to `FairyVisit` with optional codec fields; verify a JUnit codec test decodes a 1.2.0-shaped entry as UNOWNED
+- [ ] 1.2 Record the owner in natural rolls and `FairyDustItem` (none for dispensers); verify the smoke test inspects a pending visit's owner after a fake player uses dust
+
+## 2. Gift rules
+
+- [ ] 2.1 Add `FairyGifts` (chance, cooldown, tier with Harvest Moon step) with JUnit tests for every spec scenario
+- [ ] 2.2 Add gamerules `fairy_gift_chance_natural`, `fairy_gift_chance_dust`, `fairy_gift_cooldown_days`; verify defaults in the smoke test server
+- [ ] 2.3 Add the cooldown level attachment; verify the smoke test restarts the server and the cooldown persists
+
+## 3. Delivery
+
+- [ ] 3.1 Add the three loot tables; verify `/loot spawn ~ ~ ~ loot fertilegrounds:gameplay/fairy_gift/rare` drops an item in the smoke test
+- [ ] 3.2 Drop gifts from `FairyVisitEvents.onVisitGrown` with particles and owner message; verify the smoke test sets gift chance to 100, runs a dust visit, and finds a gift item entity with unlimited lifetime
+- [ ] 3.3 Add the first gift and Harvest Moon advancements; verify the smoke test grants them through real gifts and visits
+- [ ] 3.4 Document gifts and their gamerules in `README.md`; verify numbers match the defaults

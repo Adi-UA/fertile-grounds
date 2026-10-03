@@ -15,6 +15,7 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `src/client/` | Fairy model and renderer, client registration |
 | `src/test/` | JUnit tests for the Minecraft-free logic |
 | `scripts/server_smoke_test.py` | Boots a server and checks the fairy in a real world |
+| `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` orders them |
 | `art_source/` | The user's Aseprite source files and the fairy texture guide |
 
 Keep one job per class. Registration lives in the `Mod*` classes; the entry points only call `register()`. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Comments explain Minecraft quirks for someone new to modding, not what the code already says.
@@ -36,7 +37,7 @@ python3 scripts/server_smoke_test.py  # real-world check, exits 1 on failure
 
 ## Verification
 
-A passing `build` only proves compilation. Data files (recipes, advancements, tags) fail silently until a world loads, so also run the smoke test. The dedicated server never loads models or textures, so for those, start `runClient` in the background, grep its log for `Fertile Grounds initializing` and any `WARN`/`ERROR` lines that name `fertilegrounds` or a missing model, then kill it. Hand anything that needs a real player (Fairy Dust, sleeping through the night, how things look) to the user as a short in-game checklist, and say which parts went untested.
+A passing `build` only proves compilation. Data files (recipes, advancements, tags) fail silently until a world loads, so also run the smoke test. The dedicated server never loads models or textures, so for those, start `runClient` in the background, grep its log for `Fertile Grounds initializing` and any `WARN`/`ERROR` lines that name `fertilegrounds` or a missing model, then kill it. Hand anything that needs a real player (Fairy Dust, sleeping through the night, how things look) to the user as a short in-game checklist, and say which parts went untested. Every fixed bug gets a regression check in the smoke test or JUnit, so it can't silently return on another branch.
 
 ## Looking things up
 
@@ -44,7 +45,7 @@ Never guess a Minecraft signature or data format. After `genSources`, the decomp
 
 ## Art
 
-The user paints textures in Aseprite and keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. `art_source/bean_fairy_guide.png` labels which part of the 32x32 fairy texture maps to which model face. Moving a model part's `texOffs` changes that layout, so tell the user before doing it.
+No AI art ships in the mod. The user draws or traces every texture by hand in Aseprite, based on vanilla textures, and AI may only guide that work: UV templates, labeled guides, palettes, and placeholders that the user's art replaces before release. Never generate a texture meant to ship. The user keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. `art_source/bean_fairy_guide.png` labels which part of the 32x32 fairy texture maps to which model face. Moving a model part's `texOffs` changes that layout, so tell the user before doing it.
 
 ## Git and releases
 
