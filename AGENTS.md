@@ -14,7 +14,7 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `util/` | Shared helpers: ids, bone-meal boost, full crop growth |
 | `src/client/` | Fairy model and renderer, client registration |
 | `src/test/` | JUnit tests for the Minecraft-free logic |
-| `scripts/server_smoke_test.py` | Boots a server and checks the fairy in a real world |
+| `scripts/` | `server_smoke_test.py` runs world checks in suites; `client_log_check.py` boots the client and fails on asset warnings |
 | `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` orders them |
 | `art_source/` | The user's Aseprite source files and the fairy texture guide |
 
@@ -31,13 +31,15 @@ There's one branch per Minecraft version (the list is in `README.md`), and `main
 ./gradlew spotlessApply               # format Java (google-java-format)
 ./gradlew test                        # unit tests only
 python3 scripts/server_smoke_test.py  # real-world check, exits 1 on failure
+python3 scripts/server_smoke_test.py --suite NAME  # one smoke suite only
+python3 scripts/client_log_check.py   # boots the client, fails on mod warnings
 ./gradlew runClient                   # dev client, for models and textures
 ./gradlew genSources                  # decompile Minecraft to read real signatures
 ```
 
 ## Verification
 
-A passing `build` only proves compilation. Data files (recipes, advancements, tags) fail silently until a world loads, so also run the smoke test. The dedicated server never loads models or textures, so for those, start `runClient` in the background, grep its log for `Fertile Grounds initializing` and any `WARN`/`ERROR` lines that name `fertilegrounds` or a missing model, then kill it. Hand anything that needs a real player (Fairy Dust, sleeping through the night, how things look) to the user as a short in-game checklist, and say which parts went untested. Every fixed bug gets a regression check in the smoke test or JUnit, so it can't silently return on another branch.
+A passing `build` only proves compilation, though its `AssetConsistencyTest` already catches missing lang keys, models, and textures and outdated recipe JSON. Data files and mob behavior fail silently until a world loads, so also run the smoke test; each feature adds its own suite to `SUITES`. The dedicated server never loads models, textures, or sounds, so for changes that touch assets, run `client_log_check.py`. Hand anything that needs a real player (Fairy Dust, sleeping through the night, how things look) to the user as a short in-game checklist, and say which parts went untested. Every fixed bug gets a regression check in the smoke test or JUnit, so it can't silently return on another branch.
 
 ## Looking things up
 

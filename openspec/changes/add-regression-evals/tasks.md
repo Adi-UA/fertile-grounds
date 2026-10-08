@@ -14,5 +14,5 @@
 
 ## 3. Client log check
 
-- [ ] 3.1 Add `scripts/client_log_check.py`; verify it passes on `main`, and fails after temporarily pointing a model at a missing texture
-- [ ] 3.2 Update the `AGENTS.md` Commands and Verification sections with the new script and `--suite`; verify `AGENTS.md` stays under 150 lines
+- [x] 3.1 Add `scripts/client_log_check.py`; verify it passes on `main`, and fails after temporarily pointing a model at a missing texture
+- [x] 3.2 Update the `AGENTS.md` Commands and Verification sections with the new script and `--suite`; verify `AGENTS.md` stays under 150 lines
