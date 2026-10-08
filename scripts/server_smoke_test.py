@@ -13,11 +13,12 @@ Usage (from the repo root):
 """
 
 import argparse
+import json
 import shutil
 import subprocess
 import sys
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 BOOT_TIMEOUT_SECONDS = 300
@@ -26,9 +27,12 @@ BOOT_TIMEOUT_SECONDS = 300
 @dataclass(frozen=True)
 class Suite:
     name: str
-    guards: str  # the fixed bugs this suite catches, by commit
     setup: list[tuple[str, float]]  # (command, seconds to wait after it)
     checks: dict[str, str]  # marker -> command that prints the marker only when the check passes
+    guards: str = ""  # the fixed bugs this suite catches, by commit
+    # Files for a test datapack, as path under data/ -> JSON. It loads for the whole run, so it
+    # must not break other suites.
+    datapack: dict[str, dict] = field(default_factory=dict)
 
 
 # Runs before every suite. All test areas sit at y=200 inside this region, so terrain never
@@ -92,7 +96,40 @@ SOIL_REGRESSIONS = Suite(
     },
 )
 
-SUITES = [FAIRY_VISIT, SOIL_REGRESSIONS]
+FAIRY_CONTENT_TAGS = Suite(
+    name="fairy_content_tags",
+    datapack={
+        # A pack that replaces fairy_crops with a list that leaves out carrots.
+        "fertilegrounds/tags/block/fairy_crops.json": {
+            "replace": True,
+            "values": ["minecraft:wheat", "minecraft:beetroots", "minecraft:potatoes"],
+        },
+    },
+    setup=[
+        ("gamerule random_tick_speed 0", 0),
+        # Wheat with carrots on each side, all inside the fairy's 5x5 growth area.
+        ("fill 19 200 20 21 200 20 minecraft:farmland", 0),
+        ("setblock 19 201 20 minecraft:carrots[age=0]", 0),
+        ("setblock 20 201 20 minecraft:wheat[age=0]", 0),
+        ("setblock 21 201 20 minecraft:carrots[age=0]", 0),
+        ("setblock 20 201 23 minecraft:poppy", 0),
+        ("summon minecraft:item 20 202 24 {Item:{id:\"minecraft:poppy\"},NoGravity:1b}", 0),
+        ("summon fertilegrounds:bean_fairy 20 205 20", 12),
+    ],
+    checks={
+        "TAGGED_WHEAT_GROWN": "execute if block 20 201 20 minecraft:wheat[age=7] run say TAGGED_WHEAT_GROWN",
+        "UNTAGGED_CARROTS_SKIPPED": "execute if block 19 201 20 minecraft:carrots[age=0]"
+        " if block 21 201 20 minecraft:carrots[age=0] run say UNTAGGED_CARROTS_SKIPPED",
+        "FLOWER_BLOCK_TAGGED": "execute if block 20 201 23 #fertilegrounds:fairy_flowers run say FLOWER_BLOCK_TAGGED",
+        "FLOWER_ITEM_TAGGED": "execute if items entity @e[type=item,x=20,y=202,z=24,distance=..2] contents"
+        " #fertilegrounds:fairy_flowers run say FLOWER_ITEM_TAGGED",
+    },
+)
+
+SUITES = [FAIRY_VISIT, SOIL_REGRESSIONS, FAIRY_CONTENT_TAGS]
+
+# The data pack format 26.3 reads (pack_version.data_major in the game jar's version.json).
+DATA_PACK_FORMAT = 121
 
 # Log lines that mean data silently failed to load. Copied from the 26.3 sources: recipes,
 # advancements, and loot tables load as registries (RegistryDataLoader), tags load in TagLoader,
@@ -114,6 +151,17 @@ def has_error(line: str) -> bool:
     return any(marker in line for marker in ERROR_MARKERS)
 
 
+def write_datapack(pack_dir: Path, files: dict[str, dict]) -> None:
+    """A new world enables every pack found in its datapacks folder, so writing it is enough."""
+    if not files:
+        return
+    meta = {"pack": {"description": "Smoke test", "min_format": DATA_PACK_FORMAT, "max_format": DATA_PACK_FORMAT}}
+    for path, content in {"pack.mcmeta": meta, **{f"data/{p}": c for p, c in files.items()}}.items():
+        target = pack_dir / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(content, indent=2))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--suite", choices=[suite.name for suite in SUITES], help="run only this suite")
@@ -125,6 +173,8 @@ def main() -> int:
     # Always start from a fresh world: an older version can't load a world a newer one saved.
     shutil.rmtree(run_dir / "world", ignore_errors=True)
     (run_dir / "eula.txt").write_text("eula=true\n")
+    for suite in suites:
+        write_datapack(run_dir / "world" / "datapacks" / f"smoke_{suite.name}", suite.datapack)
 
     server = subprocess.Popen(
         ["./gradlew", "runServer", "--args=nogui", "--console=plain"],
@@ -176,7 +226,7 @@ def main() -> int:
     output = "".join(log)
     failed = False
     for suite in suites:
-        print(f"== {suite.name} (guards {suite.guards})")
+        print(f"== {suite.name}" + (f" (guards {suite.guards})" if suite.guards else ""))
         for marker in suite.checks:
             passed = f"[Server] {marker}" in output
             failed |= not passed

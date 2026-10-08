@@ -2,7 +2,6 @@ package com.fertilegrounds.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -10,8 +9,9 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Instantly grows crops to full size, used by the Bean Fairy. Only blocks in vanilla's {@code
- * #minecraft:crops} tag count, so a fairy never turns grass into flowers or saplings into trees.
+ * Instantly grows crops to full size, used by the Bean Fairy. Only blocks in the {@code
+ * fertilegrounds:fairy_crops} tag count, so a fairy never turns grass into flowers or saplings into
+ * trees.
  */
 public final class CropGrowthUtil {
 
@@ -26,7 +26,7 @@ public final class CropGrowthUtil {
   /** True if the block at {@code pos} is a crop that still has room to grow. */
   public static boolean canGrow(final LevelReader level, final BlockPos pos) {
     final BlockState state = level.getBlockState(pos);
-    return state.is(BlockTags.CROPS)
+    return state.is(ModTags.FAIRY_CROPS)
         && state.getBlock() instanceof BonemealableBlock crop
         && crop.isValidBonemealTarget(level, pos, state, BonemealSource.INTERACTION);
   }
