@@ -2,7 +2,7 @@
 
 ## Context
 
-`CropGrowthUtil.canGrow` checks `BlockTags.CROPS`. `FairyTiming.NATURAL_VISIT_CHANCE` and the boost chances in `ModBlockProperties` are constants. Gamerule registration differs across our targets: 1.21.11 renamed vanilla rules to snake_case, and the registration API may differ again by 26.3.
+`CropGrowthUtil.canGrow` checks `BlockTags.CROPS`. `FairyTiming.NATURAL_VISIT_CHANCE` and the boost chances in `ModBlocks` are constants. Gamerule registration differs across our targets: 1.21.11 renamed vanilla rules to snake_case, and the registration API may differ again by 26.3.
 
 ## Goals / Non-Goals
 

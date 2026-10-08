@@ -29,7 +29,7 @@ Each tunable number SHALL be an integer gamerule with the `fertilegrounds:` name
 - **THEN** a natural visit is scheduled for that player that night
 
 ### Requirement: Soil boost chance gamerules
-`fertilegrounds:enriched_boost_chance` (default 15) SHALL set the per-random-tick boost chance of Enriched Dirt, Enriched Farmland, and Enriched Sand. `fertilegrounds:super_enriched_boost_chance` (default 50) SHALL set it for Super Enriched Dirt and Farmland.
+`fertilegrounds:enriched_boost_chance` (default 15) SHALL set the per-random-tick boost chance of Enriched Farmland and Enriched Sand. `fertilegrounds:super_enriched_boost_chance` (default 50) SHALL set it for Super Enriched Farmland. The dirt tiers don't boost, since crops only grow on farmland.
 
 #### Scenario: Defaults match 1.2.0
 - **WHEN** a 1.2.0 world loads in 2.0.0 for the first time
