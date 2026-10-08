@@ -8,9 +8,9 @@
 
 ## 2. Smoke test suites
 
-- [ ] 2.1 Restructure the smoke test into suites with a `--suite` flag, moving the current fairy checks into a `fairy_visit` suite labeled with 88d5657; verify the full run and `--suite fairy_visit` both pass
-- [ ] 2.2 Look up parse-error log strings in the 26.3 sources and add them to the error markers; verify the run fails with a deliberately broken recipe in a temporary datapack
-- [ ] 2.3 Add the `soil_regressions` suite (trample, dry-out, Enriched Sand in `#minecraft:sand`) labeled with 83fd1fb and 1e5d483; verify it passes, and fails when the trample target is changed to vanilla dirt
+- [x] 2.1 Restructure the smoke test into suites with a `--suite` flag, moving the current fairy checks into a `fairy_visit` suite labeled with 88d5657; verify the full run and `--suite fairy_visit` both pass
+- [x] 2.2 Look up parse-error log strings in the 26.3 sources and add them to the error markers; verify the run fails with a deliberately broken recipe in a temporary datapack
+- [x] 2.3 Add the `soil_regressions` suite (trample, dry-out, Enriched Sand in `#minecraft:sand`) labeled with 83fd1fb and 1e5d483; verify it passes, and fails when the trample target is changed to vanilla dirt
 
 ## 3. Client log check
 
