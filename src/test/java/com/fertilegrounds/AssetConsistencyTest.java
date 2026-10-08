@@ -49,6 +49,11 @@ class AssetConsistencyTest {
     for (final String entity : entities()) {
       requireKey(lang, "entity." + NS + "." + entity, missing);
     }
+    // The Edit Game Rules screen shows each rule's name and its ".description" line.
+    for (final String rule : gameRules()) {
+      requireKey(lang, "gamerule." + NS + "." + rule, missing);
+      requireKey(lang, "gamerule." + NS + "." + rule + ".description", missing);
+    }
     assertNone("Missing lang entries", missing);
   }
 
@@ -241,6 +246,11 @@ class AssetConsistencyTest {
     return names(
         JAVA.resolve("entity/ModEntities.java"),
         "Registries\\.ENTITY_TYPE,\\s*ModIdsUtil\\.id\\(\"(\\w+)\"\\)");
+  }
+
+  private static Set<String> gameRules() throws IOException {
+    return names(
+        JAVA.resolve("util/ModGameRules.java"), "GameRule<\\w+> \\w+ =\\s*\\w+\\(\\s*\"(\\w+)\"");
   }
 
   private static Set<String> names(final Path source, final String regex) throws IOException {

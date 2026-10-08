@@ -126,7 +126,25 @@ FAIRY_CONTENT_TAGS = Suite(
     },
 )
 
-SUITES = [FAIRY_VISIT, SOIL_REGRESSIONS, FAIRY_CONTENT_TAGS]
+TUNING_GAMERULES = Suite(
+    name="tuning_gamerules",
+    setup=[
+        # `gamerule <name>` returns the value, so store it in a scoreboard to compare it.
+        ("scoreboard objectives add smoke dummy", 0),
+        ("execute store result score #visit smoke run gamerule fertilegrounds:fairy_visit_chance", 0),
+        ("execute store result score #enriched smoke run gamerule fertilegrounds:enriched_boost_chance", 0),
+        ("execute store result score #super smoke run gamerule fertilegrounds:super_enriched_boost_chance", 0),
+        ("gamerule fertilegrounds:fairy_visit_chance 150", 0),  # out of range, must be rejected
+        ("execute store result score #after smoke run gamerule fertilegrounds:fairy_visit_chance", 0),
+    ],
+    checks={
+        "GAMERULE_DEFAULTS": "execute if score #visit smoke matches 1 if score #enriched smoke matches 15"
+        " if score #super smoke matches 50 run say GAMERULE_DEFAULTS",
+        "OUT_OF_RANGE_REJECTED": "execute if score #after smoke matches 1 run say OUT_OF_RANGE_REJECTED",
+    },
+)
+
+SUITES = [FAIRY_VISIT, SOIL_REGRESSIONS, FAIRY_CONTENT_TAGS, TUNING_GAMERULES]
 
 # The data pack format 26.3 reads (pack_version.data_major in the game jar's version.json).
 DATA_PACK_FORMAT = 121

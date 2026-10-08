@@ -6,6 +6,7 @@ import com.fertilegrounds.fairy.FairyVisitScheduler;
 import com.fertilegrounds.fairy.FairyVisits;
 import com.fertilegrounds.item.ModItemGroups;
 import com.fertilegrounds.item.ModItems;
+import com.fertilegrounds.util.ModGameRules;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ public class FertileGrounds implements ModInitializer {
   @Override
   public void onInitialize() {
     LOGGER.info("Fertile Grounds initializing");
+    ModGameRules.register();
     ModBlocks.register();
     ModEntities.register();
     ModItems.register();

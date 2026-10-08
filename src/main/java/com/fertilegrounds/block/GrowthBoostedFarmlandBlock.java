@@ -7,6 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRule;
 
 /**
  * A farmland variant that passively fertilizes whatever crop is planted on top of it, on top of
@@ -18,17 +19,20 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
 
-  private final float growthBoostChance;
+  private final GameRule<Integer> boostChanceRule;
 
   /**
    * @param properties block properties, e.g. from {@code ModBlockProperties.farmlandProperties()}
-   * @param growthBoostChance per-random-tick probability (0.0-1.0) of fertilizing the plant above
+   * @param boostChanceRule the gamerule holding the per-random-tick percent chance of fertilizing
+   *     the plant above, read on every tick so {@code /gamerule} changes apply at once
    * @param driedOutBlock the block this reverts to on trample or drought (this tier's own dirt)
    */
   public GrowthBoostedFarmlandBlock(
-      final Properties properties, final float growthBoostChance, final Block driedOutBlock) {
+      final Properties properties,
+      final GameRule<Integer> boostChanceRule,
+      final Block driedOutBlock) {
     super(driedOutBlock, properties);
-    this.growthBoostChance = growthBoostChance;
+    this.boostChanceRule = boostChanceRule;
   }
 
   @Override
@@ -38,6 +42,7 @@ public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
       final BlockPos pos,
       final RandomSource random) {
     super.randomTick(state, world, pos, random);
-    GrowthBoostUtil.tryBoostAbove(world, pos, random, this.growthBoostChance);
+    GrowthBoostUtil.tryBoostAbove(
+        world, pos, random, world.getGameRules().get(this.boostChanceRule));
   }
 }

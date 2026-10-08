@@ -47,4 +47,25 @@ class FairyTimingTest {
   void nothingIsDueDuringTheDay() {
     assertFalse(FairyTiming.isDue(0, 1_000_000, false));
   }
+
+  @Test
+  void zeroChanceNeverRollsAVisit() {
+    for (int roll = 0; roll < 100; roll++) {
+      assertFalse(FairyTiming.rollsNaturalVisit(0, roll));
+    }
+  }
+
+  @Test
+  void oneChanceRollsOnlyOnTheLowestRoll() {
+    assertTrue(FairyTiming.rollsNaturalVisit(1, 0));
+    assertFalse(FairyTiming.rollsNaturalVisit(1, 1));
+    assertFalse(FairyTiming.rollsNaturalVisit(1, 99));
+  }
+
+  @Test
+  void fullChanceAlwaysRollsAVisit() {
+    for (int roll = 0; roll < 100; roll++) {
+      assertTrue(FairyTiming.rollsNaturalVisit(100, roll));
+    }
+  }
 }

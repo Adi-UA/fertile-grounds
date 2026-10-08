@@ -7,6 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRule;
 
 /**
  * A sand variant that passively fertilizes whatever grows directly on top of it (cactus, sugar
@@ -16,15 +17,17 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class GrowthBoostedSandBlock extends FallingBlock {
 
-  private final float growthBoostChance;
+  private final GameRule<Integer> boostChanceRule;
 
   /**
    * @param properties block properties, e.g. from {@code ModBlockProperties.sandProperties()}
-   * @param growthBoostChance per-random-tick probability (0.0-1.0) of fertilizing the plant above
+   * @param boostChanceRule the gamerule holding the per-random-tick percent chance of fertilizing
+   *     the plant above, read on every tick so {@code /gamerule} changes apply at once
    */
-  public GrowthBoostedSandBlock(final Properties properties, final float growthBoostChance) {
+  public GrowthBoostedSandBlock(
+      final Properties properties, final GameRule<Integer> boostChanceRule) {
     super(properties);
-    this.growthBoostChance = growthBoostChance;
+    this.boostChanceRule = boostChanceRule;
   }
 
   @Override
@@ -39,6 +42,7 @@ public class GrowthBoostedSandBlock extends FallingBlock {
       final BlockPos pos,
       final RandomSource random) {
     super.randomTick(state, world, pos, random);
-    GrowthBoostUtil.tryBoostAbove(world, pos, random, this.growthBoostChance);
+    GrowthBoostUtil.tryBoostAbove(
+        world, pos, random, world.getGameRules().get(this.boostChanceRule));
   }
 }

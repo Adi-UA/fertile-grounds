@@ -11,5 +11,11 @@
   "message.fertilegrounds.fairy_dust.coming_now": "A Bean Fairy is on its way...",
   "message.fertilegrounds.fairy_dust.coming_tonight": "A Bean Fairy will visit tonight",
   "message.fertilegrounds.fairy_dust.already_coming": "A Bean Fairy is already coming to this crop",
-  "message.fertilegrounds.fairy_dust.no_night": "Bean Fairies only visit where night falls"
+  "message.fertilegrounds.fairy_dust.no_night": "Bean Fairies only visit where night falls",
+  "gamerule.fertilegrounds.fairy_visit_chance": "Fairy visit chance",
+  "gamerule.fertilegrounds.fairy_visit_chance.description": "Percent chance per player, per night, that a Bean Fairy visits a nearby crop on its own",
+  "gamerule.fertilegrounds.enriched_boost_chance": "Enriched soil boost chance",
+  "gamerule.fertilegrounds.enriched_boost_chance.description": "Percent chance per random tick that Enriched Farmland or Enriched Sand grows the plant above",
+  "gamerule.fertilegrounds.super_enriched_boost_chance": "Super Enriched soil boost chance",
+  "gamerule.fertilegrounds.super_enriched_boost_chance.description": "Percent chance per random tick that Super Enriched Farmland grows the plant above"
 }

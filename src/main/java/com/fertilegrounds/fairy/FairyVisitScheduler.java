@@ -4,6 +4,7 @@ import com.fertilegrounds.FertileGrounds;
 import com.fertilegrounds.entity.BeanFairy;
 import com.fertilegrounds.entity.ModEntities;
 import com.fertilegrounds.util.CropGrowthUtil;
+import com.fertilegrounds.util.ModGameRules;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
@@ -91,8 +92,9 @@ public final class FairyVisitScheduler {
   }
 
   private static void rollNaturalVisits(final ServerLevel level) {
+    final int chance = level.getGameRules().get(ModGameRules.FAIRY_VISIT_CHANCE);
     for (final ServerPlayer player : level.players()) {
-      if (level.getRandom().nextFloat() >= FairyTiming.NATURAL_VISIT_CHANCE) {
+      if (!FairyTiming.rollsNaturalVisit(chance, level.getRandom().nextInt(100))) {
         continue;
       }
       findCropNear(level, player.blockPosition())

@@ -19,7 +19,7 @@ public final class GrowthBoostUtil {
 
   /**
    * Attempts one bone-meal-equivalent growth stage on whatever is directly above {@code pos}, with
-   * probability {@code chance} per call. Mirrors the check-and-apply sequence vanilla's
+   * a {@code chancePercent} in 100 chance per call. Mirrors the check-and-apply sequence vanilla's
    * BoneMealItem uses on a right-click, minus the item-consumption side effects, since no item is
    * involved here.
    *
@@ -27,8 +27,11 @@ public final class GrowthBoostUtil {
    * roll at low chance values) costs nothing.
    */
   public static void tryBoostAbove(
-      final ServerLevel world, final BlockPos pos, final RandomSource random, final float chance) {
-    if (random.nextFloat() >= chance) {
+      final ServerLevel world,
+      final BlockPos pos,
+      final RandomSource random,
+      final int chancePercent) {
+    if (random.nextInt(100) >= chancePercent) {
       return;
     }
 

@@ -1,6 +1,7 @@
 package com.fertilegrounds.block;
 
 import com.fertilegrounds.FertileGrounds;
+import com.fertilegrounds.util.ModGameRules;
 import com.fertilegrounds.util.ModIdsUtil;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
@@ -23,12 +24,6 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
  */
 public final class ModBlocks {
 
-  /** Tier 1 (Enriched Dirt/Sand): a modest boost from cheap ingredients. */
-  private static final float ENRICHED_BOOST_CHANCE = 0.15F;
-
-  /** Tier 3 (Super Enriched Dirt): ~3.3x tier 1, gated behind Glowstone Dust. */
-  private static final float SUPER_ENRICHED_BOOST_CHANCE = 0.5F;
-
   // ---- Tier 1: Enriched — cheap ingredients, modest boost ----
 
   public static final Block ENRICHED_DIRT =
@@ -38,7 +33,8 @@ public final class ModBlocks {
       registerBlockOnly(
           "enriched_farmland",
           properties ->
-              new GrowthBoostedFarmlandBlock(properties, ENRICHED_BOOST_CHANCE, ENRICHED_DIRT),
+              new GrowthBoostedFarmlandBlock(
+                  properties, ModGameRules.ENRICHED_BOOST_CHANCE, ENRICHED_DIRT),
           ModBlockProperties.farmlandProperties());
 
   // ---- Tier 2: Enriched Sand — boosts existing sand-grown plants, no tilling ----
@@ -46,7 +42,7 @@ public final class ModBlocks {
   public static final Block ENRICHED_SAND =
       registerBlockWithItem(
           "enriched_sand",
-          properties -> new GrowthBoostedSandBlock(properties, ENRICHED_BOOST_CHANCE),
+          properties -> new GrowthBoostedSandBlock(properties, ModGameRules.ENRICHED_BOOST_CHANCE),
           ModBlockProperties.sandProperties());
 
   // ---- Tier 3: Super Enriched — Glowstone Dust gated, ~3.3x boost ----
@@ -59,7 +55,7 @@ public final class ModBlocks {
           "super_enriched_farmland",
           properties ->
               new GrowthBoostedFarmlandBlock(
-                  properties, SUPER_ENRICHED_BOOST_CHANCE, SUPER_ENRICHED_DIRT),
+                  properties, ModGameRules.SUPER_ENRICHED_BOOST_CHANCE, SUPER_ENRICHED_DIRT),
           ModBlockProperties.farmlandProperties());
 
   private ModBlocks() {}

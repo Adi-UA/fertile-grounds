@@ -8,9 +8,6 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class FairyTiming {
 
-  /** Chance per player, per night, that a fairy visits a crop near them on its own. */
-  public static final float NATURAL_VISIT_CHANCE = 0.01F;
-
   /** How far into the night a natural visit can land (10 seconds to 5 minutes, in ticks). */
   public static final int NATURAL_DELAY_MIN_TICKS = 200;
 
@@ -49,6 +46,16 @@ public final class FairyTiming {
    */
   public static long dustArrivalTick(final long now, final boolean isNight, final int delayTicks) {
     return isNight ? now + delayTicks : now;
+  }
+
+  /**
+   * Whether a player gets a natural visit tonight.
+   *
+   * @param chancePercent the {@code fairy_visit_chance} gamerule, 0 to 100
+   * @param roll a uniform random number from 0 to 99
+   */
+  public static boolean rollsNaturalVisit(final int chancePercent, final int roll) {
+    return roll < chancePercent;
   }
 
   /** A pending visit happens once it's night and its arrival tick has passed. */
