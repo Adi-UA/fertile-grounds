@@ -1,5 +1,6 @@
 package com.fertilegrounds;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.JsonArray;
@@ -245,7 +246,7 @@ class AssetConsistencyTest {
   private static Set<String> names(final Path source, final String regex) throws IOException {
     final Set<String> found = new TreeSet<>();
     collect(Pattern.compile(regex), Files.readString(source), found);
-    assertTrue(!found.isEmpty(), "Found no registrations in " + source + "; did the helper move?");
+    assertFalse(found.isEmpty(), "Found no registrations in " + source + "; did the helper move?");
     return found;
   }
 
