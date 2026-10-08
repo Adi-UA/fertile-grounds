@@ -2,9 +2,9 @@
 
 ## 1. JUnit asset checks
 
-- [ ] 1.1 Add `AssetConsistencyTest` for lang keys (registry names and keys used in Java); verify it fails after deleting one lang entry, then passes after restoring it
-- [ ] 1.2 Add item model, block state, and texture reference checks; verify it fails after renaming one `items/*.json`, then passes after restoring it
-- [ ] 1.3 Add recipe and advancement shape checks; verify it fails on a temporary recipe using `{"item": ...}`, then passes after removing it
+- [x] 1.1 Add `AssetConsistencyTest` for lang keys (registry names and keys used in Java); verify it fails after deleting one lang entry, then passes after restoring it
+- [x] 1.2 Add item model, block state, and texture reference checks; verify it fails after renaming one `items/*.json`, then passes after restoring it
+- [x] 1.3 Add recipe and advancement shape checks; verify it fails on a temporary recipe using `{"item": ...}`, then passes after removing it
 
 ## 2. Smoke test suites
 
