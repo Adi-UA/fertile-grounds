@@ -7,7 +7,7 @@ if the log shows one of those.
 
 Usage (from the repo root):
     python3 scripts/run_gametests.py                     # every test
-    python3 scripts/run_gametests.py --filter '*fertilizer*'   # tests whose ids match
+    python3 scripts/run_gametests.py --filter '*fertilizer*'   # only tests whose names match
 """
 
 import argparse
@@ -17,6 +17,7 @@ import xml.etree.ElementTree as ElementTree
 from pathlib import Path
 
 REPORT = Path("build/gametest-report.xml")
+TEST_NAMESPACE = "fertilegrounds-gametest"
 
 # Log lines that mean data silently failed to load. Copied from the 26.3 sources: recipes,
 # advancements, and loot tables load as registries (RegistryDataLoader), tags load in TagLoader,
@@ -41,7 +42,9 @@ def main() -> int:
 
     command = ["./gradlew", "runGameTest", "--console=plain"]
     if args.filter:
-        command.append(f"-PgametestFilter={args.filter}")
+        # Test ids are namespace:path, and the matcher's * doesn't cross the colon.
+        pattern = args.filter if ":" in args.filter else f"{TEST_NAMESPACE}:{args.filter}"
+        command.append(f"-PgametestFilter={pattern}")
     REPORT.unlink(missing_ok=True)
     result = subprocess.run(command, capture_output=True, text=True)
     log = (result.stdout + result.stderr).splitlines()
@@ -53,10 +56,12 @@ def main() -> int:
             problem = case.find("failure")
             if problem is None:
                 problem = case.find("error")
-            name = case.get("name", "").removeprefix("fertilegrounds-gametest:")
+            name = case.get("name", "").removeprefix(f"{TEST_NAMESPACE}:")
             print(f"{'pass' if problem is None else 'FAIL'}: {name}")
             if problem is not None:
                 print(f"      {problem.get('message', '').strip()}")
+    elif any("found no tests" in line for line in log):
+        print(f"FAIL: no test matches '{args.filter}'")
     else:
         print("FAIL: no test report; the test server likely didn't start (see build/gametest.log)")
         failed = True

@@ -232,6 +232,29 @@ class AssetConsistencyTest {
     assertNone("Advancements in the old format", problems);
   }
 
+  // ---- GameTests ----
+
+  /** Fabric only runs test classes listed under the "fabric-gametest" entrypoint. */
+  @Test
+  void everyGameTestClassIsRegistered() throws IOException {
+    final Path gametest = Path.of("src/gametest");
+    final String entrypoints =
+        readJson(gametest.resolve("resources/fabric.mod.json"))
+            .getAsJsonObject("entrypoints")
+            .getAsJsonArray("fabric-gametest")
+            .toString();
+    final List<String> missing = new ArrayList<>();
+    for (final Path file : files(gametest.resolve("java"), ".java")) {
+      if (Files.readString(file).contains("@GameTest")) {
+        final String className = file.getFileName().toString().replace(".java", "");
+        if (!entrypoints.contains("." + className + "\"")) {
+          missing.add(className);
+        }
+      }
+    }
+    assertNone("GameTest classes missing from the fabric-gametest entrypoint", missing);
+  }
+
   // ---- Registered names, read from the registration classes ----
 
   private static Set<String> blocks() throws IOException {

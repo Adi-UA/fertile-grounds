@@ -7,7 +7,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"fabric-gametest": [
-			"com.fertilegrounds.gametest.SetupTests"
+			"com.fertilegrounds.gametest.SetupTests",
+			"com.fertilegrounds.gametest.FairyVisitTests",
+			"com.fertilegrounds.gametest.FairyLingerTests",
+			"com.fertilegrounds.gametest.HarvestMoonTests"
 		]
 	},
 	"depends": {
