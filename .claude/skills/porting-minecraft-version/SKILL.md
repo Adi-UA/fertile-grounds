@@ -69,6 +69,7 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.1 | Fabric server tick event | `ServerTickEvents.END_WORLD_TICK` | `END_LEVEL_TICK` |
 | 26.1 | Hotbar message | `player.displayClientMessage(component, true)` | `player.sendOverlayMessage(component)` |
 | 26.1 | Fabric model layers | `EntityModelLayerRegistry.registerModelLayer` | `ModelLayerRegistry.registerModelLayer` |
+| 26.1 | Optional mod dependency (Jade) | `modCompileOnly` and `modLocalRuntime "maven.modrinth:jade:<1.21.11 version>"`; check the Jade API jar for changed provider methods | `compileOnly`, `gametestCompileOnly`, and `localRuntime` (skipped with `-PnoJade`) |
 | 26.1 | Build setup | Obfuscated: `mappings loom.officialMojangMappings()` and `modImplementation` | Unobfuscated: plain `implementation`, no mappings |
 | 1.21.11 | `ResourceLocation` | `net.minecraft.resources.ResourceLocation` | Renamed `Identifier` |
 | 1.21.11 | Game rule names | camelCase (`randomTickSpeed`) | snake_case (`random_tick_speed`) |

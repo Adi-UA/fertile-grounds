@@ -82,6 +82,10 @@ A Wandering Trader can roll Fairy Dust or Fertilizer among its rare trades: 2 Fa
 
 A comparator reading a Chime Hotel gives a 1-second pulse of 15 when the hotel rings for a ready field, enough to light a lamp or start an auto-harvester; the chime when you place the hotel gives no pulse. Empty and occupied hotels read 0. A comparator reading soil gives its tier: 7 for Enriched Dirt, Farmland, and Sand, and 15 for Super Enriched Dirt and Farmland.
 
+### Jade
+
+With [Jade](https://modrinth.com/mod/jade) installed, looking at blocks shows extra lines: the boost chance of enriched farmland and sand, "A Bean Fairy is coming tonight" on a crop with a pending visit, whether a hotel's fairy was petted today, and a Chime Hotel's count such as "Crops ready: 41/50". Each line can be turned off in Jade's settings. Jade is optional; without it nothing changes.
+
 ### Advancements
 
 Fertile Grounds has its own advancement tab:
