@@ -9,7 +9,7 @@
 ## 2. Port the smoke suites
 
 - [x] 2.1 Port `fairy_visit`, `fairy_linger`, and `harvest_moon` (lowest-Y and ring-order tracking as per-tick assertions); verify each passes, and the sinking check fails with the open-sky floor removed
-- [ ] 2.2 Port `soil_regressions`, `fairy_content_tags` (with a test datapack in the gametest resources), `tuning_gamerules`, `fertilizer`, `advancements`, and `gift_tables`; verify each passes, and the trample check fails with the revert target set to vanilla dirt
+- [x] 2.2 Port `soil_regressions`, `fairy_content_tags` (with a test datapack in the gametest resources), `tuning_gamerules`, `fertilizer`, `advancements`, and `gift_tables`; verify each passes, and the trample check fails with the revert target set to vanilla dirt
 
 ## 3. Checks that need a player
 
