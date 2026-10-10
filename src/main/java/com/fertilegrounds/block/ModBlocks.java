@@ -70,7 +70,7 @@ public final class ModBlocks {
       registerBlockWithItem(
           "fairy_hotel",
           properties -> new FairyHotelBlock(properties, true),
-          ModBlockProperties.fairyHotelProperties(12));
+          ModBlockProperties.fairyHotelProperties(12).randomTicks());
 
   private ModBlocks() {}
 

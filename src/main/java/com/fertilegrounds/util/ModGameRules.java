@@ -55,6 +55,18 @@ public final class ModGameRules {
   public static final GameRule<Integer> JARRED_FAIRY_DAYS =
       integer("jarred_fairy_days", 3, 1, 30, GameRuleCategory.MISC);
 
+  /** Chance per random tick that an occupied Fairy Hotel advances a fairy crop near it. */
+  public static final GameRule<Integer> FAIRY_HOTEL_BOOST_CHANCE =
+      percent("fairy_hotel_boost_chance", 50, GameRuleCategory.UPDATES);
+
+  /** The same chance for a hotel whose fairy was brushed since the last dawn. */
+  public static final GameRule<Integer> FAIRY_HOTEL_PETTED_BOOST_CHANCE =
+      percent("fairy_hotel_petted_boost_chance", 65, GameRuleCategory.UPDATES);
+
+  /** Chance per random tick that an occupied Fairy Hotel adds a honey level to a hive near it. */
+  public static final GameRule<Integer> FAIRY_HOTEL_HONEY_CHANCE =
+      percent("fairy_hotel_honey_chance", 10, GameRuleCategory.UPDATES);
+
   private ModGameRules() {}
 
   /** Loads this class so the static fields above register their rules during mod startup. */

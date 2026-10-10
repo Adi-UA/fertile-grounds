@@ -7,9 +7,9 @@
 
 ## 2. Growth and honey
 
-- [ ] 2.1 Add the hotel random tick boost with the `fairy_hotel_boost_chance` gamerule; verify a `HotelEffectTests` GameTest with `random_tick_speed 100` sees wheat near a hotel reach age 7 while distant wheat doesn't
-- [ ] 2.2 Add the bee extra attempt; verify with a JUnit test of the attempt count, and add "bees near a hotel" to the in-game checklist
-- [ ] 2.3 Add the honey boost with `fairy_hotel_honey_chance`; verify a GameTest sees a hive next to a hotel gain honey levels and stop at 5
+- [x] 2.1 Add the hotel random tick boost with the `fairy_hotel_boost_chance` gamerule; verify a `HotelEffectTests` GameTest with `random_tick_speed 100` sees wheat near a hotel reach age 7 while distant wheat doesn't
+- [x] 2.2 Add the bee extra attempt; verify with a JUnit test of the attempt count, and add "bees near a hotel" to the in-game checklist
+- [x] 2.3 Add the honey boost with `fairy_hotel_honey_chance`; verify a GameTest sees a hive next to a hotel gain honey levels and stop at 5
 
 ## 3. Petting
 

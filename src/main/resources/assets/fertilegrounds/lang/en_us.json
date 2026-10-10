@@ -60,5 +60,11 @@
   "advancements.fertilegrounds.first_fairy_catch.title": "Fairy in a Bottle",
   "advancements.fertilegrounds.first_fairy_catch.description": "Catch a lingering Bean Fairy in a Glass Bottle",
   "advancements.fertilegrounds.first_fairy_hotel.title": "Home Sweet Hotel",
-  "advancements.fertilegrounds.first_fairy_hotel.description": "Give a Bean Fairy a home in a Fairy Hotel"
+  "advancements.fertilegrounds.first_fairy_hotel.description": "Give a Bean Fairy a home in a Fairy Hotel",
+  "gamerule.fertilegrounds.fairy_hotel_boost_chance": "Fairy Hotel boost chance",
+  "gamerule.fertilegrounds.fairy_hotel_boost_chance.description": "Percent chance per random tick that an occupied Fairy Hotel grows a fairy crop within 4 blocks",
+  "gamerule.fertilegrounds.fairy_hotel_petted_boost_chance": "Petted Fairy Hotel boost chance",
+  "gamerule.fertilegrounds.fairy_hotel_petted_boost_chance.description": "The same chance for a hotel whose fairy was brushed since the last dawn",
+  "gamerule.fertilegrounds.fairy_hotel_honey_chance": "Fairy Hotel honey chance",
+  "gamerule.fertilegrounds.fairy_hotel_honey_chance.description": "Percent chance per random tick that an occupied Fairy Hotel adds a honey level to a beehive within 4 blocks"
 }

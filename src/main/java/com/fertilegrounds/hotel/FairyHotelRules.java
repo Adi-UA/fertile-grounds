@@ -8,7 +8,15 @@ import java.util.stream.LongStream;
  */
 public final class FairyHotelRules {
 
+  /** A bee carrying nectar near a hotel pollinates for it: one boost attempt more. */
+  public static final int BEE_EXTRA_ATTEMPTS = 1;
+
   private FairyHotelRules() {}
+
+  /** How many crop boost attempts a hotel makes on one random tick. */
+  public static int boostAttempts(final boolean nectarBeeNearby) {
+    return 1 + (nectarBeeNearby ? BEE_EXTRA_ATTEMPTS : 0);
+  }
 
   /**
    * Whether the hotel at {@code self} leads its cluster, so it alone boosts crops and adds honey.

@@ -1,5 +1,6 @@
 package com.fertilegrounds.hotel;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -7,6 +8,16 @@ import java.util.stream.LongStream;
 import org.junit.jupiter.api.Test;
 
 class FairyHotelRulesTest {
+
+  @Test
+  void aHotelAloneMakesOneBoostAttempt() {
+    assertEquals(1, FairyHotelRules.boostAttempts(false));
+  }
+
+  @Test
+  void aNectarBeeNearbyAddsOneAttempt() {
+    assertEquals(2, FairyHotelRules.boostAttempts(true));
+  }
 
   @Test
   void aLoneHotelLeads() {

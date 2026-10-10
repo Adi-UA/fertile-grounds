@@ -1,5 +1,7 @@
 package com.fertilegrounds.block;
 
+import com.fertilegrounds.hotel.FairyHotelEffects;
+import com.fertilegrounds.hotel.FairyHotelLookup;
 import com.fertilegrounds.item.ModItems;
 import com.fertilegrounds.util.ModCriteria;
 import net.minecraft.core.BlockPos;
@@ -83,6 +85,18 @@ public class FairyHotelBlock extends LanternBlock {
           0.05);
     }
     return InteractionResult.SUCCESS;
+  }
+
+  /** An occupied hotel that leads its cluster helps the farm around it. */
+  @Override
+  protected void randomTick(
+      final BlockState state,
+      final ServerLevel level,
+      final BlockPos pos,
+      final RandomSource random) {
+    if (this.occupied && FairyHotelLookup.isClusterLeader(level, pos)) {
+      FairyHotelEffects.randomTick(level, pos, false, random);
+    }
   }
 
   /** An occupied hotel glows softly and its fairy hums now and then. Runs on the client only. */

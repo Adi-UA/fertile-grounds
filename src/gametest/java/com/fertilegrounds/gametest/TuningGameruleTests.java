@@ -21,7 +21,10 @@ public class TuningGameruleTests {
           Map.entry(ModGameRules.FAIRY_GIFT_CHANCE_NATURAL, 30),
           Map.entry(ModGameRules.FAIRY_GIFT_CHANCE_DUST, 10),
           Map.entry(ModGameRules.FAIRY_GIFT_COOLDOWN_DAYS, 3),
-          Map.entry(ModGameRules.JARRED_FAIRY_DAYS, 3));
+          Map.entry(ModGameRules.JARRED_FAIRY_DAYS, 3),
+          Map.entry(ModGameRules.FAIRY_HOTEL_BOOST_CHANCE, 50),
+          Map.entry(ModGameRules.FAIRY_HOTEL_PETTED_BOOST_CHANCE, 65),
+          Map.entry(ModGameRules.FAIRY_HOTEL_HONEY_CHANCE, 10));
 
   @GameTest
   public void defaultsMatchTheSpec(final GameTestHelper helper) {
