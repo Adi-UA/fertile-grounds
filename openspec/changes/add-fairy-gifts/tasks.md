@@ -7,9 +7,9 @@
 
 ## 2. Gift rules
 
-- [ ] 2.1 Add `FairyGifts` (chance, cooldown, tier with Harvest Moon step) with JUnit tests for every spec scenario
-- [ ] 2.2 Add gamerules `fairy_gift_chance_natural`, `fairy_gift_chance_dust`, `fairy_gift_cooldown_days`; verify defaults in the smoke test server
-- [ ] 2.3 Add the cooldown level attachment; verify the smoke test restarts the server and the cooldown persists
+- [x] 2.1 Add `FairyGifts` (chance, cooldown, tier with Harvest Moon step) with JUnit tests for every spec scenario
+- [x] 2.2 Add gamerules `fairy_gift_chance_natural`, `fairy_gift_chance_dust`, `fairy_gift_cooldown_days`; verify defaults in the smoke test server
+- [x] 2.3 Add the cooldown level attachment; verify a JUnit test round-trips the saved cooldown map through its codec (the attachment uses the same persistent pattern as `FairyVisits`), and add to the user's in-game checklist: get a gift, restart the world, and get no gift the next night (writing a cooldown needs a player)
 
 ## 3. Delivery
 

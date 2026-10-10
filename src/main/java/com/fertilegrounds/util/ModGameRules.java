@@ -39,6 +39,18 @@ public final class ModGameRules {
   public static final GameRule<Integer> FAIRY_LINGER_SECONDS =
       integer("fairy_linger_seconds", 60, 0, 600, GameRuleCategory.SPAWNING);
 
+  /** Chance a natural visit leaves its owner a gift. */
+  public static final GameRule<Integer> FAIRY_GIFT_CHANCE_NATURAL =
+      percent("fairy_gift_chance_natural", 30, GameRuleCategory.DROPS);
+
+  /** Chance a Fairy Dust visit leaves its owner a gift. */
+  public static final GameRule<Integer> FAIRY_GIFT_CHANCE_DUST =
+      percent("fairy_gift_chance_dust", 10, GameRuleCategory.DROPS);
+
+  /** In-game days a player waits after one gift before they can get another. */
+  public static final GameRule<Integer> FAIRY_GIFT_COOLDOWN_DAYS =
+      integer("fairy_gift_cooldown_days", 3, 0, 30, GameRuleCategory.DROPS);
+
   private ModGameRules() {}
 
   /** Loads this class so the static fields above register their rules during mod startup. */

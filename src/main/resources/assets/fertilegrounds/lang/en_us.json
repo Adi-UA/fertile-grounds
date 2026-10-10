@@ -36,5 +36,11 @@
   "advancements.fertilegrounds.use_fertilizer.title": "Grassroots Upgrade",
   "advancements.fertilegrounds.use_fertilizer.description": "Upgrade soil in place with Fertilizer",
   "gamerule.fertilegrounds.fairy_linger_seconds": "Fairy linger time",
-  "gamerule.fertilegrounds.fairy_linger_seconds.description": "Seconds a Bean Fairy stays drifting over the crops after growing them (0 makes it leave right away)"
+  "gamerule.fertilegrounds.fairy_linger_seconds.description": "Seconds a Bean Fairy stays drifting over the crops after growing them (0 makes it leave right away)",
+  "gamerule.fertilegrounds.fairy_gift_chance_natural": "Fairy gift chance (natural visit)",
+  "gamerule.fertilegrounds.fairy_gift_chance_natural.description": "Percent chance a natural Bean Fairy visit leaves its player a gift",
+  "gamerule.fertilegrounds.fairy_gift_chance_dust": "Fairy gift chance (Fairy Dust)",
+  "gamerule.fertilegrounds.fairy_gift_chance_dust.description": "Percent chance a Fairy Dust visit leaves its player a gift",
+  "gamerule.fertilegrounds.fairy_gift_cooldown_days": "Fairy gift cooldown",
+  "gamerule.fertilegrounds.fairy_gift_cooldown_days.description": "In-game days a player waits after a fairy gift before getting another"
 }

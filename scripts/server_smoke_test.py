@@ -180,6 +180,9 @@ TUNING_GAMERULES = Suite(
         ("execute store result score #flower smoke run gamerule fertilegrounds:fairy_flower_bonus", 0),
         ("execute store result score #hive smoke run gamerule fertilegrounds:fairy_hive_bonus", 0),
         ("execute store result score #moon smoke run gamerule fertilegrounds:harvest_moon_multiplier", 0),
+        ("execute store result score #gift_natural smoke run gamerule fertilegrounds:fairy_gift_chance_natural", 0),
+        ("execute store result score #gift_dust smoke run gamerule fertilegrounds:fairy_gift_chance_dust", 0),
+        ("execute store result score #gift_days smoke run gamerule fertilegrounds:fairy_gift_cooldown_days", 0),
         ("gamerule fertilegrounds:fairy_visit_chance 150", 0),  # out of range, must be rejected
         ("execute store result score #after smoke run gamerule fertilegrounds:fairy_visit_chance", 0),
         ("gamerule fertilegrounds:fairy_visit_chance 100", 0),
@@ -191,6 +194,8 @@ TUNING_GAMERULES = Suite(
         " if score #super smoke matches 50 run say GAMERULE_DEFAULTS",
         "ATTRACTION_DEFAULTS": "execute if score #flower smoke matches 10 if score #hive smoke matches 50"
         " if score #moon smoke matches 3 run say ATTRACTION_DEFAULTS",
+        "GIFT_DEFAULTS": "execute if score #gift_natural smoke matches 30 if score #gift_dust smoke matches 10"
+        " if score #gift_days smoke matches 3 run say GIFT_DEFAULTS",
         "OUT_OF_RANGE_REJECTED": "execute if score #after smoke matches 1 run say OUT_OF_RANGE_REJECTED",
         "MAX_CHANCE_SET": "execute if score #max smoke matches 100 run say MAX_CHANCE_SET",
     },

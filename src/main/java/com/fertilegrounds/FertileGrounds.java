@@ -2,6 +2,7 @@ package com.fertilegrounds;
 
 import com.fertilegrounds.block.ModBlocks;
 import com.fertilegrounds.entity.ModEntities;
+import com.fertilegrounds.fairy.FairyGiftCooldowns;
 import com.fertilegrounds.fairy.FairyVisitScheduler;
 import com.fertilegrounds.fairy.FairyVisits;
 import com.fertilegrounds.item.ModItemGroups;
@@ -32,6 +33,7 @@ public class FertileGrounds implements ModInitializer {
     ModItems.register();
     ModItemGroups.register();
     FairyVisits.register();
+    FairyGiftCooldowns.register();
     FairyVisitScheduler.register();
   }
 }
