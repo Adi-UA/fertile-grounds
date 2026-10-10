@@ -30,7 +30,7 @@ public class FairyDustTests {
   public void dustSchedulesAVisitOwnedByThePlayer(final GameTestHelper helper) {
     final TestPlayer player = holdingDust(helper);
     TestSupport.plantWheat(helper, CROP);
-    helper.useBlock(CROP, player);
+    player.useHeldItemOn(helper, CROP);
 
     final FairyVisit visit =
         pendingVisit(helper)
@@ -49,8 +49,8 @@ public class FairyDustTests {
   public void secondDustOnTheSameCropIsRefused(final GameTestHelper helper) {
     final TestPlayer player = holdingDust(helper);
     TestSupport.plantWheat(helper, CROP);
-    helper.useBlock(CROP, player);
-    helper.useBlock(CROP, player);
+    player.useHeldItemOn(helper, CROP);
+    player.useHeldItemOn(helper, CROP);
 
     helper.assertTrue(
         player.lastOverlayIs("message.fertilegrounds.fairy_dust.already_coming"),

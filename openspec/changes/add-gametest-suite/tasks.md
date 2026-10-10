@@ -14,7 +14,7 @@
 ## 3. Checks that need a player
 
 - [x] 3.1 Add mock-player tests for Fairy Dust (pending owned visit, one dust used, already-coming message, no-night message in the Nether), Fertilizer by hand (upgrade, one used, crop and moisture kept), and the natural visit at `fairy_visit_chance 100`; verify each passes and fails when its feature line is commented out
-- [ ] 3.2 Add mock-player tests for visit feedback (arrival overlay within 32 blocks and not at 50, dawn message once for two overnight visits), gifts (drop at 100% with unlimited lifetime, gift message, cooldown next night, none for unowned), and advancements earned through real actions (root, first visit, Fertilizer, first gift, Harvest Moon visit); verify each passes
+- [x] 3.2 Add mock-player tests for visit feedback (arrival overlay within 32 blocks and not at 50, dawn message once for two overnight visits), gifts (drop at 100% with unlimited lifetime, gift message, cooldown next night, none for unowned), and advancements earned through real actions (root, first visit, Fertilizer, first gift, Harvest Moon visit); verify each passes
 - [ ] 3.3 Add a mock-player test for shy flight (a non-sneaking player within 4 blocks makes a lingering fairy move at least 4 blocks away; a sneaking one doesn't); verify it passes
 
 ## 4. Switch over

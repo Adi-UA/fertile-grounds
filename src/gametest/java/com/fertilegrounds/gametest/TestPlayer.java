@@ -1,16 +1,23 @@
 package com.fertilegrounds.gametest;
 
+import com.fertilegrounds.util.ModIdsUtil;
 import com.mojang.authlib.GameProfile;
 import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -59,6 +66,34 @@ final class TestPlayer extends ServerPlayer {
     return this;
   }
 
+  /**
+   * Right-clicks a block with the main-hand item through the same server call a real click reaches,
+   * so it also fires vanilla's item-used-on-block advancement trigger.
+   */
+  InteractionResult useHeldItemOn(final GameTestHelper helper, final BlockPos relativePos) {
+    final BlockPos pos = helper.absolutePos(relativePos);
+    return this.gameMode.useItemOn(
+        this,
+        helper.getLevel(),
+        this.getMainHandItem(),
+        InteractionHand.MAIN_HAND,
+        new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false));
+  }
+
+  /** Whether this player has earned the mod advancement {@code fertilegrounds:<path>}. */
+  boolean hasAdvancement(final String path) {
+    final AdvancementHolder advancement =
+        this.level().getServer().getAdvancements().get(ModIdsUtil.id(path));
+    return advancement != null && this.getAdvancements().getOrStartProgress(advancement).isDone();
+  }
+
+  /** How many chat messages are the given translation. */
+  long chatCount(final String translationKey) {
+    return this.chatMessages.stream()
+        .filter(message -> message.equals(Component.translatable(translationKey)))
+        .count();
+  }
+
   void leave() {
     this.level().getServer().getPlayerList().remove(this);
   }
@@ -67,15 +102,6 @@ final class TestPlayer extends ServerPlayer {
   public void sendSystemMessage(final Component message, final boolean overlay) {
     (overlay ? this.overlayMessages : this.chatMessages).add(message);
     super.sendSystemMessage(message, overlay);
-  }
-
-  /** Overlay messages, the short ones shown above the hotbar, oldest first. */
-  List<Component> overlayMessages() {
-    return this.overlayMessages;
-  }
-
-  List<Component> chatMessages() {
-    return this.chatMessages;
   }
 
   /** Whether the latest overlay message is the given translation. */

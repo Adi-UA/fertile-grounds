@@ -68,7 +68,7 @@ public class FertilizerTests {
     helper.setBlock(TARGET.above(), wheat);
     final TestPlayer player = TestPlayer.join(helper);
     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.FERTILIZER, 2));
-    helper.useBlock(TARGET, player);
+    player.useHeldItemOn(helper, TARGET);
 
     helper.assertBlockState(TARGET, moist(ModBlocks.SUPER_ENRICHED_FARMLAND));
     helper.assertBlockState(TARGET.above(), wheat);

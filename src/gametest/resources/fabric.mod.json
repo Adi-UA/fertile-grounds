@@ -18,7 +18,9 @@
 			"com.fertilegrounds.gametest.AdvancementTests",
 			"com.fertilegrounds.gametest.GiftTableTests",
 			"com.fertilegrounds.gametest.FairyDustTests",
-			"com.fertilegrounds.gametest.NaturalVisitTests"
+			"com.fertilegrounds.gametest.NaturalVisitTests",
+			"com.fertilegrounds.gametest.VisitFeedbackTests",
+			"com.fertilegrounds.gametest.FairyGiftTests"
 		]
 	},
 	"depends": {

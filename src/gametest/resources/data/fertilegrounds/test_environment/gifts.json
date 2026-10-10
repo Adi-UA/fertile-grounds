@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:game_rules",
+  "rules": {
+    "minecraft:random_tick_speed": 0,
+    "fertilegrounds:fairy_visit_chance": 0,
+    "fertilegrounds:fairy_gift_chance_natural": 100,
+    "fertilegrounds:fairy_gift_chance_dust": 100
+  }
+}
