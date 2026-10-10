@@ -2,8 +2,8 @@
 
 ## 1. Rules
 
-- [ ] 1.1 Add `JarredFairyRules` with JUnit tests for every expiry scenario (before, at, and after 3 days; flower pick; empty tag falls back to Poppy)
-- [ ] 1.2 Add the `jarred_fairy_days` gamerule; verify its default in a GameTest
+- [x] 1.1 Add `JarredFairyRules` with JUnit tests for every expiry scenario (before, at, and after 3 days; flower pick; empty tag falls back to Poppy)
+- [x] 1.2 Add the `jarred_fairy_days` gamerule; verify its default in a GameTest
 
 ## 2. Items and blocks
 

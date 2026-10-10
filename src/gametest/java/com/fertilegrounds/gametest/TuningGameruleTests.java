@@ -10,17 +10,18 @@ import net.minecraft.world.level.gamerules.GameRule;
 public class TuningGameruleTests {
 
   private static final Map<GameRule<Integer>, Integer> DEFAULTS =
-      Map.of(
-          ModGameRules.FAIRY_VISIT_CHANCE, 1,
-          ModGameRules.ENRICHED_BOOST_CHANCE, 15,
-          ModGameRules.SUPER_ENRICHED_BOOST_CHANCE, 50,
-          ModGameRules.FAIRY_FLOWER_BONUS, 10,
-          ModGameRules.FAIRY_HIVE_BONUS, 50,
-          ModGameRules.HARVEST_MOON_MULTIPLIER, 3,
-          ModGameRules.FAIRY_LINGER_SECONDS, 60,
-          ModGameRules.FAIRY_GIFT_CHANCE_NATURAL, 30,
-          ModGameRules.FAIRY_GIFT_CHANCE_DUST, 10,
-          ModGameRules.FAIRY_GIFT_COOLDOWN_DAYS, 3);
+      Map.ofEntries(
+          Map.entry(ModGameRules.FAIRY_VISIT_CHANCE, 1),
+          Map.entry(ModGameRules.ENRICHED_BOOST_CHANCE, 15),
+          Map.entry(ModGameRules.SUPER_ENRICHED_BOOST_CHANCE, 50),
+          Map.entry(ModGameRules.FAIRY_FLOWER_BONUS, 10),
+          Map.entry(ModGameRules.FAIRY_HIVE_BONUS, 50),
+          Map.entry(ModGameRules.HARVEST_MOON_MULTIPLIER, 3),
+          Map.entry(ModGameRules.FAIRY_LINGER_SECONDS, 60),
+          Map.entry(ModGameRules.FAIRY_GIFT_CHANCE_NATURAL, 30),
+          Map.entry(ModGameRules.FAIRY_GIFT_CHANCE_DUST, 10),
+          Map.entry(ModGameRules.FAIRY_GIFT_COOLDOWN_DAYS, 3),
+          Map.entry(ModGameRules.JARRED_FAIRY_DAYS, 3));
 
   @GameTest
   public void defaultsMatchTheSpec(final GameTestHelper helper) {

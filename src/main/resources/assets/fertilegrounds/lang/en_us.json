@@ -48,5 +48,7 @@
   "advancements.fertilegrounds.first_fairy_gift.title": "Fairy Favor",
   "advancements.fertilegrounds.first_fairy_gift.description": "Receive a gift from a Bean Fairy",
   "advancements.fertilegrounds.harvest_moon_visit.title": "By the Light of the Harvest Moon",
-  "advancements.fertilegrounds.harvest_moon_visit.description": "Be near a Bean Fairy visit on a full-moon night"
+  "advancements.fertilegrounds.harvest_moon_visit.description": "Be near a Bean Fairy visit on a full-moon night",
+  "gamerule.fertilegrounds.jarred_fairy_days": "Jarred fairy days",
+  "gamerule.fertilegrounds.jarred_fairy_days.description": "In-game days a Bean Fairy caught in a bottle waits before it slips away and leaves a flower"
 }

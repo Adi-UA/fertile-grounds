@@ -51,6 +51,10 @@ public final class ModGameRules {
   public static final GameRule<Integer> FAIRY_GIFT_COOLDOWN_DAYS =
       integer("fairy_gift_cooldown_days", 3, 0, 30, GameRuleCategory.DROPS);
 
+  /** In-game days a fairy caught in a bottle waits before it slips away and leaves a flower. */
+  public static final GameRule<Integer> JARRED_FAIRY_DAYS =
+      integer("jarred_fairy_days", 3, 1, 30, GameRuleCategory.MISC);
+
   private ModGameRules() {}
 
   /** Loads this class so the static fields above register their rules during mod startup. */
