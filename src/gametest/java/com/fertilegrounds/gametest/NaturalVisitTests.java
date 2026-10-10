@@ -16,12 +16,19 @@ import net.minecraft.network.chat.Component;
  */
 public class NaturalVisitTests {
 
-  private static final BlockPos CROP = new BlockPos(3, 2, 3);
+  /**
+   * The crop sits at the center of the 33x33 structure, so the scheduler's whole 16-block search
+   * area is inside it and cleared at the start, with no crops left over from earlier tests.
+   */
+  private static final BlockPos CROP = new BlockPos(16, 2, 16);
 
-  @GameTest(environment = "fertilegrounds:natural_visits", maxTicks = 200)
+  @GameTest(
+      structure = "fertilegrounds:empty_large",
+      environment = "fertilegrounds:natural_visits",
+      maxTicks = 200)
   public void nightfallSchedulesAVisitNearThePlayer(final GameTestHelper helper) {
     TestSupport.plantWheat(helper, CROP);
-    final TestPlayer player = TestPlayer.join(helper).at(helper, 1, 2, 1);
+    final TestPlayer player = TestPlayer.join(helper).at(helper, 14, 2, 14);
     final BlockPos crop = helper.absolutePos(CROP);
     helper
         .startSequence()
