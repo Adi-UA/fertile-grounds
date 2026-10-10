@@ -10,7 +10,9 @@
 			"com.fertilegrounds.gametest.SetupTests",
 			"com.fertilegrounds.gametest.FairyVisitTests",
 			"com.fertilegrounds.gametest.FairyLingerTests",
-			"com.fertilegrounds.gametest.HarvestMoonTests"
+			"com.fertilegrounds.gametest.HarvestMoonTests",
+			"com.fertilegrounds.gametest.SoilRegressionTests",
+			"com.fertilegrounds.gametest.FairyContentTagTests"
 		]
 	},
 	"depends": {

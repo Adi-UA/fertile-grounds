@@ -1,6 +1,7 @@
 package com.fertilegrounds.gametest;
 
 import com.fertilegrounds.entity.ModEntities;
+import java.util.concurrent.atomic.AtomicLong;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -22,17 +23,18 @@ public class FairyLingerTests {
     helper.setBlock(CROP.below(), Blocks.FARMLAND);
     helper.setBlock(CROP, Blocks.WHEAT);
     helper.spawn(ModEntities.BEAN_FAIRY, CROP.getX() + 0.5F, CROP.getY() + 4, CROP.getZ() + 0.5F);
-    final long[] grownAt = {-1};
+    final AtomicLong grownAt = new AtomicLong(-1);
     helper.onEachTick(
         () -> {
-          if (grownAt[0] < 0 && FairyVisitTests.isGrown(helper, CROP)) {
-            grownAt[0] = helper.getTick();
+          if (grownAt.get() < 0 && FairyVisitTests.isGrown(helper, CROP)) {
+            grownAt.set(helper.getTick());
           }
         });
     helper.succeedWhen(
         () -> {
-          helper.assertTrue(grownAt[0] >= 0, "the fairy grew the wheat");
-          helper.assertTrue(helper.getTick() >= grownAt[0] + 600, "30 seconds have passed since");
+          helper.assertTrue(grownAt.get() >= 0, "the fairy grew the wheat");
+          helper.assertTrue(
+              helper.getTick() >= grownAt.get() + 600, "30 seconds have passed since");
           helper.assertFalse(TestSupport.fairies(helper).isEmpty(), "the fairy is still here");
         });
   }

@@ -1,6 +1,7 @@
 package com.fertilegrounds.gametest;
 
 import com.fertilegrounds.entity.ModEntities;
+import java.util.concurrent.atomic.AtomicBoolean;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -44,7 +45,7 @@ public class FairyVisitTests {
         ModEntities.BEAN_FAIRY, CENTER.getX() + 0.5F, CENTER.getY() + 4, CENTER.getZ() + 0.5F);
 
     final double floor = helper.absolutePos(CENTER).getY() + 1;
-    final boolean[] centerFirst = {false};
+    final AtomicBoolean centerFirst = new AtomicBoolean();
     helper.onEachTick(
         () -> {
           TestSupport.fairies(helper)
@@ -56,14 +57,16 @@ public class FairyVisitTests {
                               + fairy.getY()
                               + ", below the open-sky floor "
                               + floor));
-          centerFirst[0] |= isGrown(helper, CENTER) && !isGrown(helper, CORNER);
+          if (isGrown(helper, CENTER) && !isGrown(helper, CORNER)) {
+            centerFirst.set(true);
+          }
         });
     helper.succeedWhen(
         () -> {
           helper.assertTrue(
               isGrown(helper, CENTER) && isGrown(helper, CORNER), "patch fully grown");
           helper.assertTrue(TestSupport.fairies(helper).isEmpty(), "fairy left after growing");
-          helper.assertTrue(centerFirst[0], "the center grew before the edge");
+          helper.assertTrue(centerFirst.get(), "the center grew before the edge");
           helper.assertBlockState(
               OUTSIDE,
               state -> state.getValue(CropBlock.AGE) == 0,

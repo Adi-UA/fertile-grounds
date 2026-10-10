@@ -59,6 +59,7 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.3 | Entity renderer registration | Fabric `EntityRendererRegistry.register` | Deprecated; vanilla `EntityRenderers.register` is public |
 | 26.3 | Loot table tag entry | `{"type": "minecraft:tag", "name": "ns:tag"}` (26.2 and older) | `"items": "#ns:tag"` |
 | 26.3 | `BlockPos.withinManhattan` | `(origin, reachX, reachY, reachZ)` | `(origin, reach)`; per-axis forms are `withinClippedManhattan` and `withinBoxByManhattanDistance` |
+| 26.2 | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |
 | 26.2 | `FlyingMoveControl` | Not generic: `new FlyingMoveControl(mob, ...)` | Generic: `new FlyingMoveControl<>(mob, ...)` |
 | 26.1 | Fabric server tick event | `ServerTickEvents.END_WORLD_TICK` | `END_LEVEL_TICK` |
 | 26.1 | Hotbar message | `player.displayClientMessage(component, true)` | `player.sendOverlayMessage(component)` |
