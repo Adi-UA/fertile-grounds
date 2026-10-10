@@ -1,0 +1,24 @@
+{
+  "parent": "fertilegrounds:first_fairy_visit",
+  "criteria": {
+    "done": {
+      "trigger": "fertilegrounds:fairy_caught"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "fertilegrounds:jarred_fairy"
+    },
+    "title": {
+      "translate": "advancements.fertilegrounds.first_fairy_catch.title"
+    },
+    "description": {
+      "translate": "advancements.fertilegrounds.first_fairy_catch.description"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

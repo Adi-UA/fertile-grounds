@@ -29,7 +29,9 @@ public class AdvancementTests {
                     "first_fairy_visit",
                     "use_fertilizer",
                     "first_fairy_gift",
-                    "harvest_moon_visit")
+                    "harvest_moon_visit",
+                    "first_fairy_catch",
+                    "first_fairy_hotel")
                 .map(ModIdsUtil::id),
             Stream.of("fairy_visit", "fairy_gift", "harvest_moon_visit")
                 .map(path -> Identifier.fromNamespaceAndPath("fertilegrounds-gametest", path)))

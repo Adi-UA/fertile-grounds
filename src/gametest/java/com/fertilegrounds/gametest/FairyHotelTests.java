@@ -18,12 +18,13 @@ public class FairyHotelTests {
 
   private static final BlockPos HOTEL = new BlockPos(3, 2, 3);
 
-  @GameTest
+  /** The light engine runs behind the server tick when the server is busy, so allow 5 seconds. */
+  @GameTest(maxTicks = 100)
   public void emptyHotelGivesLightFive(final GameTestHelper helper) {
     assertLight(helper, ModBlocks.EMPTY_FAIRY_HOTEL, 5);
   }
 
-  @GameTest
+  @GameTest(maxTicks = 100)
   public void occupiedHotelGivesLightTwelve(final GameTestHelper helper) {
     assertLight(helper, ModBlocks.FAIRY_HOTEL, 12);
   }

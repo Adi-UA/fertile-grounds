@@ -1,9 +1,11 @@
 package com.fertilegrounds.block;
 
 import com.fertilegrounds.item.ModItems;
+import com.fertilegrounds.util.ModCriteria;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -53,6 +55,9 @@ public class FairyHotelBlock extends LanternBlock {
       level.setBlockAndUpdate(pos, ModBlocks.FAIRY_HOTEL.withPropertiesOf(state));
       player.setItemInHand(
           hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+      if (player instanceof ServerPlayer serverPlayer) {
+        ModCriteria.FAIRY_MOVED_IN.trigger(serverPlayer);
+      }
       level.playSound(null, pos, SoundEvents.ALLAY_ITEM_GIVEN, SoundSource.BLOCKS, 1.0F, 1.0F);
       level.playSound(
           null, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0F, 1.2F);

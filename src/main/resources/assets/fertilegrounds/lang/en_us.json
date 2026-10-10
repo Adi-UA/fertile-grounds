@@ -56,5 +56,9 @@
   "item.fertilegrounds.jarred_fairy": "Jarred Fairy",
   "message.fertilegrounds.fairy_busy": "This Bean Fairy is busy with its crops",
   "message.fertilegrounds.fairy_slipped_away": "Your Bean Fairy slipped away and left a %s behind.",
-  "message.fertilegrounds.fairy_slipped_away_while_gone": "A Bean Fairy slipped away while you were gone and left a %s."
+  "message.fertilegrounds.fairy_slipped_away_while_gone": "A Bean Fairy slipped away while you were gone and left a %s.",
+  "advancements.fertilegrounds.first_fairy_catch.title": "Fairy in a Bottle",
+  "advancements.fertilegrounds.first_fairy_catch.description": "Catch a lingering Bean Fairy in a Glass Bottle",
+  "advancements.fertilegrounds.first_fairy_hotel.title": "Home Sweet Hotel",
+  "advancements.fertilegrounds.first_fairy_hotel.description": "Give a Bean Fairy a home in a Fairy Hotel"
 }

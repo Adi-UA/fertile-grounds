@@ -23,6 +23,6 @@
 
 ## 5. Finish
 
-- [ ] 5.1 Add the first catch and first hotel advancements; verify a GameTest earns both through real actions
+- [x] 5.1 Add the first catch and first hotel advancements; verify a GameTest earns both through real actions
 - [ ] 5.2 Check every row of the Look and sound table in `runClient` and add "catch a fairy and move it into a hotel" to the in-game checklist
 - [ ] 5.3 Document hotels in `README.md` and add any 1.21.11 data component, recipe, or container hook difference to the porting divergence table

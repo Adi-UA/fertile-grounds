@@ -2,9 +2,11 @@ package com.fertilegrounds.entity;
 
 import com.fertilegrounds.fairy.FairyVisit;
 import com.fertilegrounds.item.JarredFairyItem;
+import com.fertilegrounds.util.ModCriteria;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -120,6 +122,9 @@ public class BeanFairy extends PathfinderMob {
         ParticleTypes.END_ROD, this.getX(), this.getY(), this.getZ(), 6, 0.15, 0.15, 0.15, 0.02);
     player.setItemInHand(
         hand, ItemUtils.createFilledResult(held, player, JarredFairyItem.caughtNow(level), false));
+    if (player instanceof ServerPlayer serverPlayer) {
+      ModCriteria.FAIRY_CAUGHT.trigger(serverPlayer);
+    }
     this.discard();
     return InteractionResult.SUCCESS;
   }

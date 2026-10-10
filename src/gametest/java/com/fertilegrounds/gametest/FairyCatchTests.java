@@ -51,6 +51,7 @@ public class FairyCatchTests {
           helper.assertValueEqual(player.getMainHandItem().getCount(), 1, "bottles left");
           helper.assertValueEqual(
               player.getInventory().countItem(ModItems.JARRED_FAIRY), 1, "Jarred Fairies");
+          helper.assertTrue(player.hasAdvancement("first_fairy_catch"), "first catch advancement");
           player.leave();
         });
   }
@@ -87,6 +88,7 @@ public class FairyCatchTests {
 
     helper.assertBlockPresent(ModBlocks.FAIRY_HOTEL, HOTEL);
     helper.assertTrue(player.getMainHandItem().is(Items.GLASS_BOTTLE), "bottle given back");
+    helper.assertTrue(player.hasAdvancement("first_fairy_hotel"), "first hotel advancement");
     player.leave();
     helper.succeed();
   }
