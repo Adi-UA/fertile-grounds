@@ -48,24 +48,54 @@ class FairyTimingTest {
     assertFalse(FairyTiming.isDue(0, 1_000_000, false));
   }
 
+  private static final FairyTiming.Bonuses DEFAULTS = new FairyTiming.Bonuses(10, 50, 3);
+
   @Test
   void zeroChanceNeverRollsAVisit() {
-    for (int roll = 0; roll < 100; roll++) {
-      assertFalse(FairyTiming.rollsNaturalVisit(0, roll));
-    }
+    assertFalse(FairyTiming.rollsNaturalVisit(0, 0.0));
   }
 
   @Test
-  void oneChanceRollsOnlyOnTheLowestRoll() {
-    assertTrue(FairyTiming.rollsNaturalVisit(1, 0));
-    assertFalse(FairyTiming.rollsNaturalVisit(1, 1));
-    assertFalse(FairyTiming.rollsNaturalVisit(1, 99));
+  void rollMustLandUnderTheChance() {
+    assertTrue(FairyTiming.rollsNaturalVisit(1.3, 1.29));
+    assertFalse(FairyTiming.rollsNaturalVisit(1.3, 1.3));
   }
 
   @Test
   void fullChanceAlwaysRollsAVisit() {
-    for (int roll = 0; roll < 100; roll++) {
-      assertTrue(FairyTiming.rollsNaturalVisit(100, roll));
-    }
+    assertTrue(FairyTiming.rollsNaturalVisit(100, 99.999));
+  }
+
+  @Test
+  void noBonusesKeepTheBaseChance() {
+    assertEquals(1.0, FairyTiming.visitChance(1, 0, false, false, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void eachFlowerTypeAddsATenthOfTheBase() {
+    assertEquals(1.3, FairyTiming.visitChance(1, 3, false, false, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void flowerTypesAreCappedAtTen() {
+    assertEquals(
+        FairyTiming.visitChance(1, 10, false, false, DEFAULTS),
+        FairyTiming.visitChance(1, 14, false, false, DEFAULTS),
+        1e-9);
+  }
+
+  @Test
+  void aHiveAddsHalfTheBase() {
+    assertEquals(1.5, FairyTiming.visitChance(1, 0, true, false, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void harvestMoonTriplesAFullFarm() {
+    assertEquals(7.5, FairyTiming.visitChance(1, 10, true, true, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void chanceNeverPassesOneHundred() {
+    assertEquals(100.0, FairyTiming.visitChance(50, 10, true, true, DEFAULTS), 1e-9);
   }
 }

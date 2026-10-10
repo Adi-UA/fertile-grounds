@@ -94,7 +94,7 @@ public final class FairyVisitScheduler {
   private static void rollNaturalVisits(final ServerLevel level) {
     final int chance = level.getGameRules().get(ModGameRules.FAIRY_VISIT_CHANCE);
     for (final ServerPlayer player : level.players()) {
-      if (!FairyTiming.rollsNaturalVisit(chance, level.getRandom().nextInt(100))) {
+      if (!FairyTiming.rollsNaturalVisit(chance, level.getRandom().nextDouble() * 100)) {
         continue;
       }
       findCropNear(level, player.blockPosition())

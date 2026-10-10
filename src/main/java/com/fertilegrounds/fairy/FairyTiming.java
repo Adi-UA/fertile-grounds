@@ -48,13 +48,43 @@ public final class FairyTiming {
     return isNight ? now + delayTicks : now;
   }
 
+  /** At most this many distinct flower types count toward the flower bonus. */
+  public static final int MAX_FLOWER_TYPES = 10;
+
+  /**
+   * The gamerule values that turn a farm's surroundings into a better visit chance.
+   *
+   * @param flowerPercent each distinct flower type adds this percent of the base chance
+   * @param hivePercent a nearby beehive adds this percent of the base chance
+   * @param harvestMoonMultiplier the full-moon multiplier on the final chance
+   */
+  public record Bonuses(int flowerPercent, int hivePercent, int harvestMoonMultiplier) {}
+
+  /**
+   * The natural visit chance for one crop, in percent: the base chance, plus a share of it for each
+   * distinct flower type (up to {@link #MAX_FLOWER_TYPES}) and for a beehive, times the Harvest
+   * Moon multiplier on a full moon, capped at 100.
+   */
+  public static double visitChance(
+      final int basePercent,
+      final int flowerTypes,
+      final boolean hasHive,
+      final boolean fullMoon,
+      final Bonuses bonuses) {
+    final double flowerShare =
+        Math.min(flowerTypes, MAX_FLOWER_TYPES) * bonuses.flowerPercent() / 100.0;
+    final double hiveShare = hasHive ? bonuses.hivePercent() / 100.0 : 0;
+    final double chance = basePercent * (1 + flowerShare + hiveShare);
+    return Math.min(100, fullMoon ? chance * bonuses.harvestMoonMultiplier() : chance);
+  }
+
   /**
    * Whether a player gets a natural visit tonight.
    *
-   * @param chancePercent the {@code fairy_visit_chance} gamerule, 0 to 100
-   * @param roll a uniform random number from 0 to 99
+   * @param chancePercent the chance from {@link #visitChance}, 0 to 100
+   * @param roll a uniform random number from 0 (inclusive) to 100 (exclusive)
    */
-  public static boolean rollsNaturalVisit(final int chancePercent, final int roll) {
+  public static boolean rollsNaturalVisit(final double chancePercent, final double roll) {
     return roll < chancePercent;
   }
 

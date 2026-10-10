@@ -2,8 +2,8 @@
 
 ## 1. Chance math
 
-- [ ] 1.1 Add `FairyTiming.visitChance(...)` with JUnit tests for every spec scenario (no bonus, 3 flowers, cap, hive, full moon, 100% cap)
-- [ ] 1.2 Add gamerules `fairy_flower_bonus`, `fairy_hive_bonus`, `harvest_moon_multiplier`; verify they read their defaults in the smoke test server
+- [x] 1.1 Add `FairyTiming.visitChance(...)` with JUnit tests for every spec scenario (no bonus, 3 flowers, cap, hive, full moon, 100% cap)
+- [x] 1.2 Add gamerules `fairy_flower_bonus`, `fairy_hive_bonus`, `harvest_moon_multiplier`; verify they read their defaults in the smoke test server
 
 ## 2. Scheduler
 
