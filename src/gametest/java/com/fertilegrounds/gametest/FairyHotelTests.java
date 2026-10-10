@@ -40,6 +40,32 @@ public class FairyHotelTests {
     helper.succeed();
   }
 
+  @GameTest
+  public void brokenChimeHotelDropsItself(final GameTestHelper helper) {
+    placeHotel(helper, ModBlocks.CHIME_FAIRY_HOTEL);
+    final TestPlayer player = TestPlayer.join(helper);
+    player.gameMode.destroyBlock(helper.absolutePos(HOTEL));
+    helper.assertItemEntityPresent(ModBlocks.CHIME_FAIRY_HOTEL.asItem(), HOTEL, 1);
+    player.leave();
+    helper.succeed();
+  }
+
+  /** An occupied hotel, a note block, and a spyglass, in any order, make a Chime Hotel. */
+  @GameTest
+  public void noteBlockAndSpyglassMakeAChimeHotel(final GameTestHelper helper) {
+    final CraftingInput grid =
+        CraftingInput.of(
+            3,
+            1,
+            List.of(
+                new ItemStack(Items.SPYGLASS),
+                new ItemStack(ModBlocks.FAIRY_HOTEL),
+                new ItemStack(Items.NOTE_BLOCK)));
+    helper.assertTrue(
+        craft(helper, grid).is(ModBlocks.CHIME_FAIRY_HOTEL.asItem()), "crafted a Chime Hotel");
+    helper.succeed();
+  }
+
   /** Any mix of fairy flowers around a lantern, with a firefly bush on top, makes a hotel. */
   @GameTest
   public void mixedFlowersCraftAHotel(final GameTestHelper helper) {
@@ -59,17 +85,20 @@ public class FairyHotelTests {
                 poppy,
                 dandelion,
                 poppy));
-    final ItemStack result =
-        helper
-            .getLevel()
-            .getServer()
-            .getRecipeManager()
-            .getRecipeFor(RecipeType.CRAFTING, grid, helper.getLevel())
-            .map(recipe -> recipe.value().assemble(grid))
-            .orElse(ItemStack.EMPTY);
     helper.assertTrue(
-        result.is(ModBlocks.EMPTY_FAIRY_HOTEL.asItem()), "crafted an Empty Fairy Hotel");
+        craft(helper, grid).is(ModBlocks.EMPTY_FAIRY_HOTEL.asItem()),
+        "crafted an Empty Fairy Hotel");
     helper.succeed();
+  }
+
+  private static ItemStack craft(final GameTestHelper helper, final CraftingInput grid) {
+    return helper
+        .getLevel()
+        .getServer()
+        .getRecipeManager()
+        .getRecipeFor(RecipeType.CRAFTING, grid, helper.getLevel())
+        .map(recipe -> recipe.value().assemble(grid))
+        .orElse(ItemStack.EMPTY);
   }
 
   private static void assertLight(final GameTestHelper helper, final Block hotel, final int level) {

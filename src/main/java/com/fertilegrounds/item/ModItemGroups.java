@@ -37,6 +37,7 @@ public final class ModItemGroups {
                   output.accept(ModItems.BEAN_FAIRY_SPAWN_EGG);
                   output.accept(ModBlocks.EMPTY_FAIRY_HOTEL);
                   output.accept(ModBlocks.FAIRY_HOTEL);
+                  output.accept(ModBlocks.CHIME_FAIRY_HOTEL);
                   output.accept(ModItems.JARRED_FAIRY);
                 })
             .build());

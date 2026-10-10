@@ -53,6 +53,8 @@
   "gamerule.fertilegrounds.jarred_fairy_days.description": "In-game days a Bean Fairy caught in a bottle waits before it slips away and leaves a flower",
   "block.fertilegrounds.empty_fairy_hotel": "Empty Fairy Hotel",
   "block.fertilegrounds.fairy_hotel": "Occupied Fairy Hotel",
+  "block.fertilegrounds.chime_fairy_hotel": "Chime Hotel",
+  "subtitles.fertilegrounds.block.chime_fairy_hotel.chime": "Chime Hotel chimes",
   "item.fertilegrounds.jarred_fairy": "Jarred Fairy",
   "message.fertilegrounds.fairy_busy": "This Bean Fairy is busy with its crops",
   "message.fertilegrounds.fairy_slipped_away": "Your Bean Fairy slipped away and left a %s behind.",

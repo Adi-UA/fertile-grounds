@@ -68,10 +68,23 @@ public class HotelEffectTests {
       environment = "fertilegrounds:hotel_growth",
       maxTicks = 1200)
   public void hotelGrowsNearbyCropsFaster(final GameTestHelper helper) {
+    assertGrowsNearbyCropsFaster(helper, ModBlocks.FAIRY_HOTEL);
+  }
+
+  /** A Chime Hotel keeps the occupied hotel's crop boost. */
+  @GameTest(
+      structure = "fertilegrounds:empty_medium",
+      environment = "fertilegrounds:hotel_growth",
+      maxTicks = 1200)
+  public void chimeHotelGrowsNearbyCropsFaster(final GameTestHelper helper) {
+    assertGrowsNearbyCropsFaster(helper, ModBlocks.CHIME_FAIRY_HOTEL);
+  }
+
+  private static void assertGrowsNearbyCropsFaster(final GameTestHelper helper, final Block type) {
     final BlockPos hotel = new BlockPos(4, 2, 8);
     final BlockPos near = hotel.east(3);
     final BlockPos far = hotel.east(10);
-    placeHotel(helper, hotel, ModBlocks.FAIRY_HOTEL);
+    placeHotel(helper, hotel, type);
     TestSupport.plantWheat(helper, near);
     TestSupport.plantWheat(helper, far);
     helper.succeedWhen(

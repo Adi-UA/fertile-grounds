@@ -72,6 +72,12 @@ public final class ModBlocks {
           properties -> new FairyHotelBlock(properties, true),
           ModBlockProperties.fairyHotelProperties(12).randomTicks());
 
+  public static final Block CHIME_FAIRY_HOTEL =
+      registerBlockWithItem(
+          "chime_fairy_hotel",
+          ChimeHotelBlock::new,
+          ModBlockProperties.fairyHotelProperties(12).randomTicks());
+
   private ModBlocks() {}
 
   /**
@@ -83,7 +89,7 @@ public final class ModBlocks {
     registerTillable(ENRICHED_DIRT, ENRICHED_FARMLAND);
     registerTillable(SUPER_ENRICHED_DIRT, SUPER_ENRICHED_FARMLAND);
     FertileGrounds.LOGGER.info(
-        "Fertile Grounds: registered 7 blocks (2 tillable pairs, enriched sand, 2 fairy hotels)");
+        "Fertile Grounds: registered 8 blocks (2 tillable pairs, enriched sand, 3 fairy hotels)");
   }
 
   /** Same rule as vanilla dirt: only tills when the block above is air. */

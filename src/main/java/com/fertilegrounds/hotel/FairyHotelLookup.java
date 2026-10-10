@@ -34,7 +34,8 @@ public final class FairyHotelLookup {
    * (0 tickets), since only lookups use it.
    */
   public static void register() {
-    PoiHelper.register(OCCUPIED_HOTEL.identifier(), 0, 1, ModBlocks.FAIRY_HOTEL);
+    PoiHelper.register(
+        OCCUPIED_HOTEL.identifier(), 0, 1, ModBlocks.FAIRY_HOTEL, ModBlocks.CHIME_FAIRY_HOTEL);
   }
 
   /** The closest occupied hotel within {@code radius} blocks (straight-line distance). */

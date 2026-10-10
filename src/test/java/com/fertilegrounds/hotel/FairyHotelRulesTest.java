@@ -20,6 +20,17 @@ class FairyHotelRulesTest {
   }
 
   @Test
+  void aCheckRightAfterDawnSeesIt() {
+    assertTrue(FairyHotelRules.isJustAfterDawn(2 * 24000 + 40, 100));
+  }
+
+  @Test
+  void aCheckLaterInTheDayDoesNot() {
+    assertFalse(FairyHotelRules.isJustAfterDawn(2 * 24000 + 100, 100));
+    assertFalse(FairyHotelRules.isJustAfterDawn(23999, 100));
+  }
+
+  @Test
   void aHotelAloneMakesOneBoostAttempt() {
     assertEquals(1, FairyHotelRules.boostAttempts(false));
   }

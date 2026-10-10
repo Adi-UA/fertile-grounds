@@ -19,6 +19,14 @@ public final class FairyHotelRules {
         (JarredFairyRules.TICKS_PER_DAY - Math.floorMod(clockTime, JarredFairyRules.TICKS_PER_DAY));
   }
 
+  /**
+   * Whether {@code clockTime} falls within {@code window} ticks after a dawn, so a check that runs
+   * every {@code window} ticks sees each dawn exactly once.
+   */
+  public static boolean isJustAfterDawn(final long clockTime, final int window) {
+    return Math.floorMod(clockTime, JarredFairyRules.TICKS_PER_DAY) < window;
+  }
+
   /** How many crop boost attempts a hotel makes on one random tick. */
   public static int boostAttempts(final boolean nectarBeeNearby) {
     return 1 + (nectarBeeNearby ? BEE_EXTRA_ATTEMPTS : 0);
