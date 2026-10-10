@@ -28,12 +28,14 @@ Each step depends on the ones before it.
 | 14 | `add-jade-integration` | Optional Jade tooltips for soil, pending visits, hotel petting, and Chime Hotel crop counts | None |
 | 15 | `add-guide-book` | Vanilla written guide on first join, craftable copy | None |
 | 16 | `add-translations` | Translation-ready text and contributor guide | None |
+| 17 | `add-blight` | Blighted Dirt spreads into soil and withers crops; rare from witches, craftable for sabotage; cured by Fertilizer and fairies | Blighted Dirt |
+| 18 | `add-fairy-grove` | Diamond on a Chime Hotel shrine: fairies level a 35x35 area into lit, watered farm plots with flower borders, hives, and leaf hedges | None |
 
-Visit polish comes before hotels because catching needs the linger window. The GameTest suite comes before hotels so their tests can use mock players from the start. The guide book comes late so its pages describe final behavior, and translations come last so every string exists.
+Visit polish comes before hotels because catching needs the linger window. The GameTest suite comes before hotels so their tests can use mock players from the start. The guide book comes late so its pages describe final behavior, and translations come next so every string so far has a key. Blight comes before the grove because the grove cures it; both add their own lang keys and guide pages.
 
 ### Release steps
 
-After step 16 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the full verification suite on each; bump `mod_version` to 2.0.0 on all four branches; then publish to GitHub, Modrinth, and CurseForge with the release skills.
+After step 18 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the full verification suite on each; bump `mod_version` to 2.0.0 on all four branches; then publish to GitHub, Modrinth, and CurseForge with the release skills.
 
 ## Considered and skipped
 
@@ -60,4 +62,4 @@ After step 16 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the f
 
 ## Next steps
 
-All 16 changes are built on `main` and pass the GameTests. What's left before 2.0.0: the user's in-game playthrough, the user's textures for Fertilizer and the three hotels (placeholders ship until then), a Crowdin project for translations, archiving the changes with `/opsx:archive`, then the release steps above.
+Changes 1 to 16 are built on `main` and pass the GameTests; 17 and 18 are planned. What's left before 2.0.0: building `add-blight` and `add-fairy-grove`, the user's in-game playthrough, the user's textures for Fertilizer and the three hotels (placeholders ship until then), a Crowdin project for translations, archiving the changes with `/opsx:archive`, then the release steps above.

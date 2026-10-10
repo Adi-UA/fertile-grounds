@@ -25,7 +25,7 @@ The README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and th
 - **THEN** its README says the branch stays on 1.2.0 and links to `main`
 
 ### Requirement: Demo world
-Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Library/Application Support/minecraft/saves/`, with cheats on, laid out so each core feature has its own spot along a short path: the soil comparison rows, a fairy farm with ten kinds of flowers and a hive, a Fairy Hotel garden, a Chime Hotel wired to a lamp, the guide book on a lectern, and chests with every mod item. It SHALL load without errors in `runClient` and in a real 26.3 client with the 2.0.0 jar and Fabric API.
+Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Library/Application Support/minecraft/saves/`, with cheats on, laid out so each core feature has its own spot along a short path: the soil comparison rows, a fairy farm with ten kinds of flowers and a hive, a Fairy Hotel garden, a Chime Hotel wired to a lamp, a blighted plot walled off by a path, a Fairy Grove shrine with a clear area around it, the guide book on a lectern, and chests with every mod item. It SHALL load without errors in `runClient` and in a real 26.3 client with the 2.0.0 jar and Fabric API.
 
 #### Scenario: Recording a visit
 - **WHEN** the user loads the demo world, uses Fairy Dust on the fairy farm from the supply chest, and sets the time to night
@@ -34,6 +34,10 @@ Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Li
 #### Scenario: Harvest alarm shot
 - **WHEN** the user waits at the Chime Hotel station
 - **THEN** its field ripens, the hotel chimes, and the lamp blinks
+
+#### Scenario: Grove on camera
+- **WHEN** the user takes a diamond from the supply chest and uses it on the shrine's Chime Hotel
+- **THEN** the safety check passes and the fairies build the full grove while the user records
 
 ### Requirement: Shaders for recording
 `./gradlew runClient -Pshaders` SHALL start the dev client with Sodium and Iris, so a shader pack placed in `run/shaderpacks/` can be turned on. Neither mod nor any shader pack SHALL ship in the mod jar or be committed.

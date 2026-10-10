@@ -2,7 +2,7 @@
 
 ## 0. Before implementation
 
-- [ ] 0.1 The user replaces the placeholder textures with hand-drawn art (Fertilizer; Empty, Occupied, and Chime Fairy Hotel blocks and items; Jarred Fairy; each glow layer); verify `client_log_check.py` and the asset test pass, and close the art tasks in `add-fertilizer`, `add-fairy-jar`, and `add-chime-hotel`
+- [ ] 0.1 The user replaces the placeholder textures with hand-drawn art (Fertilizer; Empty, Occupied, and Chime Fairy Hotel blocks and items; Jarred Fairy; each glow layer; Blighted Dirt); verify `client_log_check.py` and the asset test pass, and close the art tasks in `add-fertilizer`, `add-fairy-jar`, `add-chime-hotel`, and `add-blight`
 
 ## 1. Version support and docs
 
@@ -12,7 +12,7 @@
 
 ## 2. Release builds
 
-- [ ] 2.1 Archive the 16 completed changes with `/opsx:archive`; verify `openspec list` shows none active except this one
+- [ ] 2.1 Archive the 18 completed changes with `/opsx:archive`; verify `openspec list` shows none active except this one
 - [ ] 2.2 Backport 2.0 to `26.2`, then `26.1`, with the porting skill; verify `./gradlew build` (GameTests included) and `client_log_check.py` on each
 - [ ] 2.3 Bump `mod_version` to 2.0.0 on `main`, `26.2`, and `26.1`; verify each jar is named `fertilegrounds-2.0.0+<mc>.jar`
 
