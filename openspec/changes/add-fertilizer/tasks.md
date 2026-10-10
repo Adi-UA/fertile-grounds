@@ -4,7 +4,7 @@
 
 - [ ] 1.1 Ask the user for the hand-drawn Fertilizer texture; verify the PNG sits in `textures/item/` and loads with no missing-texture warning in the `runClient` log
 - [ ] 1.2 Register `FERTILIZER` in `ModItems`, add it to the creative tab, add lang keys; verify it shows in the creative tab in `runClient`
-- [ ] 1.3 Add the recipe and recipe advancement; verify the recipe loads with no parse error and its result count is 4, and add an in-game checklist item for the mixed-flower craft
+- [x] 1.3 Add the recipe and recipe advancement; verify the recipe loads with no parse error and its result count is 4, and add an in-game checklist item for the mixed-flower craft
 
 ## 2. In-place upgrade
 

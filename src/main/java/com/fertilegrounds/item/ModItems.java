@@ -16,6 +16,8 @@ public final class ModItems {
   public static final Item FAIRY_DUST =
       register("fairy_dust", FairyDustItem::new, new Item.Properties());
 
+  public static final Item FERTILIZER = register("fertilizer", Item::new, new Item.Properties());
+
   public static final Item BEAN_FAIRY_SPAWN_EGG =
       register(
           "bean_fairy_spawn_egg",
