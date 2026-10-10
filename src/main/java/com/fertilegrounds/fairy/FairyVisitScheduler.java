@@ -17,9 +17,11 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.levelgen.Heightmap;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Decides when Bean Fairies show up. Once a second, in the overworld only, it:
@@ -64,9 +66,11 @@ public final class FairyVisitScheduler {
   /**
    * Promises a visit to the crop at {@code pos}, used by Fairy Dust.
    *
+   * @param user the player who used the dust and owns the visit, or null for a dispenser
    * @return false if a visit to that crop is already pending
    */
-  public static boolean requestVisit(final ServerLevel level, final BlockPos pos) {
+  public static boolean requestVisit(
+      final ServerLevel level, final BlockPos pos, @Nullable final Player user) {
     if (FairyVisits.hasVisitAt(level, pos)) {
       return false;
     }
@@ -77,7 +81,13 @@ public final class FairyVisitScheduler {
                 FairyTiming.DUST_DELAY_MIN_TICKS, FairyTiming.DUST_DELAY_MAX_TICKS);
     final long arrival =
         FairyTiming.dustArrivalTick(level.getGameTime(), level.isDarkOutside(), delay);
-    FairyVisits.add(level, new FairyVisit(pos.immutable(), arrival));
+    FairyVisits.add(
+        level,
+        FairyVisit.of(
+            pos.immutable(),
+            arrival,
+            FairyVisit.Source.DUST,
+            user == null ? null : user.getUUID()));
     return true;
   }
 
@@ -132,19 +142,23 @@ public final class FairyVisitScheduler {
                     FairyTiming.visitChance(
                         baseChance, farm.flowerTypes(), farm.hasHive(), harvestMoon, bonuses);
                 if (FairyTiming.rollsNaturalVisit(chance, level.getRandom().nextDouble() * 100)) {
-                  scheduleNaturalVisit(level, crop);
+                  scheduleNaturalVisit(level, crop, player);
                 }
               });
     }
   }
 
-  private static void scheduleNaturalVisit(final ServerLevel level, final BlockPos crop) {
+  private static void scheduleNaturalVisit(
+      final ServerLevel level, final BlockPos crop, final ServerPlayer player) {
     final int delay =
         level
             .getRandom()
             .nextIntBetweenInclusive(
                 FairyTiming.NATURAL_DELAY_MIN_TICKS, FairyTiming.NATURAL_DELAY_MAX_TICKS);
-    FairyVisits.add(level, new FairyVisit(crop, level.getGameTime() + delay));
+    FairyVisits.add(
+        level,
+        FairyVisit.of(
+            crop, level.getGameTime() + delay, FairyVisit.Source.NATURAL, player.getUUID()));
     FertileGrounds.LOGGER.debug("Natural fairy visit scheduled at {}", crop);
   }
 

@@ -2,8 +2,8 @@
 
 ## 1. Visit owner
 
-- [ ] 1.1 Add `source` and `owner` to `FairyVisit` with optional codec fields; verify a JUnit codec test decodes a 1.2.0-shaped entry as UNOWNED
-- [ ] 1.2 Record the owner in natural rolls and `FairyDustItem` (none for dispensers); verify the smoke test inspects a pending visit's owner after a fake player uses dust
+- [x] 1.1 Add `source` and `owner` to `FairyVisit` with optional codec fields; verify a JUnit codec test decodes a 1.2.0-shaped entry as UNOWNED
+- [x] 1.2 Record the owner in natural rolls and `FairyDustItem` (none for dispensers); verify JUnit shows a visit with no player is unowned, and add to the user's in-game checklist: a gift from your own Fairy Dust visit (owners need a player, which the smoke server can't have)
 
 ## 2. Gift rules
 
