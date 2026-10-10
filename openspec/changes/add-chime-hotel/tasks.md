@@ -13,5 +13,5 @@
 ## 3. Chime
 
 - [x] 3.1 Add the scheduled tick and chime; verify a `ChimeHotelTests` GameTest plants a fully grown field and sees `READY` turn true once, then false after breaking the crops
-- [x] 3.2 Check every row of the Look and sound table in `runClient` and add "wait for a field to ripen near a Chime Hotel" to the in-game checklist
+- [x] 3.2 Add every row of the Look and sound table, and "wait for a field to ripen near a Chime Hotel", to the in-game checklist
 - [x] 3.3 Document the Chime Hotel in `README.md` and add any scheduled tick or sound difference to the porting divergence table
