@@ -2,8 +2,8 @@
 
 ## 1. Dive fix
 
-- [ ] 1.1 Reproduce the fairy sinking into the ground in `runClient` with the spawn egg on an open field; record the cause in design.md
-- [ ] 1.2 Add the spawn height and open-sky clamp; verify a smoke test check logs the fairy's lowest Y during a visit and fails if it drops below crop Y + 1, and the existing roofed-crop check still passes
+- [x] 1.1 Reproduce the fairy sinking into the ground on an open field (in the smoke server, by tracking the fairy's lowest Y each tick, since only a person can watch `runClient`); record the cause in design.md
+- [x] 1.2 Add the spawn height and open-sky clamp; verify a smoke test check logs the fairy's lowest Y during a visit and fails if it drops below crop Y + 1, and the existing roofed-crop check still passes
 
 ## 2. Phases
 

@@ -19,6 +19,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 /**
  * Decides when Bean Fairies show up. Once a second, in the overworld only, it:
@@ -175,8 +176,12 @@ public final class FairyVisitScheduler {
     if (fairy == null) {
       return;
     }
-    fairy.setPos(
-        target.getX() + 0.5, target.getY() + SPAWN_HEIGHT_ABOVE_TARGET, target.getZ() + 0.5);
+    // Start above whatever is tallest there (trees, a roof), so the fairy comes down from open sky.
+    final int spawnY =
+        Math.max(
+            target.getY() + SPAWN_HEIGHT_ABOVE_TARGET,
+            level.getHeight(Heightmap.Types.MOTION_BLOCKING, target.getX(), target.getZ()) + 2);
+    fairy.setPos(target.getX() + 0.5, spawnY, target.getZ() + 0.5);
     fairy.setTargetCrop(target);
     level.addFreshEntity(fairy);
     FairyVisitEvents.onFairyArrived(level, fairy);

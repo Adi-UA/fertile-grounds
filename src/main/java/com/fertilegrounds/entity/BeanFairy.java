@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -18,6 +19,9 @@ import org.jetbrains.annotations.Nullable;
 public class BeanFairy extends PathfinderMob {
 
   @Nullable private BlockPos targetCrop;
+
+  /** The lowest Y this fairy may reach, or null for no limit (see {@link #keepAbove}). */
+  @Nullable private Double floorY;
 
   public BeanFairy(final EntityType<? extends BeanFairy> type, final Level level) {
     super(type, level);
@@ -35,6 +39,18 @@ public class BeanFairy extends PathfinderMob {
     this.noPhysics = true;
     super.tick();
     this.noPhysics = false;
+    // Flying through blocks also means nothing stops the fly-in from overshooting into the
+    // ground, so an open-sky visit holds the fairy at its floor instead.
+    if (this.floorY != null && this.getY() < this.floorY) {
+      this.setPos(this.getX(), this.floorY, this.getZ());
+      final Vec3 motion = this.getDeltaMovement();
+      this.setDeltaMovement(motion.x, Math.max(0, motion.y), motion.z);
+    }
+  }
+
+  /** Never lets the fairy sink below {@code y}. Used over open-sky crops, not covered ones. */
+  public void keepAbove(final double y) {
+    this.floorY = y;
   }
 
   public static AttributeSupplier.Builder createAttributes() {

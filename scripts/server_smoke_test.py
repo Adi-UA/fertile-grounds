@@ -30,11 +30,13 @@ class Suite:
     setup: list[tuple[str, float]]  # (command, seconds to wait after it)
     checks: dict[str, str]  # marker -> command that prints the marker only when the check passes
     guards: str = ""  # the fixed bugs this suite catches, by commit
+    # Commands that print a value for the summary without passing or failing, such as a score.
+    report: list[str] = field(default_factory=list)
     # Log text -> how many lines must contain it, for behavior that only shows in the server log.
     expect_log: dict[str, int] = field(default_factory=dict)
-    # Files for a test datapack, as path under data/ -> JSON. It loads for the whole run, so it
-    # must not break other suites.
-    datapack: dict[str, dict] = field(default_factory=dict)
+    # Files for a test datapack, as path under data/ -> JSON (a dict) or text (an .mcfunction).
+    # It loads for the whole run, so it must not break other suites.
+    datapack: dict[str, dict | str] = field(default_factory=dict)
 
 
 # Runs before every suite. All test areas sit at y=200 inside this region, so terrain never
@@ -44,11 +46,23 @@ COMMON_SETUP = [
     ("weather clear", 0),  # rain keeps farmland moist and would block the dry-out check
 ]
 
+# Every tick, the lowest Y (times 100) any fairy over the open-field patch has reached.
+OPEN_FIELD_FAIRY = "@e[type=fertilegrounds:bean_fairy,x=-3,y=195,z=-3,dx=6,dy=20,dz=6]"
+
 FAIRY_VISIT = Suite(
     name="fairy_visit",
+    datapack={
+        "minecraft/tags/function/tick.json": {"values": ["smoke:track_fairy"]},
+        "smoke/function/track_fairy.mcfunction": (
+            f"execute as {OPEN_FIELD_FAIRY} store result score @s smoke run data get entity @s Pos[1] 100\n"
+            f"execute as {OPEN_FIELD_FAIRY} run scoreboard players operation #open_min smoke < @s smoke\n"
+        ),
+    },
     guards="88d5657 (fairy stuck under a roof or with no crop nearby)",
     setup=[
         ("gamerule random_tick_speed 0", 0),  # only fairies may grow crops
+        ("scoreboard objectives add smoke dummy", 0),
+        ("scoreboard players set #open_min smoke 100000", 0),
         # Open field: a 5x5 wheat patch plus a carrot just outside the fairy's reach.
         ("fill -2 200 -2 3 200 2 minecraft:farmland", 0),
         ("fill -2 201 -2 2 201 2 minecraft:wheat[age=0]", 0),
@@ -69,7 +83,10 @@ FAIRY_VISIT = Suite(
         "OUTSIDE_UNTOUCHED": "execute if block 3 201 0 minecraft:carrots[age=0] run say OUTSIDE_UNTOUCHED",
         "ROOFED_GROWN": "execute if block 12 201 0 minecraft:wheat[age=7] run say ROOFED_GROWN",
         "FAIRIES_GONE": "execute unless entity @e[type=fertilegrounds:bean_fairy] run say FAIRIES_GONE",
+        # The wheat is at y=201, so an open-sky fairy must never drop below y=202.
+        "OPEN_FIELD_NEVER_SANK": "execute if score #open_min smoke matches 20200.. run say OPEN_FIELD_NEVER_SANK",
     },
+    report=["scoreboard players get #open_min smoke"],
     # The roofed fairy's visit goes through FairyVisitEvents.onVisitGrown, the hook every visit uses.
     expect_log={"Fairy visit grew crops at 12, 201, 0": 1},
 )
@@ -260,7 +277,7 @@ def has_error(line: str) -> bool:
     return any(marker in line for marker in ERROR_MARKERS)
 
 
-def write_datapack(pack_dir: Path, files: dict[str, dict]) -> None:
+def write_datapack(pack_dir: Path, files: dict[str, dict | str]) -> None:
     """A new world enables every pack found in its datapacks folder, so writing it is enough."""
     if not files:
         return
@@ -268,7 +285,7 @@ def write_datapack(pack_dir: Path, files: dict[str, dict]) -> None:
     for path, content in {"pack.mcmeta": meta, **{f"data/{p}": c for p, c in files.items()}}.items():
         target = pack_dir / path
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(json.dumps(content, indent=2))
+        target.write_text(content if isinstance(content, str) else json.dumps(content, indent=2))
 
 
 def main() -> int:
@@ -325,7 +342,7 @@ def main() -> int:
         for command, wait in suite.setup:
             send(command)
             time.sleep(wait)
-        for command in suite.checks.values():
+        for command in [*suite.checks.values(), *suite.report]:
             send(command)
         time.sleep(3)
     send("stop")
@@ -333,6 +350,7 @@ def main() -> int:
     server.wait(timeout=60)
 
     output = "".join(log)
+    (run_dir / "smoke_test.log").write_text(output)
     failed = False
     for suite in suites:
         print(f"== {suite.name}" + (f" (guards {suite.guards})" if suite.guards else ""))
@@ -344,6 +362,9 @@ def main() -> int:
             seen = sum(text in line for line in log)
             failed |= seen != expected
             print(f"{'pass' if seen == expected else 'FAIL'}: log shows '{text}' {seen}x (expected {expected})")
+    for line in log:
+        if " has " in line and "[smoke]" in line:  # scoreboard readouts from report commands
+            print(f"info: {line.split(']: ')[-1].rstrip()}")
     error_lines = [line.rstrip() for line in log if has_error(line)]
     for line in error_lines:
         print(f"FAIL: {line}")

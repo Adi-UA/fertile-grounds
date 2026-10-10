@@ -70,6 +70,11 @@ class VisitCropGoal extends Goal {
       return;
     }
     this.target = crop;
+    // A covered crop (under glass or a roof) keeps the fly-through-blocks path; an open one
+    // gets a floor 1 block above the crop so the fairy never dips into the ground.
+    if (level().canSeeSky(crop.above())) {
+      this.fairy.keepAbove(crop.getY() + 1);
+    }
   }
 
   @Override
