@@ -48,6 +48,16 @@ public final class HotelChimes {
   /** Whether the field around {@code hotel} is ready, given whether it was at the last check. */
   public static ChimeRules.Check check(
       final ServerLevel level, final BlockPos hotel, final boolean wasReady) {
+    final Field field = countField(level, hotel);
+    return ChimeRules.next(
+        wasReady,
+        field.grown(),
+        field.total(),
+        level.getGameRules().get(ModGameRules.CHIME_READY_PERCENT));
+  }
+
+  /** The fairy crops within reach of {@code hotel}, and how many of them are fully grown. */
+  public static Field countField(final ServerLevel level, final BlockPos hotel) {
     int grown = 0;
     int total = 0;
     for (final BlockPos pos :
@@ -62,9 +72,11 @@ public final class HotelChimes {
         }
       }
     }
-    return ChimeRules.next(
-        wasReady, grown, total, level.getGameRules().get(ModGameRules.CHIME_READY_PERCENT));
+    return new Field(grown, total);
   }
+
+  /** A Chime Hotel's field: fully grown crops out of all crops in reach. */
+  public record Field(int grown, int total) {}
 
   /**
    * Rings the chime at {@code hotel}. A ready field gets more notes floating up and a burst of

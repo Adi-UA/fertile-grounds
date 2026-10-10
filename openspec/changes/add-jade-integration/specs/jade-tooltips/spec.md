@@ -14,7 +14,7 @@ The mod SHALL load and work the same without Jade installed, and SHALL NOT list 
 - **THEN** the game loads with no Jade-related errors in the log
 
 ### Requirement: Soil tooltip
-With Jade, looking at a Fertile Grounds soil block SHALL show its current boost chance from the gamerules.
+With Jade, looking at Enriched or Super Enriched Farmland, or Enriched Sand, SHALL show its current boost chance from the gamerules. Enriched dirt shows no chance, since it only boosts crops once tilled.
 
 #### Scenario: Super Enriched
 - **WHEN** a player with Jade looks at Super Enriched Farmland with default gamerules

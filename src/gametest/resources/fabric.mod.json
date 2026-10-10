@@ -29,7 +29,8 @@
 			"com.fertilegrounds.gametest.FairySpeedTests",
 			"com.fertilegrounds.gametest.ChimeHotelTests",
 			"com.fertilegrounds.gametest.RedstoneTests",
-			"com.fertilegrounds.gametest.TraderTests"
+			"com.fertilegrounds.gametest.TraderTests",
+			"com.fertilegrounds.gametest.JadeDataTests"
 		]
 	},
 	"depends": {

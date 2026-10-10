@@ -17,6 +17,10 @@
 		],
 		"client": [
 			"com.fertilegrounds.client.FertileGroundsClient"
+		],
+		"jade": [
+			"com.fertilegrounds.compat.jade.FertileGroundsJadePlugin",
+			"com.fertilegrounds.client.compat.jade.FertileGroundsJadeClientPlugin"
 		]
 	},
 	"mixins": [
@@ -27,5 +31,8 @@
 		"minecraft": "~26.3",
 		"java": ">=17",
 		"fabric-api": "*"
+	},
+	"suggests": {
+		"jade": "*"
 	}
 }

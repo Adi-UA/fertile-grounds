@@ -52,6 +52,11 @@ public class GrowthBoostedSandBlock extends FallingBlock {
         world, pos, random, world.getGameRules().get(this.boostChanceRule));
   }
 
+  /** The gamerule holding this soil's boost chance, which Jade shows. */
+  public GameRule<Integer> boostChanceRule() {
+    return this.boostChanceRule;
+  }
+
   /** A comparator reads this soil's tier. */
   @Override
   protected boolean hasAnalogOutputSignal(final BlockState state) {
