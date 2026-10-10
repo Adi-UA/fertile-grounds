@@ -62,4 +62,4 @@ After step 18 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the f
 
 ## Next steps
 
-Changes 1 to 16 are built on `main` and pass the GameTests; 17 and 18 are planned. What's left before 2.0.0: building `add-blight` and `add-fairy-grove`, the user's in-game playthrough, the user's textures for Fertilizer and the three hotels (placeholders ship until then), a Crowdin project for translations, archiving the changes with `/opsx:archive`, then the release steps above.
+All 18 changes are built on `main` and pass the GameTests. What's left before 2.0.0: the user's in-game playthrough (changes 17 and 18 are still untested in game), the user's textures for Fertilizer, the three hotels, and Blighted Dirt (placeholders ship until then), a Crowdin project for translations, archiving the changes with `/opsx:archive`, then the release steps above.
