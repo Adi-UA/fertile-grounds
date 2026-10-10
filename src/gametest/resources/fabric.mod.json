@@ -1,0 +1,43 @@
+{
+	"schemaVersion": 1,
+	"id": "fertilegrounds-gametest",
+	"version": "1.0.0",
+	"name": "Fertile Grounds GameTests",
+	"description": "In-world tests for Fertile Grounds. Development only; never shipped.",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"com.fertilegrounds.gametest.SetupTests",
+			"com.fertilegrounds.gametest.FairyVisitTests",
+			"com.fertilegrounds.gametest.FairyLingerTests",
+			"com.fertilegrounds.gametest.HarvestMoonTests",
+			"com.fertilegrounds.gametest.SoilRegressionTests",
+			"com.fertilegrounds.gametest.FairyContentTagTests",
+			"com.fertilegrounds.gametest.TuningGameruleTests",
+			"com.fertilegrounds.gametest.FertilizerTests",
+			"com.fertilegrounds.gametest.AdvancementTests",
+			"com.fertilegrounds.gametest.GiftTableTests",
+			"com.fertilegrounds.gametest.FairyDustTests",
+			"com.fertilegrounds.gametest.NaturalVisitTests",
+			"com.fertilegrounds.gametest.VisitFeedbackTests",
+			"com.fertilegrounds.gametest.FairyGiftTests",
+			"com.fertilegrounds.gametest.ShyFlightTests",
+			"com.fertilegrounds.gametest.FairyHotelTests",
+			"com.fertilegrounds.gametest.FairyCatchTests",
+			"com.fertilegrounds.gametest.JarredFairyExpiryTests",
+			"com.fertilegrounds.gametest.HotelEffectTests",
+			"com.fertilegrounds.gametest.FairySpeedTests",
+			"com.fertilegrounds.gametest.ChimeHotelTests",
+			"com.fertilegrounds.gametest.RedstoneTests",
+			"com.fertilegrounds.gametest.TraderTests",
+			"com.fertilegrounds.gametest.JadeDataTests",
+			"com.fertilegrounds.gametest.GuideBookTests",
+			"com.fertilegrounds.gametest.BlightTests",
+			"com.fertilegrounds.gametest.FairyGroveTests"
+		]
+	},
+	"depends": {
+		"fertilegrounds": "*",
+		"fabric-gametest-api-v1": "*"
+	}
+}

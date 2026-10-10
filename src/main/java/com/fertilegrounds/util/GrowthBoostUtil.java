@@ -18,7 +18,7 @@ public final class GrowthBoostUtil {
 
   /**
    * Attempts one bone-meal-equivalent growth stage on whatever is directly above {@code pos}, with
-   * probability {@code chance} per call. Mirrors the check-and-apply sequence vanilla's
+   * a {@code chancePercent} in 100 chance per call. Mirrors the check-and-apply sequence vanilla's
    * BoneMealItem uses on a right-click, minus the item-consumption side effects, since no item is
    * involved here.
    *
@@ -26,24 +26,40 @@ public final class GrowthBoostUtil {
    * roll at low chance values) costs nothing.
    */
   public static void tryBoostAbove(
-      final ServerLevel world, final BlockPos pos, final RandomSource random, final float chance) {
-    if (random.nextFloat() >= chance) {
-      return;
+      final ServerLevel world,
+      final BlockPos pos,
+      final RandomSource random,
+      final int chancePercent) {
+    tryBoostAt(world, pos.above(), random, chancePercent);
+  }
+
+  /**
+   * Same as {@link #tryBoostAbove}, for the plant at {@code pos} itself.
+   *
+   * @return true if the plant grew
+   */
+  public static boolean tryBoostAt(
+      final ServerLevel world,
+      final BlockPos pos,
+      final RandomSource random,
+      final int chancePercent) {
+    if (random.nextInt(100) >= chancePercent) {
+      return false;
     }
 
-    final BlockPos abovePos = pos.above();
-    final BlockState aboveState = world.getBlockState(abovePos);
-    if (!(aboveState.getBlock() instanceof BonemealableBlock bonemealable)) {
-      return;
+    final BlockState state = world.getBlockState(pos);
+    if (!(state.getBlock() instanceof BonemealableBlock bonemealable)) {
+      return false;
     }
-    if (!bonemealable.isValidBonemealTarget(world, abovePos, aboveState)) {
-      return;
+    if (!bonemealable.isValidBonemealTarget(world, pos, state)) {
+      return false;
     }
-    if (!bonemealable.isBonemealSuccess(world, random, abovePos, aboveState)) {
-      return;
+    if (!bonemealable.isBonemealSuccess(world, random, pos, state)) {
+      return false;
     }
 
-    bonemealable.performBonemeal(world, random, abovePos, aboveState);
-    FertileGrounds.LOGGER.debug("Passively fertilized {} at {}", aboveState.getBlock(), abovePos);
+    bonemealable.performBonemeal(world, random, pos, state);
+    FertileGrounds.LOGGER.debug("Passively fertilized {} at {}", state.getBlock(), pos);
+    return true;
   }
 }

@@ -1,6 +1,6 @@
 # Agent guide for Fertile Grounds
 
-A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the Bean Fairy, a rare night visitor that fully grows a 5x5 patch of crops. `README.md` describes the gameplay; this file covers how to work on the code.
+A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the Bean Fairy, a rare night visitor that fully grows a 5x5 patch of crops. `README.md` pitches the mod and `docs/DETAILS.md` describes the gameplay in full; this file covers how to work on the code.
 
 ## Layout
 
@@ -11,32 +11,42 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `item/` | Fairy Dust, non-block items (`ModItems`), creative tab |
 | `entity/` | `BeanFairy` mob, its `VisitCropGoal`, registration (`ModEntities`) |
 | `fairy/` | When fairies visit: `FairyTiming` (pure rules), `FairyVisits` (saved list), `FairyVisitScheduler` (tick handler) |
-| `util/` | Shared helpers: ids, bone-meal boost, full crop growth |
+| `hotel/` | Jarred Fairies and Fairy Hotels: `JarredFairyRules` (pure rules), `JarredFairies` (slipping away in the world), `ChimeRules` and `HotelChimes` (when a Chime Hotel rings); the hotel blocks live in `block/` |
+| `blight/` | Blighted Dirt's spread odds (`BlightRules`, pure), taking and curing soil (`Blight`), and the witch curse; the block lives in `block/` |
+| `grove/` | The Fairy Grove: `GroveLayout` (pure), `GroveShrine` (the shrine check), `FairyGrove` (start and safety scan), `GroveBuilder` (saved jobs, column building, builder fairies) |
+| `compat/jade/` | Optional Jade tooltips: server data providers here, tooltip lines in `src/client/.../compat/jade/`; loaded only through the `jade` entrypoint |
+| `mixin/` | Small mixins, only where Fabric API has no hook (container opened, item entity tick, creeper goals, farmland trampling) |
+| `util/` | Shared helpers: ids, tags (`ModTags`), gamerules (`ModGameRules`), bone-meal boost, full crop growth |
 | `src/client/` | Fairy model and renderer, client registration |
-| `src/test/` | JUnit tests for the Minecraft-free logic |
-| `scripts/server_smoke_test.py` | Boots a server and checks the fairy in a real world |
+| `src/test/` | JUnit tests for the Minecraft-free logic, plus `AssetConsistencyTest` for resource files |
+| `src/gametest/` | Fabric GameTests: in-world checks with mock players, one class per feature, with their test environments and structures under `resources/` |
+| `scripts/` | `run_gametests.py` runs the GameTests and fails on data-load errors; `client_log_check.py` boots the client and fails on asset warnings |
+| `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` orders them |
 | `art_source/` | The user's Aseprite source files and the fairy texture guide |
 
 Keep one job per class. Registration lives in the `Mod*` classes; the entry points only call `register()`. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Comments explain Minecraft quirks for someone new to modding, not what the code already says.
 
 ## Branches
 
-There's one branch per Minecraft version (the list is in `README.md`), and `main` tracks the newest one. Code stays identical across branches, except where a Minecraft or Fabric API change forces a difference. New features land on the newest branch first, then get backported one version at a time, following `.claude/skills/porting-minecraft-version/SKILL.md`.
+There's one branch per Minecraft version (the list is in `docs/DETAILS.md`), and `main` tracks the newest one. Code stays identical across branches, except where a Minecraft or Fabric API change forces a difference. New features land on the newest branch first, then get backported one version at a time, following `.claude/skills/porting-minecraft-version/SKILL.md`.
 
 ## Commands
 
 ```bash
-./gradlew build                       # compile, spotlessCheck, unit tests
+./gradlew build                       # compile, spotlessCheck, unit tests, GameTests
 ./gradlew spotlessApply               # format Java (google-java-format)
 ./gradlew test                        # unit tests only
-python3 scripts/server_smoke_test.py  # real-world check, exits 1 on failure
+python3 scripts/run_gametests.py      # GameTests plus the data-load error scan, exits 1 on failure
+python3 scripts/run_gametests.py --filter 'fairy_dust*'  # only tests whose names match
+python3 scripts/client_log_check.py   # boots the client, fails on mod warnings
+./gradlew runGameTest -PnoJade        # GameTests without Jade, to check the mod works without it
 ./gradlew runClient                   # dev client, for models and textures
 ./gradlew genSources                  # decompile Minecraft to read real signatures
 ```
 
 ## Verification
 
-A passing `build` only proves compilation. Data files (recipes, advancements, tags) fail silently until a world loads, so also run the smoke test. The dedicated server never loads models or textures, so for those, start `runClient` in the background, grep its log for `Fertile Grounds initializing` and any `WARN`/`ERROR` lines that name `fertilegrounds` or a missing model, then kill it. Hand anything that needs a real player (Fairy Dust, sleeping through the night, how things look) to the user as a short in-game checklist, and say which parts went untested.
+`AssetConsistencyTest` catches missing lang keys, models, and textures and outdated recipe JSON. Data files and mob behavior fail silently until a world loads, so each feature adds GameTests in `src/gametest/` (register new classes in its `fabric.mod.json`), and `run_gametests.py` also fails on data that logs a load error without breaking a test. Tests use mock players for anything a player does; tests that move the clock or change gamerules get their own test environment, since tests sharing one run at the same time. The test server never loads models, textures, or sounds, so for changes that touch assets, run `client_log_check.py`. Only looks, sounds, and sleeping through the night (vanilla needs every real player asleep) go to the user as a short in-game checklist; say which parts went untested. Every fixed bug gets a regression check in a GameTest or JUnit, so it can't silently return on another branch.
 
 ## Looking things up
 
@@ -44,7 +54,7 @@ Never guess a Minecraft signature or data format. After `genSources`, the decomp
 
 ## Art
 
-The user paints textures in Aseprite and keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. `art_source/bean_fairy_guide.png` labels which part of the 32x32 fairy texture maps to which model face. Moving a model part's `texOffs` changes that layout, so tell the user before doing it.
+No AI art ships in the mod. The user draws or traces every texture by hand in Aseprite, based on vanilla textures, and AI may only guide that work: UV templates, labeled guides, palettes, and placeholders that the user's art replaces before release. Never generate a texture meant to ship. The user keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. `art_source/bean_fairy_guide.png` labels which part of the 32x32 fairy texture maps to which model face. Moving a model part's `texOffs` changes that layout, so tell the user before doing it.
 
 ## Git and releases
 

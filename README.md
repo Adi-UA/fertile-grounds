@@ -8,81 +8,46 @@
 
 [![Modrinth downloads](https://img.shields.io/modrinth/dt/fertile-grounds?logo=modrinth&label=Modrinth)](https://modrinth.com/mod/fertile-grounds) [![CurseForge downloads](https://img.shields.io/curseforge/dt/1627313?logo=curseforge&label=CurseForge)](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds)
 
-Available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds) and [Modrinth](https://modrinth.com/mod/fertile-grounds).
+**Richer soil, a shy little fairy, and a farm that grows a little faster every day.** Fertile Grounds is a cozy Fabric mod that keeps the vanilla look and plays nicely with big farming mods. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
 
-Fertile Grounds is a Fabric mod for Minecraft 26.2 that adds tiered soil-enrichment blocks. Place one once, and it has a chance every so often to bone-meal whatever grows on top of it on its own, so you stop manually reapplying bone meal to the same farm every few minutes. That works out to roughly 4x faster growth on Tier 1/Tier 2 soil and roughly 11x faster on Super Enriched soil, for a single well-watered crop. It's a convenience upgrade, not a balance-breaking one: the soil still floods, dries out, and gets trampled like normal dirt or sand.
+![Vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, with the enriched crops growing faster](docs/hero.gif)
 
-![Fertile Grounds demo: vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, showing the growth speed difference over time](docs/hero.gif)
+*Sped up for the clip; at normal speed the soils keep the same order, just slower.*
 
-*Recorded with `/gamerule randomTickSpeed 100` to make the difference visible in a short clip. Default random tick speed (3) looks the same relative to each other, just much slower in real time.*
+## Grow more, work less
 
-![Bean Fairy demo: a Bean Fairy visiting a farm at night and fully growing the crops](docs/bean_fairy.gif)
+- **Enriched Soil** gives your crops a free pinch of bone meal now and then, so they grow about 4 times faster, or 11 times on **Super Enriched** soil.
+- **Fertilizer** upgrades the farm you already have, right under your crops. No digging up, no replanting.
 
-**New in version 1.2.0: Bean Fairies.** Like Stardew Valley's Crop Fairy, one can show up on any night and fully grow a patch of your crops. Or craft Fairy Dust and sprinkle it on a crop to guarantee a visit that night.
+## Meet the Bean Fairy
 
-Coming Soon: Put Bean Fairies in a jar to ...?
+![A Bean Fairy visiting a farm at night and growing the crops](docs/bean_fairy.gif)
 
-## What it adds
+- Some nights, a tiny Bean Fairy floats down and grows a whole patch of crops at once. **Fairy Dust** calls one on purpose.
+- Flowers and beehives make your farm more welcoming, and under a full **Harvest Moon** fairies visit three times as often.
+- Fairies sometimes leave a gift behind. Bigger farms get better gifts.
 
-Three tiers, each a drop-in soil upgrade that behaves like its vanilla counterpart (till it, plant on it, it still floods/dries/tramples) but with a chance per random tick to instantly advance whatever's growing on top of it, as if bone-mealed:
+## Give a fairy a home
 
-| Tier | Block(s) | Crafted from | Boost chance/tick |
-|---|---|---|---|
-| 1 | Enriched Dirt / Enriched Farmland | Dirt + Bone Meal | 15% |
-| 2 | Enriched Sand | Sand + Bone Meal | 15% |
-| 3 | Super Enriched Dirt / Super Enriched Farmland | Dirt + Bone Meal + Glowstone Dust | 50% |
+- Sneak up on a fairy after its work and catch it in a bottle, then build it a **Fairy Hotel** so it stays for good.
+- A hotel fairy helps nearby crops, fills beehives with honey, keeps creepers away, and stops trampling. Brush it once a day to keep it happy.
+- Upgrade to a **Chime Hotel** and it rings a soft chime when your field is ready to harvest, with a redstone signal for farm machines.
+- Late game, give a Chime Hotel shrine a Diamond and its fairies turn the land around it into a **Fairy Grove**: a leveled, lantern-lit garden of watered farm plots.
 
-All three are craftable (shapeless, 1:1:1, no crafting table shape required) and unlock in the recipe book the first time you hold the right ingredients.
+## Beware the blight
 
-**Enriched Dirt / Super Enriched Dirt** work exactly like vanilla dirt: till them into farmland with a hoe, only the farmland form accepts crops. Their farmland reverts back to their *own* dirt tier (not vanilla dirt) on drought or trampling, and shows a darker, moist texture at full hydration, same as vanilla farmland.
+- Rarely, a fallen witch leaves **Blighted Dirt** behind. It creeps across soil and withers crops until you cure it with Fertilizer or a fairy visit.
+- On servers, rivals can craft it to sabotage each other's farms. A simple path keeps it out.
 
-**Enriched Sand** behaves like vanilla sand (sugar cane can still be planted on it near water), no tilling involved. It boosts whatever bonemealable plant is directly on top of it, bamboo is the clearest example since it can grow on sand; sugar cane and cactus don't accept bone meal in vanilla, so they grow at normal speed on it either way.
+## Little extras
 
-All of the mod's items live in their own creative-inventory tab, "Fertile Grounds."
+- A friendly **guide book** on your first join explains everything, in your own language.
+- Optional **[Jade](https://modrinth.com/mod/jade)** tooltips show soil boosts, coming visits, and crop counts.
+- Wandering Traders sometimes sell Fairy Dust and Fertilizer.
 
-### Bean Fairy
+## For modpack makers and developers
 
-Like Stardew Valley's Crop Fairy, a Bean Fairy (a tiny winged edamame pod) sometimes visits a farm at night and fully grows every crop in a 5x5 patch. Each night, every player in the Overworld has a 1% chance of a visit to a random crop within 16 blocks. If everyone sleeps through it, the crops are grown at dawn anyway.
-
-To call one on purpose, craft **Fairy Dust** (shapeless: Glowstone Dust + Amethyst Shard + Bone Meal) and use it on a growing crop. Fairies still only come at night: within about 30 seconds if it's already dark, otherwise at nightfall. Only crops in the vanilla `#minecraft:crops` tag count (wheat, carrots, potatoes, beetroots, melon and pumpkin stems, torchflowers, pitcher plants).
-
-The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop.
-
-## Minecraft version
-
-This branch targets Minecraft 26.2. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
-
-| Branch | Minecraft version |
-|---|---|
-| `1.20.1` | 1.20.1 |
-| `1.21.1` | 1.21.1 |
-| `1.21.10` | 1.21.10 |
-| `1.21.11` | 1.21.11 |
-| `26.1` | 26.1 |
-| `26.2` | 26.2 (this branch) |
-| `26.3` / `main` | 26.3 (latest supported version) |
-
-## Requirements
-
-- Minecraft 26.2
-- [Fabric Loader](https://fabricmc.net/) 0.19.3+
-- [Fabric API](https://modrinth.com/mod/fabric-api) 0.156.0+26.2
-- Java 25+
-
-## Building from source
-
-```
-./gradlew build
-```
-
-The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-1.2.0+26.2.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
-
-## Development
-
-```
-./gradlew runClient      # launch a dev client with the mod loaded
-./gradlew spotlessApply  # auto-format code
-```
+Everything is tunable with gamerules, and crops and flowers come from tags, so modded content works without code. [docs/DETAILS.md](docs/DETAILS.md) lists every number, recipe, tag, gamerule, and supported version. Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3; on 1.21.11 and older, use 1.2.0. Needs [Fabric API](https://modrinth.com/mod/fabric-api); build with `./gradlew build` on Java 25. [AGENTS.md](AGENTS.md) covers the code, and [CONTRIBUTING.md](CONTRIBUTING.md) explains how to add a translation.
 
 ## Art
 
@@ -90,6 +55,6 @@ The art in the repo is partially AI generated. I am using AI to help me learn pi
 
 I am just tracing over vanilla textures to avoid stealing stylistic choices from others.
 
-## License
+## Feedback and license
 
-MIT. See `LICENSE`.
+Found a bug or have an idea? [Open an issue](https://github.com/Adi-UA/fertile-grounds/issues/new/choose), or share your farm in [Discussions](https://github.com/Adi-UA/fertile-grounds/discussions). MIT licensed, see `LICENSE`.

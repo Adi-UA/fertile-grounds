@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "FBF",
+    "FLF",
+    "FFF"
+  ],
+  "key": {
+    "F": "#fertilegrounds:fairy_flowers",
+    "B": "minecraft:firefly_bush",
+    "L": "minecraft:lantern"
+  },
+  "result": {
+    "count": 1,
+    "id": "fertilegrounds:empty_fairy_hotel"
+  }
+}

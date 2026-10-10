@@ -24,7 +24,7 @@
     ["has_glowstone_dust", "has_the_recipe", "has_the_recipe_from_enriched_dirt"]
   ],
   "rewards": {
-    "recipes": [
+    "recipe": [
       "fertilegrounds:super_enriched_dirt",
       "fertilegrounds:super_enriched_dirt_from_enriched_dirt"
     ]

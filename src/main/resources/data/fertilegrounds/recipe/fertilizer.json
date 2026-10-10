@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bone_meal",
+    "minecraft:glowstone_dust",
+    "minecraft:glowstone_dust",
+    "#fertilegrounds:fairy_flowers",
+    "#fertilegrounds:fairy_flowers",
+    "#fertilegrounds:fairy_flowers",
+    "#fertilegrounds:fairy_flowers",
+    "#fertilegrounds:fairy_flowers",
+    "#fertilegrounds:fairy_flowers"
+  ],
+  "result": {
+    "count": 4,
+    "id": "fertilegrounds:fertilizer"
+  }
+}

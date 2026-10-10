@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "fertilegrounds:block/fairy_hotel"
+    },
+    "hanging=true": {
+      "model": "fertilegrounds:block/fairy_hotel_hanging"
+    }
+  }
+}

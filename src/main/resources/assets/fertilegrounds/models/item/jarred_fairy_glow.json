@@ -1,0 +1,6 @@
+{
+  "parent": "fertilegrounds:item/glow_overlay",
+  "textures": {
+    "glow": "fertilegrounds:item/jarred_fairy_glow"
+  }
+}

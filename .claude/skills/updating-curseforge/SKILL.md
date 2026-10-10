@@ -64,7 +64,7 @@ Use the Modrinth body, but point the Fabric API link at `https://www.curseforge.
    | Jar | Minecraft | Java |
    |---|---|---|
    | 26.x | its own version only (pick `26.3`, never `26.3-snapshot`) | Java 25 |
-   | 1.21.x, 1.20.1 | its own version only | Java 17, 18, 19, 20, 21, 22, 25 |
+   | 1.21.x, 1.20.1 (1.2.0 only, frozen; never upload 2.0+ for these) | its own version only | Java 17, 18, 19, 20, 21, 22, 25 |
 
    Environment is always Client and Server; Modloader is Fabric. Remove a chip with its x (chips shift left, so screenshot before each click). Add a version by clicking the Minecraft field, typing it, and ticking the checkbox.
 3. **Changelog:** the editor switches between Markdown and WYSIWYG on its own; plain text works in both. Click it and type one or two sentences.

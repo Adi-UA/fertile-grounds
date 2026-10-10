@@ -42,3 +42,6 @@ replay_*.log
 *.hprof
 *.jfr
 
+
+# Minecraft logging from JUnit runs
+logs/

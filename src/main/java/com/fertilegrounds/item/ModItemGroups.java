@@ -32,8 +32,14 @@ public final class ModItemGroups {
                   output.accept(ModBlocks.ENRICHED_DIRT);
                   output.accept(ModBlocks.ENRICHED_SAND);
                   output.accept(ModBlocks.SUPER_ENRICHED_DIRT);
+                  output.accept(ModBlocks.BLIGHTED_DIRT);
+                  output.accept(ModItems.FERTILIZER);
                   output.accept(ModItems.FAIRY_DUST);
                   output.accept(ModItems.BEAN_FAIRY_SPAWN_EGG);
+                  output.accept(ModBlocks.EMPTY_FAIRY_HOTEL);
+                  output.accept(ModBlocks.FAIRY_HOTEL);
+                  output.accept(ModBlocks.CHIME_FAIRY_HOTEL);
+                  output.accept(ModItems.JARRED_FAIRY);
                 })
             .build());
   }
