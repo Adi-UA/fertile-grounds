@@ -22,7 +22,8 @@
 			"com.fertilegrounds.gametest.VisitFeedbackTests",
 			"com.fertilegrounds.gametest.FairyGiftTests",
 			"com.fertilegrounds.gametest.ShyFlightTests",
-			"com.fertilegrounds.gametest.FairyHotelTests"
+			"com.fertilegrounds.gametest.FairyHotelTests",
+			"com.fertilegrounds.gametest.FairyCatchTests"
 		]
 	},
 	"depends": {

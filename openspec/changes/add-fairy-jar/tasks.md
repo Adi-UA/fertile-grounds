@@ -13,8 +13,8 @@
 
 ## 3. Catching and moving in
 
-- [ ] 3.1 Add capture in `mobInteract`; verify a GameTest uses a mock player with a bottle on a lingering fairy and gets a Jarred Fairy, and on a flying-in fairy gets the busy message
-- [ ] 3.2 Add moving in; verify a GameTest uses a Jarred Fairy on an empty hotel, sees an occupied hotel, and gets a bottle back
+- [x] 3.1 Add capture in `mobInteract`; verify a GameTest uses a mock player with a bottle on a lingering fairy and gets a Jarred Fairy, and on a flying-in fairy gets the busy message
+- [x] 3.2 Add moving in; verify a GameTest uses a Jarred Fairy on an empty hotel, sees an occupied hotel, and gets a bottle back
 
 ## 4. Slipping away
 
