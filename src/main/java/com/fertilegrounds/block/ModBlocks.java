@@ -27,14 +27,17 @@ public final class ModBlocks {
   // ---- Tier 1: Enriched — cheap ingredients, modest boost ----
 
   public static final Block ENRICHED_DIRT =
-      registerBlockWithItem("enriched_dirt", Block::new, ModBlockProperties.dirtProperties());
+      registerBlockWithItem(
+          "enriched_dirt",
+          properties -> new EnrichedDirtBlock(properties, SoilTier.ENRICHED),
+          ModBlockProperties.dirtProperties());
 
   public static final Block ENRICHED_FARMLAND =
       registerBlockOnly(
           "enriched_farmland",
           properties ->
               new GrowthBoostedFarmlandBlock(
-                  properties, ModGameRules.ENRICHED_BOOST_CHANCE, ENRICHED_DIRT),
+                  properties, ModGameRules.ENRICHED_BOOST_CHANCE, ENRICHED_DIRT, SoilTier.ENRICHED),
           ModBlockProperties.farmlandProperties());
 
   // ---- Tier 2: Enriched Sand — boosts existing sand-grown plants, no tilling ----
@@ -42,20 +45,28 @@ public final class ModBlocks {
   public static final Block ENRICHED_SAND =
       registerBlockWithItem(
           "enriched_sand",
-          properties -> new GrowthBoostedSandBlock(properties, ModGameRules.ENRICHED_BOOST_CHANCE),
+          properties ->
+              new GrowthBoostedSandBlock(
+                  properties, ModGameRules.ENRICHED_BOOST_CHANCE, SoilTier.ENRICHED),
           ModBlockProperties.sandProperties());
 
   // ---- Tier 3: Super Enriched — Glowstone Dust gated, ~3.3x boost ----
 
   public static final Block SUPER_ENRICHED_DIRT =
-      registerBlockWithItem("super_enriched_dirt", Block::new, ModBlockProperties.dirtProperties());
+      registerBlockWithItem(
+          "super_enriched_dirt",
+          properties -> new EnrichedDirtBlock(properties, SoilTier.SUPER_ENRICHED),
+          ModBlockProperties.dirtProperties());
 
   public static final Block SUPER_ENRICHED_FARMLAND =
       registerBlockOnly(
           "super_enriched_farmland",
           properties ->
               new GrowthBoostedFarmlandBlock(
-                  properties, ModGameRules.SUPER_ENRICHED_BOOST_CHANCE, SUPER_ENRICHED_DIRT),
+                  properties,
+                  ModGameRules.SUPER_ENRICHED_BOOST_CHANCE,
+                  SUPER_ENRICHED_DIRT,
+                  SoilTier.SUPER_ENRICHED),
           ModBlockProperties.farmlandProperties());
 
   // ---- Fairy Hotels: lanterns a caught fairy can live in ----

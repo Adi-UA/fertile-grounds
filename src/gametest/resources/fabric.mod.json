@@ -27,7 +27,8 @@
 			"com.fertilegrounds.gametest.JarredFairyExpiryTests",
 			"com.fertilegrounds.gametest.HotelEffectTests",
 			"com.fertilegrounds.gametest.FairySpeedTests",
-			"com.fertilegrounds.gametest.ChimeHotelTests"
+			"com.fertilegrounds.gametest.ChimeHotelTests",
+			"com.fertilegrounds.gametest.RedstoneTests"
 		]
 	},
 	"depends": {

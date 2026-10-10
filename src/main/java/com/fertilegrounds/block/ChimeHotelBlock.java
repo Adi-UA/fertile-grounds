@@ -4,6 +4,7 @@ import com.fertilegrounds.hotel.ChimeRules;
 import com.fertilegrounds.hotel.FairyHotelRules;
 import com.fertilegrounds.hotel.HotelChimes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -26,18 +27,28 @@ public class ChimeHotelBlock extends FairyHotelBlock {
    */
   public static final BooleanProperty READY = BooleanProperty.create("ready");
 
+  /**
+   * The hotel just rang for a ready field: comparators read 15 until the next check, 20 ticks
+   * later, so a harvest alarm gets a 1-second pulse. The placement chime doesn't pulse, so placing
+   * a hotel next to an auto-harvester never starts it.
+   */
+  public static final BooleanProperty RINGING = BooleanProperty.create("ringing");
+
   public static final int CHECK_INTERVAL_TICKS = 100;
+
+  public static final int RINGING_TICKS = 20;
 
   public ChimeHotelBlock(final Properties properties) {
     super(properties, true);
-    this.registerDefaultState(this.defaultBlockState().setValue(READY, false));
+    this.registerDefaultState(
+        this.defaultBlockState().setValue(READY, false).setValue(RINGING, false));
   }
 
   @Override
   protected void createBlockStateDefinition(
       final StateDefinition.Builder<Block, BlockState> builder) {
     super.createBlockStateDefinition(builder);
-    builder.add(READY);
+    builder.add(READY, RINGING);
   }
 
   /** Starts the checks and rings once, so players learn the sound. */
@@ -70,13 +81,28 @@ public class ChimeHotelBlock extends FairyHotelBlock {
         state.getValue(PETTED)
             && !FairyHotelRules.isJustAfterDawn(
                 level.getOverworldClockTime(), CHECK_INTERVAL_TICKS);
-    final BlockState next = state.setValue(READY, check.ready()).setValue(PETTED, petted);
+    final BlockState next =
+        state
+            .setValue(READY, check.ready())
+            .setValue(RINGING, check.chime())
+            .setValue(PETTED, petted);
     if (next != state) {
       level.setBlockAndUpdate(pos, next);
     }
     if (check.chime()) {
       HotelChimes.ring(level, pos, true);
     }
-    level.scheduleTick(pos, this, CHECK_INTERVAL_TICKS);
+    level.scheduleTick(pos, this, check.chime() ? RINGING_TICKS : CHECK_INTERVAL_TICKS);
+  }
+
+  @Override
+  protected boolean hasAnalogOutputSignal(final BlockState state) {
+    return true;
+  }
+
+  @Override
+  protected int getAnalogOutputSignal(
+      final BlockState state, final Level level, final BlockPos pos, final Direction direction) {
+    return state.getValue(RINGING) ? 15 : 0;
   }
 }
