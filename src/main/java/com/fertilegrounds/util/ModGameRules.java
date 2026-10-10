@@ -77,6 +77,12 @@ public final class ModGameRules {
           .category(GameRuleCategory.PLAYER)
           .buildAndRegister(ModIdsUtil.id("fairy_hotel_speed"));
 
+  /** Whether each player gets the Fertile Grounds Guide on their first join to a world. */
+  public static final GameRule<Boolean> GIVE_GUIDE_BOOK =
+      GameRuleBuilder.forBoolean(true)
+          .category(GameRuleCategory.PLAYER)
+          .buildAndRegister(ModIdsUtil.id("give_guide_book"));
+
   private ModGameRules() {}
 
   /** Loads this class so the static fields above register their rules during mod startup. */

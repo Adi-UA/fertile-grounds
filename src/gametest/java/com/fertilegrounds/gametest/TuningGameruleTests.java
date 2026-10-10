@@ -33,6 +33,8 @@ public class TuningGameruleTests {
         (rule, expected) -> helper.assertValueEqual(rule.defaultValue(), expected, rule.id()));
     helper.assertTrue(
         ModGameRules.FAIRY_HOTEL_SPEED.defaultValue(), ModGameRules.FAIRY_HOTEL_SPEED.id());
+    helper.assertTrue(
+        ModGameRules.GIVE_GUIDE_BOOK.defaultValue(), ModGameRules.GIVE_GUIDE_BOOK.id());
     helper.succeed();
   }
 

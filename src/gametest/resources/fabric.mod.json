@@ -30,7 +30,8 @@
 			"com.fertilegrounds.gametest.ChimeHotelTests",
 			"com.fertilegrounds.gametest.RedstoneTests",
 			"com.fertilegrounds.gametest.TraderTests",
-			"com.fertilegrounds.gametest.JadeDataTests"
+			"com.fertilegrounds.gametest.JadeDataTests",
+			"com.fertilegrounds.gametest.GuideBookTests"
 		]
 	},
 	"depends": {

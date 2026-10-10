@@ -8,6 +8,7 @@ import com.fertilegrounds.fairy.FairyVisits;
 import com.fertilegrounds.hotel.FairyHotelLookup;
 import com.fertilegrounds.hotel.FairySpeedAura;
 import com.fertilegrounds.hotel.HotelChimes;
+import com.fertilegrounds.item.GuideBookGift;
 import com.fertilegrounds.item.ModDataComponents;
 import com.fertilegrounds.item.ModItemGroups;
 import com.fertilegrounds.item.ModItems;
@@ -45,5 +46,6 @@ public class FertileGrounds implements ModInitializer {
     FairyVisitScheduler.register();
     FairySpeedAura.register();
     HotelChimes.register();
+    GuideBookGift.register();
   }
 }

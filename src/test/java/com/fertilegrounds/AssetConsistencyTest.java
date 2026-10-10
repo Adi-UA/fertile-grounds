@@ -74,10 +74,16 @@ class AssetConsistencyTest {
     for (final Path file : files(CLIENT_JAVA, ".java")) {
       collect(literal, Files.readString(file), used);
     }
-    // Advancement titles and sound subtitles name their keys in JSON.
+    // A literal ending in "." is a prefix that code completes, like the guide's page keys.
+    used.removeIf(key -> key.endsWith("."));
+    // Advancement titles, sound subtitles, and the guide book recipe's pages name their keys in
+    // JSON.
     final Pattern jsonKey =
         Pattern.compile("\"(?:translate|subtitle)\"\\s*:\\s*\"([^\"]*" + NS + "[^\"]*)\"");
     for (final Path file : files(DATA.resolve("advancement"), ".json")) {
+      collect(jsonKey, Files.readString(file), used);
+    }
+    for (final Path file : files(DATA.resolve("recipe"), ".json")) {
       collect(jsonKey, Files.readString(file), used);
     }
     final Path sounds = ASSETS.resolve("sounds.json");
