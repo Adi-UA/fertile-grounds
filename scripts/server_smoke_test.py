@@ -148,7 +148,50 @@ TUNING_GAMERULES = Suite(
     },
 )
 
-SUITES = [FAIRY_VISIT, SOIL_REGRESSIONS, FAIRY_CONTENT_TAGS, TUNING_GAMERULES]
+def fertilizer_lane(z: int, target: str) -> list[tuple[str, float]]:
+    """A dispenser holding 2 Fertilizer at x=-13, facing east onto `target` at x=-12."""
+    return [
+        (f"setblock -12 199 {z} minecraft:stone", 0),  # holds up sand, which would otherwise fall
+        (f"setblock -12 200 {z} {target}", 0),
+        (
+            f"setblock -13 200 {z} minecraft:dispenser[facing=east]"
+            '{Items:[{Slot:0b,id:"fertilegrounds:fertilizer",count:2}]}',
+            0,
+        ),
+    ]
+
+
+FERTILIZER = Suite(
+    name="fertilizer",
+    # Dispensers stand in for players, who can't exist on this server. They call the same
+    # FertilizerItem.upgrade as a player's use, so the upgrade rules are covered either way.
+    setup=[
+        ("gamerule random_tick_speed 0", 0),  # keeps farmland moisture and the wheat's age fixed
+        ("scoreboard objectives add smoke dummy", 0),
+        *fertilizer_lane(10, "minecraft:farmland[moisture=7]"),
+        ("setblock -12 201 10 minecraft:wheat[age=3]", 0),
+        *fertilizer_lane(12, "minecraft:sand"),
+        *fertilizer_lane(14, "minecraft:stone"),
+        *fertilizer_lane(16, "fertilegrounds:super_enriched_farmland[moisture=7]"),
+        ("fill -14 200 10 -14 200 16 minecraft:redstone_block", 1),  # powers every dispenser
+        *[
+            (f"execute store result score #fert{z} smoke run data get block -13 200 {z} Items[0].count", 0)
+            for z in (10, 12, 14, 16)
+        ],
+    ],
+    checks={
+        "FARMLAND_UPGRADED": "execute if block -12 200 10 fertilegrounds:super_enriched_farmland[moisture=7]"
+        " if block -12 201 10 minecraft:wheat[age=3] if score #fert10 smoke matches 1 run say FARMLAND_UPGRADED",
+        "SAND_UPGRADED": "execute if block -12 200 12 fertilegrounds:enriched_sand"
+        " if score #fert12 smoke matches 1 run say SAND_UPGRADED",
+        "STONE_KEPT_FERTILIZER": "execute if block -12 200 14 minecraft:stone"
+        " if score #fert14 smoke matches 2 run say STONE_KEPT_FERTILIZER",
+        "TOP_TIER_KEPT_FERTILIZER": "execute if block -12 200 16 fertilegrounds:super_enriched_farmland"
+        " if score #fert16 smoke matches 2 run say TOP_TIER_KEPT_FERTILIZER",
+    },
+)
+
+SUITES = [FAIRY_VISIT, SOIL_REGRESSIONS, FAIRY_CONTENT_TAGS, TUNING_GAMERULES, FERTILIZER]
 
 # The data pack format 26.3 reads (pack_version.data_major in the game jar's version.json).
 DATA_PACK_FORMAT = 121

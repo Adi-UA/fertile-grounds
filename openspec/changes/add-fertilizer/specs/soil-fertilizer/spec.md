@@ -36,7 +36,7 @@ Using Fertilizer on vanilla Sand SHALL replace it with Enriched Sand and use one
 - **THEN** the sand becomes Enriched Sand and the bamboo stays
 
 ### Requirement: Feedback on use
-A successful upgrade SHALL play a sound and show particles at the block, and SHALL work the same in survival and adventure mode.
+A successful upgrade SHALL play a sound and show particles at the block.
 
 #### Scenario: Visible upgrade
 - **WHEN** a Fertilizer upgrade succeeds

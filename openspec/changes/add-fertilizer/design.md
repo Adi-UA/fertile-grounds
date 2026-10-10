@@ -12,7 +12,7 @@ Soil blocks live in `ModBlocks`. On 26.3, `FarmlandBlock` takes its base block, 
 
 ## Decisions
 
-- **`SoilUpgrades` maps each source block to its upgraded block** (`dirt → super_enriched_dirt`, `farmland → super_enriched_farmland`, and so on). `FertilizerItem.useOn` and the dispenser behavior both call it, so player and dispenser rules can't drift apart.
+- **`SoilUpgrades` maps each source block to its upgraded block** (`dirt → super_enriched_dirt`, `farmland → super_enriched_farmland`, and so on). `FertilizerItem.useOn` and the dispenser behavior both call `FertilizerItem.upgrade`, which reads it, so player and dispenser rules can't drift apart.
 - **Copy matching state properties** from the old state to the new one (`MOISTURE` for farmland), instead of special-casing farmland, so any shared property carries over.
 - **Dispenser behavior through `DispenserBlock.registerBehavior`** with an `OptionalDispenseItemBehavior`, the same pattern vanilla uses for Bone Meal.
 
