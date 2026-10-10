@@ -7,6 +7,7 @@ import com.fertilegrounds.util.CropGrowthUtil;
 import com.fertilegrounds.util.ModGameRules;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -16,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -163,23 +165,20 @@ public final class FairyVisitScheduler {
     FertileGrounds.LOGGER.debug("Natural fairy visit scheduled at {}", crop);
   }
 
-  /** Picks a random growable crop near {@code center}, checking spots in random order. */
+  /**
+   * Picks a random growable crop near {@code center}. It checks every spot (about 10,000, once per
+   * player per night), since sampling a few hundred random spots would usually miss a small farm.
+   */
   private static Optional<BlockPos> findCropNear(final ServerLevel level, final BlockPos center) {
-    for (final BlockPos pos :
-        BlockPos.randomBetweenClosed(
-            level.getRandom(),
-            256,
-            center.getX() - NATURAL_SEARCH_RADIUS,
-            center.getY() - NATURAL_SEARCH_HEIGHT,
-            center.getZ() - NATURAL_SEARCH_RADIUS,
-            center.getX() + NATURAL_SEARCH_RADIUS,
-            center.getY() + NATURAL_SEARCH_HEIGHT,
-            center.getZ() + NATURAL_SEARCH_RADIUS)) {
-      if (CropGrowthUtil.canGrow(level, pos)) {
-        return Optional.of(pos.immutable());
-      }
-    }
-    return Optional.empty();
+    final List<BlockPos> crops =
+        BlockPos.betweenClosedStream(
+                center.offset(
+                    -NATURAL_SEARCH_RADIUS, -NATURAL_SEARCH_HEIGHT, -NATURAL_SEARCH_RADIUS),
+                center.offset(NATURAL_SEARCH_RADIUS, NATURAL_SEARCH_HEIGHT, NATURAL_SEARCH_RADIUS))
+            .filter(pos -> CropGrowthUtil.canGrow(level, pos))
+            .map(BlockPos::immutable)
+            .toList();
+    return Util.getRandomSafe(crops, level.getRandom());
   }
 
   private static void sendFairiesToDueVisits(final ServerLevel level) {
