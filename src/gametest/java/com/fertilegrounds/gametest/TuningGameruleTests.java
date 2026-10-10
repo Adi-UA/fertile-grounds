@@ -30,6 +30,8 @@ public class TuningGameruleTests {
   public void defaultsMatchTheSpec(final GameTestHelper helper) {
     DEFAULTS.forEach(
         (rule, expected) -> helper.assertValueEqual(rule.defaultValue(), expected, rule.id()));
+    helper.assertTrue(
+        ModGameRules.FAIRY_HOTEL_SPEED.defaultValue(), ModGameRules.FAIRY_HOTEL_SPEED.id());
     helper.succeed();
   }
 

@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "minecraft:mob_effect/speed",
+      "sprite": "fertilegrounds:mob_effect/fairy_speed"
+    }
+  ]
+}

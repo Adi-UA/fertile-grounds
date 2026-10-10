@@ -18,8 +18,8 @@
 
 ## 4. Fairy Speed
 
-- [ ] 4.1 Register the Fairy Speed effect, the gui atlas alias, the per-player check, and the `fairy_hotel_speed` gamerule; verify a GameTest places a mock player 6 blocks from a hotel and reads the effect, then 20 blocks away and sees it gone within 3 seconds, and a JUnit test of the modifier amount
-- [ ] 4.2 Check in `runClient` that the inventory shows vanilla's Speed icon named "Fairy Speed" with no missing-sprite warning; add "walk onto the farm and feel the lift" to the in-game checklist
+- [x] 4.1 Register the Fairy Speed effect, the gui atlas alias, the per-player check, and the `fairy_hotel_speed` gamerule; verify `FairySpeedTests` places a mock player 6 blocks from a hotel and reads the effect and exactly 10% more movement speed, then 20 blocks away and sees it gone within 3 seconds, that three hotels still give 10%, and that the gamerule turns it off (the speed check replaces a JUnit test, since a `MobEffect` can't be built outside the game)
+- [x] 4.2 Verify `client_log_check.py` shows no warnings with the gui atlas alias; add to the in-game checklist: the inventory and HUD show vanilla's Speed icon named "Fairy Speed" with a beacon-style border, and "walk onto the farm and feel the lift" (the HUD only asks for the icon in game, so the log check can't prove it draws)
 
 ## 5. Protection
 

@@ -67,6 +67,12 @@ public final class ModGameRules {
   public static final GameRule<Integer> FAIRY_HOTEL_HONEY_CHANCE =
       percent("fairy_hotel_honey_chance", 10, GameRuleCategory.UPDATES);
 
+  /** Whether players near an occupied Fairy Hotel get Fairy Speed. */
+  public static final GameRule<Boolean> FAIRY_HOTEL_SPEED =
+      GameRuleBuilder.forBoolean(true)
+          .category(GameRuleCategory.PLAYER)
+          .buildAndRegister(ModIdsUtil.id("fairy_hotel_speed"));
+
   private ModGameRules() {}
 
   /** Loads this class so the static fields above register their rules during mod startup. */

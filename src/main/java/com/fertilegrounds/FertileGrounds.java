@@ -6,11 +6,13 @@ import com.fertilegrounds.fairy.FairyGiftCooldowns;
 import com.fertilegrounds.fairy.FairyVisitScheduler;
 import com.fertilegrounds.fairy.FairyVisits;
 import com.fertilegrounds.hotel.FairyHotelLookup;
+import com.fertilegrounds.hotel.FairySpeedAura;
 import com.fertilegrounds.item.ModDataComponents;
 import com.fertilegrounds.item.ModItemGroups;
 import com.fertilegrounds.item.ModItems;
 import com.fertilegrounds.util.ModCriteria;
 import com.fertilegrounds.util.ModGameRules;
+import com.fertilegrounds.util.ModMobEffects;
 import com.fertilegrounds.util.ModSounds;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -30,6 +32,7 @@ public class FertileGrounds implements ModInitializer {
     ModGameRules.register();
     ModSounds.register();
     ModCriteria.register();
+    ModMobEffects.register();
     ModDataComponents.register();
     ModBlocks.register();
     FairyHotelLookup.register();
@@ -39,5 +42,6 @@ public class FertileGrounds implements ModInitializer {
     FairyVisits.register();
     FairyGiftCooldowns.register();
     FairyVisitScheduler.register();
+    FairySpeedAura.register();
   }
 }

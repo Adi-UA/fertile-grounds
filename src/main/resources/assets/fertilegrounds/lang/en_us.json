@@ -66,5 +66,8 @@
   "gamerule.fertilegrounds.fairy_hotel_petted_boost_chance": "Petted Fairy Hotel boost chance",
   "gamerule.fertilegrounds.fairy_hotel_petted_boost_chance.description": "The same chance for a hotel whose fairy was brushed since the last dawn",
   "gamerule.fertilegrounds.fairy_hotel_honey_chance": "Fairy Hotel honey chance",
-  "gamerule.fertilegrounds.fairy_hotel_honey_chance.description": "Percent chance per random tick that an occupied Fairy Hotel adds a honey level to a beehive within 4 blocks"
+  "gamerule.fertilegrounds.fairy_hotel_honey_chance.description": "Percent chance per random tick that an occupied Fairy Hotel adds a honey level to a beehive within 4 blocks",
+  "effect.fertilegrounds.fairy_speed": "Fairy Speed",
+  "gamerule.fertilegrounds.fairy_hotel_speed": "Fairy Hotel speed",
+  "gamerule.fertilegrounds.fairy_hotel_speed.description": "Whether players within 8 blocks of an occupied Fairy Hotel move 10% faster"
 }
