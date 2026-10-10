@@ -1,6 +1,6 @@
 # Agent guide for Fertile Grounds
 
-A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the Bean Fairy, a rare night visitor that fully grows a 5x5 patch of crops. `README.md` describes the gameplay; this file covers how to work on the code.
+A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the Bean Fairy, a rare night visitor that fully grows a 5x5 patch of crops. `README.md` pitches the mod and `docs/DETAILS.md` describes the gameplay in full; this file covers how to work on the code.
 
 ## Layout
 
@@ -26,7 +26,7 @@ Keep one job per class. Registration lives in the `Mod*` classes; the entry poin
 
 ## Branches
 
-There's one branch per Minecraft version (the list is in `README.md`), and `main` tracks the newest one. Code stays identical across branches, except where a Minecraft or Fabric API change forces a difference. New features land on the newest branch first, then get backported one version at a time, following `.claude/skills/porting-minecraft-version/SKILL.md`.
+There's one branch per Minecraft version (the list is in `docs/DETAILS.md`), and `main` tracks the newest one. Code stays identical across branches, except where a Minecraft or Fabric API change forces a difference. New features land on the newest branch first, then get backported one version at a time, following `.claude/skills/porting-minecraft-version/SKILL.md`.
 
 ## Commands
 
