@@ -18,8 +18,8 @@
 
 ## 4. Slipping away
 
-- [ ] 4.1 Add the inventory, container-open, and item-entity expiry checks with both messages; verify a GameTest advances time with `/time add` and sees a flower in a mock player's inventory, in a chest after opening, and on the ground
-- [ ] 4.2 Add "carry a Jarred Fairy until it slips away" and "find one in a chest" to the in-game checklist
+- [x] 4.1 Add the inventory, container-open, and item-entity expiry checks with both messages; verify a GameTest advances time with `/time add` and sees a flower in a mock player's inventory, in a chest after opening, and on the ground
+- [x] 4.2 `JarredFairyExpiryTests` covers carried, chest, and dropped fairies slipping away with their messages; add the slipping-away look and sound (cherry leaves and a soft Allay throw around the player) to the in-game checklist
 
 ## 5. Finish
 

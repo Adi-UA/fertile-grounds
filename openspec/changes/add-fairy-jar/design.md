@@ -12,8 +12,8 @@
 
 ## Decisions
 
-- **Absolute expiry time.** The Jarred Fairy stores `expiresAtGameTime` in a custom data component, so it ages the same in a chest, an inventory, or an unloaded chunk without ticking. "Days" are 24,000 game ticks.
-- **Three expiry checks, one rule.** `Item.inventoryTick` converts carried items. A hook when a player opens a container menu scans its slots and sends the "while you were gone" message once per open, however many fairies left. A small `ItemEntity.tick` mixin converts dropped items. Check whether Fabric API has a container-open event before writing a mixin for it.
+- **Absolute expiry time on the overworld clock.** The Jarred Fairy stores the overworld clock time it slips away at (`fertilegrounds:slips_away_at`), so it ages the same in a chest, an inventory, or an unloaded chunk without ticking. "Days" are 24,000 clock ticks, the same days the gift cooldown counts. Game time was the first plan, but sleeping skips the clock ahead without adding game time, so a player who sleeps every night would keep a jar about twice as long as the spec's days. A Jarred Fairy with no time yet (from the creative tab or `/give`) gets one the first time it is checked.
+- **Three expiry checks, one rule.** `Item.inventoryTick` converts carried items. A mixin at the start of `ServerPlayer.initMenu` (Fabric API 0.161 has no menu-open event) scans the opened container's slots before they sync and sends the "while you were gone" message once per open, however many fairies left. A small `ItemEntity.tick` mixin converts dropped items.
 - **Flower pick** from the `fairy_flowers` item tag with the level's random source; fall back to a Poppy if a pack empties the tag.
 - **Two hotel blocks, no block entity.** `EMPTY_FAIRY_HOTEL` and `FAIRY_HOTEL` are separate blocks sharing one `FairyHotelBlock` class with a lantern-style `HANGING` property. Separate blocks give separate items and loot tables, so the occupied hotel drops itself with no item data. `add-chime-hotel` adds a third block of the same class.
 - **Lantern shape and sound type.** Same collision shape and `SoundType.LANTERN` as vanilla's lantern, so it hangs and sits like one.

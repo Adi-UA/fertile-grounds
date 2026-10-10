@@ -54,5 +54,7 @@
   "block.fertilegrounds.empty_fairy_hotel": "Empty Fairy Hotel",
   "block.fertilegrounds.fairy_hotel": "Occupied Fairy Hotel",
   "item.fertilegrounds.jarred_fairy": "Jarred Fairy",
-  "message.fertilegrounds.fairy_busy": "This Bean Fairy is busy with its crops"
+  "message.fertilegrounds.fairy_busy": "This Bean Fairy is busy with its crops",
+  "message.fertilegrounds.fairy_slipped_away": "Your Bean Fairy slipped away and left a %s behind.",
+  "message.fertilegrounds.fairy_slipped_away_while_gone": "A Bean Fairy slipped away while you were gone and left a %s."
 }

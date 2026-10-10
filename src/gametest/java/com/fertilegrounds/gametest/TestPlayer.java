@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
@@ -87,11 +88,24 @@ final class TestPlayer extends ServerPlayer {
     return advancement != null && this.getAdvancements().getOrStartProgress(advancement).isDone();
   }
 
-  /** How many chat messages are the given translation. */
+  /** How many chat messages use the given translation key. */
   long chatCount(final String translationKey) {
-    return this.chatMessages.stream()
-        .filter(message -> message.equals(Component.translatable(translationKey)))
-        .count();
+    return this.chatMessages.stream().filter(message -> hasKey(message, translationKey)).count();
+  }
+
+  /** How many overlay messages use the given translation key. */
+  long overlayCount(final String translationKey) {
+    return this.overlayMessages.stream().filter(message -> hasKey(message, translationKey)).count();
+  }
+
+  /**
+   * Ticks this player every test tick, for checks on things a player's tick runs, such as each
+   * carried item's {@code inventoryTick}. The server ticks a real player through its network
+   * connection, which a mock player's embedded one isn't part of.
+   */
+  TestPlayer tickedBy(final GameTestHelper helper) {
+    helper.onEachTick(this::doTick);
+    return this;
   }
 
   void leave() {
@@ -104,9 +118,14 @@ final class TestPlayer extends ServerPlayer {
     super.sendSystemMessage(message, overlay);
   }
 
-  /** Whether the latest overlay message is the given translation. */
+  /** Whether the latest overlay message uses the given translation key, whatever its arguments. */
   boolean lastOverlayIs(final String translationKey) {
     return !this.overlayMessages.isEmpty()
-        && this.overlayMessages.getLast().equals(Component.translatable(translationKey));
+        && hasKey(this.overlayMessages.getLast(), translationKey);
+  }
+
+  private static boolean hasKey(final Component message, final String translationKey) {
+    return message.getContents() instanceof TranslatableContents contents
+        && contents.getKey().equals(translationKey);
   }
 }

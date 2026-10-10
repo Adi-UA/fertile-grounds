@@ -97,7 +97,7 @@ public class FairyCatchTests {
     final ItemStack jar = JarredFairyItem.caughtNow(helper.getLevel());
     helper.assertValueEqual(
         jar.get(ModDataComponents.SLIPS_AWAY_AT),
-        helper.getLevel().getGameTime() + 3 * 24000,
+        helper.getLevel().getOverworldClockTime() + 3 * 24000,
         "slips away at");
     helper.succeed();
   }
