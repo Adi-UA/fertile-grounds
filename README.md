@@ -44,9 +44,26 @@ All of the mod's items live in their own creative-inventory tab, "Fertile Ground
 
 Like Stardew Valley's Crop Fairy, a Bean Fairy (a tiny winged edamame pod) sometimes visits a farm at night and fully grows every crop in a 5x5 patch. Each night, every player in the Overworld has a 1% chance of a visit to a random crop within 16 blocks. If everyone sleeps through it, the crops are grown at dawn anyway.
 
-To call one on purpose, craft **Fairy Dust** (shapeless: Glowstone Dust + Amethyst Shard + Bone Meal) and use it on a growing crop. Fairies still only come at night: within about 30 seconds if it's already dark, otherwise at nightfall. Only crops in the vanilla `#minecraft:crops` tag count (wheat, carrots, potatoes, beetroots, melon and pumpkin stems, torchflowers, pitcher plants).
+To call one on purpose, craft **Fairy Dust** (shapeless: Glowstone Dust + Amethyst Shard + Bone Meal) and use it on a growing crop. Fairies still only come at night: within about 30 seconds if it's already dark, otherwise at nightfall. Only crops in the `fertilegrounds:fairy_crops` tag count, which by default is vanilla's `#minecraft:crops` (wheat, carrots, potatoes, beetroots, melon and pumpkin stems, torchflowers, pitcher plants) plus any modded crop that joins it.
 
 The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop.
+
+## For modpack makers
+
+Tags decide which blocks count as crops and flowers. Add to them with a datapack, and modded content works with no code.
+
+| Tag | Type | Default | Used for |
+|---|---|---|---|
+| `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy or Fairy Dust may grow |
+| `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features |
+
+Gamerules tune the numbers per world with `/gamerule <name> <value>`. Each one is a whole percentage from 0 to 100, and a change applies right away.
+
+| Gamerule | Default | What it sets |
+|---|---|---|
+| `fertilegrounds:fairy_visit_chance` | 1 | Chance per player, per night, of a natural Bean Fairy visit (0 turns natural visits off; Fairy Dust still works) |
+| `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
+| `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
 
 ## Minecraft version
 

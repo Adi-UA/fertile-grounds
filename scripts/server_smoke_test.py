@@ -136,11 +136,15 @@ TUNING_GAMERULES = Suite(
         ("execute store result score #super smoke run gamerule fertilegrounds:super_enriched_boost_chance", 0),
         ("gamerule fertilegrounds:fairy_visit_chance 150", 0),  # out of range, must be rejected
         ("execute store result score #after smoke run gamerule fertilegrounds:fairy_visit_chance", 0),
+        ("gamerule fertilegrounds:fairy_visit_chance 100", 0),
+        ("execute store result score #max smoke run gamerule fertilegrounds:fairy_visit_chance", 0),
+        ("gamerule fertilegrounds:fairy_visit_chance 1", 0),  # back to the default for later suites
     ],
     checks={
         "GAMERULE_DEFAULTS": "execute if score #visit smoke matches 1 if score #enriched smoke matches 15"
         " if score #super smoke matches 50 run say GAMERULE_DEFAULTS",
         "OUT_OF_RANGE_REJECTED": "execute if score #after smoke matches 1 run say OUT_OF_RANGE_REJECTED",
+        "MAX_CHANCE_SET": "execute if score #max smoke matches 100 run say MAX_CHANCE_SET",
     },
 )
 
