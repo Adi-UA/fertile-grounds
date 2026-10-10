@@ -34,5 +34,7 @@
   "advancements.fertilegrounds.first_fairy_visit.title": "A Little Help",
   "advancements.fertilegrounds.first_fairy_visit.description": "Be nearby when a Bean Fairy grows your crops",
   "advancements.fertilegrounds.use_fertilizer.title": "Grassroots Upgrade",
-  "advancements.fertilegrounds.use_fertilizer.description": "Upgrade soil in place with Fertilizer"
+  "advancements.fertilegrounds.use_fertilizer.description": "Upgrade soil in place with Fertilizer",
+  "gamerule.fertilegrounds.fairy_linger_seconds": "Fairy linger time",
+  "gamerule.fertilegrounds.fairy_linger_seconds.description": "Seconds a Bean Fairy stays drifting over the crops after growing them (0 makes it leave right away)"
 }

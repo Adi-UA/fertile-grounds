@@ -35,6 +35,10 @@ public final class ModGameRules {
   public static final GameRule<Integer> HARVEST_MOON_MULTIPLIER =
       integer("harvest_moon_multiplier", 3, 1, 10, GameRuleCategory.SPAWNING);
 
+  /** How long a fairy stays drifting over its patch after growing it, in seconds. */
+  public static final GameRule<Integer> FAIRY_LINGER_SECONDS =
+      integer("fairy_linger_seconds", 60, 0, 600, GameRuleCategory.SPAWNING);
+
   private ModGameRules() {}
 
   /** Loads this class so the static fields above register their rules during mod startup. */

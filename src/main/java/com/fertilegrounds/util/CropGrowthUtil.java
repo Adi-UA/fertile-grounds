@@ -1,5 +1,8 @@
 package com.fertilegrounds.util;
 
+import com.fertilegrounds.fairy.GrowthRings;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelReader;
@@ -45,6 +48,27 @@ public final class CropGrowthUtil {
       if (canGrow(level, pos)) {
         growFully(level, pos.immutable());
         grown++;
+      }
+    }
+    return grown;
+  }
+
+  /**
+   * Fully grows the crops in one ring around {@code center} (see {@link GrowthRings}), checking one
+   * block above and below each spot like {@link #growArea}.
+   *
+   * @return where crops grew
+   */
+  public static List<BlockPos> growRing(
+      final ServerLevel level, final BlockPos center, final int ring) {
+    final List<BlockPos> grown = new ArrayList<>();
+    for (final GrowthRings.Offset offset : GrowthRings.ring(ring)) {
+      for (int dy = -1; dy <= 1; dy++) {
+        final BlockPos pos = center.offset(offset.dx(), dy, offset.dz());
+        if (canGrow(level, pos)) {
+          growFully(level, pos);
+          grown.add(pos);
+        }
       }
     }
     return grown;

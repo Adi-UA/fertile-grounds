@@ -56,6 +56,9 @@ FAIRY_VISIT = Suite(
         "smoke/function/track_fairy.mcfunction": (
             f"execute as {OPEN_FIELD_FAIRY} store result score @s smoke run data get entity @s Pos[1] 100\n"
             f"execute as {OPEN_FIELD_FAIRY} run scoreboard players operation #open_min smoke < @s smoke\n"
+            # Rings grow from the center out, so some tick has the center grown but not the corner.
+            "execute if block 0 201 0 minecraft:wheat[age=7] unless block 2 201 2 minecraft:wheat[age=7]"
+            " run scoreboard players set #center_first smoke 1\n"
         ),
     },
     guards="88d5657 (fairy stuck under a roof or with no crop nearby)",
@@ -63,6 +66,8 @@ FAIRY_VISIT = Suite(
         ("gamerule random_tick_speed 0", 0),  # only fairies may grow crops
         ("scoreboard objectives add smoke dummy", 0),
         ("scoreboard players set #open_min smoke 100000", 0),
+        ("scoreboard players set #center_first smoke 0", 0),
+        ("gamerule fertilegrounds:fairy_linger_seconds 0", 0),  # leave right after growing
         # Open field: a 5x5 wheat patch plus a carrot just outside the fairy's reach.
         ("fill -2 200 -2 3 200 2 minecraft:farmland", 0),
         ("fill -2 201 -2 2 201 2 minecraft:wheat[age=0]", 0),
@@ -83,12 +88,29 @@ FAIRY_VISIT = Suite(
         "OUTSIDE_UNTOUCHED": "execute if block 3 201 0 minecraft:carrots[age=0] run say OUTSIDE_UNTOUCHED",
         "ROOFED_GROWN": "execute if block 12 201 0 minecraft:wheat[age=7] run say ROOFED_GROWN",
         "FAIRIES_GONE": "execute unless entity @e[type=fertilegrounds:bean_fairy] run say FAIRIES_GONE",
+        "CENTER_BEFORE_EDGE": "execute if score #center_first smoke matches 1 run say CENTER_BEFORE_EDGE",
         # The wheat is at y=201, so an open-sky fairy must never drop below y=202.
         "OPEN_FIELD_NEVER_SANK": "execute if score #open_min smoke matches 20200.. run say OPEN_FIELD_NEVER_SANK",
     },
     report=["scoreboard players get #open_min smoke"],
     # The roofed fairy's visit goes through FairyVisitEvents.onVisitGrown, the hook every visit uses.
     expect_log={"Fairy visit grew crops at 12, 201, 0": 1},
+)
+
+FAIRY_LINGER = Suite(
+    name="fairy_linger",
+    setup=[
+        ("gamerule random_tick_speed 0", 0),
+        ("gamerule fertilegrounds:fairy_linger_seconds 60", 0),  # the default
+        ("setblock 8 200 12 minecraft:farmland", 0),
+        ("setblock 8 201 12 minecraft:wheat[age=0]", 0),
+        # About 8 seconds to fly down, dance, and grow, then 30 seconds into the linger.
+        ("summon fertilegrounds:bean_fairy 8 205 12", 38),
+    ],
+    checks={
+        "LINGERING_AFTER_GROWTH": "execute if block 8 201 12 minecraft:wheat[age=7]"
+        " if entity @e[type=fertilegrounds:bean_fairy,x=8,y=201,z=12,distance=..10] run say LINGERING_AFTER_GROWTH",
+    },
 )
 
 SOIL_REGRESSIONS = Suite(
@@ -246,6 +268,7 @@ ADVANCEMENTS = Suite(
 
 SUITES = [
     FAIRY_VISIT,
+    FAIRY_LINGER,
     SOIL_REGRESSIONS,
     FAIRY_CONTENT_TAGS,
     TUNING_GAMERULES,

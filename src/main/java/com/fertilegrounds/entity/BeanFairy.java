@@ -20,6 +20,8 @@ public class BeanFairy extends PathfinderMob {
 
   @Nullable private BlockPos targetCrop;
 
+  private boolean finishedGrowing;
+
   /** The lowest Y this fairy may reach, or null for no limit (see {@link #keepAbove}). */
   @Nullable private Double floorY;
 
@@ -46,6 +48,15 @@ public class BeanFairy extends PathfinderMob {
       final Vec3 motion = this.getDeltaMovement();
       this.setDeltaMovement(motion.x, Math.max(0, motion.y), motion.z);
     }
+  }
+
+  /** True once the fairy has grown its patch, while it lingers and leaves. */
+  public boolean hasFinishedGrowing() {
+    return this.finishedGrowing;
+  }
+
+  void markFinishedGrowing() {
+    this.finishedGrowing = true;
   }
 
   /** Never lets the fairy sink below {@code y}. Used over open-sky crops, not covered ones. */
