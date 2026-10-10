@@ -196,9 +196,15 @@ public class HotelEffectTests {
 
   /**
    * A creeper 5 blocks from an occupied hotel is out of its range 5 seconds later. The test world's
-   * floor is barrier, where vanilla never picks a spot to walk to, so the test lays stone first.
+   * floor is barrier, where vanilla never picks a spot to walk to, so the test lays stone first. It
+   * runs in its own environment, since a creeper chases the mock players of tests running beside
+   * it.
    */
-  @GameTest(structure = "fertilegrounds:empty_large", padding = 8, maxTicks = 200)
+  @GameTest(
+      structure = "fertilegrounds:empty_large",
+      environment = "fertilegrounds:no_players",
+      padding = 8,
+      maxTicks = 200)
   public void creeperBacksAwayFromAHotel(final GameTestHelper helper) {
     for (final BlockPos floor : BlockPos.betweenClosed(0, 0, 0, 32, 0, 32)) {
       helper.setBlock(floor, Blocks.STONE);
