@@ -72,6 +72,8 @@ A hotel fairy looks after the farm around it:
 
 Hotels within 8 blocks of each other share their crop and honey help, so a cluster helps as much as one hotel. Empty hotels do none of this.
 
+A **Chime Hotel** (shapeless: an Occupied Fairy Hotel, a Note Block, and a Spyglass) does everything an occupied hotel does, and its fairy watches the field for you. Every 5 seconds it counts the crops within 8 blocks (2 up or down), and once at least 4 are there and 80% are fully grown, it rings a soft 3-note chime that players hear up to 32 blocks away. It rings once per harvest: after you harvest and replant, it rings again when the field is ready. It also chimes once when placed, so you learn the sound. Crops from other mods that never report being fully grown keep it from ringing; the `fertilegrounds:fairy_crops` tag decides what counts.
+
 ### Advancements
 
 Fertile Grounds has its own advancement tab:
@@ -94,7 +96,7 @@ Tags decide which blocks count as crops and flowers. Add to them with a datapack
 
 | Tag | Type | Default | Used for |
 |---|---|---|---|
-| `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy or Fairy Dust may grow |
+| `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy, Fairy Dust, or a Fairy Hotel may grow, and the crops a Chime Hotel watches |
 | `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features, the Fairy Hotel recipe, and the flower a Jarred Fairy leaves |
 
 Gift loot lives in the loot tables `fertilegrounds:gameplay/fairy_gift/common`, `uncommon`, and `rare`; a datapack can replace any of them.
@@ -115,6 +117,7 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_hotel_boost_chance` | 50 | Chance per random tick that an occupied hotel grows a crop within 4 blocks |
 | `fertilegrounds:fairy_hotel_petted_boost_chance` | 65 | The same chance for a hotel brushed since the last dawn |
 | `fertilegrounds:fairy_hotel_honey_chance` | 10 | Chance per random tick that an occupied hotel adds honey to a hive within 4 blocks |
+| `fertilegrounds:chime_ready_percent` | 80 | Percent of the crops near a Chime Hotel that must be fully grown for it to ring (1 to 100) |
 | `fertilegrounds:fairy_hotel_speed` | true | Whether players near an occupied hotel get Fairy Speed (true or false) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
 | `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
