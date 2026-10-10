@@ -217,7 +217,7 @@ public class BlightTests {
   /** A visit that grows at dawn, with no fairy flying, cures its patch too. */
   @GameTest(
       structure = "fertilegrounds:empty_medium",
-      environment = "fertilegrounds:overnight_visits",
+      environment = "fertilegrounds:blight_overnight",
       maxTicks = 200)
   public void overnightVisitCuresItsPatch(final GameTestHelper helper) {
     final BlockPos crop = new BlockPos(8, 2, 8);
