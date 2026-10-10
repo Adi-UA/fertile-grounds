@@ -9,7 +9,7 @@
 ## 2. In-place upgrade
 
 - [x] 2.1 Add `SoilUpgrades` with JUnit tests for every mapping and for "no upgrade" on Super Enriched blocks
-- [x] 2.2 Add `FertilizerItem.useOn` with sound and particles; verify the smoke test places farmland with wheat, applies Fertilizer through a powered dispenser (which calls the same `FertilizerItem.upgrade` as a player's use), and sees Super Enriched Farmland with the same wheat age and moisture and one Fertilizer used; add the by-hand use to the in-game checklist, since the smoke server has no player
+- [x] 2.2 Add `FertilizerItem.useOn` with sound and particles; verify the smoke test places farmland with wheat, applies Fertilizer through a powered dispenser (which calls the same `FertilizerItem.upgrade` as a player's use), and sees Super Enriched Farmland with the same wheat age and moisture and one Fertilizer used; `FertilizerTests` covers the by-hand use with a survival mock player
 
 ## 3. Dispenser
 

@@ -10,7 +10,8 @@ context: |
   Every tunable number sits behind a gamerule. Every player-facing string uses a translation key.
   No AI art ships: the user draws or traces every texture in Aseprite from vanilla textures, and AI
   only supplies guides, templates, palettes, and placeholders. Specs describe the look, never pixels.
-  Verification extends the regression suite from add-regression-evals; every bug fixed adds a check.
+  Verification runs JUnit and Fabric GameTests with mock players (src/gametest); every bug fixed
+  adds a check.
 
 rules:
   proposal:
@@ -23,7 +24,8 @@ rules:
     - Name any Minecraft or Fabric API that differs between 1.21.11 and 26.3, and add it to the porting divergence table.
     - Include a "Look and sound" table with one row per player-facing moment (placing, breaking, using, ambient), naming its look, one vanilla sound, and one vanilla particle, all present in 1.21.11. Glowing parts use an emissive model layer the user paints.
   tasks:
-    - "Each task names its verification: a JUnit test, `python3 scripts/server_smoke_test.py`, a `runClient` log check, or an in-game checklist item for the user."
+    - "Each task names its verification: a JUnit test, a GameTest run by `python3 scripts/run_gametests.py` (with a mock player for anything a player does), a `client_log_check.py` run, or an in-game checklist item for the user."
+    - "In-game checklist items are only for looks, sounds, and what a test server can't do (sleeping through the night, restarting a world); everything else gets a GameTest."
     - Include one task that checks the design's Look and sound table in `runClient` and adds it to the in-game checklist.
     - Keep Minecraft-free rules in their own class so JUnit covers them.
 

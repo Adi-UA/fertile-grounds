@@ -3,26 +3,26 @@
 ## 1. Rules
 
 - [ ] 1.1 Add `JarredFairyRules` with JUnit tests for every expiry scenario (before, at, and after 3 days; flower pick; empty tag falls back to Poppy)
-- [ ] 1.2 Add the `jarred_fairy_days` gamerule; verify its default in the smoke test server
+- [ ] 1.2 Add the `jarred_fairy_days` gamerule; verify its default in a GameTest
 
 ## 2. Items and blocks
 
 - [ ] 2.1 Ask the user for the Jarred Fairy, Empty Fairy Hotel, and Occupied Fairy Hotel textures and emissive layers (offer UV guides); verify no missing-texture warnings in the `runClient` log
-- [ ] 2.2 Register the Jarred Fairy item and data component, both hotel blocks and items, loot tables, and lang keys; verify the smoke test places both hotels, reads light levels 5 and 12, and breaking an occupied hotel drops an occupied hotel
-- [ ] 2.3 Add the hotel recipe; verify the smoke test crafts it with mixed flowers and the recipe loads with no parse error
+- [ ] 2.2 Register the Jarred Fairy item and data component, both hotel blocks and items, loot tables, and lang keys; verify a GameTest places both hotels, reads light levels 5 and 12, and breaking an occupied hotel drops an occupied hotel
+- [ ] 2.3 Add the hotel recipe; verify a GameTest crafts it with mixed flowers and the recipe loads with no parse error
 
 ## 3. Catching and moving in
 
-- [ ] 3.1 Add capture in `mobInteract`; verify the smoke test uses a fake player with a bottle on a lingering fairy and gets a Jarred Fairy, and on a flying-in fairy gets the busy message
-- [ ] 3.2 Add moving in; verify the smoke test uses a Jarred Fairy on an empty hotel, sees an occupied hotel, and gets a bottle back
+- [ ] 3.1 Add capture in `mobInteract`; verify a GameTest uses a mock player with a bottle on a lingering fairy and gets a Jarred Fairy, and on a flying-in fairy gets the busy message
+- [ ] 3.2 Add moving in; verify a GameTest uses a Jarred Fairy on an empty hotel, sees an occupied hotel, and gets a bottle back
 
 ## 4. Slipping away
 
-- [ ] 4.1 Add the inventory, container-open, and item-entity expiry checks with both messages; verify the smoke test advances time with `/time add` and sees a flower in a fake player's inventory, in a chest after opening, and on the ground
+- [ ] 4.1 Add the inventory, container-open, and item-entity expiry checks with both messages; verify a GameTest advances time with `/time add` and sees a flower in a mock player's inventory, in a chest after opening, and on the ground
 - [ ] 4.2 Add "carry a Jarred Fairy until it slips away" and "find one in a chest" to the in-game checklist
 
 ## 5. Finish
 
-- [ ] 5.1 Add the first catch and first hotel advancements; verify the smoke test earns both through real actions
+- [ ] 5.1 Add the first catch and first hotel advancements; verify a GameTest earns both through real actions
 - [ ] 5.2 Check every row of the Look and sound table in `runClient` and add "catch a fairy and move it into a hotel" to the in-game checklist
 - [ ] 5.3 Document hotels in `README.md` and add any 1.21.11 data component, recipe, or container hook difference to the porting divergence table

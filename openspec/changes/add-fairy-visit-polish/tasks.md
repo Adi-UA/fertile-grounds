@@ -14,7 +14,7 @@
 ## 3. Behavior
 
 - [x] 3.1 Add the dance and ring growth; verify the smoke test sees the center crop grown before the edge crops on consecutive checks
-- [x] 3.2 Add `ShyFlight` with JUnit tests (flee direction, 6 block distance, clamp to 8 blocks from crop); add "sprint at a fairy, then sneak up on one" to the in-game checklist
+- [x] 3.2 Add `ShyFlight` with JUnit tests (flee direction, 6 block distance, clamp to 8 blocks from crop); `ShyFlightTests` sees a lingering fairy get 4 blocks from a walking mock player and stay near a sneaking one
 - [x] 3.3 Add heralds, with JUnit for when they start; add "watch fireflies appear before a Fairy Dust visit" to the in-game checklist
 
 ## 4. Look and sound

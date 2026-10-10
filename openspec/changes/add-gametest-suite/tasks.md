@@ -20,5 +20,5 @@
 ## 4. Switch over
 
 - [x] 4.1 Delete `scripts/server_smoke_test.py`; update `AGENTS.md` (commands, verification, layout, regression rule), `CLAUDE.md` (sandbox note), `.claude/settings.json` allowlist, and the porting skill; verify every file and path these docs name exists and `AGENTS.md` stays under 150 lines
-- [ ] 4.2 Update `openspec/config.yaml` task rules to name GameTests and the checklist-only scope for looks and sounds; reword the tasks in changes 2 to 7 whose checklist items GameTests now cover; verify `openspec validate` passes for every change
+- [x] 4.2 Update `openspec/config.yaml` task rules to name GameTests and the checklist-only scope for looks and sounds; reword the tasks in changes 2 to 7 whose checklist items GameTests now cover; verify `openspec validate` passes for every change
 - [ ] 4.3 Move `add-gametest-suite` before `add-fairy-jar` in `docs/ROADMAP.md`; verify the full `run_gametests.py` run and `client_log_check.py` both pass

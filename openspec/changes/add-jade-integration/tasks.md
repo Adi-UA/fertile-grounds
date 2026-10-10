@@ -3,7 +3,7 @@
 ## 1. Setup
 
 - [ ] 1.1 Add the Jade API `compileOnly` dependency and a dev-only runtime dependency, pinned from Jade's Modrinth versions for 26.3; verify `./gradlew build` passes and the built jar has no Jade classes inside
-- [ ] 1.2 Add the `jade` entrypoint and an empty plugin; verify `client_log_check.py` passes with Jade present, and the smoke test passes without Jade
+- [ ] 1.2 Add the `jade` entrypoint and an empty plugin; verify `client_log_check.py` passes with Jade present, and the GameTests pass without Jade
 
 ## 2. Tooltips
 
