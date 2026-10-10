@@ -7,11 +7,18 @@ Gives the mod's Minecraft-free rules machine-checked proofs, so their key proper
 ## ADDED Requirements
 
 ### Requirement: Proofs build cleanly
-`python3 scripts/check_proofs.py` SHALL run `lake build` in `proofs/` and exit 0 only when every file builds and no proof uses `sorry` or a new `axiom`.
+`python3 proofs/check_proofs.py` SHALL run `lake build` in `proofs/` and exit 0 only when every file builds and no proof uses `sorry` or a new `axiom`.
 
 #### Scenario: Unfinished proof
 - **WHEN** a developer leaves a `sorry` in a proof
 - **THEN** the script exits 1 and names the file
+
+### Requirement: Local only
+The `proofs/` directory SHALL be git-ignored, so no Lean file is committed.
+
+#### Scenario: Status after proving
+- **WHEN** a developer builds the proofs and runs `git status`
+- **THEN** nothing under `proofs/` shows as new or changed
 
 ### Requirement: Models mirror the Java
 Each Lean model SHALL name the Java class and method it mirrors, use the same default numbers, and include every JUnit case for that class as a Lean `example` checked by `decide` or `norm_num`.

@@ -2,8 +2,8 @@
 
 ## 1. Setup
 
-- [ ] 1.1 Install `elan-init` with Homebrew and create the `proofs/` Lake project with Mathlib pinned to its latest release tag and the matching `lean-toolchain`; git-ignore `proofs/.lake`; verify `lake exe cache get` and `lake build` succeed on an empty `FertileGrounds.lean`
-- [ ] 1.2 Add `scripts/check_proofs.py`; verify it exits 0 on the empty project and 1 after adding a file with `sorry`, then remove that file
+- [ ] 1.1 Install `elan-init` with Homebrew and create the `proofs/` Lake project with Mathlib pinned to its latest release tag and the matching `lean-toolchain`; add `proofs/` to `.gitignore` and confirm `git status` shows nothing under it; verify `lake exe cache get` and `lake build` succeed on an empty `FertileGrounds.lean`
+- [ ] 1.2 Add `proofs/check_proofs.py`; verify it exits 0 on the empty project and 1 after adding a file with `sorry`, then remove that file
 
 ## 2. Proofs
 
@@ -17,4 +17,4 @@
 ## 3. Finish
 
 - [ ] 3.1 Mutation check: change one constant in a model (Chime minimum 4 to 5) and confirm `check_proofs.py` fails on the mirrored examples, then revert
-- [ ] 3.2 Add the `proofs/` row, the `check_proofs.py` command, and the "a rule-class change updates its Lean file" rule to `AGENTS.md`; add step 17 to `docs/ROADMAP.md`; verify every path named exists
+- [ ] 3.2 Report which spec properties are proved, with the `check_proofs.py` output, in the change summary; verify `git status` still shows nothing under `proofs/`

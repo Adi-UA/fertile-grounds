@@ -6,12 +6,12 @@ The mod's rules decide things players can't easily check by playing: whether 10 
 
 ## What Changes
 
-- Install Lean 4 through `elan` (Homebrew `elan-init`; mise has no Lean plugin) and add a `proofs/` Lake project with Mathlib, outside the Gradle build and never shipped.
+- Install Lean 4 through `elan` (Homebrew `elan-init`; mise has no Lean plugin) and add a `proofs/` Lake project with Mathlib on the developer's machine only. `proofs/` is git-ignored: the Lean files are never committed or shipped.
 - Write a Lean model of each rule class that mirrors its Java method for method, and prove the properties listed in the spec: visit chance bounds and monotonicity, night transitions, soil upgrades, comparator signals, Chime Hotel rings, cluster leaders, dawn timing, Jarred Fairy expiry, gift tiers and cooldowns, growth rings, and shy flight.
 - Mirror each JUnit case as a Lean `example`, so a Java change that breaks a JUnit case also breaks the Lean build until the model is updated.
-- Add `scripts/check_proofs.py`, which runs `lake build` and fails on any `sorry`.
+- Add `proofs/check_proofs.py` (local, like the rest of `proofs/`), which runs `lake build` and fails on any `sorry`.
 
-Out of scope: proving the Java code itself (the Lean model mirrors it by hand), anything that touches Minecraft (worlds, entities, random ticks), floating-point rounding (the models use exact numbers), and running the proofs in `./gradlew build`.
+Out of scope: committing the Lean project, proving the Java code itself (the Lean model mirrors it by hand), anything that touches Minecraft (worlds, entities, random ticks), floating-point rounding (the models use exact numbers), and running the proofs in `./gradlew build`.
 
 New art: none.
 
@@ -27,4 +27,4 @@ None.
 
 ## Impact
 
-A new `proofs/` directory (Lake project pinned to a Lean toolchain and Mathlib release), `scripts/check_proofs.py`, an `AGENTS.md` row and command, and a step 17 in `docs/ROADMAP.md`. No mod code or gameplay changes. Mathlib's prebuilt cache is about 5 GB on disk, in `proofs/.lake` (git-ignored).
+One `.gitignore` line for `proofs/`; everything else stays on the developer's machine. No mod code or gameplay changes. Mathlib's prebuilt cache is about 5 GB on disk, in `proofs/.lake`.
