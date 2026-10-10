@@ -2,9 +2,9 @@
 
 ## 1. GameTest setup
 
-- [ ] 1.1 Enable `fabricApi.configureTests` in `build.gradle`, add the `gametest` source set's `fabric.mod.json` with one always-passing test, and look up how Fabric 4.0.32 filters tests by name; verify `./gradlew runGameTest` runs the test and exits 0, and exits non-zero after making it fail
-- [ ] 1.2 Add `scripts/run_gametests.py` (runs `runGameTest`, prints one line per test, fails on the data-load error markers, forwards a name filter); verify it exits 1 on a temporary tag that references a missing block
-- [ ] 1.3 Add the `night` and `no_random_ticks` test environments, the empty medium and large structures, and `TestPlayers.survival`; verify a test using each one passes
+- [x] 1.1 Enable `fabricApi.configureTests` in `build.gradle`, add the `gametest` source set's `fabric.mod.json` with one always-passing test, and look up how Fabric 4.0.32 filters tests by name; verify `./gradlew runGameTest` runs the test and exits 0, and exits non-zero after making it fail
+- [x] 1.2 Add `scripts/run_gametests.py` (runs `runGameTest`, prints one line per test, fails on the data-load error markers, forwards a name filter); verify it exits 1 on a temporary tag that references a missing block
+- [x] 1.3 Add the `night` and `no_random_ticks` test environments, the empty medium and large structures, and `TestPlayers.survival`; verify a test using each one passes
 
 ## 2. Port the smoke suites
 
