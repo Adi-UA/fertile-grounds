@@ -141,6 +141,7 @@ This branch targets Minecraft 26.3. Other supported versions live on their own b
 - [Fabric Loader](https://fabricmc.net/) 0.19.5+
 - [Fabric API](https://modrinth.com/mod/fabric-api) 0.161.0+26.3
 - Java 25+
+- Optional: [Jade](https://modrinth.com/mod/jade) for look-at tooltips
 
 ## Building from source
 
@@ -152,7 +153,4 @@ The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft ver
 
 ## Development
 
-```
-./gradlew runClient      # launch a dev client with the mod loaded
-./gradlew spotlessApply  # auto-format code
-```
+[AGENTS.md](../AGENTS.md) lists every command, including the dev client, formatting, and the GameTests.

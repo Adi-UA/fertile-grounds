@@ -56,7 +56,8 @@ After step 16 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the f
 | Returning named fairies, fairy painting, banner pattern | Long-term bonds and keepsakes deferred |
 | Per-farm opt-out, Fairy Dust on flowers, fairy stats | Not wanted, or low value |
 | Spyglass watching, sniffer-diggable soil, ancient flowers counting double | Not picked; spyglass went to the Chime Hotel instead |
+| Lean proofs of the rule classes | Dropped; JUnit and GameTests cover the rules |
 
 ## Next steps
 
-Start `add-regression-evals` on `main` with `/opsx:apply`.
+All 16 changes are built on `main` and pass the GameTests. What's left before 2.0.0: the user's in-game playthrough, the user's textures for Fertilizer and the three hotels (placeholders ship until then), a Crowdin project for translations, archiving the changes with `/opsx:archive`, then the release steps above.
