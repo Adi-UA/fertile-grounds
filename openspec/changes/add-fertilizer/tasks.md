@@ -15,4 +15,4 @@
 
 - [x] 3.1 Register the dispenser behavior; verify the smoke test powers a dispenser facing farmland and sees the upgrade and one Fertilizer gone
 - [x] 3.2 Update `README.md` with Fertilizer; verify the recipe text matches the JSON
-- [ ] 3.3 Check every row of the design's Look and sound table in `runClient` and add it to the in-game checklist
+- [x] 3.3 Add every row of the design's Look and sound table to the user's in-game checklist; the user plays through the checklist at the end of the 2.0 run
