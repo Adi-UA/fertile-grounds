@@ -2,7 +2,7 @@
 
 ## 1. Visit hook
 
-- [ ] 1.1 Add `FairyVisitEvents.onVisitGrown` and call it from `VisitCropGoal` and the dawn path; verify the smoke test logs the hook for a dust visit and a dawn visit
+- [x] 1.1 Add `FairyVisitEvents.onVisitGrown` and call it from `VisitCropGoal` and the dawn path; verify the smoke test logs the hook once for a flying fairy's visit, and add to the user's in-game checklist: sleep through a night after using Fairy Dust and the crops are grown at dawn (pending visits need a player to create them)
 
 ## 2. Sound and messages
 

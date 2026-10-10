@@ -1,5 +1,6 @@
 package com.fertilegrounds.entity;
 
+import com.fertilegrounds.fairy.FairyVisitEvents;
 import com.fertilegrounds.fairy.FairyVisitScheduler;
 import com.fertilegrounds.util.CropGrowthUtil;
 import java.util.EnumSet;
@@ -97,6 +98,7 @@ class VisitCropGoal extends Goal {
         }
         if (this.phaseTicks >= HOVER_TICKS) {
           CropGrowthUtil.growArea(level(), this.target, FairyVisitScheduler.GROWTH_RADIUS);
+          FairyVisitEvents.onVisitGrown(level(), this.target, false);
           sparkle(ParticleTypes.HAPPY_VILLAGER, 30);
           this.fairy.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.0F, 1.5F);
           nextPhase(Phase.LEAVE);

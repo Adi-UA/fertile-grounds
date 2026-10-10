@@ -186,6 +186,7 @@ public final class FairyVisitScheduler {
         continue;
       }
       CropGrowthUtil.growArea(level, visit.pos(), GROWTH_RADIUS);
+      FairyVisitEvents.onVisitGrown(level, visit.pos(), true);
       final BlockPos pos = visit.pos();
       level.sendParticles(
           ParticleTypes.HAPPY_VILLAGER,

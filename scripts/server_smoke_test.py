@@ -70,6 +70,8 @@ FAIRY_VISIT = Suite(
         "ROOFED_GROWN": "execute if block 12 201 0 minecraft:wheat[age=7] run say ROOFED_GROWN",
         "FAIRIES_GONE": "execute unless entity @e[type=fertilegrounds:bean_fairy] run say FAIRIES_GONE",
     },
+    # The roofed fairy's visit goes through FairyVisitEvents.onVisitGrown, the hook every visit uses.
+    expect_log={"Fairy visit grew crops at 12, 201, 0": 1},
 )
 
 SOIL_REGRESSIONS = Suite(
