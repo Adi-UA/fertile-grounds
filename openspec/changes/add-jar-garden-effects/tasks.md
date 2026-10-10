@@ -23,8 +23,8 @@
 
 ## 5. Protection
 
-- [ ] 5.1 Add the creeper mixin; verify a GameTest summons a creeper 5 blocks from a hotel and checks it is farther away after 5 seconds
-- [ ] 5.2 Add the trample mixin; verify a GameTest drops a mob 10 blocks onto farmland near a hotel (stays farmland) and far from it (becomes dirt)
+- [x] 5.1 Add the creeper mixin; verify a GameTest summons a creeper 5 blocks from a hotel and checks it is farther away after 5 seconds
+- [x] 5.2 Add the trample mixin; verify a GameTest drops a mob 10 blocks onto farmland near a hotel (stays farmland) and far from it (becomes dirt)
 
 ## 6. Finish
 

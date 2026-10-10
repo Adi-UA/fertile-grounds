@@ -3,6 +3,8 @@
   "package": "com.fertilegrounds.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "CreeperMixin",
+    "FarmlandBlockMixin",
     "ItemEntityMixin",
     "ServerPlayerMixin"
   ],

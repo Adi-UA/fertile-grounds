@@ -1,0 +1,48 @@
+package com.fertilegrounds.mixin;
+
+import com.fertilegrounds.hotel.FairyHotelLookup;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+/**
+ * Stops trampling near occupied Fairy Hotels. It wraps only the call in {@code fallOn}, so farmland
+ * still dries out, and it covers every block that extends vanilla farmland, the mod's tiers too.
+ */
+@Mixin(FarmlandBlock.class)
+abstract class FarmlandBlockMixin {
+
+  /** Farmland this far from a hotel, horizontally, is protected. */
+  private static final int PROTECTED_REACH = 4;
+
+  /** And this far up or down. */
+  private static final int PROTECTED_HEIGHT = 2;
+
+  @WrapOperation(
+      method = "fallOn",
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/world/level/block/FarmlandBlock;turnToBaseBlock(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"))
+  private void fertilegrounds$protectNearHotels(
+      final FarmlandBlock farmland,
+      final Entity entity,
+      final BlockState state,
+      final Level level,
+      final BlockPos pos,
+      final Operation<Void> original) {
+    if (!(level instanceof ServerLevel serverLevel
+        && FairyHotelLookup.isNearOccupiedHotel(
+            serverLevel, pos, PROTECTED_REACH, PROTECTED_HEIGHT))) {
+      original.call(farmland, entity, state, level, pos);
+    }
+  }
+}

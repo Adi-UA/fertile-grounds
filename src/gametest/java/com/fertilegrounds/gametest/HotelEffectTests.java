@@ -2,18 +2,22 @@ package com.fertilegrounds.gametest;
 
 import com.fertilegrounds.block.FairyHotelBlock;
 import com.fertilegrounds.block.ModBlocks;
+import com.fertilegrounds.hotel.AvoidFairyHotelGoal;
 import com.fertilegrounds.hotel.FairyHotelLookup;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.phys.Vec3;
 
 /** What an occupied Fairy Hotel does to the farm around it. */
 public class HotelEffectTests {
@@ -140,6 +144,66 @@ public class HotelEffectTests {
               player.leave();
             })
         .thenSucceed();
+  }
+
+  /**
+   * A cow dropped 11 blocks always tramples (see {@code SoilRegressionTests}): farmland 3 blocks
+   * from an occupied hotel stays farmland, and farmland 6 blocks away turns to dirt.
+   */
+  @GameTest(
+      structure = "fertilegrounds:empty_medium",
+      environment = "fertilegrounds:no_random_ticks",
+      skyAccess = true,
+      maxTicks = 200)
+  public void hotelStopsTramplingNearby(final GameTestHelper helper) {
+    final BlockPos hotel = new BlockPos(4, 2, 8);
+    final BlockPos near = new BlockPos(7, 1, 8);
+    final BlockPos far = new BlockPos(10, 1, 8);
+    placeHotel(helper, hotel, ModBlocks.FAIRY_HOTEL);
+    // Let the hotel's point of interest register before anything lands.
+    helper
+        .startSequence()
+        .thenIdle(5)
+        .thenExecute(
+            () -> {
+              for (final BlockPos farmland : new BlockPos[] {near, far}) {
+                helper.setBlock(farmland, Blocks.FARMLAND);
+                helper.spawn(
+                    EntityTypes.COW,
+                    farmland.getX() + 0.5F,
+                    farmland.getY() + 11,
+                    farmland.getZ() + 0.5F);
+              }
+            })
+        .thenWaitUntil(() -> helper.assertBlockPresent(Blocks.DIRT, far))
+        .thenIdle(20)
+        .thenExecute(() -> helper.assertBlockPresent(Blocks.FARMLAND, near))
+        .thenSucceed();
+  }
+
+  /**
+   * A creeper 5 blocks from an occupied hotel is out of its range 5 seconds later. The test world's
+   * floor is barrier, where vanilla never picks a spot to walk to, so the test lays stone first.
+   */
+  @GameTest(structure = "fertilegrounds:empty_large", padding = 8, maxTicks = 200)
+  public void creeperBacksAwayFromAHotel(final GameTestHelper helper) {
+    for (final BlockPos floor : BlockPos.betweenClosed(0, 0, 0, 32, 0, 32)) {
+      helper.setBlock(floor, Blocks.STONE);
+    }
+    final BlockPos hotel = new BlockPos(16, 1, 16);
+    placeHotel(helper, hotel, ModBlocks.FAIRY_HOTEL);
+    final Creeper creeper =
+        helper.spawn(EntityTypes.CREEPER, hotel.getX() + 5.5F, 1, hotel.getZ() + 0.5F);
+    final Vec3 hotelCenter = Vec3.atCenterOf(helper.absolutePos(hotel));
+    helper.runAfterDelay(
+        100,
+        () -> {
+          helper.assertTrue(
+              creeper.position().distanceTo(hotelCenter) > AvoidFairyHotelGoal.AVOID_DISTANCE + 1,
+              "the creeper left the hotel's 6-block range");
+          creeper.discard();
+          helper.succeed();
+        });
   }
 
   static void placeHotel(final GameTestHelper helper, final BlockPos pos, final Block hotel) {
