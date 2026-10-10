@@ -1,9 +1,5 @@
 # Tasks
 
-## 0. Before implementation
-
-- [ ] 0.1 The user replaces the placeholder textures with hand-drawn art (Fertilizer; Empty, Occupied, and Chime Fairy Hotel blocks and items; Jarred Fairy; each glow layer; Blighted Dirt); verify `client_log_check.py` and the asset test pass, and close the art tasks in `add-fertilizer`, `add-fairy-jar`, `add-chime-hotel`, and `add-blight`
-
 ## 1. Version support and docs
 
 - [ ] 1.1 Update `docs/ROADMAP.md`, `openspec/config.yaml`, `README.md`, and `docs/DETAILS.md` on `main` to 26.1, 26.2, and 26.3, with 1.21.11 and older on 1.2.0; verify every doc names the same versions
@@ -12,7 +8,7 @@
 
 ## 2. Release builds
 
-- [ ] 2.1 Archive the 18 completed changes with `/opsx:archive`; verify `openspec list` shows none active except this one
+- [ ] 2.1 Archive the 13 changes with every task done with `/opsx:archive`; verify `openspec list` shows only this change, the four changes waiting on art, and `add-translations` (waiting on Crowdin)
 - [ ] 2.2 Backport 2.0 to `26.2`, then `26.1`, with the porting skill; verify `./gradlew build` (GameTests included) and `client_log_check.py` on each
 - [ ] 2.3 Bump `mod_version` to 2.0.0 on `main`, `26.2`, and `26.1`; verify each jar is named `fertilegrounds-2.0.0+<mc>.jar`
 
@@ -26,6 +22,7 @@
 
 ## 4. Publish
 
+- [ ] 4.0 The user replaces the placeholder textures with hand-drawn art (Fertilizer; Empty, Occupied, and Chime Fairy Hotel blocks and items; Jarred Fairy; each glow layer; Blighted Dirt) on `main`, then Claude cherry-picks the art commit to `26.2`, `26.1`, and `26.3`; verify `client_log_check.py` and the asset test pass on each, close the art tasks in `add-fertilizer`, `add-fairy-jar`, `add-chime-hotel`, and `add-blight`, and archive those four
 - [ ] 4.1 The user pushes the branches and creates the GitHub release with the three 2.0.0 jars
 - [ ] 4.2 Update Modrinth with `updating-modrinth`: three new versions and a description that says older versions stay on 1.2.0; verify through the public API
 - [ ] 4.3 Update CurseForge with `updating-curseforge` the same way; verify the page shows the same message

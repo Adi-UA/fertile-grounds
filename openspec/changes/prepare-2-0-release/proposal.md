@@ -16,7 +16,7 @@ The user chose 26.x only after comparing the numbers (2026-10-10). Fabric API do
 
 Out of scope: the 1.21.11 port, renaming the mod (the user kept "Fertile Grounds"), recording the demo media (the user records), and committing the demo world or any shader pack.
 
-New art: none in this change. The user replaces the placeholder textures (Fertilizer, Empty and Occupied Fairy Hotel, Jarred Fairy, Chime Hotel, each with glow layers, and Blighted Dirt) before implementation starts, closing the open art tasks in `add-fertilizer`, `add-fairy-jar`, `add-chime-hotel`, and `add-blight`.
+New art: none in this change. The user asked (2026-10-10) to build everything first, so the placeholder textures (Fertilizer, Empty and Occupied Fairy Hotel, Jarred Fairy, Chime Hotel, each with glow layers, and Blighted Dirt) get replaced after the backports and before publishing; one art commit on `main` is then cherry-picked to every 26.x branch.
 
 ## Capabilities
 
