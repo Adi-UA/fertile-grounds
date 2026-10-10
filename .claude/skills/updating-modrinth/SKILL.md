@@ -22,7 +22,7 @@ Mirror a GitHub release onto the Modrinth project: one Modrinth version per jar,
 V=1.2.0   # mod version being published
 D=build/modrinth-upload && rm -rf $D && mkdir -p $D
 gh release download v$V -R Adi-UA/fertile-grounds -D $D -p '*.jar'
-for b in 26.3 26.2 26.1 1.21.11 1.21.10 1.21.1 1.20.1; do
+for b in 26.3 26.2 26.1; do   # 2.0+ ships 26.x only; 1.21.11 and older are frozen on 1.2.0
   echo "$b $(git show "${b}:gradle.properties" | rg -o 'fabric_api_version=.*')"; done
 ```
 
@@ -72,7 +72,7 @@ Keep the description consistent with the GitHub README: the growth demo gif, the
 From `https://modrinth.com/mod/fertile-grounds/versions`, for each jar:
 
 1. Click **Create version**. Use `find` for "file input in upload dialog", then `file_upload` the jar. Don't click the file input; that opens a native picker.
-2. **Metadata step:** loader must be Fabric, and detected versions must match the jar's Minecraft version. Modrinth reads the jar's `minecraft` range, so `~1.21.1` detects 1.21.1 through 1.21.11 and `~1.20.1` detects 1.20.1 through 1.20.6. Click **Edit** beside Detected versions, **Clear all**, and tick only the jar's own version, matching the older uploads. Keep extra patch versions only when the jar was verified on them (the 26.1 jar covers 26.1, 26.1.1 and 26.1.2). The editor reflows after each click, so take a screenshot before the next one. Environment: client and server.
+2. **Metadata step:** loader must be Fabric, and detected versions must match the jar's Minecraft version. Modrinth reads the jar's `minecraft` range, which can detect more versions than the jar was built for. Click **Edit** beside Detected versions, **Clear all**, and tick only the jar's own version, matching the older uploads. Keep extra patch versions only when the jar was verified on them (the 26.1 jar covers 26.1, 26.1.1 and 26.1.2). The editor reflows after each click, so take a screenshot before the next one. Environment: client and server.
 3. **Dependencies:** ignore the "Suggested" Fabric API row, because it pins a version for the wrong Minecraft release. Click **Add dependency** → paste `P7dR8mSH` → pick Fabric API → type the branch's pin in Version and pick it → relation **Required** → **Add dependency**.
 4. **Add details:** type **Release**. Version number and subtitle autofill as `<mod>+<mc>` and `Fertile Grounds <mod>+<mc>`; keep them. Type a one or two sentence changelog in the editor.
 5. Click **Create version**, then verify it (step 5) before starting the next jar.

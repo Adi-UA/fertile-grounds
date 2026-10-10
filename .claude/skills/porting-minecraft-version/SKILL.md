@@ -5,7 +5,7 @@ description: Port Fertile Grounds to a new Minecraft version, or backport a feat
 
 # Porting between Minecraft versions
 
-Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 1.21.11). Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
+Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 26.1). Since 2.0 the targets are `26.2` and `26.1`; the 1.21.11 and older branches are frozen on 1.2.0, and their rows below stay for history. Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
 
 ## 1. Set up the branch
 

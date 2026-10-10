@@ -148,17 +148,17 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 
 ## Minecraft version
 
-This branch targets Minecraft 26.3. Other supported versions live on their own branches, each an independently maintained port (changes aren't shared automatically between them):
+This branch targets Minecraft 26.3. Version 2.0 supports 26.1, 26.2, and 26.3, each on its own branch; changes land on `main` first and are backported one version at a time. Older Minecraft versions stay on 1.2.0, and their branches are frozen:
 
-| Branch | Minecraft version |
-|---|---|
-| `1.20.1` | 1.20.1 |
-| `1.21.1` | 1.21.1 |
-| `1.21.10` | 1.21.10 |
-| `1.21.11` | 1.21.11 |
-| `26.1` | 26.1 |
-| `26.2` | 26.2 |
-| `26.3` / `main` | 26.3 (this branch, latest supported version) |
+| Branch | Minecraft version | Mod version |
+|---|---|---|
+| `26.3` / `main` | 26.3 (this branch, latest) | 2.0 |
+| `26.2` | 26.2 | 2.0 |
+| `26.1` | 26.1 | 2.0 |
+| `1.21.11` | 1.21.11 | 1.2.0 (frozen) |
+| `1.21.10` | 1.21.10 | 1.2.0 (frozen) |
+| `1.21.1` | 1.21.1 | 1.2.0 (frozen) |
+| `1.20.1` | 1.20.1 | 1.2.0 (frozen) |
 
 ## Requirements
 
@@ -174,7 +174,7 @@ This branch targets Minecraft 26.3. Other supported versions live on their own b
 ./gradlew build
 ```
 
-The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-1.2.0+26.3.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
+The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-2.0.0+26.3.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
 
 ## Development
 

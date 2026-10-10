@@ -4,7 +4,7 @@ Fertile Grounds grows into a cozy, lightweight vanilla+ mod that complements big
 
 ## 2.0.0
 
-One big release, numbered 2.0.0 because Fairy Hotels and the reworked fairy visit change how the mod plays. It targets Minecraft 1.21.11, 26.1, 26.2, and 26.3, where most downloads come from; 1.20.1, 1.21.1, and 1.21.10 stay on 1.2.0. Every change below is built and verified on 26.3 (`main`) first. Backporting starts only after all of them work on 26.3, then goes one version at a time (26.2, 26.1, 1.21.11) with `.claude/skills/porting-minecraft-version/SKILL.md`.
+One big release, numbered 2.0.0 because Fairy Hotels and the reworked fairy visit change how the mod plays. It targets Minecraft 26.1, 26.2, and 26.3, about 57% of Fabric players; 1.21.11 and older stay on 1.2.0, because a 1.21.11 port needs an obfuscated build setup and four features rewritten. Every change below is built and verified on 26.3 (`main`) first. Backporting starts only after all of them work on 26.3, then goes one version at a time (26.2, then 26.1) with `.claude/skills/porting-minecraft-version/SKILL.md`.
 
 ### Build order
 
@@ -35,7 +35,7 @@ Visit polish comes before hotels because catching needs the linger window. The G
 
 ### Release steps
 
-After step 18 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the full verification suite on each; bump `mod_version` to 2.0.0 on all four branches; then publish to GitHub, Modrinth, and CurseForge with the release skills.
+`prepare-2-0-release` holds them: after step 18 works on 26.3, backport to 26.2, then 26.1, running the full verification suite on each; bump `mod_version` to 2.0.0 on all three branches; build the demo world; swap in the user's art; then publish to GitHub, Modrinth, and CurseForge with the release skills.
 
 ## Considered and skipped
 
@@ -51,7 +51,7 @@ After step 18 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the f
 | Recipe viewer info pages, Mod Menu screen | The guide book and gamerules cover them |
 | Fairy Wing, gifts from escaping fairies | A slipping-away fairy leaves only a flower |
 | Jar friendship (8 flowers over 4 days), 7-day jars | Replaced by Fairy Hotels |
-| Patchouli guide | No support for 1.21.11, 26.2, or 26.3 |
+| Patchouli guide | No support for 26.2 or 26.3 |
 | Resource crops, machines, chunk-loading wards, seed sorting, Tidy Hotel | Out of scope for a lightweight vanilla+ mod; moving player items risks loss |
 | Seed Pouch | Overlaps vanilla bundles |
 | Waving, note block echo, thank-you notes, cookies for fairies, lit-candle traces | Fairies stay a little mysterious |

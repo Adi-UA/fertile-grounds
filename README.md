@@ -47,7 +47,7 @@
 
 ## For modpack makers and developers
 
-Everything is tunable with gamerules, and crops and flowers come from tags, so modded content works without code. [docs/DETAILS.md](docs/DETAILS.md) lists every number, recipe, tag, gamerule, and supported version. Needs [Fabric API](https://modrinth.com/mod/fabric-api); build with `./gradlew build` on Java 25. [AGENTS.md](AGENTS.md) covers the code, and [CONTRIBUTING.md](CONTRIBUTING.md) explains how to add a translation.
+Everything is tunable with gamerules, and crops and flowers come from tags, so modded content works without code. [docs/DETAILS.md](docs/DETAILS.md) lists every number, recipe, tag, gamerule, and supported version. Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3; on 1.21.11 and older, use 1.2.0. Needs [Fabric API](https://modrinth.com/mod/fabric-api); build with `./gradlew build` on Java 25. [AGENTS.md](AGENTS.md) covers the code, and [CONTRIBUTING.md](CONTRIBUTING.md) explains how to add a translation.
 
 ## Art
 

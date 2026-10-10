@@ -2,8 +2,8 @@
 
 ## 1. Version support and docs
 
-- [ ] 1.1 Update `docs/ROADMAP.md`, `openspec/config.yaml`, `README.md`, and `docs/DETAILS.md` on `main` to 26.1, 26.2, and 26.3, with 1.21.11 and older on 1.2.0; verify every doc names the same versions
-- [ ] 1.2 Update the porting skill's targets and both release skills' branch loops to the 26.x branches; verify every path and branch named exists
+- [x] 1.1 Update `docs/ROADMAP.md`, `openspec/config.yaml`, `README.md`, and `docs/DETAILS.md` on `main` to 26.1, 26.2, and 26.3, with 1.21.11 and older on 1.2.0; verify every doc names the same versions
+- [x] 1.2 Update the porting skill's targets and both release skills' branch loops to the 26.x branches; verify every path and branch named exists
 - [ ] 1.3 Add a README note to the `1.21.11`, `1.21.10`, `1.21.1`, and `1.20.1` branches saying they stay on 1.2.0, linking `main`; one commit per branch, never pushed
 
 ## 2. Release builds
