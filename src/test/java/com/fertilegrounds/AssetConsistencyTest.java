@@ -97,6 +97,41 @@ class AssetConsistencyTest {
     assertNone("Lang keys used but not defined", missing);
   }
 
+  /**
+   * Player-facing text goes through translation keys, so code never builds text from a plain
+   * string, which would show in English for every player.
+   */
+  @Test
+  void noTextIsHardcoded() throws IOException {
+    final List<String> found = new ArrayList<>();
+    for (final Path dir : List.of(JAVA, CLIENT_JAVA)) {
+      for (final Path file : files(dir, ".java")) {
+        if (Files.readString(file).contains("Component.literal(")) {
+          found.add(file.toString());
+        }
+      }
+    }
+    assertNone("Component.literal in mod code (use a translation key)", found);
+  }
+
+  /**
+   * Other languages only translate keys English defines. A key English dropped is dead text, and
+   * Minecraft already shows English for any key a language is missing.
+   */
+  @Test
+  void otherLanguagesOnlyUseEnglishKeys() throws IOException {
+    final Set<String> english = readJson(ASSETS.resolve("lang/en_us.json")).keySet();
+    final List<String> stale = new ArrayList<>();
+    for (final Path file : files(ASSETS.resolve("lang"), ".json")) {
+      for (final String key : readJson(file).keySet()) {
+        if (!english.contains(key)) {
+          stale.add(file.getFileName() + ": " + key);
+        }
+      }
+    }
+    assertNone("Keys missing from en_us.json", stale);
+  }
+
   /** Regression for 0a7576e: block items showed "item.fertilegrounds.*" raw keys. */
   @Test
   void blockItemsReuseTheBlockName() throws IOException {

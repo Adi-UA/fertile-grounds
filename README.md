@@ -183,7 +183,7 @@ I am just tracing over vanilla textures to avoid stealing stylistic choices from
 
 ## Feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/Adi-UA/fertile-grounds/issues/new/choose). For questions or to show what you built, use [Discussions](https://github.com/Adi-UA/fertile-grounds/discussions).
+Found a bug or have an idea? [Open an issue](https://github.com/Adi-UA/fertile-grounds/issues/new/choose). For questions or to show what you built, use [Discussions](https://github.com/Adi-UA/fertile-grounds/discussions). Want the mod in your language? [CONTRIBUTING.md](CONTRIBUTING.md) explains how to add a translation.
 
 ## License
 
