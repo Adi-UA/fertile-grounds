@@ -13,7 +13,7 @@
 
 ## 3. Delivery
 
-- [ ] 3.1 Add the three loot tables from the spec's default gift tables; verify a JUnit asset test reads each JSON and matches every item, count range, and weight to the spec, and `/loot spawn ~ ~ ~ loot fertilegrounds:gameplay/fairy_gift/rare` drops an item in the smoke test
+- [x] 3.1 Add the three loot tables from the spec's default gift tables; verify a JUnit asset test reads each JSON and matches every item, count range, and weight to the spec, and `/loot spawn ~ ~ ~ loot fertilegrounds:gameplay/fairy_gift/rare` drops an item in the smoke test
 - [ ] 3.2 Drop gifts from `FairyVisitEvents.onVisitGrown` with particles and owner message; verify the smoke test sets gift chance to 100, runs a dust visit, and finds a gift item entity with unlimited lifetime
 - [ ] 3.3 Add the first gift and Harvest Moon advancements; verify the smoke test grants them through real gifts and visits
 - [ ] 3.4 Document gifts and their gamerules in `README.md`; verify numbers match the defaults

@@ -271,6 +271,23 @@ ADVANCEMENTS = Suite(
     checks={},
 )
 
+GIFT_TABLES = Suite(
+    name="gift_tables",
+    setup=[
+        # A wide pad, since spawned items get a small random push and can slide off one block.
+        ("fill 3 200 -11 9 200 -9 minecraft:stone", 0),
+        ("loot spawn 4 201 -10 loot fertilegrounds:gameplay/fairy_gift/common", 0),
+        ("loot spawn 6 201 -10 loot fertilegrounds:gameplay/fairy_gift/uncommon", 0),
+        ("loot spawn 8 201 -10 loot fertilegrounds:gameplay/fairy_gift/rare", 0),
+        ("time query gametime", 1),  # a no-op pause so the items land before the checks
+    ],
+    checks={
+        "GIFT_COMMON_DROPS": "execute if entity @e[type=item,x=4,y=201,z=-10,distance=..2] run say GIFT_COMMON_DROPS",
+        "GIFT_UNCOMMON_DROPS": "execute if entity @e[type=item,x=6,y=201,z=-10,distance=..2] run say GIFT_UNCOMMON_DROPS",
+        "GIFT_RARE_DROPS": "execute if entity @e[type=item,x=8,y=201,z=-10,distance=..2] run say GIFT_RARE_DROPS",
+    },
+)
+
 SUITES = [
     FAIRY_VISIT,
     FAIRY_LINGER,
@@ -280,6 +297,7 @@ SUITES = [
     FERTILIZER,
     HARVEST_MOON,
     ADVANCEMENTS,
+    GIFT_TABLES,
 ]
 
 # The data pack format 26.3 reads (pack_version.data_major in the game jar's version.json).

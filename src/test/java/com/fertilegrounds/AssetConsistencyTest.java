@@ -49,6 +49,10 @@ class AssetConsistencyTest {
     for (final String entity : entities()) {
       requireKey(lang, "entity." + NS + "." + entity, missing);
     }
+    // Recipe viewers (EMI, JEI, REI) show item tags by name, using Fabric's tag.item.* convention.
+    for (final String tag : baseNames(DATA.resolve("tags/item"))) {
+      requireKey(lang, "tag.item." + NS + "." + tag.replace('/', '.'), missing);
+    }
     // The Edit Game Rules screen shows each rule's name and its ".description" line.
     for (final String rule : gameRules()) {
       requireKey(lang, "gamerule." + NS + "." + rule, missing);

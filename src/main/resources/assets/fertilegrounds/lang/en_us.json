@@ -42,5 +42,6 @@
   "gamerule.fertilegrounds.fairy_gift_chance_dust": "Fairy gift chance (Fairy Dust)",
   "gamerule.fertilegrounds.fairy_gift_chance_dust.description": "Percent chance a Fairy Dust visit leaves its player a gift",
   "gamerule.fertilegrounds.fairy_gift_cooldown_days": "Fairy gift cooldown",
-  "gamerule.fertilegrounds.fairy_gift_cooldown_days.description": "In-game days a player waits after a fairy gift before getting another"
+  "gamerule.fertilegrounds.fairy_gift_cooldown_days.description": "In-game days a player waits after a fairy gift before getting another",
+  "tag.item.fertilegrounds.fairy_flowers": "Fairy Flowers"
 }
