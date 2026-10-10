@@ -82,8 +82,7 @@ public class FairyVisitTests {
       padding = 8,
       maxTicks = 600)
   public void roofedCropIsReached(final GameTestHelper helper) {
-    helper.setBlock(CENTER.below(), Blocks.FARMLAND);
-    helper.setBlock(CENTER, Blocks.WHEAT);
+    TestSupport.plantWheat(helper, CENTER);
     for (final BlockPos pos :
         BlockPos.betweenClosed(CENTER.offset(-1, 2, -1), CENTER.offset(1, 2, 1))) {
       helper.setBlock(pos, Blocks.GLASS);

@@ -3,8 +3,10 @@ package com.fertilegrounds.gametest;
 import com.fertilegrounds.entity.BeanFairy;
 import com.fertilegrounds.entity.ModEntities;
 import java.util.List;
+import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.level.block.Blocks;
 
 /** Small helpers shared by the test classes. */
 final class TestSupport {
@@ -28,5 +30,11 @@ final class TestSupport {
     server
         .getCommands()
         .performPrefixedCommand(server.createCommandSourceStack().withSuppressedOutput(), command);
+  }
+
+  /** Plants young wheat at {@code pos} on farmland. */
+  static void plantWheat(final GameTestHelper helper, final BlockPos pos) {
+    helper.setBlock(pos.below(), Blocks.FARMLAND);
+    helper.setBlock(pos, Blocks.WHEAT);
   }
 }

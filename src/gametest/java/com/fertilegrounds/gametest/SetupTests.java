@@ -28,11 +28,12 @@ public class SetupTests {
 
   @GameTest(structure = "fertilegrounds:empty_medium")
   public void survivalPlayerUsesUpItems(final GameTestHelper helper) {
-    final var player = TestPlayers.survival(helper);
+    final TestPlayer player = TestPlayer.join(helper);
     final ItemStack stack = new ItemStack(Items.BONE_MEAL, 2);
     player.getInventory().setItem(Inventory.SLOT_OFFHAND, stack);
     stack.consume(1, player);
     helper.assertValueEqual(stack.getCount(), 1, "bone meal left after using one in survival");
+    player.leave();
     helper.succeed();
   }
 }

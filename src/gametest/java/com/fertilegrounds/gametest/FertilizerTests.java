@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -16,8 +17,8 @@ import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Fertilizer fired from a dispenser, which calls the same {@code FertilizerItem.upgrade} as a
- * player's use. Each dispenser holds 2, so a used one leaves 1.
+ * Fertilizer used by a player and fired from a dispenser; both call {@code FertilizerItem.upgrade}.
+ * Each starts with 2, so a used one leaves 1.
  */
 public class FertilizerTests {
 
@@ -57,6 +58,23 @@ public class FertilizerTests {
   @GameTest(environment = "fertilegrounds:no_random_ticks")
   public void keepsFertilizerOnTheTopTier(final GameTestHelper helper) {
     assertKept(helper, moist(ModBlocks.SUPER_ENRICHED_FARMLAND));
+  }
+
+  /** By hand, the player uses the same upgrade and loses one Fertilizer in survival. */
+  @GameTest(environment = "fertilegrounds:no_random_ticks")
+  public void playerUpgradesFarmlandByHand(final GameTestHelper helper) {
+    final BlockState wheat = Blocks.WHEAT.defaultBlockState().setValue(CropBlock.AGE, 3);
+    helper.setBlock(TARGET, moist(ModBlocks.ENRICHED_FARMLAND));
+    helper.setBlock(TARGET.above(), wheat);
+    final TestPlayer player = TestPlayer.join(helper);
+    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.FERTILIZER, 2));
+    helper.useBlock(TARGET, player);
+
+    helper.assertBlockState(TARGET, moist(ModBlocks.SUPER_ENRICHED_FARMLAND));
+    helper.assertBlockState(TARGET.above(), wheat);
+    helper.assertValueEqual(player.getMainHandItem().getCount(), 1, "Fertilizer left");
+    player.leave();
+    helper.succeed();
   }
 
   private static void assertKept(final GameTestHelper helper, final BlockState target) {
