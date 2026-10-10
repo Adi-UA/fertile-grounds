@@ -67,6 +67,10 @@ public final class ModGameRules {
   public static final GameRule<Integer> FAIRY_HOTEL_HONEY_CHANCE =
       percent("fairy_hotel_honey_chance", 10, GameRuleCategory.UPDATES);
 
+  /** Share of fully grown crops near a Chime Hotel that makes it ring. */
+  public static final GameRule<Integer> CHIME_READY_PERCENT =
+      integer("chime_ready_percent", 80, 1, 100, GameRuleCategory.MISC);
+
   /** Whether players near an occupied Fairy Hotel get Fairy Speed. */
   public static final GameRule<Boolean> FAIRY_HOTEL_SPEED =
       GameRuleBuilder.forBoolean(true)

@@ -68,6 +68,8 @@
   "gamerule.fertilegrounds.fairy_hotel_honey_chance": "Fairy Hotel honey chance",
   "gamerule.fertilegrounds.fairy_hotel_honey_chance.description": "Percent chance per random tick that an occupied Fairy Hotel adds a honey level to a beehive within 4 blocks",
   "effect.fertilegrounds.fairy_speed": "Fairy Speed",
+  "gamerule.fertilegrounds.chime_ready_percent": "Chime Hotel ready percent",
+  "gamerule.fertilegrounds.chime_ready_percent.description": "Percent of the fairy crops within 8 blocks of a Chime Hotel that must be fully grown for it to chime",
   "gamerule.fertilegrounds.fairy_hotel_speed": "Fairy Hotel speed",
   "gamerule.fertilegrounds.fairy_hotel_speed.description": "Whether players within 8 blocks of an occupied Fairy Hotel move 10% faster"
 }

@@ -24,7 +24,8 @@ public class TuningGameruleTests {
           Map.entry(ModGameRules.JARRED_FAIRY_DAYS, 3),
           Map.entry(ModGameRules.FAIRY_HOTEL_BOOST_CHANCE, 50),
           Map.entry(ModGameRules.FAIRY_HOTEL_PETTED_BOOST_CHANCE, 65),
-          Map.entry(ModGameRules.FAIRY_HOTEL_HONEY_CHANCE, 10));
+          Map.entry(ModGameRules.FAIRY_HOTEL_HONEY_CHANCE, 10),
+          Map.entry(ModGameRules.CHIME_READY_PERCENT, 80));
 
   @GameTest
   public void defaultsMatchTheSpec(final GameTestHelper helper) {

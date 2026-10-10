@@ -2,8 +2,8 @@
 
 ## 1. Rules
 
-- [ ] 1.1 Add `ChimeRules` with JUnit tests for every spec scenario (ready at 80%, quiet while ready, re-arm after harvest, too few crops)
-- [ ] 1.2 Add the `chime_ready_percent` gamerule; verify its default in a GameTest
+- [x] 1.1 Add `ChimeRules` with JUnit tests for every spec scenario (ready at 80%, quiet while ready, re-arm after harvest, too few crops)
+- [x] 1.2 Add the `chime_ready_percent` gamerule; verify its default in a GameTest
 
 ## 2. Block
 
