@@ -39,6 +39,25 @@ Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Li
 - **WHEN** the user takes a diamond from the supply chest and uses it on the shrine's Chime Hotel
 - **THEN** the safety check passes and the fairies build the full grove while the user records
 
+### Requirement: Demo world doubles as a test world
+The demo save SHALL keep its datapack installed so the user can test features quickly. A sign board at spawn SHALL list these commands:
+- `/function fgdemo:reset/<station>` and `/function fgdemo:reset/all` rebuild a station, or every station, to its starting state, including the blighted plot and the grove area after a grove was built
+- `/function fgdemo:mode/test` sets fast-testing gamerules: random tick speed 30, `fairy_visit_chance` 100, `blight_spread_chance` 100, `witch_blight_chance` 100, `jarred_fairy_days` 1, and night
+- `/function fgdemo:mode/demo` restores the still recording settings, and `/function fgdemo:mode/default` restores every mod gamerule to its default
+The world SHALL also hold an empty test lot of flat grass, with water nearby and room for a second grove, and a supply chest with witch and Bean Fairy spawn eggs.
+
+#### Scenario: Grove again
+- **WHEN** the user builds a grove, then runs `/function fgdemo:reset/grove`
+- **THEN** the hillside and the shrine are back as they were, ready for another diamond
+
+#### Scenario: Quick blight check
+- **WHEN** the user runs `/function fgdemo:mode/test` and watches the blighted plot
+- **THEN** blight visibly spreads within a minute, and `/function fgdemo:reset/blight` puts the plot back
+
+#### Scenario: Back to recording
+- **WHEN** the user runs `/function fgdemo:mode/demo`
+- **THEN** the weather, mobs, and fairy visits are still again
+
 ### Requirement: Shaders for recording
 `./gradlew runClient -Pshaders` SHALL start the dev client with Sodium and Iris, so a shader pack placed in `run/shaderpacks/` can be turned on. Neither mod nor any shader pack SHALL ship in the mod jar or be committed.
 

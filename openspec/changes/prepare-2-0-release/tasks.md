@@ -20,8 +20,9 @@
 
 - [ ] 3.1 Add `-Pshaders` (Sodium and Iris as dev-only `localRuntime`, versions pinned in `gradle.properties`); verify `runClient -Pshaders` boots with Iris in the log and plain `runClient` boots without it, and the mod jar contains neither
 - [ ] 3.2 Write `scripts/demo/build_demo_world.py` and its datapack; pick a seed with a flower forest or cherry grove; verify the script builds the world on a headless server with no errors in the log
-- [ ] 3.3 On the headless server, check the built world against the spec scenarios (Fairy Dust on the fairy farm at night brings a fairy; the Chime Hotel field ripens and the lamp blinks) by reading block states and the log; then copy the world to `~/Library/Application Support/minecraft/saves/Fertile Grounds Demo`
-- [ ] 3.4 Ask the user before copying the 2.0.0 jar and Fabric API into the real client's `mods/` folder; add "load the demo world, record the core features" to the user's checklist
+- [ ] 3.3 Add the `fgdemo` test functions (station templates, `reset/*`, `mode/*`), the spawn sign board, and the test lot; verify on the headless server that building a grove then running `reset/grove` restores the original blocks, `mode/test` sets every listed gamerule, and `mode/default` restores them
+- [ ] 3.4 On the headless server, check the built world against the spec scenarios (Fairy Dust on the fairy farm at night brings a fairy; the Chime Hotel field ripens and the lamp blinks) by reading block states and the log; then copy the world to `~/Library/Application Support/minecraft/saves/Fertile Grounds Demo`
+- [ ] 3.5 Ask the user before copying the 2.0.0 jar and Fabric API into the real client's `mods/` folder; add "load the demo world, record the core features" to the user's checklist
 
 ## 4. Publish
 
