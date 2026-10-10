@@ -16,12 +16,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gamerules.GameRules;
 
 /**
  * Decides when Bean Fairies show up. Once a second, in the overworld only, it:
  *
  * <ol>
- *   <li>rolls a rare natural visit for each player when night starts,
+ *   <li>when night starts, announces a Harvest Moon if the moon is full, then rolls a rare natural
+ *       visit for each player,
  *   <li>sends a fairy to each visit that is due during the night,
  *   <li>grows any visits still pending at dawn directly, so sleeping through the night doesn't skip
  *       the fairy (it "came while you slept").
@@ -82,7 +84,7 @@ public final class FairyVisitScheduler {
 
     final boolean isNight = level.isDarkOutside();
     switch (FairyTiming.transition(WAS_NIGHT.put(level, isNight), isNight)) {
-      case NIGHT_STARTED -> rollNaturalVisits(level);
+      case NIGHT_STARTED -> startNight(level);
       case DAY_STARTED -> growVisitsMissedOvernight(level);
       case NONE -> {}
     }
@@ -91,25 +93,49 @@ public final class FairyVisitScheduler {
     }
   }
 
-  private static void rollNaturalVisits(final ServerLevel level) {
-    final int chance = level.getGameRules().get(ModGameRules.FAIRY_VISIT_CHANCE);
+  private static void startNight(final ServerLevel level) {
+    final boolean harvestMoon = HarvestMoon.isTonight(level);
+    if (harvestMoon) {
+      HarvestMoon.announce(level);
+    }
+    rollNaturalVisits(level, harvestMoon);
+  }
+
+  /**
+   * Each player gets one roll per night, for one random crop near them. The crop is picked first
+   * because the flowers and hives around it change the odds.
+   */
+  private static void rollNaturalVisits(final ServerLevel level, final boolean harvestMoon) {
+    final GameRules rules = level.getGameRules();
+    final int baseChance = rules.get(ModGameRules.FAIRY_VISIT_CHANCE);
+    final FairyTiming.Bonuses bonuses =
+        new FairyTiming.Bonuses(
+            rules.get(ModGameRules.FAIRY_FLOWER_BONUS),
+            rules.get(ModGameRules.FAIRY_HIVE_BONUS),
+            rules.get(ModGameRules.HARVEST_MOON_MULTIPLIER));
     for (final ServerPlayer player : level.players()) {
-      if (!FairyTiming.rollsNaturalVisit(chance, level.getRandom().nextDouble() * 100)) {
-        continue;
-      }
       findCropNear(level, player.blockPosition())
           .ifPresent(
-              pos -> {
-                final int delay =
-                    level
-                        .getRandom()
-                        .nextIntBetweenInclusive(
-                            FairyTiming.NATURAL_DELAY_MIN_TICKS,
-                            FairyTiming.NATURAL_DELAY_MAX_TICKS);
-                FairyVisits.add(level, new FairyVisit(pos, level.getGameTime() + delay));
-                FertileGrounds.LOGGER.debug("Natural fairy visit scheduled at {}", pos);
+              crop -> {
+                final FarmAttractions farm = FarmAttractions.around(level, crop);
+                final double chance =
+                    FairyTiming.visitChance(
+                        baseChance, farm.flowerTypes(), farm.hasHive(), harvestMoon, bonuses);
+                if (FairyTiming.rollsNaturalVisit(chance, level.getRandom().nextDouble() * 100)) {
+                  scheduleNaturalVisit(level, crop);
+                }
               });
     }
+  }
+
+  private static void scheduleNaturalVisit(final ServerLevel level, final BlockPos crop) {
+    final int delay =
+        level
+            .getRandom()
+            .nextIntBetweenInclusive(
+                FairyTiming.NATURAL_DELAY_MIN_TICKS, FairyTiming.NATURAL_DELAY_MAX_TICKS);
+    FairyVisits.add(level, new FairyVisit(crop, level.getGameTime() + delay));
+    FertileGrounds.LOGGER.debug("Natural fairy visit scheduled at {}", crop);
   }
 
   /** Picks a random growable crop near {@code center}, checking spots in random order. */

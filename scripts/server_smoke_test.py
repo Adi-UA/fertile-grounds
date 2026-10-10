@@ -30,6 +30,8 @@ class Suite:
     setup: list[tuple[str, float]]  # (command, seconds to wait after it)
     checks: dict[str, str]  # marker -> command that prints the marker only when the check passes
     guards: str = ""  # the fixed bugs this suite catches, by commit
+    # Log text -> how many lines must contain it, for behavior that only shows in the server log.
+    expect_log: dict[str, int] = field(default_factory=dict)
     # Files for a test datapack, as path under data/ -> JSON. It loads for the whole run, so it
     # must not break other suites.
     datapack: dict[str, dict] = field(default_factory=dict)
@@ -196,7 +198,28 @@ FERTILIZER = Suite(
     },
 )
 
-SUITES = [FAIRY_VISIT, SOIL_REGRESSIONS, FAIRY_CONTENT_TAGS, TUNING_GAMERULES, FERTILIZER]
+HARVEST_MOON = Suite(
+    name="harvest_moon",
+    # Night 0 has a full moon and night 1 doesn't. A day in between is needed so the scheduler
+    # sees a new nightfall; jumping from one night straight to the next isn't a transition.
+    setup=[
+        ("time set 13000", 3),
+        ("time set 24000", 3),
+        ("time set 37000", 3),
+        ("time set 1000", 0),
+    ],
+    checks={},
+    expect_log={"A Harvest Moon rises tonight": 1},
+)
+
+SUITES = [
+    FAIRY_VISIT,
+    SOIL_REGRESSIONS,
+    FAIRY_CONTENT_TAGS,
+    TUNING_GAMERULES,
+    FERTILIZER,
+    HARVEST_MOON,
+]
 
 # The data pack format 26.3 reads (pack_version.data_major in the game jar's version.json).
 DATA_PACK_FORMAT = 121
@@ -301,6 +324,10 @@ def main() -> int:
             passed = f"[Server] {marker}" in output
             failed |= not passed
             print(f"{'pass' if passed else 'FAIL'}: {marker}")
+        for text, expected in suite.expect_log.items():
+            seen = sum(text in line for line in log)
+            failed |= seen != expected
+            print(f"{'pass' if seen == expected else 'FAIL'}: log shows '{text}' {seen}x (expected {expected})")
     error_lines = [line.rstrip() for line in log if has_error(line)]
     for line in error_lines:
         print(f"FAIL: {line}")
