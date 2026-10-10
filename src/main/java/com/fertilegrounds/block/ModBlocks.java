@@ -58,6 +58,20 @@ public final class ModBlocks {
                   properties, ModGameRules.SUPER_ENRICHED_BOOST_CHANCE, SUPER_ENRICHED_DIRT),
           ModBlockProperties.farmlandProperties());
 
+  // ---- Fairy Hotels: lanterns a caught fairy can live in ----
+
+  public static final Block EMPTY_FAIRY_HOTEL =
+      registerBlockWithItem(
+          "empty_fairy_hotel",
+          properties -> new FairyHotelBlock(properties, false),
+          ModBlockProperties.fairyHotelProperties(5));
+
+  public static final Block FAIRY_HOTEL =
+      registerBlockWithItem(
+          "fairy_hotel",
+          properties -> new FairyHotelBlock(properties, true),
+          ModBlockProperties.fairyHotelProperties(12));
+
   private ModBlocks() {}
 
   /**
@@ -69,7 +83,7 @@ public final class ModBlocks {
     registerTillable(ENRICHED_DIRT, ENRICHED_FARMLAND);
     registerTillable(SUPER_ENRICHED_DIRT, SUPER_ENRICHED_FARMLAND);
     FertileGrounds.LOGGER.info(
-        "Fertile Grounds: registered 5 blocks (2 tillable pairs + enriched sand)");
+        "Fertile Grounds: registered 7 blocks (2 tillable pairs, enriched sand, 2 fairy hotels)");
   }
 
   /** Same rule as vanilla dirt: only tills when the block above is air. */

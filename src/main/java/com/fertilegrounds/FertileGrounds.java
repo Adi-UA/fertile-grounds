@@ -5,6 +5,7 @@ import com.fertilegrounds.entity.ModEntities;
 import com.fertilegrounds.fairy.FairyGiftCooldowns;
 import com.fertilegrounds.fairy.FairyVisitScheduler;
 import com.fertilegrounds.fairy.FairyVisits;
+import com.fertilegrounds.item.ModDataComponents;
 import com.fertilegrounds.item.ModItemGroups;
 import com.fertilegrounds.item.ModItems;
 import com.fertilegrounds.util.ModCriteria;
@@ -28,6 +29,7 @@ public class FertileGrounds implements ModInitializer {
     ModGameRules.register();
     ModSounds.register();
     ModCriteria.register();
+    ModDataComponents.register();
     ModBlocks.register();
     ModEntities.register();
     ModItems.register();

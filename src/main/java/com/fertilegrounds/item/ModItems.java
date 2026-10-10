@@ -26,6 +26,9 @@ public final class ModItems {
           SpawnEggItem::new,
           new Item.Properties().spawnEgg(ModEntities.BEAN_FAIRY));
 
+  public static final Item JARRED_FAIRY =
+      register("jarred_fairy", JarredFairyItem::new, new Item.Properties().stacksTo(1));
+
   private ModItems() {}
 
   /**
