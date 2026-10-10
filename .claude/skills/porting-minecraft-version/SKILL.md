@@ -62,6 +62,7 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.3 | `BlockPos.withinManhattan` | `(origin, reachX, reachY, reachZ)` | `(origin, reach)`; per-axis forms are `withinClippedManhattan` and `withinBoxByManhattanDistance` |
 | 26.2 | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |
 | 26.2 | `FlyingMoveControl` | Not generic: `new FlyingMoveControl(mob, ...)` | Generic: `new FlyingMoveControl<>(mob, ...)` |
+| 26.1 | Wandering Trader trades | Code: Fabric `TradeOfferHelper.registerWanderingTraderOffers(b -> b.addOffersToPool(WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, new VillagerTrades.ItemsForEmeralds(item, emeralds, count, maxUses, xp)))` | Data: `data/<ns>/villager_trade/wandering_trader/*.json` listed in the `minecraft:wandering_trader/uncommon` villager trade tag; no code |
 | 26.1 | Time of day | `level.getDayTime()` | World clocks: `level.getOverworldClockTime()` (used for gift cooldown days and Jarred Fairy expiry) |
 | 26.1 | Farmland class | `FarmBlock` | `FarmlandBlock` |
 | 26.1 | Fabric POI registration | `PointOfInterestHelper.register(id, tickets, searchDistance, blocks...)` (object builder 21.1) | `PoiHelper.register` with the same arguments (object builder 23.0) |
