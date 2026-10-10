@@ -1,0 +1,49 @@
+{
+  "parent": "fertilegrounds:root",
+  "criteria": {
+    "upgraded_soil": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": [
+                    "fertilegrounds:super_enriched_dirt",
+                    "fertilegrounds:super_enriched_farmland",
+                    "fertilegrounds:enriched_sand"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": "fertilegrounds:fertilizer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "fertilegrounds:fertilizer"
+    },
+    "title": {
+      "translate": "advancements.fertilegrounds.use_fertilizer.title"
+    },
+    "description": {
+      "translate": "advancements.fertilegrounds.use_fertilizer.description"
+    }
+  },
+  "requirements": [
+    [
+      "upgraded_soil"
+    ]
+  ]
+}

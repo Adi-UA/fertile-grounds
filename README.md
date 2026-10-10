@@ -52,6 +52,20 @@ To call one on purpose, craft **Fairy Dust** (shapeless: Glowstone Dust + Amethy
 
 The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop.
 
+When a fairy arrives, you hear a soft chime and see "A Bean Fairy is visiting nearby" if you're within 32 blocks. If you slept through a visit, you get a message at dawn instead.
+
+### Advancements
+
+Fertile Grounds has its own advancement tab:
+
+| Advancement | How to earn it |
+|---|---|
+| Fertile Grounds | Get any enriched soil block (opens the tab) |
+| A Little Help | Be within 32 blocks when a Bean Fairy grows your crops |
+| Grassroots Upgrade | Upgrade soil in place with Fertilizer |
+
+Datapacks and quest mods can use the `fertilegrounds:fairy_visit` advancement trigger, which fires for every player within 32 blocks of a visit.
+
 ## For modpack makers
 
 Tags decide which blocks count as crops and flowers. Add to them with a datapack, and modded content works with no code.

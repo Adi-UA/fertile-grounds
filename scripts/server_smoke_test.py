@@ -214,6 +214,19 @@ HARVEST_MOON = Suite(
     expect_log={"A Harvest Moon rises tonight": 1},
 )
 
+ADVANCEMENTS = Suite(
+    name="advancements",
+    # A datapack advancement on the mod's trigger: if the trigger isn't registered or its JSON
+    # doesn't parse, the server refuses to boot. Earning it needs a player, so that's an in-game check.
+    datapack={
+        "smoke/advancement/fairy_visit_test.json": {
+            "criteria": {"visited": {"trigger": "fertilegrounds:fairy_visit"}},
+        },
+    },
+    setup=[],
+    checks={},
+)
+
 SUITES = [
     FAIRY_VISIT,
     SOIL_REGRESSIONS,
@@ -221,6 +234,7 @@ SUITES = [
     TUNING_GAMERULES,
     FERTILIZER,
     HARVEST_MOON,
+    ADVANCEMENTS,
 ]
 
 # The data pack format 26.3 reads (pack_version.data_major in the game jar's version.json).

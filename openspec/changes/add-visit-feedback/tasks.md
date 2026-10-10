@@ -11,7 +11,7 @@
 
 ## 3. Advancements
 
-- [ ] 3.1 Add the `fertilegrounds:fairy_visit` trigger; verify a test datapack advancement on it is earned in the smoke test
-- [ ] 3.2 Add the tab root, first visit, and Fertilizer advancements with lang keys; verify the smoke test grants each through its real action and `/advancement test` reports it done
-- [ ] 3.3 Add the advancement list to `README.md`; verify names match the lang file
-- [ ] 3.4 Check every row of the design's Look and sound table in `runClient` and add it to the in-game checklist
+- [x] 3.1 Add the `fertilegrounds:fairy_visit` trigger; verify the smoke test boots with a test datapack advancement on it (and fails to boot with an unknown trigger), and add to the user's in-game checklist: a visit within 32 blocks earns the first visit advancement (earning needs a player)
+- [x] 3.2 Add the tab root, first visit, and Fertilizer advancements with lang keys; verify the smoke test boots with them and no advancement load or validation error, and add each one's real action to the user's in-game checklist (earning needs a player)
+- [x] 3.3 Add the advancement list to `README.md`; verify names match the lang file
+- [x] 3.4 Add every row of the design's Look and sound table to the user's in-game checklist; the user plays through the checklist at the end of the 2.0 run

@@ -28,5 +28,11 @@
   "message.fertilegrounds.harvest_moon": "A Harvest Moon rises. Bean Fairies are drawn to well-tended farms tonight.",
   "subtitles.fertilegrounds.entity.bean_fairy.arrive": "Bean Fairy arrives",
   "message.fertilegrounds.fairy_arriving": "A Bean Fairy is visiting nearby",
-  "message.fertilegrounds.visited_overnight": "A Bean Fairy visited your farm while you slept"
+  "message.fertilegrounds.visited_overnight": "A Bean Fairy visited your farm while you slept",
+  "advancements.fertilegrounds.root.title": "Fertile Grounds",
+  "advancements.fertilegrounds.root.description": "Get your hands on enriched soil",
+  "advancements.fertilegrounds.first_fairy_visit.title": "A Little Help",
+  "advancements.fertilegrounds.first_fairy_visit.description": "Be nearby when a Bean Fairy grows your crops",
+  "advancements.fertilegrounds.use_fertilizer.title": "Grassroots Upgrade",
+  "advancements.fertilegrounds.use_fertilizer.description": "Upgrade soil in place with Fertilizer"
 }

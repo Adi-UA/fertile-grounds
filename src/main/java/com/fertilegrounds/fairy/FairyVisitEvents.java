@@ -2,6 +2,7 @@ package com.fertilegrounds.fairy;
 
 import com.fertilegrounds.FertileGrounds;
 import com.fertilegrounds.entity.BeanFairy;
+import com.fertilegrounds.util.ModCriteria;
 import com.fertilegrounds.util.ModSounds;
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +34,9 @@ public final class FairyVisitEvents {
       final ServerLevel level, final BlockPos pos, final boolean overnight) {
     FertileGrounds.LOGGER.info(
         "Fairy visit grew crops at {}{}", pos.toShortString(), overnight ? " overnight" : "");
-    return playersNear(level, pos);
+    final List<ServerPlayer> nearby = playersNear(level, pos);
+    nearby.forEach(ModCriteria.FAIRY_VISIT::trigger);
+    return nearby;
   }
 
   /** A fairy just appeared for a visit: chime, a few sparkles, and a note to players nearby. */

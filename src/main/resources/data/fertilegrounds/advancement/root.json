@@ -1,0 +1,55 @@
+{
+  "criteria": {
+    "has_enriched_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "fertilegrounds:enriched_dirt"
+          }
+        ]
+      }
+    },
+    "has_enriched_sand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "fertilegrounds:enriched_sand"
+          }
+        ]
+      }
+    },
+    "has_super_enriched_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "fertilegrounds:super_enriched_dirt"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "fertilegrounds:fairy_dust"
+    },
+    "title": {
+      "translate": "advancements.fertilegrounds.root.title"
+    },
+    "description": {
+      "translate": "advancements.fertilegrounds.root.description"
+    },
+    "background": "minecraft:gui/advancements/backgrounds/husbandry",
+    "announce_to_chat": false,
+    "show_toast": false
+  },
+  "requirements": [
+    [
+      "has_enriched_dirt",
+      "has_enriched_sand",
+      "has_super_enriched_dirt"
+    ]
+  ]
+}
