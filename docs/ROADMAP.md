@@ -1,6 +1,6 @@
 # Roadmap
 
-Fertile Grounds grows into a cozy, lightweight vanilla+ mod that complements big farming mods instead of copying them. Features read shared tags so other mods' crops and flowers work without extra code, optional integrations load only when the other mod is present, and nothing changes how the game looks beyond a few new items and blocks. Every feature also has to look and sound alive: each design carries a "Look and sound" table of vanilla sounds, particles, and glow, checked in `runClient`. Every design lives in `openspec/changes/<name>/` (proposal, WHEN/THEN specs, design, tasks with verification); this file only orders them.
+Fertile Grounds grows into a cozy, lightweight vanilla+ mod that complements big farming mods instead of copying them. Features read shared tags so other mods' crops and flowers work without extra code, optional integrations load only when the other mod is present, and nothing changes how the game looks beyond a few new items and blocks. Every feature also has to look and sound alive: each design carries a "Look and sound" table of vanilla sounds, particles, and glow, checked in `runClient`. Every design lives in `openspec/changes/<name>/` (proposal, WHEN/THEN specs, design, tasks with verification), moving to `openspec/changes/archive/` once done, with its specs merged into `openspec/specs/`; this file only orders them.
 
 ## 2.0.0
 
