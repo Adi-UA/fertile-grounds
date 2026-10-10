@@ -24,5 +24,5 @@
 
 ## 5. Polish and docs
 
-- [ ] 5.1 Add every row of the Look and sound table; check them in `runClient` and add them, plus "watch blight creep for a few minutes", to the in-game checklist
+- [x] 5.1 Add every row of the Look and sound table; check them in `runClient` and add them, plus "watch blight creep for a few minutes", to the in-game checklist
 - [x] 5.2 Add a guide book page in the Lexica Botania voice and a Blight section in `docs/DETAILS.md`; add a README line; verify `AssetConsistencyTest` passes

@@ -27,6 +27,12 @@ public final class ModTags {
    */
   public static final TagKey<Block> BLIGHTABLE = block("blightable");
 
+  /**
+   * Natural terrain a Fairy Grove may clear or fill. Anything else in the grove's area, including
+   * every block entity, stops the grove from being built.
+   */
+  public static final TagKey<Block> GROVE_REPLACEABLE = block("grove_replaceable");
+
   /** The item form of {@link #FAIRY_FLOWERS}, for features that take a flower item. */
   public static final TagKey<Item> FAIRY_FLOWER_ITEMS =
       TagKey.create(Registries.ITEM, ModIdsUtil.id("fairy_flowers"));

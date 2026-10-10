@@ -37,6 +37,7 @@ public class TuningGameruleTests {
         ModGameRules.FAIRY_HOTEL_SPEED.defaultValue(), ModGameRules.FAIRY_HOTEL_SPEED.id());
     helper.assertTrue(
         ModGameRules.GIVE_GUIDE_BOOK.defaultValue(), ModGameRules.GIVE_GUIDE_BOOK.id());
+    helper.assertTrue(ModGameRules.FAIRY_GROVE.defaultValue(), ModGameRules.FAIRY_GROVE.id());
     helper.succeed();
   }
 

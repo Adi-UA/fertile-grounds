@@ -6,6 +6,7 @@ import com.fertilegrounds.entity.ModEntities;
 import com.fertilegrounds.fairy.FairyGiftCooldowns;
 import com.fertilegrounds.fairy.FairyVisitScheduler;
 import com.fertilegrounds.fairy.FairyVisits;
+import com.fertilegrounds.grove.GroveBuilder;
 import com.fertilegrounds.hotel.FairyHotelLookup;
 import com.fertilegrounds.hotel.FairySpeedAura;
 import com.fertilegrounds.hotel.HotelChimes;
@@ -49,5 +50,6 @@ public class FertileGrounds implements ModInitializer {
     HotelChimes.register();
     GuideBookGift.register();
     WitchCurse.register();
+    GroveBuilder.register();
   }
 }

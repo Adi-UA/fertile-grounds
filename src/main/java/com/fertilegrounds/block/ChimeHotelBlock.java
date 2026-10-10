@@ -1,5 +1,6 @@
 package com.fertilegrounds.block;
 
+import com.fertilegrounds.grove.FairyGrove;
 import com.fertilegrounds.hotel.ChimeRules;
 import com.fertilegrounds.hotel.FairyHotelRules;
 import com.fertilegrounds.hotel.HotelChimes;
@@ -7,11 +8,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 /**
  * An occupied Fairy Hotel with a note block and a spyglass: it does everything an occupied hotel
@@ -49,6 +56,26 @@ public class ChimeHotelBlock extends FairyHotelBlock {
       final StateDefinition.Builder<Block, BlockState> builder) {
     super.createBlockStateDefinition(builder);
     builder.add(READY, RINGING);
+  }
+
+  /** A diamond wakes a Fairy Grove when this hotel is the heart of a complete shrine. */
+  @Override
+  protected InteractionResult useItemOn(
+      final ItemStack stack,
+      final BlockState state,
+      final Level level,
+      final BlockPos pos,
+      final Player player,
+      final InteractionHand hand,
+      final BlockHitResult hitResult) {
+    if (!stack.is(Items.DIAMOND)) {
+      return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+    // The client only predicts the arm swing; the server checks the shrine and the area.
+    if (level instanceof ServerLevel serverLevel) {
+      FairyGrove.tryStart(serverLevel, pos, player, stack);
+    }
+    return InteractionResult.SUCCESS;
   }
 
   /** Starts the checks and rings once, so players learn the sound. */

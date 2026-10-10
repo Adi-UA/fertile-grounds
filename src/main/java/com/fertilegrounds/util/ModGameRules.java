@@ -91,6 +91,12 @@ public final class ModGameRules {
           .category(GameRuleCategory.PLAYER)
           .buildAndRegister(ModIdsUtil.id("give_guide_book"));
 
+  /** Whether a diamond on a Chime Hotel shrine builds a Fairy Grove. */
+  public static final GameRule<Boolean> FAIRY_GROVE =
+      GameRuleBuilder.forBoolean(true)
+          .category(GameRuleCategory.MISC)
+          .buildAndRegister(ModIdsUtil.id("fairy_grove"));
+
   private ModGameRules() {}
 
   /** Loads this class so the static fields above register their rules during mod startup. */

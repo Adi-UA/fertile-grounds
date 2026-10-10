@@ -32,6 +32,7 @@
 - Sneak up on a fairy after its work and catch it in a bottle, then build it a **Fairy Hotel** so it stays for good.
 - A hotel fairy helps nearby crops, fills beehives with honey, keeps creepers away, and stops trampling. Brush it once a day to keep it happy.
 - Upgrade to a **Chime Hotel** and it rings a soft chime when your field is ready to harvest, with a redstone signal for farm machines.
+- Late game, give a Chime Hotel shrine a Diamond and its fairies turn the land around it into a **Fairy Grove**: a leveled, lantern-lit garden of watered farm plots.
 
 ## Beware the blight
 

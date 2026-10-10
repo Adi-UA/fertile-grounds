@@ -64,6 +64,18 @@ Blight starts two ways. A witch killed by a player has a 1% chance to blight the
 
 To cure it, use **Fertilizer** on a blighted block (by hand or from a Dispenser) to turn it back into dirt. A Bean Fairy visit also cures the blight under its 5x5 patch.
 
+### Fairy Grove
+
+Build a shrine: a **Chime Hotel** standing on **Super Enriched Dirt**, an occupied Fairy Hotel (or Chime Hotel) exactly 3 blocks north, south, east, and west of it at the same height, and at least 4 small flowers within 3 blocks. Use a **Diamond** on the Chime Hotel, and its fairies rebuild the 35x35 area around the shrine over about 30 seconds:
+
+- 8 plots of 9x9 Enriched Farmland, already wet, each around one water block, with nothing planted
+- grass borders with flowers between the plots, a beehive with a lantern at each of the 4 crossings next to the shrine, and a flowering azalea hedge with a lantern at the other 12
+- a 2-block meadow rim of grass, flowers, and azalea bushes, some lit by lanterns
+
+The land is leveled to the shrine's soil: everything up to 24 blocks above it is cleared, and dips up to 8 blocks deep are filled with dirt. Blighted Dirt in the area turns back into dirt. The shrine's own 9x9 plot is never touched. It can't be undone.
+
+Before using the diamond, the grove checks that the area holds only natural terrain (the `fertilegrounds:grove_replaceable` tag: dirt, stone, sand, gravel, ores, logs, leaves, plants, crops, farmland, water, and similar). If anything else is there, such as a chest or a wall, you keep the diamond and the action bar names the block and where it is. An incomplete shrine also keeps the diamond and says what's missing. A block placed mid-build stays, along with the rest of its column. A grove interrupted by a restart finishes afterward.
+
 ### Wandering Trader
 
 A Wandering Trader can roll Fairy Dust or Fertilizer among its rare trades: 2 Fairy Dust for 4 emeralds (4 times) and 1 Fertilizer for 6 emeralds (3 times). Its vanilla trades stay as they are.
@@ -104,6 +116,7 @@ Tags decide which blocks count as crops and flowers. Add to them with a datapack
 |---|---|---|---|
 | `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy, Fairy Dust, or a Fairy Hotel may grow, and the crops a Chime Hotel watches |
 | `fertilegrounds:blightable` | Block | Dirt, grass block, farmland, sand, red sand, and the mod's enriched soils | Soil that Blighted Dirt and the witch curse can take |
+| `fertilegrounds:grove_replaceable` | Block | Natural terrain: dirt, stone, sand, gravel, ores, logs, leaves, plants, crops, farmland, water, and lava | Blocks a Fairy Grove may clear or fill; anything else stops it |
 | `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features, the Fairy Hotel recipe, and the flower a Jarred Fairy leaves |
 
 Gift loot lives in the loot tables `fertilegrounds:gameplay/fairy_gift/common`, `uncommon`, and `rare`; a datapack can replace any of them.
@@ -127,6 +140,7 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:chime_ready_percent` | 80 | Percent of the crops near a Chime Hotel that must be fully grown for it to ring (1 to 100) |
 | `fertilegrounds:blight_spread_chance` | 20 | Chance per random tick that Blighted Dirt takes the plain soil it picked; enriched soil resists (0 stops all spreading) |
 | `fertilegrounds:witch_blight_chance` | 1 | Chance that a witch killed by a player blights the soil under it |
+| `fertilegrounds:fairy_grove` | true | Whether a diamond on a Chime Hotel shrine builds a Fairy Grove (true or false) |
 | `fertilegrounds:fairy_hotel_speed` | true | Whether players near an occupied hotel get Fairy Speed (true or false) |
 | `fertilegrounds:give_guide_book` | true | Whether each player gets the guide book on their first join (true or false) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |

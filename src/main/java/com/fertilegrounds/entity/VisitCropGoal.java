@@ -81,7 +81,7 @@ class VisitCropGoal extends Goal {
 
   @Override
   public boolean canUse() {
-    return true;
+    return !this.fairy.isGroveBuilder();
   }
 
   @Override

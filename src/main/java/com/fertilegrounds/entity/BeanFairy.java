@@ -44,6 +44,9 @@ public class BeanFairy extends PathfinderMob {
   /** The lowest Y this fairy may reach, or null for no limit (see {@link #keepAbove}). */
   @Nullable private Double floorY;
 
+  /** Where a Fairy Grove builder flies, or null for a fairy on a crop visit. */
+  @Nullable private Vec3 groveTarget;
+
   public BeanFairy(final EntityType<? extends BeanFairy> type, final Level level) {
     super(type, level);
     // Same flying setup as vanilla's Allay: steer straight toward a point and hover there.
@@ -99,6 +102,24 @@ public class BeanFairy extends PathfinderMob {
     this.floorY = y;
   }
 
+  /**
+   * Makes this fairy a Fairy Grove builder: it flies wherever {@link #setGroveTarget} says instead
+   * of visiting a crop, and the grove removes it when done. Builders never finish growing, so they
+   * can't be caught.
+   */
+  public boolean isGroveBuilder() {
+    return this.groveTarget != null;
+  }
+
+  @Nullable
+  Vec3 getGroveTarget() {
+    return this.groveTarget;
+  }
+
+  public void setGroveTarget(final Vec3 target) {
+    this.groveTarget = target;
+  }
+
   public static AttributeSupplier.Builder createAttributes() {
     return Mob.createMobAttributes()
         .add(Attributes.MAX_HEALTH, 4.0)
@@ -108,7 +129,8 @@ public class BeanFairy extends PathfinderMob {
 
   @Override
   protected void registerGoals() {
-    this.goalSelector.addGoal(0, new VisitCropGoal(this));
+    this.goalSelector.addGoal(0, new BuildGroveGoal(this));
+    this.goalSelector.addGoal(1, new VisitCropGoal(this));
   }
 
   /** The visit this fairy is on. Unset for a fairy from a spawn egg, which picks a crop itself. */
