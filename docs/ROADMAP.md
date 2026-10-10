@@ -19,20 +19,21 @@ Each step depends on the ones before it.
 | 5 | `add-visit-feedback` | Arrival chime, dawn message, advancement tab, `fairy_visit` trigger | None |
 | 6 | `add-fairy-visit-polish` | Firefly heralds, growth dance with ripple, 60-second linger with Allay hum, shy fairies, no dive into the ground | None |
 | 7 | `add-fairy-gifts` | Occasional gifts scaled by farm size, with cooldown and Harvest Moon tier boost | None |
-| 8 | `add-fairy-jar` | Catch a lingering fairy in a bottle; it slips away after 3 days leaving a flower unless moved into a Fairy Hotel (7 flowers, firefly bush, lantern), where it stays forever; hotels are portable | Jarred Fairy, Empty Fairy Hotel, Occupied Fairy Hotel (each with an emissive layer) |
-| 9 | `add-jar-garden-effects` | Occupied hotels boost crops, add honey to hives, give nearby players 10% Fairy Speed, scare creepers, stop trampling; brush once a day to pet for a bigger boost | None |
-| 10 | `add-chime-hotel` | Occupied hotel + note block + spyglass; chimes once when 80% of nearby crops are grown | Chime Hotel (with an emissive layer) |
-| 11 | `add-redstone-integration` | Comparator pulse when a Chime Hotel chimes; comparator output for soil tiers | None |
-| 12 | `add-wandering-trader-trades` | Trader sells Fairy Dust and Fertilizer | None |
-| 13 | `add-jade-integration` | Optional Jade tooltips for soil, pending visits, hotel petting, and Chime Hotel crop counts | None |
-| 14 | `add-guide-book` | Vanilla written guide on first join, craftable copy | None |
-| 15 | `add-translations` | Translation-ready text and contributor guide | None |
+| 8 | `add-gametest-suite` | Fabric GameTests with mock players replace the smoke test, so player actions, messages, gifts, and advancements are checked on every build | None |
+| 9 | `add-fairy-jar` | Catch a lingering fairy in a bottle; it slips away after 3 days leaving a flower unless moved into a Fairy Hotel (7 flowers, firefly bush, lantern), where it stays forever; hotels are portable | Jarred Fairy, Empty Fairy Hotel, Occupied Fairy Hotel (each with an emissive layer) |
+| 10 | `add-jar-garden-effects` | Occupied hotels boost crops, add honey to hives, give nearby players 10% Fairy Speed, scare creepers, stop trampling; brush once a day to pet for a bigger boost | None |
+| 11 | `add-chime-hotel` | Occupied hotel + note block + spyglass; chimes once when 80% of nearby crops are grown | Chime Hotel (with an emissive layer) |
+| 12 | `add-redstone-integration` | Comparator pulse when a Chime Hotel chimes; comparator output for soil tiers | None |
+| 13 | `add-wandering-trader-trades` | Trader sells Fairy Dust and Fertilizer | None |
+| 14 | `add-jade-integration` | Optional Jade tooltips for soil, pending visits, hotel petting, and Chime Hotel crop counts | None |
+| 15 | `add-guide-book` | Vanilla written guide on first join, craftable copy | None |
+| 16 | `add-translations` | Translation-ready text and contributor guide | None |
 
-Visit polish comes before hotels because catching needs the linger window. The guide book comes late so its pages describe final behavior, and translations come last so every string exists.
+Visit polish comes before hotels because catching needs the linger window. The GameTest suite comes before hotels so their tests can use mock players from the start. The guide book comes late so its pages describe final behavior, and translations come last so every string exists.
 
 ### Release steps
 
-After step 15 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the full verification suite on each; bump `mod_version` to 2.0.0 on all four branches; then publish to GitHub, Modrinth, and CurseForge with the release skills.
+After step 16 works on 26.3: backport to 26.2, 26.1, then 1.21.11, running the full verification suite on each; bump `mod_version` to 2.0.0 on all four branches; then publish to GitHub, Modrinth, and CurseForge with the release skills.
 
 ## Considered and skipped
 
