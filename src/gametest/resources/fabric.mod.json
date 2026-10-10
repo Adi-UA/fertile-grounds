@@ -24,7 +24,8 @@
 			"com.fertilegrounds.gametest.ShyFlightTests",
 			"com.fertilegrounds.gametest.FairyHotelTests",
 			"com.fertilegrounds.gametest.FairyCatchTests",
-			"com.fertilegrounds.gametest.JarredFairyExpiryTests"
+			"com.fertilegrounds.gametest.JarredFairyExpiryTests",
+			"com.fertilegrounds.gametest.HotelEffectTests"
 		]
 	},
 	"depends": {

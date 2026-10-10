@@ -2,8 +2,8 @@
 
 ## 1. Lookup
 
-- [ ] 1.1 Register the occupied-hotel POI type and add `FairyHotelLookup`; verify a GameTest places a hotel and a test command or debug log finds it within 6 blocks, and not at 10
-- [ ] 1.2 Add the cluster leader rule as a pure function with JUnit tests (single hotel, pair, three in a row)
+- [x] 1.1 Register the occupied-hotel POI type and add `FairyHotelLookup`; verify a GameTest places a hotel and a test command or debug log finds it within 6 blocks, and not at 10
+- [x] 1.2 Add the cluster leader rule as a pure function with JUnit tests (single hotel, pair, three in a row)
 
 ## 2. Growth and honey
 
