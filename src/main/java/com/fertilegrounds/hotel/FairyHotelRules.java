@@ -13,6 +13,12 @@ public final class FairyHotelRules {
 
   private FairyHotelRules() {}
 
+  /** Ticks from {@code clockTime} to the next dawn (clock time 0 of the next day). */
+  public static int ticksUntilDawn(final long clockTime) {
+    return (int)
+        (JarredFairyRules.TICKS_PER_DAY - Math.floorMod(clockTime, JarredFairyRules.TICKS_PER_DAY));
+  }
+
   /** How many crop boost attempts a hotel makes on one random tick. */
   public static int boostAttempts(final boolean nectarBeeNearby) {
     return 1 + (nectarBeeNearby ? BEE_EXTRA_ATTEMPTS : 0);

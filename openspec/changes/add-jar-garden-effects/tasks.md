@@ -13,8 +13,8 @@
 
 ## 3. Petting
 
-- [ ] 3.1 Add the `PETTED` state, brush use, dawn tick, and `fairy_hotel_petted_boost_chance`; verify a GameTest brushes a hotel once (state set, durability used), twice (no change), and after `/time set` past dawn (state cleared)
-- [ ] 3.2 Add "brush your hotel fairy each morning" to the in-game checklist
+- [x] 3.1 Add the `PETTED` state, brush use, dawn tick, and `fairy_hotel_petted_boost_chance`; verify a GameTest brushes a hotel once (state set, durability used), twice (no change), and after dawn (state cleared; the test starts the clock just before dawn, since the dawn tick counts real ticks and a later `/time set` doesn't move it)
+- [x] 3.2 `HotelEffectTests` covers the once-a-day rule; add the petting look and sound (hearts, a glow burst, brushing then an amethyst chime) to the in-game checklist
 
 ## 4. Fairy Speed
 

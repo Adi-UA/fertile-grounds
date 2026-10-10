@@ -10,6 +10,16 @@ import org.junit.jupiter.api.Test;
 class FairyHotelRulesTest {
 
   @Test
+  void dawnIsAFullDayAwayAtDawn() {
+    assertEquals(24000, FairyHotelRules.ticksUntilDawn(48000));
+  }
+
+  @Test
+  void dawnCountsFromTheClockOnAnyDay() {
+    assertEquals(1000, FairyHotelRules.ticksUntilDawn(3 * 24000 + 23000));
+  }
+
+  @Test
   void aHotelAloneMakesOneBoostAttempt() {
     assertEquals(1, FairyHotelRules.boostAttempts(false));
   }

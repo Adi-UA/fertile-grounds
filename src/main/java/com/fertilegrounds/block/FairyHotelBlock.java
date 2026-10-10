@@ -2,6 +2,7 @@ package com.fertilegrounds.block;
 
 import com.fertilegrounds.hotel.FairyHotelEffects;
 import com.fertilegrounds.hotel.FairyHotelLookup;
+import com.fertilegrounds.hotel.FairyHotelRules;
 import com.fertilegrounds.item.ModItems;
 import com.fertilegrounds.util.ModCriteria;
 import net.minecraft.core.BlockPos;
@@ -18,8 +19,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
@@ -29,11 +33,22 @@ import net.minecraft.world.phys.BlockHitResult;
  */
 public class FairyHotelBlock extends LanternBlock {
 
+  /** Brushed since the last dawn: the fairy is happy and boosts crops more often. */
+  public static final BooleanProperty PETTED = BooleanProperty.create("petted");
+
   private final boolean occupied;
 
   public FairyHotelBlock(final Properties properties, final boolean occupied) {
     super(properties);
     this.occupied = occupied;
+    this.registerDefaultState(this.defaultBlockState().setValue(PETTED, false));
+  }
+
+  @Override
+  protected void createBlockStateDefinition(
+      final StateDefinition.Builder<Block, BlockState> builder) {
+    super.createBlockStateDefinition(builder);
+    builder.add(PETTED);
   }
 
   public boolean isOccupied() {
@@ -50,6 +65,9 @@ public class FairyHotelBlock extends LanternBlock {
       final Player player,
       final InteractionHand hand,
       final BlockHitResult hitResult) {
+    if (this.occupied && stack.is(Items.BRUSH)) {
+      return pet(stack, state, level, pos, player, hand);
+    }
     if (this.occupied || !stack.is(ModItems.JARRED_FAIRY)) {
       return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
@@ -87,6 +105,65 @@ public class FairyHotelBlock extends LanternBlock {
     return InteractionResult.SUCCESS;
   }
 
+  /**
+   * A Brush pets the fairy once per day: it boosts crops more until the next dawn, when a scheduled
+   * tick clears it. Brushing again the same day does nothing, and the brush skips its usual
+   * hold-to-brush use.
+   */
+  private InteractionResult pet(
+      final ItemStack brush,
+      final BlockState state,
+      final Level level,
+      final BlockPos pos,
+      final Player player,
+      final InteractionHand hand) {
+    if (state.getValue(PETTED)) {
+      return InteractionResult.FAIL;
+    }
+    if (level instanceof ServerLevel serverLevel) {
+      level.setBlockAndUpdate(pos, state.setValue(PETTED, true));
+      level.scheduleTick(
+          pos, this, FairyHotelRules.ticksUntilDawn(serverLevel.getOverworldClockTime()));
+      brush.hurtAndBreak(1, player, hand);
+      level.playSound(null, pos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS, 1.0F, 1.0F);
+      level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0F, 1.3F);
+      serverLevel.sendParticles(
+          ParticleTypes.HEART,
+          pos.getX() + 0.5,
+          pos.getY() + 0.8,
+          pos.getZ() + 0.5,
+          3,
+          0.3,
+          0.2,
+          0.3,
+          0.0);
+      serverLevel.sendParticles(
+          ParticleTypes.GLOW,
+          pos.getX() + 0.5,
+          pos.getY() + 0.4,
+          pos.getZ() + 0.5,
+          6,
+          0.2,
+          0.2,
+          0.2,
+          0.02);
+    }
+    return InteractionResult.SUCCESS;
+  }
+
+  /** At dawn the fairy's happy mood wears off, and it can be petted again. */
+  @Override
+  protected void tick(
+      final BlockState state,
+      final ServerLevel level,
+      final BlockPos pos,
+      final RandomSource random) {
+    super.tick(state, level, pos, random);
+    if (state.getValue(PETTED)) {
+      level.setBlockAndUpdate(pos, state.setValue(PETTED, false));
+    }
+  }
+
   /** An occupied hotel that leads its cluster helps the farm around it. */
   @Override
   protected void randomTick(
@@ -95,7 +172,7 @@ public class FairyHotelBlock extends LanternBlock {
       final BlockPos pos,
       final RandomSource random) {
     if (this.occupied && FairyHotelLookup.isClusterLeader(level, pos)) {
-      FairyHotelEffects.randomTick(level, pos, false, random);
+      FairyHotelEffects.randomTick(level, pos, state.getValue(PETTED), random);
     }
   }
 

@@ -1,11 +1,15 @@
 package com.fertilegrounds.gametest;
 
+import com.fertilegrounds.block.FairyHotelBlock;
 import com.fertilegrounds.block.ModBlocks;
 import com.fertilegrounds.hotel.FairyHotelLookup;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,6 +19,9 @@ import net.minecraft.world.level.block.CropBlock;
 public class HotelEffectTests {
 
   private static final BlockPos HOTEL = new BlockPos(8, 2, 8);
+
+  /** A hotel spot inside vanilla's default 8x8x8 test structure. */
+  private static final BlockPos HOTEL_SMALL = new BlockPos(3, 2, 3);
 
   /** The lookup finds an occupied hotel 6 blocks away within 8, not one 10 away. */
   @GameTest(structure = "fertilegrounds:empty_medium")
@@ -101,6 +108,38 @@ public class HotelEffectTests {
             helper.assertBlockProperty(
                 hive, BeehiveBlock.HONEY_LEVEL, BeehiveBlock.MAX_HONEY_LEVELS);
     helper.startSequence().thenWaitUntil(full).thenIdle(200).thenExecute(full).thenSucceed();
+  }
+
+  /**
+   * A Brush pets an occupied hotel once (state set, 1 durability), does nothing the second time,
+   * and the hotel can be petted again after dawn. The clock starts 100 ticks before dawn, since the
+   * dawn tick counts real ticks and a {@code /time set} after petting wouldn't move it.
+   */
+  @GameTest(environment = "fertilegrounds:hotel_petting", maxTicks = 300)
+  public void brushPetsOncePerDay(final GameTestHelper helper) {
+    TestSupport.command(helper, "time set 23900");
+    placeHotel(helper, HOTEL_SMALL, ModBlocks.FAIRY_HOTEL);
+    final TestPlayer player = TestPlayer.join(helper);
+    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BRUSH));
+    helper
+        .startSequence()
+        .thenExecute(
+            () -> {
+              player.useHeldItemOn(helper, HOTEL_SMALL);
+              helper.assertBlockProperty(HOTEL_SMALL, FairyHotelBlock.PETTED, true);
+              helper.assertValueEqual(player.getMainHandItem().getDamageValue(), 1, "brush wear");
+              player.useHeldItemOn(helper, HOTEL_SMALL);
+              helper.assertValueEqual(
+                  player.getMainHandItem().getDamageValue(), 1, "brush wear after a second pet");
+            })
+        .thenWaitUntil(() -> helper.assertBlockProperty(HOTEL_SMALL, FairyHotelBlock.PETTED, false))
+        .thenExecute(
+            () -> {
+              player.useHeldItemOn(helper, HOTEL_SMALL);
+              helper.assertBlockProperty(HOTEL_SMALL, FairyHotelBlock.PETTED, true);
+              player.leave();
+            })
+        .thenSucceed();
   }
 
   static void placeHotel(final GameTestHelper helper, final BlockPos pos, final Block hotel) {
