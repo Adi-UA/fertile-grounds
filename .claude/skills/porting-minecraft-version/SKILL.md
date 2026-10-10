@@ -58,6 +58,7 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.3 | Recipe-unlock advancement | `"recipe": "<id>"` | `"recipes": "<id>"` |
 | 26.3 | Entity renderer registration | Fabric `EntityRendererRegistry.register` | Deprecated; vanilla `EntityRenderers.register` is public |
 | 26.3 | Farmland trample call | `fallOn` calls static `FarmlandBlock.turnToDirt(entity, state, level, pos)` | Instance `turnToBaseBlock(entity, state, level, pos)`; the hotel trample mixin wraps that call, so older branches wrap `turnToDirt` instead and also check hotels in the mod tiers' own `fallOn` (see the Farmland row) |
+| 26.3 | Dropping an item from a player | `player.drop(stack, false, false)` | `createItemStackToDrop(stack, false, false)`, then add the entity yourself (what `/give` does) |
 | 26.3 | Loot table tag entry | `{"type": "minecraft:tag", "name": "ns:tag"}` (26.2 and older) | `"items": "#ns:tag"` |
 | 26.3 | `BlockPos.withinManhattan` | `(origin, reachX, reachY, reachZ)` | `(origin, reach)`; per-axis forms are `withinClippedManhattan` and `withinBoxByManhattanDistance` |
 | 26.2 | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |

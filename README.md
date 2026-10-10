@@ -78,6 +78,10 @@ A **Chime Hotel** (shapeless: an Occupied Fairy Hotel, a Note Block, and a Spygl
 
 A Wandering Trader can roll Fairy Dust or Fertilizer among its rare trades: 2 Fairy Dust for 4 emeralds (4 times) and 1 Fertilizer for 6 emeralds (3 times). Its vanilla trades stay as they are.
 
+### Guide book
+
+Every player gets a **Fertile Grounds Guide** the first time they join a world with the mod, including worlds from older versions; it covers every feature in 12 short pages, in the player's own language. Lost it? Craft a new one from a Book and Bone Meal. Packs with their own quest book can turn the gift off with `fertilegrounds:give_guide_book false`.
+
 ### Redstone
 
 A comparator reading a Chime Hotel gives a 1-second pulse of 15 when the hotel rings for a ready field, enough to light a lamp or start an auto-harvester; the chime when you place the hotel gives no pulse. Empty and occupied hotels read 0. A comparator reading soil gives its tier: 7 for Enriched Dirt, Farmland, and Sand, and 15 for Super Enriched Dirt and Farmland.
@@ -131,6 +135,7 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_hotel_honey_chance` | 10 | Chance per random tick that an occupied hotel adds honey to a hive within 4 blocks |
 | `fertilegrounds:chime_ready_percent` | 80 | Percent of the crops near a Chime Hotel that must be fully grown for it to ring (1 to 100) |
 | `fertilegrounds:fairy_hotel_speed` | true | Whether players near an occupied hotel get Fairy Speed (true or false) |
+| `fertilegrounds:give_guide_book` | true | Whether each player gets the guide book on their first join (true or false) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
 | `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
 
