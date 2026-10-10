@@ -62,6 +62,16 @@ A fairy that has finished growing its patch can be caught: sneak up while it lin
 
 To keep it, build it a home. Craft an **Empty Fairy Hotel** (shaped: a Firefly Bush in the top middle, a Lantern in the center, and 7 small flowers in any mix around it) and use the Jarred Fairy on it. The fairy moves in for good, the hotel glows green (light level 12, against the empty hotel's 5), and you get the bottle back. Hotels hang and sit like lanterns, and breaking an occupied hotel drops it with its fairy still inside, so you can move it anywhere.
 
+A hotel fairy looks after the farm around it:
+
+- **Crops:** now and then it grows a crop within 4 blocks one stage, like a pinch of bone meal (50% per random tick). Bees carrying nectar nearby give it an extra try.
+- **Honey:** sometimes it adds a level of honey to a beehive or bee nest within 4 blocks (10% per random tick).
+- **Petting:** brush the hotel once a day and the fairy is happy until the next dawn, growing crops a little more often (65%). Brushing again the same day does nothing and costs no durability.
+- **Fairy Speed:** within 8 blocks you walk 10% faster, shown with the Speed icon, like a beacon's effect. More hotels don't make it stronger.
+- **Guarding:** creepers keep 6 blocks away, the way they avoid cats, and farmland within 4 blocks can't be trampled (it still dries out without water). Modded farmland that doesn't build on vanilla's isn't covered.
+
+Hotels within 8 blocks of each other share their crop and honey help, so a cluster helps as much as one hotel. Empty hotels do none of this.
+
 ### Advancements
 
 Fertile Grounds has its own advancement tab:
@@ -102,6 +112,10 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_gift_chance_dust` | 10 | Chance a Fairy Dust visit leaves its player a gift |
 | `fertilegrounds:fairy_gift_cooldown_days` | 3 | In-game days between gifts for one player (0 to 30, not a percentage) |
 | `fertilegrounds:jarred_fairy_days` | 3 | In-game days a Jarred Fairy waits before it slips away (1 to 30, not a percentage) |
+| `fertilegrounds:fairy_hotel_boost_chance` | 50 | Chance per random tick that an occupied hotel grows a crop within 4 blocks |
+| `fertilegrounds:fairy_hotel_petted_boost_chance` | 65 | The same chance for a hotel brushed since the last dawn |
+| `fertilegrounds:fairy_hotel_honey_chance` | 10 | Chance per random tick that an occupied hotel adds honey to a hive within 4 blocks |
+| `fertilegrounds:fairy_hotel_speed` | true | Whether players near an occupied hotel get Fairy Speed (true or false) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
 | `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
 

@@ -28,5 +28,5 @@
 
 ## 6. Finish
 
-- [ ] 6.1 Check every row of the Look and sound table in `runClient` and add it to the in-game checklist
-- [ ] 6.2 Document hotel effects in `README.md` and record mixin target signatures in the porting divergence table
+- [x] 6.1 Add every row of the Look and sound table to the in-game checklist and verify `client_log_check.py` shows no warnings; the user plays through the checklist at the end of the 2.0 run
+- [x] 6.2 Document hotel effects in `README.md` and record mixin target signatures in the porting divergence table
