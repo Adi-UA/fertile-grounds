@@ -28,7 +28,8 @@
 			"com.fertilegrounds.gametest.HotelEffectTests",
 			"com.fertilegrounds.gametest.FairySpeedTests",
 			"com.fertilegrounds.gametest.ChimeHotelTests",
-			"com.fertilegrounds.gametest.RedstoneTests"
+			"com.fertilegrounds.gametest.RedstoneTests",
+			"com.fertilegrounds.gametest.TraderTests"
 		]
 	},
 	"depends": {
