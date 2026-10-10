@@ -1,8 +1,13 @@
 package com.fertilegrounds.fairy;
 
 import com.fertilegrounds.FertileGrounds;
+import com.fertilegrounds.entity.BeanFairy;
+import com.fertilegrounds.util.ModSounds;
+import java.util.Collection;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
@@ -29,6 +34,26 @@ public final class FairyVisitEvents {
     FertileGrounds.LOGGER.info(
         "Fairy visit grew crops at {}{}", pos.toShortString(), overnight ? " overnight" : "");
     return playersNear(level, pos);
+  }
+
+  /** A fairy just appeared for a visit: chime, a few sparkles, and a note to players nearby. */
+  public static void onFairyArrived(final ServerLevel level, final BeanFairy fairy) {
+    fairy.playSound(ModSounds.BEAN_FAIRY_ARRIVE, 1.0F, 1.0F);
+    level.sendParticles(
+        ParticleTypes.END_ROD, fairy.getX(), fairy.getY(), fairy.getZ(), 5, 0.2, 0.2, 0.2, 0.01);
+    for (final ServerPlayer player : playersNear(level, fairy.blockPosition())) {
+      player.sendOverlayMessage(Component.translatable("message.fertilegrounds.fairy_arriving"));
+    }
+  }
+
+  /**
+   * Tells players that a fairy came while they slept. The caller gathers players from every visit
+   * grown that dawn into one set, so each player hears it once.
+   */
+  public static void tellVisitedOvernight(final Collection<ServerPlayer> players) {
+    for (final ServerPlayer player : players) {
+      player.sendSystemMessage(Component.translatable("message.fertilegrounds.visited_overnight"));
+    }
   }
 
   private static List<ServerPlayer> playersNear(final ServerLevel level, final BlockPos pos) {

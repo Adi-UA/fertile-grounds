@@ -6,8 +6,8 @@
 
 ## 2. Sound and messages
 
-- [ ] 2.1 Register the arrival sound with `sounds.json` and subtitle lang key; verify the `runClient` log has no missing sound warning, and add "hear the chime" to the in-game checklist
-- [ ] 2.2 Send the 32-block overlay message on spawn and the once-per-dawn chat message; verify the smoke test sees the dawn message once for two overnight visits
+- [x] 2.1 Register the arrival sound with `sounds.json` and subtitle lang key; verify the `runClient` log has no missing sound warning, and add "hear the chime" to the in-game checklist
+- [x] 2.2 Send the 32-block overlay message on spawn and the once-per-dawn chat message; verify the build passes, and add to the user's in-game checklist: the overlay message when a fairy arrives nearby, and the dawn message once after sleeping through two Fairy Dust visits (messages only reach online players, which the smoke server can't have)
 
 ## 3. Advancements
 

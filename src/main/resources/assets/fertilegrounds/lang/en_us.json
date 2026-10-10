@@ -25,5 +25,8 @@
   "gamerule.fertilegrounds.fairy_hive_bonus.description": "A beehive or bee nest near a crop adds this percent of the base fairy visit chance",
   "gamerule.fertilegrounds.harvest_moon_multiplier": "Harvest Moon multiplier",
   "gamerule.fertilegrounds.harvest_moon_multiplier.description": "On full-moon nights, the fairy visit chance is multiplied by this",
-  "message.fertilegrounds.harvest_moon": "A Harvest Moon rises. Bean Fairies are drawn to well-tended farms tonight."
+  "message.fertilegrounds.harvest_moon": "A Harvest Moon rises. Bean Fairies are drawn to well-tended farms tonight.",
+  "subtitles.fertilegrounds.entity.bean_fairy.arrive": "Bean Fairy arrives",
+  "message.fertilegrounds.fairy_arriving": "A Bean Fairy is visiting nearby",
+  "message.fertilegrounds.visited_overnight": "A Bean Fairy visited your farm while you slept"
 }

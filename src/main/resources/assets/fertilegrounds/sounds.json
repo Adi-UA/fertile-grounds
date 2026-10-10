@@ -1,0 +1,12 @@
+{
+  "entity.bean_fairy.arrive": {
+    "sounds": [
+      {
+        "name": "minecraft:block/amethyst/shimmer",
+        "volume": 0.8,
+        "pitch": 1.4
+      }
+    ],
+    "subtitle": "subtitles.fertilegrounds.entity.bean_fairy.arrive"
+  }
+}

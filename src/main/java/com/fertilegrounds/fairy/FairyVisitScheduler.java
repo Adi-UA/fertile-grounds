@@ -6,8 +6,10 @@ import com.fertilegrounds.entity.ModEntities;
 import com.fertilegrounds.util.CropGrowthUtil;
 import com.fertilegrounds.util.ModGameRules;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.WeakHashMap;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.BlockPos;
@@ -177,16 +179,18 @@ public final class FairyVisitScheduler {
         target.getX() + 0.5, target.getY() + SPAWN_HEIGHT_ABOVE_TARGET, target.getZ() + 0.5);
     fairy.setTargetCrop(target);
     level.addFreshEntity(fairy);
+    FairyVisitEvents.onFairyArrived(level, fairy);
     FertileGrounds.LOGGER.debug("Bean Fairy sent to {}", target);
   }
 
   private static void growVisitsMissedOvernight(final ServerLevel level) {
+    final Set<ServerPlayer> toldPlayers = new HashSet<>();
     for (final FairyVisit visit : new ArrayList<>(FairyVisits.get(level))) {
       if (!level.isLoaded(visit.pos())) {
         continue;
       }
       CropGrowthUtil.growArea(level, visit.pos(), GROWTH_RADIUS);
-      FairyVisitEvents.onVisitGrown(level, visit.pos(), true);
+      toldPlayers.addAll(FairyVisitEvents.onVisitGrown(level, visit.pos(), true));
       final BlockPos pos = visit.pos();
       level.sendParticles(
           ParticleTypes.HAPPY_VILLAGER,
@@ -200,5 +204,6 @@ public final class FairyVisitScheduler {
           0.0);
       FairyVisits.remove(level, visit);
     }
+    FairyVisitEvents.tellVisitedOvernight(toldPlayers);
   }
 }
