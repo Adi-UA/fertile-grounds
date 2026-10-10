@@ -27,6 +27,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * <ol>
  *   <li>when night starts, announces a Harvest Moon if the moon is full, then rolls a rare natural
  *       visit for each player,
+ *   <li>twice a second, shows firefly heralds over visits due within a minute,
  *   <li>sends a fairy to each visit that is due during the night,
  *   <li>grows any visits still pending at dawn directly, so sleeping through the night doesn't skip
  *       the fairy (it "came while you slept").
@@ -81,7 +82,13 @@ public final class FairyVisitScheduler {
   }
 
   private static void onLevelTick(final ServerLevel level) {
-    if (level.dimension() != Level.OVERWORLD || level.getGameTime() % CHECK_INTERVAL_TICKS != 0) {
+    if (level.dimension() != Level.OVERWORLD) {
+      return;
+    }
+    if (level.getGameTime() % FairyHeralds.INTERVAL_TICKS == 0) {
+      FairyHeralds.tick(level);
+    }
+    if (level.getGameTime() % CHECK_INTERVAL_TICKS != 0) {
       return;
     }
 

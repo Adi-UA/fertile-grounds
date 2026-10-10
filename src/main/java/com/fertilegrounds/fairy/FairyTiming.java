@@ -88,6 +88,18 @@ public final class FairyTiming {
     return roll < chancePercent;
   }
 
+  /** Heralds appear this long before a fairy arrives (1 minute). */
+  public static final int HERALD_LEAD_TICKS = 1200;
+
+  /**
+   * Whether fireflies should herald a pending visit: at night, from a minute before it's due. A
+   * visit scheduled less than a minute ahead (Fairy Dust after dark) is heralded right away.
+   */
+  public static boolean isHeraldTime(
+      final long arrivalTick, final long now, final boolean isNight) {
+    return isNight && arrivalTick - now <= HERALD_LEAD_TICKS;
+  }
+
   /** A pending visit happens once it's night and its arrival tick has passed. */
   public static boolean isDue(final long arrivalTick, final long now, final boolean isNight) {
     return isNight && now >= arrivalTick;

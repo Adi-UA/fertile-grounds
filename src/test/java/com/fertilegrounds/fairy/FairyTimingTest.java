@@ -98,4 +98,20 @@ class FairyTimingTest {
   void chanceNeverPassesOneHundred() {
     assertEquals(100.0, FairyTiming.visitChance(50, 10, true, true, DEFAULTS), 1e-9);
   }
+
+  @Test
+  void heraldsStartAMinuteBeforeArrival() {
+    assertFalse(FairyTiming.isHeraldTime(10_000, 10_000 - 1201, true));
+    assertTrue(FairyTiming.isHeraldTime(10_000, 10_000 - 1200, true));
+  }
+
+  @Test
+  void aVisitDueSoonIsHeraldedRightAway() {
+    assertTrue(FairyTiming.isHeraldTime(10_000 + 600, 10_000, true));
+  }
+
+  @Test
+  void noHeraldsDuringTheDay() {
+    assertFalse(FairyTiming.isHeraldTime(10_000, 10_000, false));
+  }
 }

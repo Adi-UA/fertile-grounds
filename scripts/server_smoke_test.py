@@ -300,6 +300,13 @@ def has_error(line: str) -> bool:
     return any(marker in line for marker in ERROR_MARKERS)
 
 
+def set_server_property(properties: Path, key: str, value: str) -> None:
+    """Sets one line of server.properties, keeping the rest (the server writes the file on boot)."""
+    lines = properties.read_text().splitlines() if properties.exists() else []
+    lines = [line for line in lines if not line.startswith(f"{key}=")] + [f"{key}={value}"]
+    properties.write_text("\n".join(lines) + "\n")
+
+
 def write_datapack(pack_dir: Path, files: dict[str, dict | str]) -> None:
     """A new world enables every pack found in its datapacks folder, so writing it is enough."""
     if not files:
@@ -322,6 +329,9 @@ def main() -> int:
     # Always start from a fresh world: an older version can't load a world a newer one saved.
     shutil.rmtree(run_dir / "world", ignore_errors=True)
     (run_dir / "eula.txt").write_text("eula=true\n")
+    # Since 1.21.2 a server with no players stops ticking after 60 seconds, which would freeze
+    # every check after that point. 0 turns the pause off.
+    set_server_property(run_dir / "server.properties", "pause-when-empty-seconds", "0")
     for suite in suites:
         write_datapack(run_dir / "world" / "datapacks" / f"smoke_{suite.name}", suite.datapack)
 
@@ -388,7 +398,7 @@ def main() -> int:
     for line in log:
         if " has " in line and "[smoke]" in line:  # scoreboard readouts from report commands
             print(f"info: {line.split(']: ')[-1].rstrip()}")
-    error_lines = [line.rstrip() for line in log if has_error(line)]
+    error_lines = [line.rstrip() for line in log if has_error(line) or "Server empty for" in line]
     for line in error_lines:
         print(f"FAIL: {line}")
     return 1 if failed or error_lines else 0

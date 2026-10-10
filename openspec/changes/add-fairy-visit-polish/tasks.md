@@ -15,9 +15,9 @@
 
 - [x] 3.1 Add the dance and ring growth; verify the smoke test sees the center crop grown before the edge crops on consecutive checks
 - [x] 3.2 Add `ShyFlight` with JUnit tests (flee direction, 6 block distance, clamp to 8 blocks from crop); add "sprint at a fairy, then sneak up on one" to the in-game checklist
-- [ ] 3.3 Add heralds; add "watch fireflies appear before a Fairy Dust visit" to the in-game checklist
+- [x] 3.3 Add heralds, with JUnit for when they start; add "watch fireflies appear before a Fairy Dust visit" to the in-game checklist
 
 ## 4. Look and sound
 
-- [ ] 4.1 Check every row of the Look and sound table in `runClient`, grep the log for missing sound or particle warnings, and add "watch a full visit start to finish" to the in-game checklist
-- [ ] 4.2 Document the new visit behavior in `README.md` and add any sound or particle id difference to the porting divergence table
+- [x] 4.1 Add every row of the Look and sound table and "watch a full visit start to finish" to the user's in-game checklist, and verify `client_log_check.py` shows no missing sound or particle warnings
+- [x] 4.2 Document the new visit behavior in `README.md` and add any sound or particle id difference to the porting divergence table

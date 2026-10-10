@@ -52,6 +52,8 @@ To call one on purpose, craft **Fairy Dust** (shapeless: Glowstone Dust + Amethy
 
 The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop.
 
+A visit is a short scene. Fireflies drift over the patch in the minute before the fairy arrives. It comes down from the sky, spins above the crop, then grows the patch in rings from the center out, with a rising chime for each ring. Afterward it lingers for a minute, drifting between the crops and humming, before it flies away. Bean Fairies are shy: run at one and it darts away, but sneak up and it lets you come close.
+
 When a fairy arrives, you hear a soft chime and see "A Bean Fairy is visiting nearby" if you're within 32 blocks. If you slept through a visit, you get a message at dawn instead.
 
 ### Advancements
@@ -83,6 +85,7 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_flower_bonus` | 10 | Percent of the base visit chance each different small flower near the crop adds (up to 10 kinds) |
 | `fertilegrounds:fairy_hive_bonus` | 50 | Percent of the base visit chance a nearby beehive or bee nest adds |
 | `fertilegrounds:harvest_moon_multiplier` | 3 | What the visit chance is multiplied by on full-moon nights (1 to 10, not a percentage) |
+| `fertilegrounds:fairy_linger_seconds` | 60 | Seconds a fairy stays over the crops after growing them (0 to 600, not a percentage) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
 | `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
 
