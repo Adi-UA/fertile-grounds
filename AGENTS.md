@@ -11,6 +11,8 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `item/` | Fairy Dust, non-block items (`ModItems`), creative tab |
 | `entity/` | `BeanFairy` mob, its `VisitCropGoal`, registration (`ModEntities`) |
 | `fairy/` | When fairies visit: `FairyTiming` (pure rules), `FairyVisits` (saved list), `FairyVisitScheduler` (tick handler) |
+| `hotel/` | Jarred Fairies and Fairy Hotels: `JarredFairyRules` (pure rules), `JarredFairies` (slipping away in the world); the hotel block lives in `block/` |
+| `mixin/` | Small mixins, only where Fabric API has no event (container opened, item entity tick) |
 | `util/` | Shared helpers: ids, tags (`ModTags`), gamerules (`ModGameRules`), bone-meal boost, full crop growth |
 | `src/client/` | Fairy model and renderer, client registration |
 | `src/test/` | JUnit tests for the Minecraft-free logic, plus `AssetConsistencyTest` for resource files |

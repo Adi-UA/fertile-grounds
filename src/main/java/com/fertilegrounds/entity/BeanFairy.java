@@ -35,6 +35,12 @@ public class BeanFairy extends PathfinderMob {
 
   private boolean finishedGrowing;
 
+  /** Ticks since a bottle caught this fairy, or 0 if it hasn't been caught. */
+  private int caughtTicks;
+
+  /** How long a caught fairy takes to shrink into the bottle before it disappears. */
+  private static final int SHRINK_TICKS = 6;
+
   /** The lowest Y this fairy may reach, or null for no limit (see {@link #keepAbove}). */
   @Nullable private Double floorY;
 
@@ -60,6 +66,22 @@ public class BeanFairy extends PathfinderMob {
       this.setPos(this.getX(), this.floorY, this.getZ());
       final Vec3 motion = this.getDeltaMovement();
       this.setDeltaMovement(motion.x, Math.max(0, motion.y), motion.z);
+    }
+    if (this.caughtTicks > 0) {
+      shrinkIntoBottle();
+    }
+  }
+
+  /**
+   * Shrinks a caught fairy through vanilla's scale attribute, which syncs to players and resizes
+   * the model, then removes it once it has fit into the bottle.
+   */
+  private void shrinkIntoBottle() {
+    this.caughtTicks++;
+    this.getAttribute(Attributes.SCALE)
+        .setBaseValue(1.0 - (double) this.caughtTicks / SHRINK_TICKS);
+    if (this.caughtTicks >= SHRINK_TICKS) {
+      this.discard();
     }
   }
 
@@ -106,7 +128,7 @@ public class BeanFairy extends PathfinderMob {
   @Override
   protected InteractionResult mobInteract(final Player player, final InteractionHand hand) {
     final ItemStack held = player.getItemInHand(hand);
-    if (!held.is(Items.GLASS_BOTTLE)) {
+    if (!held.is(Items.GLASS_BOTTLE) || this.caughtTicks > 0) {
       return super.mobInteract(player, hand);
     }
     // The client only predicts the arm swing; it doesn't know whether the fairy is done growing.
@@ -125,7 +147,7 @@ public class BeanFairy extends PathfinderMob {
     if (player instanceof ServerPlayer serverPlayer) {
       ModCriteria.FAIRY_CAUGHT.trigger(serverPlayer);
     }
-    this.discard();
+    this.caughtTicks = 1;
     return InteractionResult.SUCCESS;
   }
 

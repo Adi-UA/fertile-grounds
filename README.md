@@ -20,8 +20,6 @@ Fertile Grounds is a Fabric mod for Minecraft 26.3 that adds tiered soil-enrichm
 
 **New in version 1.2.0: Bean Fairies.** Like Stardew Valley's Crop Fairy, one can show up on any night and fully grow a patch of your crops. Or craft Fairy Dust and sprinkle it on a crop to guarantee a visit that night.
 
-Coming Soon: Put Bean Fairies in a jar to ...?
-
 ## What it adds
 
 Three tiers, each a drop-in soil upgrade that behaves like its vanilla counterpart (till it, plant on it, it still floods/dries/tramples) but with a chance per random tick to instantly advance whatever's growing on top of it, as if bone-mealed:
@@ -58,6 +56,12 @@ Sometimes a fairy leaves a gift at the crop for the player it visited: a 30% cha
 
 When a fairy arrives, you hear a soft chime and see "A Bean Fairy is visiting nearby" if you're within 32 blocks. If you slept through a visit, you get a message at dawn instead.
 
+### Fairy Hotels
+
+A fairy that has finished growing its patch can be caught: sneak up while it lingers (it darts away from a running player) and use a Glass Bottle on it to get a **Jarred Fairy**. A fairy still flying in or growing crops is too busy to catch. A Jarred Fairy does nothing on its own, and it never stays trapped: after 3 in-game days, whether carried, stored in a chest, or dropped, it slips away and leaves a small flower behind.
+
+To keep it, build it a home. Craft an **Empty Fairy Hotel** (shaped: a Firefly Bush in the top middle, a Lantern in the center, and 7 small flowers in any mix around it) and use the Jarred Fairy on it. The fairy moves in for good, the hotel glows green (light level 12, against the empty hotel's 5), and you get the bottle back. Hotels hang and sit like lanterns, and breaking an occupied hotel drops it with its fairy still inside, so you can move it anywhere.
+
 ### Advancements
 
 Fertile Grounds has its own advancement tab:
@@ -69,8 +73,10 @@ Fertile Grounds has its own advancement tab:
 | Grassroots Upgrade | Upgrade soil in place with Fertilizer |
 | Fairy Favor | Receive a gift from a Bean Fairy |
 | By the Light of the Harvest Moon | Be near a Bean Fairy visit on a full-moon night |
+| Fairy in a Bottle | Catch a lingering Bean Fairy in a Glass Bottle |
+| Home Sweet Hotel | Give a Bean Fairy a home in a Fairy Hotel |
 
-Datapacks and quest mods can use the `fertilegrounds:fairy_visit` and `fertilegrounds:harvest_moon_visit` advancement triggers, which fire for every player within 32 blocks of a visit, and `fertilegrounds:fairy_gift`, which fires for the player who receives a gift.
+Datapacks and quest mods can use the `fertilegrounds:fairy_visit` and `fertilegrounds:harvest_moon_visit` advancement triggers, which fire for every player within 32 blocks of a visit, `fertilegrounds:fairy_gift`, which fires for the player who receives a gift, and `fertilegrounds:fairy_caught` and `fertilegrounds:fairy_moved_in` for the player who catches a fairy or moves one into a hotel.
 
 ## For modpack makers
 
@@ -79,7 +85,7 @@ Tags decide which blocks count as crops and flowers. Add to them with a datapack
 | Tag | Type | Default | Used for |
 |---|---|---|---|
 | `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy or Fairy Dust may grow |
-| `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features |
+| `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features, the Fairy Hotel recipe, and the flower a Jarred Fairy leaves |
 
 Gift loot lives in the loot tables `fertilegrounds:gameplay/fairy_gift/common`, `uncommon`, and `rare`; a datapack can replace any of them.
 
@@ -95,6 +101,7 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_gift_chance_natural` | 30 | Chance a natural visit leaves its player a gift |
 | `fertilegrounds:fairy_gift_chance_dust` | 10 | Chance a Fairy Dust visit leaves its player a gift |
 | `fertilegrounds:fairy_gift_cooldown_days` | 3 | In-game days between gifts for one player (0 to 30, not a percentage) |
+| `fertilegrounds:jarred_fairy_days` | 3 | In-game days a Jarred Fairy waits before it slips away (1 to 30, not a percentage) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
 | `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
 

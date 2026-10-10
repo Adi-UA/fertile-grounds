@@ -17,7 +17,7 @@
 - **Flower pick** from the `fairy_flowers` item tag with the level's random source; fall back to a Poppy if a pack empties the tag.
 - **Two hotel blocks, no block entity.** `EMPTY_FAIRY_HOTEL` and `FAIRY_HOTEL` are separate blocks sharing one `FairyHotelBlock` class with a lantern-style `HANGING` property. Separate blocks give separate items and loot tables, so the occupied hotel drops itself with no item data. `add-chime-hotel` adds a third block of the same class.
 - **Lantern shape and sound type.** Same collision shape and `SoundType.LANTERN` as vanilla's lantern, so it hangs and sits like one.
-- **Capture in `BeanFairy.mobInteract`**, gated on `hasFinishedGrowing()`.
+- **Capture in `BeanFairy.mobInteract`**, gated on `hasFinishedGrowing()`, following vanilla's `Bucketable.bucketMobPickup`. The fairy shrinks into the bottle over 6 ticks through vanilla's `scale` attribute, which syncs to players and resizes the model, so the renderer needs no change.
 - **Recipe** is a shaped crafting recipe with the `fairy_flowers` item tag as an ingredient. Check the ingredient tag format in 26.3 and 1.21.11.
 - **Gamerule** `jarred_fairy_days` (default 3, range 1 to 30).
 
