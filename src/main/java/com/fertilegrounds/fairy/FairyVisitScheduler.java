@@ -115,6 +115,7 @@ public final class FairyVisitScheduler {
 
   private static void startNight(final ServerLevel level) {
     final boolean harvestMoon = HarvestMoon.isTonight(level);
+    HarvestMoon.rememberTonight(level, harvestMoon);
     if (harvestMoon) {
       HarvestMoon.announce(level);
     }
@@ -186,13 +187,14 @@ public final class FairyVisitScheduler {
     // Copy first: the loop removes visits from the stored list.
     for (final FairyVisit visit : new ArrayList<>(FairyVisits.get(level))) {
       if (FairyTiming.isDue(visit.arrivalTick(), now, true) && level.isLoaded(visit.pos())) {
-        spawnFairy(level, visit.pos());
+        spawnFairy(level, visit);
         FairyVisits.remove(level, visit);
       }
     }
   }
 
-  private static void spawnFairy(final ServerLevel level, final BlockPos target) {
+  private static void spawnFairy(final ServerLevel level, final FairyVisit visit) {
+    final BlockPos target = visit.pos();
     final BeanFairy fairy = ModEntities.BEAN_FAIRY.create(level, EntitySpawnReason.EVENT);
     if (fairy == null) {
       return;
@@ -203,7 +205,7 @@ public final class FairyVisitScheduler {
             target.getY() + SPAWN_HEIGHT_ABOVE_TARGET,
             level.getHeight(Heightmap.Types.MOTION_BLOCKING, target.getX(), target.getZ()) + 2);
     fairy.setPos(target.getX() + 0.5, spawnY, target.getZ() + 0.5);
-    fairy.setTargetCrop(target);
+    fairy.setVisit(visit);
     level.addFreshEntity(fairy);
     FairyVisitEvents.onFairyArrived(level, fairy);
     FertileGrounds.LOGGER.debug("Bean Fairy sent to {}", target);
@@ -216,7 +218,7 @@ public final class FairyVisitScheduler {
         continue;
       }
       CropGrowthUtil.growArea(level, visit.pos(), GROWTH_RADIUS);
-      toldPlayers.addAll(FairyVisitEvents.onVisitGrown(level, visit.pos(), true));
+      toldPlayers.addAll(FairyVisitEvents.onVisitGrown(level, visit, true));
       final BlockPos pos = visit.pos();
       level.sendParticles(
           ParticleTypes.HAPPY_VILLAGER,

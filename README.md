@@ -54,6 +54,8 @@ The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nea
 
 A visit is a short scene. Fireflies drift over the patch in the minute before the fairy arrives. It comes down from the sky, spins above the crop, then grows the patch in rings from the center out, with a rising chime for each ring. Afterward it lingers for a minute, drifting between the crops and humming, before it flies away. Bean Fairies are shy: run at one and it darts away, but sneak up and it lets you come close.
 
+Sometimes a fairy leaves a gift at the crop for the player it visited: a 30% chance after a natural visit, 10% after Fairy Dust, plus 1% for each kind of small flower nearby (up to 10%). Dust from a dispenser never brings a gift, and each player can get one gift every 3 in-game days. Bigger farms get better gifts: under 25 crops nearby rolls the common table (seeds, bone meal, flowers), 25 to 99 the uncommon one (berries, cocoa, Fairy Dust), and 100 or more the rare one (Fertilizer, golden carrots, torchflower seeds, pitcher pods). On a Harvest Moon, gifts roll one table higher. Gifts never despawn, so they wait for you.
+
 When a fairy arrives, you hear a soft chime and see "A Bean Fairy is visiting nearby" if you're within 32 blocks. If you slept through a visit, you get a message at dawn instead.
 
 ### Advancements
@@ -65,8 +67,10 @@ Fertile Grounds has its own advancement tab:
 | Fertile Grounds | Get any enriched soil block (opens the tab) |
 | A Little Help | Be within 32 blocks when a Bean Fairy grows your crops |
 | Grassroots Upgrade | Upgrade soil in place with Fertilizer |
+| Fairy Favor | Receive a gift from a Bean Fairy |
+| By the Light of the Harvest Moon | Be near a Bean Fairy visit on a full-moon night |
 
-Datapacks and quest mods can use the `fertilegrounds:fairy_visit` advancement trigger, which fires for every player within 32 blocks of a visit.
+Datapacks and quest mods can use the `fertilegrounds:fairy_visit` and `fertilegrounds:harvest_moon_visit` advancement triggers, which fire for every player within 32 blocks of a visit, and `fertilegrounds:fairy_gift`, which fires for the player who receives a gift.
 
 ## For modpack makers
 
@@ -77,6 +81,8 @@ Tags decide which blocks count as crops and flowers. Add to them with a datapack
 | `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy or Fairy Dust may grow |
 | `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features |
 
+Gift loot lives in the loot tables `fertilegrounds:gameplay/fairy_gift/common`, `uncommon`, and `rare`; a datapack can replace any of them.
+
 Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances are whole percentages from 0 to 100, and a change applies right away.
 
 | Gamerule | Default | What it sets |
@@ -86,6 +92,9 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_hive_bonus` | 50 | Percent of the base visit chance a nearby beehive or bee nest adds |
 | `fertilegrounds:harvest_moon_multiplier` | 3 | What the visit chance is multiplied by on full-moon nights (1 to 10, not a percentage) |
 | `fertilegrounds:fairy_linger_seconds` | 60 | Seconds a fairy stays over the crops after growing them (0 to 600, not a percentage) |
+| `fertilegrounds:fairy_gift_chance_natural` | 30 | Chance a natural visit leaves its player a gift |
+| `fertilegrounds:fairy_gift_chance_dust` | 10 | Chance a Fairy Dust visit leaves its player a gift |
+| `fertilegrounds:fairy_gift_cooldown_days` | 3 | In-game days between gifts for one player (0 to 30, not a percentage) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
 | `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
 

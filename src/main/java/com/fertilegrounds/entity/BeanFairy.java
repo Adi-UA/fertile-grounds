@@ -1,6 +1,6 @@
 package com.fertilegrounds.entity;
 
-import net.minecraft.core.BlockPos;
+import com.fertilegrounds.fairy.FairyVisit;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BeanFairy extends PathfinderMob {
 
-  @Nullable private BlockPos targetCrop;
+  @Nullable private FairyVisit visit;
 
   private boolean finishedGrowing;
 
@@ -76,14 +76,14 @@ public class BeanFairy extends PathfinderMob {
     this.goalSelector.addGoal(0, new VisitCropGoal(this));
   }
 
-  /** The crop to visit. Unset for a fairy from a spawn egg, which picks the nearest crop itself. */
+  /** The visit this fairy is on. Unset for a fairy from a spawn egg, which picks a crop itself. */
   @Nullable
-  public BlockPos getTargetCrop() {
-    return this.targetCrop;
+  public FairyVisit getVisit() {
+    return this.visit;
   }
 
-  public void setTargetCrop(final BlockPos targetCrop) {
-    this.targetCrop = targetCrop;
+  public void setVisit(final FairyVisit visit) {
+    this.visit = visit;
   }
 
   /** Players can't hurt it (creative mode and /kill still can, so it never gets stuck). */

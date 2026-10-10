@@ -1,6 +1,8 @@
 package com.fertilegrounds.fairy;
 
 import com.fertilegrounds.FertileGrounds;
+import java.util.Map;
+import java.util.WeakHashMap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,7 +14,22 @@ import net.minecraft.world.level.MoonPhase;
 /** The Harvest Moon: full-moon nights, when Bean Fairies are likelier to visit. */
 public final class HarvestMoon {
 
+  /**
+   * Whether the last nightfall was a Harvest Moon, per world. Visits grown at dawn belong to that
+   * night, but by dawn the moon phase has already moved on. Weak keys let closed worlds unload.
+   */
+  private static final Map<ServerLevel, Boolean> LAST_NIGHT = new WeakHashMap<>();
+
   private HarvestMoon() {}
+
+  static void rememberTonight(final ServerLevel level, final boolean harvestMoon) {
+    LAST_NIGHT.put(level, harvestMoon);
+  }
+
+  /** Whether the night that just ended had a Harvest Moon, for visits grown at dawn. */
+  public static boolean wasLastNight(final ServerLevel level) {
+    return LAST_NIGHT.getOrDefault(level, false);
+  }
 
   /**
    * Since 1.21.11, the moon phase is an "environment attribute" of the dimension rather than a

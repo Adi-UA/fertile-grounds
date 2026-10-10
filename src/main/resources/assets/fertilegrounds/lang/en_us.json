@@ -43,5 +43,10 @@
   "gamerule.fertilegrounds.fairy_gift_chance_dust.description": "Percent chance a Fairy Dust visit leaves its player a gift",
   "gamerule.fertilegrounds.fairy_gift_cooldown_days": "Fairy gift cooldown",
   "gamerule.fertilegrounds.fairy_gift_cooldown_days.description": "In-game days a player waits after a fairy gift before getting another",
-  "tag.item.fertilegrounds.fairy_flowers": "Fairy Flowers"
+  "tag.item.fertilegrounds.fairy_flowers": "Fairy Flowers",
+  "message.fertilegrounds.fairy_gift": "A Bean Fairy left you a gift",
+  "advancements.fertilegrounds.first_fairy_gift.title": "Fairy Favor",
+  "advancements.fertilegrounds.first_fairy_gift.description": "Receive a gift from a Bean Fairy",
+  "advancements.fertilegrounds.harvest_moon_visit.title": "By the Light of the Harvest Moon",
+  "advancements.fertilegrounds.harvest_moon_visit.description": "Be near a Bean Fairy visit on a full-moon night"
 }

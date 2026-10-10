@@ -1,5 +1,6 @@
 package com.fertilegrounds.entity;
 
+import com.fertilegrounds.fairy.FairyVisit;
 import com.fertilegrounds.fairy.FairyVisitEvents;
 import com.fertilegrounds.fairy.FairyVisitScheduler;
 import com.fertilegrounds.fairy.ShyFlight;
@@ -66,6 +67,7 @@ class VisitCropGoal extends Goal {
   private int lingerTicks;
   private int nextHumTick;
   private BlockPos target = BlockPos.ZERO;
+  @Nullable private FairyVisit visit;
   private BlockPos driftSpot = BlockPos.ZERO;
   private List<BlockPos> patchCrops = List.of();
   @Nullable private ShyFlight.Point dartTarget;
@@ -88,8 +90,8 @@ class VisitCropGoal extends Goal {
 
   @Override
   public void start() {
-    final BlockPos assigned = this.fairy.getTargetCrop();
-    final BlockPos crop = assigned != null ? assigned : findNearestCrop();
+    final FairyVisit assigned = this.fairy.getVisit();
+    final BlockPos crop = assigned != null ? assigned.pos() : findNearestCrop();
     if (crop == null) {
       // Nothing to grow (a spawn-egg fairy far from any crop), so just fly away.
       this.target = this.fairy.blockPosition();
@@ -97,6 +99,9 @@ class VisitCropGoal extends Goal {
       return;
     }
     this.target = crop;
+    // A spawn-egg fairy has no visit, so it gets an unowned one: it grows crops but gives no gift.
+    this.visit =
+        assigned != null ? assigned : FairyVisit.of(crop, 0, FairyVisit.Source.UNOWNED, null);
     // A covered crop (under glass or a roof) keeps the fly-through-blocks path; an open one
     // gets a floor 1 block above the crop so the fairy never dips into the ground.
     if (level().canSeeSky(crop.above())) {
@@ -169,7 +174,9 @@ class VisitCropGoal extends Goal {
     }
     this.fairy.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.0F, 1.0F + 0.2F * ring);
     if (ring == LAST_RING) {
-      FairyVisitEvents.onVisitGrown(level(), this.target, false);
+      if (this.visit != null) {
+        FairyVisitEvents.onVisitGrown(level(), this.visit, false);
+      }
       this.fairy.markFinishedGrowing();
       startLinger();
     }

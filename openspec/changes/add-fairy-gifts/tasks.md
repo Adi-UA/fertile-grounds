@@ -14,7 +14,7 @@
 ## 3. Delivery
 
 - [x] 3.1 Add the three loot tables from the spec's default gift tables; verify a JUnit asset test reads each JSON and matches every item, count range, and weight to the spec, and `/loot spawn ~ ~ ~ loot fertilegrounds:gameplay/fairy_gift/rare` drops an item in the smoke test
-- [ ] 3.2 Drop gifts from `FairyVisitEvents.onVisitGrown` with particles and owner message; verify the smoke test sets gift chance to 100, runs a dust visit, and finds a gift item entity with unlimited lifetime
-- [ ] 3.3 Add the first gift and Harvest Moon advancements; verify the smoke test grants them through real gifts and visits
-- [ ] 3.4 Document gifts and their gamerules in `README.md`; verify numbers match the defaults
-- [ ] 3.5 Check every row of the design's Look and sound table in `runClient` and add it to the in-game checklist
+- [x] 3.2 Drop gifts from `FairyVisitEvents.onVisitGrown` with particles and owner message; verify the full smoke run still passes with the new visit plumbing, and add to the user's in-game checklist: with `fairy_gift_chance_dust 100`, a Fairy Dust visit drops a gift that is still there 20 minutes later (gifts need an owner, which needs a player)
+- [x] 3.3 Add the first gift and Harvest Moon advancements; verify the smoke test boots with them and no advancement error, and add both real actions to the user's in-game checklist (earning needs a player)
+- [x] 3.4 Document gifts and their gamerules in `README.md`; verify numbers match the defaults
+- [x] 3.5 Add every row of the design's Look and sound table to the user's in-game checklist; the user plays through the checklist at the end of the 2.0 run

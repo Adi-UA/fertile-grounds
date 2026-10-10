@@ -27,15 +27,25 @@ public final class FairyVisitEvents {
   /**
    * Called once each time a visit grows crops.
    *
+   * @param visit the visit that grew, with its owner for gifts
    * @param overnight true when the visit grew at dawn because no fairy flew during the night
    * @return the players near the visit
    */
   public static List<ServerPlayer> onVisitGrown(
-      final ServerLevel level, final BlockPos pos, final boolean overnight) {
+      final ServerLevel level, final FairyVisit visit, final boolean overnight) {
+    final BlockPos pos = visit.pos();
     FertileGrounds.LOGGER.info(
         "Fairy visit grew crops at {}{}", pos.toShortString(), overnight ? " overnight" : "");
+    final boolean harvestMoon =
+        overnight ? HarvestMoon.wasLastNight(level) : HarvestMoon.isTonight(level);
     final List<ServerPlayer> nearby = playersNear(level, pos);
-    nearby.forEach(ModCriteria.FAIRY_VISIT::trigger);
+    for (final ServerPlayer player : nearby) {
+      ModCriteria.FAIRY_VISIT.trigger(player);
+      if (harvestMoon) {
+        ModCriteria.HARVEST_MOON_VISIT.trigger(player);
+      }
+    }
+    FairyGiftDrops.maybeDrop(level, visit, harvestMoon);
     return nearby;
   }
 
