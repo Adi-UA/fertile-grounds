@@ -74,6 +74,10 @@ Hotels within 8 blocks of each other share their crop and honey help, so a clust
 
 A **Chime Hotel** (shapeless: an Occupied Fairy Hotel, a Note Block, and a Spyglass) does everything an occupied hotel does, and its fairy watches the field for you. Every 5 seconds it counts the crops within 8 blocks (2 up or down), and once at least 4 are there and 80% are fully grown, it rings a soft 3-note chime that players hear up to 32 blocks away. It rings once per harvest: after you harvest and replant, it rings again when the field is ready. It also chimes once when placed, so you learn the sound. Crops from other mods that never report being fully grown keep it from ringing; the `fertilegrounds:fairy_crops` tag decides what counts.
 
+### Redstone
+
+A comparator reading a Chime Hotel gives a 1-second pulse of 15 when the hotel rings for a ready field, enough to light a lamp or start an auto-harvester; the chime when you place the hotel gives no pulse. Empty and occupied hotels read 0. A comparator reading soil gives its tier: 7 for Enriched Dirt, Farmland, and Sand, and 15 for Super Enriched Dirt and Farmland.
+
 ### Advancements
 
 Fertile Grounds has its own advancement tab:
