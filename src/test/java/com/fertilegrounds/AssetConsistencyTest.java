@@ -197,8 +197,9 @@ class AssetConsistencyTest {
   }
 
   /**
-   * Regression for 02ba2bb: recipe advancements use "recipes" for recipe_unlocked and a plain
-   * string or tag for an item predicate's "items", not the old "recipe" key or an array.
+   * Recipe advancements use "recipes" for recipe_unlocked, not the old "recipe" key, which fails to
+   * parse on 26.3. Item predicates use a plain string or tag for "items" to match vanilla's style
+   * (b95a82e); a list still parses, but one criterion per item reads like vanilla's advancements.
    */
   @Test
   void advancementsUseTheCurrentShape() throws IOException {
