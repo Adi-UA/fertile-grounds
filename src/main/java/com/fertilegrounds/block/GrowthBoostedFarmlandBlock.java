@@ -19,7 +19,7 @@ import net.minecraft.world.level.gamerules.GameRule;
  * out as a constructor argument, so passing this tier's own dirt block is all it takes to keep a
  * crafted block from downgrading into plain vanilla dirt.
  */
-public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
+public class GrowthBoostedFarmlandBlock extends FarmlandBlock implements TieredSoil {
 
   private final GameRule<Integer> boostChanceRule;
 
@@ -56,6 +56,11 @@ public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
   /** The gamerule holding this soil's boost chance, which Jade shows. */
   public GameRule<Integer> boostChanceRule() {
     return this.boostChanceRule;
+  }
+
+  @Override
+  public SoilTier tier() {
+    return this.tier;
   }
 
   /** A comparator reads this soil's tier. */

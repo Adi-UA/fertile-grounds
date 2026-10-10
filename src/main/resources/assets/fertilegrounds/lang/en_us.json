@@ -4,6 +4,8 @@
   "block.fertilegrounds.super_enriched_dirt": "Super Enriched Dirt",
   "block.fertilegrounds.super_enriched_farmland": "Super Enriched Farmland",
   "block.fertilegrounds.enriched_sand": "Enriched Sand",
+  "block.fertilegrounds.blighted_dirt": "Blighted Dirt",
+  "message.fertilegrounds.witch_blight": "As the witch falls, its curse sinks into the ground. Blight is spreading nearby!",
   "itemGroup.fertilegrounds.main": "Fertile Grounds",
   "item.fertilegrounds.fertilizer": "Fertilizer",
   "item.fertilegrounds.fairy_dust": "Fairy Dust",
@@ -83,6 +85,10 @@
   "config.jade.plugin_fertilegrounds.pending_visit": "Pending fairy visit",
   "config.jade.plugin_fertilegrounds.fairy_hotel": "Fairy Hotel",
   "item.fertilegrounds.guide_book": "Fertile Grounds Guide",
+  "gamerule.fertilegrounds.blight_spread_chance": "Blight spread chance",
+  "gamerule.fertilegrounds.blight_spread_chance.description": "Percent chance per random tick that Blighted Dirt spreads into the plain soil it touches; enriched soil resists. 0 stops all spreading",
+  "gamerule.fertilegrounds.witch_blight_chance": "Witch blight chance",
+  "gamerule.fertilegrounds.witch_blight_chance.description": "Percent chance that a witch killed by a player blights the soil under it",
   "gamerule.fertilegrounds.give_guide_book": "Give guide book",
   "gamerule.fertilegrounds.give_guide_book.description": "Whether each player gets the Fertile Grounds Guide on their first join",
   "book.fertilegrounds.guide.page.1": "Fertile Grounds\n\nWelcome, farmer! This book is about richer soil, the shy Bean Fairies, and how to give one a home.\n\nLost it? Craft a new one from a Book and Bone Meal.",
@@ -96,5 +102,6 @@
   "book.fertilegrounds.guide.page.9": "Fairy Hotels\n\nTo keep your fairy, give it a home. Craft a hotel from a Lantern, a Firefly Bush on top, and flowers all around.\n\nUse the jarred fairy on the hotel, and your fairy moves in for good.",
   "book.fertilegrounds.guide.page.10": "Hotel Life\n\nYour fairy helps nearby crops grow, fills beehives with honey, and scares creepers off. Its farmland can't be trampled, and you walk faster nearby.\n\nBrush the hotel daily. Fairies love it!",
   "book.fertilegrounds.guide.page.11": "Chime Hotel\n\nCraft your fairy's hotel with a Note Block and a Spyglass. Now your fairy watches the fields. When most nearby crops are ready, it rings a soft chime.\n\nTime to harvest!",
-  "book.fertilegrounds.guide.page.12": "Redstone\n\nA Comparator behind a Chime Hotel sends a short signal when it chimes. Use it to light a lamp or start a farm machine.\n\nComparators can tell soils apart too."
+  "book.fertilegrounds.guide.page.12": "Redstone\n\nA Comparator behind a Chime Hotel sends a short signal when it chimes. Use it to light a lamp or start a farm machine.\n\nComparators can tell soils apart too.",
+  "book.fertilegrounds.guide.page.13": "Blight\n\nA fallen witch may leave cursed soil. Blight creeps into dirt, grass, sand, and farmland, and crops on it wither.\n\nA path or stone stops it. Fertilizer and fairy visits cure it."
 }

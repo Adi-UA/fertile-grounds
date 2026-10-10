@@ -33,6 +33,11 @@
 - A hotel fairy helps nearby crops, fills beehives with honey, keeps creepers away, and stops trampling. Brush it once a day to keep it happy.
 - Upgrade to a **Chime Hotel** and it rings a soft chime when your field is ready to harvest, with a redstone signal for farm machines.
 
+## Beware the blight
+
+- Rarely, a fallen witch leaves **Blighted Dirt** behind. It creeps across soil and withers crops until you cure it with Fertilizer or a fairy visit.
+- On servers, rivals can craft it to sabotage each other's farms. A simple path keeps it out.
+
 ## Little extras
 
 - A friendly **guide book** on your first join explains everything, in your own language.

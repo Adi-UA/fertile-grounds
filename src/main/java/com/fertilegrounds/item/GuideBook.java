@@ -19,7 +19,7 @@ import net.minecraft.world.item.component.WrittenBookContent;
  */
 public final class GuideBook {
 
-  public static final int PAGE_COUNT = 12;
+  public static final int PAGE_COUNT = 13;
 
   /** Shown as "by Fertile Grounds" in the tooltip; a name, so it isn't translated. */
   public static final String AUTHOR = "Fertile Grounds";

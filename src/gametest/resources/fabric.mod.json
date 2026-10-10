@@ -31,7 +31,8 @@
 			"com.fertilegrounds.gametest.RedstoneTests",
 			"com.fertilegrounds.gametest.TraderTests",
 			"com.fertilegrounds.gametest.JadeDataTests",
-			"com.fertilegrounds.gametest.GuideBookTests"
+			"com.fertilegrounds.gametest.GuideBookTests",
+			"com.fertilegrounds.gametest.BlightTests"
 		]
 	},
 	"depends": {

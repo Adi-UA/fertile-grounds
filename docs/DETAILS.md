@@ -56,6 +56,14 @@ Hotels within 8 blocks of each other share their crop and honey help, so a clust
 
 A **Chime Hotel** (shapeless: an Occupied Fairy Hotel, a Note Block, and a Spyglass) does everything an occupied hotel does, and its fairy watches the field for you. Every 5 seconds it counts the crops within 8 blocks (2 up or down), and once at least 4 are there and 80% are fully grown, it rings a soft 3-note chime that players hear up to 32 blocks away. It rings once per harvest: after you harvest and replant, it rings again when the field is ready. It also chimes once when placed, so you learn the sound. Crops from other mods that never report being fully grown keep it from ringing; the `fertilegrounds:fairy_crops` tag decides what counts.
 
+### Blight
+
+**Blighted Dirt** is cursed, ashen soil. On each random tick it picks one touching block, and if that block is surface soil (dirt, grass, farmland, sand, or red sand, with nothing solid on top), it turns into Blighted Dirt 20% of the time. Enriched soil holds out twice as long and Super Enriched four times as long. Any plant on a block blight takes withers into a dead bush and drops nothing. Blight never crosses stone, a dirt path, water, or anything else outside the `fertilegrounds:blightable` tag, so a path around a farm protects it. Nothing grows on Blighted Dirt except dead bushes, and a hoe can't till it.
+
+Blight starts two ways. A witch killed by a player has a 1% chance to blight the soil in a 3x3 patch under it, and every player within 32 blocks reads a chat message about it. Or craft it (shapeless: Dirt + Nether Wart + Blaze Rod + Fermented Spider Eye), which is handy for sabotage on servers.
+
+To cure it, use **Fertilizer** on a blighted block (by hand or from a Dispenser) to turn it back into dirt. A Bean Fairy visit also cures the blight under its 5x5 patch.
+
 ### Wandering Trader
 
 A Wandering Trader can roll Fairy Dust or Fertilizer among its rare trades: 2 Fairy Dust for 4 emeralds (4 times) and 1 Fertilizer for 6 emeralds (3 times). Its vanilla trades stay as they are.
@@ -95,6 +103,7 @@ Tags decide which blocks count as crops and flowers. Add to them with a datapack
 | Tag | Type | Default | Used for |
 |---|---|---|---|
 | `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy, Fairy Dust, or a Fairy Hotel may grow, and the crops a Chime Hotel watches |
+| `fertilegrounds:blightable` | Block | Dirt, grass block, farmland, sand, red sand, and the mod's enriched soils | Soil that Blighted Dirt and the witch curse can take |
 | `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features, the Fairy Hotel recipe, and the flower a Jarred Fairy leaves |
 
 Gift loot lives in the loot tables `fertilegrounds:gameplay/fairy_gift/common`, `uncommon`, and `rare`; a datapack can replace any of them.
@@ -116,6 +125,8 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_hotel_petted_boost_chance` | 65 | The same chance for a hotel brushed since the last dawn |
 | `fertilegrounds:fairy_hotel_honey_chance` | 10 | Chance per random tick that an occupied hotel adds honey to a hive within 4 blocks |
 | `fertilegrounds:chime_ready_percent` | 80 | Percent of the crops near a Chime Hotel that must be fully grown for it to ring (1 to 100) |
+| `fertilegrounds:blight_spread_chance` | 20 | Chance per random tick that Blighted Dirt takes the plain soil it picked; enriched soil resists (0 stops all spreading) |
+| `fertilegrounds:witch_blight_chance` | 1 | Chance that a witch killed by a player blights the soil under it |
 | `fertilegrounds:fairy_hotel_speed` | true | Whether players near an occupied hotel get Fairy Speed (true or false) |
 | `fertilegrounds:give_guide_book` | true | Whether each player gets the guide book on their first join (true or false) |
 | `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |

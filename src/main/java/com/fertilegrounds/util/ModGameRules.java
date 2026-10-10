@@ -71,6 +71,14 @@ public final class ModGameRules {
   public static final GameRule<Integer> CHIME_READY_PERCENT =
       integer("chime_ready_percent", 80, 1, 100, GameRuleCategory.MISC);
 
+  /** Chance per random tick that Blighted Dirt takes the plain soil it picked; 0 stops it. */
+  public static final GameRule<Integer> BLIGHT_SPREAD_CHANCE =
+      percent("blight_spread_chance", 20, GameRuleCategory.UPDATES);
+
+  /** Chance that a witch killed by a player blights the soil under it. */
+  public static final GameRule<Integer> WITCH_BLIGHT_CHANCE =
+      percent("witch_blight_chance", 1, GameRuleCategory.DROPS);
+
   /** Whether players near an occupied Fairy Hotel get Fairy Speed. */
   public static final GameRule<Boolean> FAIRY_HOTEL_SPEED =
       GameRuleBuilder.forBoolean(true)

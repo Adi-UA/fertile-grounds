@@ -21,6 +21,12 @@ public final class ModTags {
    */
   public static final TagKey<Block> FAIRY_FLOWERS = block("fairy_flowers");
 
+  /**
+   * Soil blight can take. Defaults to dirt, grass, farmland, sand, red sand, and the mod's enriched
+   * soils.
+   */
+  public static final TagKey<Block> BLIGHTABLE = block("blightable");
+
   /** The item form of {@link #FAIRY_FLOWERS}, for features that take a flower item. */
   public static final TagKey<Item> FAIRY_FLOWER_ITEMS =
       TagKey.create(Registries.ITEM, ModIdsUtil.id("fairy_flowers"));

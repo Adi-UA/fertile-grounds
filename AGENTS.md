@@ -12,6 +12,7 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `entity/` | `BeanFairy` mob, its `VisitCropGoal`, registration (`ModEntities`) |
 | `fairy/` | When fairies visit: `FairyTiming` (pure rules), `FairyVisits` (saved list), `FairyVisitScheduler` (tick handler) |
 | `hotel/` | Jarred Fairies and Fairy Hotels: `JarredFairyRules` (pure rules), `JarredFairies` (slipping away in the world), `ChimeRules` and `HotelChimes` (when a Chime Hotel rings); the hotel blocks live in `block/` |
+| `blight/` | Blighted Dirt's spread odds (`BlightRules`, pure), taking and curing soil (`Blight`), and the witch curse; the block lives in `block/` |
 | `compat/jade/` | Optional Jade tooltips: server data providers here, tooltip lines in `src/client/.../compat/jade/`; loaded only through the `jade` entrypoint |
 | `mixin/` | Small mixins, only where Fabric API has no hook (container opened, item entity tick, creeper goals, farmland trampling) |
 | `util/` | Shared helpers: ids, tags (`ModTags`), gamerules (`ModGameRules`), bone-meal boost, full crop growth |

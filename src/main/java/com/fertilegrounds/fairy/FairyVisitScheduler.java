@@ -1,6 +1,7 @@
 package com.fertilegrounds.fairy;
 
 import com.fertilegrounds.FertileGrounds;
+import com.fertilegrounds.blight.Blight;
 import com.fertilegrounds.entity.BeanFairy;
 import com.fertilegrounds.entity.ModEntities;
 import com.fertilegrounds.util.CropGrowthUtil;
@@ -217,6 +218,7 @@ public final class FairyVisitScheduler {
         continue;
       }
       CropGrowthUtil.growArea(level, visit.pos(), GROWTH_RADIUS);
+      Blight.cureArea(level, visit.pos(), GROWTH_RADIUS);
       toldPlayers.addAll(FairyVisitEvents.onVisitGrown(level, visit, true));
       final BlockPos pos = visit.pos();
       level.sendParticles(

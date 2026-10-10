@@ -18,7 +18,7 @@ The game SHALL add a Blighted Dirt block that drops itself when broken with or w
 - **THEN** nothing happens
 
 ### Requirement: Spreading
-On each random tick, Blighted Dirt SHALL pick one of the 6 touching blocks and, if it is in the `fertilegrounds:blightable` block tag, turn it into Blighted Dirt with a chance of `fertilegrounds:blight_spread_chance` percent (default 20). Enriched soil SHALL resist with half that chance and Super Enriched soil with a quarter. The tag SHALL hold dirt, grass blocks, farmland, sand, red sand, and every Enriched and Super Enriched soil by default. A chance of 0 SHALL stop all spreading.
+On each random tick, Blighted Dirt SHALL pick one of the 6 touching blocks and, if it is in the `fertilegrounds:blightable` block tag and has no solid block on top of it, turn it into Blighted Dirt with a chance of `fertilegrounds:blight_spread_chance` percent (default 20). Enriched soil SHALL resist with half that chance and Super Enriched soil with a quarter. The tag SHALL hold dirt, grass blocks, farmland, sand, red sand, and every Enriched and Super Enriched soil by default. A chance of 0 SHALL stop all spreading.
 
 #### Scenario: Creeping across a field
 - **WHEN** one Blighted Dirt block sits in the middle of a wheat field on plain farmland for an in-game day
@@ -27,6 +27,10 @@ On each random tick, Blighted Dirt SHALL pick one of the 6 touching blocks and, 
 #### Scenario: A path stops it
 - **WHEN** a dirt path or a row of stone separates the blight from a field
 - **THEN** the blight never crosses it
+
+#### Scenario: Stays on the surface
+- **WHEN** blight sits on a grass field with buried dirt under it
+- **THEN** it spreads across the grass but never into the dirt under the surface, which has a block on top
 
 #### Scenario: Rich soil holds out longer
 - **WHEN** blight touches plain farmland and Super Enriched Farmland side by side

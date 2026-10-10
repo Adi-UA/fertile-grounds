@@ -1,5 +1,6 @@
 package com.fertilegrounds.entity;
 
+import com.fertilegrounds.blight.Blight;
 import com.fertilegrounds.fairy.FairyVisit;
 import com.fertilegrounds.fairy.FairyVisitEvents;
 import com.fertilegrounds.fairy.FairyVisitScheduler;
@@ -174,6 +175,7 @@ class VisitCropGoal extends Goal {
     }
     this.fairy.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.0F, 1.0F + 0.2F * ring);
     if (ring == LAST_RING) {
+      Blight.cureArea(level(), this.target, LAST_RING);
       if (this.visit != null) {
         FairyVisitEvents.onVisitGrown(level(), this.visit, false);
       }
