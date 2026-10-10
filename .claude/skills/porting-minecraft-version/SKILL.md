@@ -37,7 +37,7 @@ unzip -p <common jar> data/minecraft/advancement/recipes/building_blocks/coarse_
 
 ## 4. Verify
 
-Run the `AGENTS.md` verification steps on this branch. In `scripts/server_smoke_test.py`, use that version's game rule name and command syntax: 1.21.11 and newer use `random_tick_speed`, and older versions use the camelCase `randomTickSpeed` (check the branch's `GameRules` class). The smoke test's `ERROR_MARKERS` and the client log check's `LOADED_MARKER` were copied from the 26.3 sources; confirm each string still appears in that branch's sources, then add any difference to the table below.
+Run the `AGENTS.md` verification steps on this branch. The GameTests use 26.3's `GameTestHelper`, data-driven test environments (`src/gametest/resources/data/fertilegrounds/test_environment/`), and snake_case game rule names (`random_tick_speed`); check each against the branch's `GameTestHelper`, test environment registry, and `GameRules` class (before 1.21.11, rules are camelCase like `randomTickSpeed`). `run_gametests.py`'s `ERROR_MARKERS` and the client log check's `LOADED_MARKER` were copied from the 26.3 sources; confirm each string still appears in that branch's sources, then add any difference to the table below.
 
 ## 5. Finish
 

@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.CropBlock;
 /**
  * A fairy's visit: growing the patch in rings, staying out of the ground, reaching roofed crops,
  * and leaving when there's nothing to do. The fairies come from {@code summon}-style spawns, which
- * find the nearest crop the way a spawn egg does. Ported from the smoke test's fairy_visit suite.
+ * find the nearest crop the way a spawn egg does.
  */
 public class FairyVisitTests {
 

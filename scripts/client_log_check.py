@@ -1,6 +1,6 @@
 """Boots the dev client to the title screen and fails on any warning or error about this mod.
 
-The dedicated server never loads models, textures, or sounds, so the smoke test can't see a broken
+The dedicated server never loads models, textures, or sounds, so the GameTests can't see a broken
 asset. The client logs one as a warning and draws the purple-black placeholder or plays nothing,
 so this script reads that log instead. It takes about a minute; run it for changes that touch
 assets.

@@ -13,8 +13,9 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `fairy/` | When fairies visit: `FairyTiming` (pure rules), `FairyVisits` (saved list), `FairyVisitScheduler` (tick handler) |
 | `util/` | Shared helpers: ids, tags (`ModTags`), gamerules (`ModGameRules`), bone-meal boost, full crop growth |
 | `src/client/` | Fairy model and renderer, client registration |
-| `src/test/` | JUnit tests for the Minecraft-free logic |
-| `scripts/` | `server_smoke_test.py` runs world checks in suites; `client_log_check.py` boots the client and fails on asset warnings |
+| `src/test/` | JUnit tests for the Minecraft-free logic, plus `AssetConsistencyTest` for resource files |
+| `src/gametest/` | Fabric GameTests: in-world checks with mock players, one class per feature, with their test environments and structures under `resources/` |
+| `scripts/` | `run_gametests.py` runs the GameTests and fails on data-load errors; `client_log_check.py` boots the client and fails on asset warnings |
 | `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` orders them |
 | `art_source/` | The user's Aseprite source files and the fairy texture guide |
 
@@ -27,11 +28,11 @@ There's one branch per Minecraft version (the list is in `README.md`), and `main
 ## Commands
 
 ```bash
-./gradlew build                       # compile, spotlessCheck, unit tests
+./gradlew build                       # compile, spotlessCheck, unit tests, GameTests
 ./gradlew spotlessApply               # format Java (google-java-format)
 ./gradlew test                        # unit tests only
-python3 scripts/server_smoke_test.py  # real-world check, exits 1 on failure
-python3 scripts/server_smoke_test.py --suite NAME  # one smoke suite only
+python3 scripts/run_gametests.py      # GameTests plus the data-load error scan, exits 1 on failure
+python3 scripts/run_gametests.py --filter 'fairy_dust*'  # only tests whose names match
 python3 scripts/client_log_check.py   # boots the client, fails on mod warnings
 ./gradlew runClient                   # dev client, for models and textures
 ./gradlew genSources                  # decompile Minecraft to read real signatures
@@ -39,7 +40,7 @@ python3 scripts/client_log_check.py   # boots the client, fails on mod warnings
 
 ## Verification
 
-A passing `build` only proves compilation, though its `AssetConsistencyTest` already catches missing lang keys, models, and textures and outdated recipe JSON. Data files and mob behavior fail silently until a world loads, so also run the smoke test; each feature adds its own suite to `SUITES`. The dedicated server never loads models, textures, or sounds, so for changes that touch assets, run `client_log_check.py`. Hand anything that needs a real player (Fairy Dust, sleeping through the night, how things look) to the user as a short in-game checklist, and say which parts went untested. Every fixed bug gets a regression check in the smoke test or JUnit, so it can't silently return on another branch.
+`AssetConsistencyTest` catches missing lang keys, models, and textures and outdated recipe JSON. Data files and mob behavior fail silently until a world loads, so each feature adds GameTests in `src/gametest/` (register new classes in its `fabric.mod.json`), and `run_gametests.py` also fails on data that logs a load error without breaking a test. Tests use mock players for anything a player does; tests that move the clock or change gamerules get their own test environment, since tests sharing one run at the same time. The test server never loads models, textures, or sounds, so for changes that touch assets, run `client_log_check.py`. Only looks, sounds, and sleeping through the night (vanilla needs every real player asleep) go to the user as a short in-game checklist; say which parts went untested. Every fixed bug gets a regression check in a GameTest or JUnit, so it can't silently return on another branch.
 
 ## Looking things up
 
