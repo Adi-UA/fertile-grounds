@@ -1,13 +1,14 @@
-// A loader project builds its jar from :common's sources plus its own. Each source set (main,
-// client, gametest) compiles the matching common folder, so a loader never needs a copy of shared
-// code. Adapted from jaredlll08/MultiLoader-Template (branch 26.1.1), extended to the client and
-// gametest source sets.
+// A loader project builds its jar from :common's sources plus its own. commonSources('client')
+// compiles common's client folder into the loader's client source set, or into another one, such
+// as main on loaders without a separate client source set, so a loader never needs a copy of
+// shared code. Adapted from jaredlll08/MultiLoader-Template (branch 26.1.1), extended to the
+// client and gametest source sets.
 plugins {
 	id 'multiloader-common'
 }
 
-ext.commonSources = { String sourceSet ->
-	def suffix = sourceSet.capitalize()
+ext.commonSources = { String commonSet, String sourceSet = commonSet ->
+	def suffix = commonSet.capitalize()
 	def java = configurations.maybeCreate("commonJava${suffix}")
 	def resources = configurations.maybeCreate("commonResources${suffix}")
 	java.canBeResolved = true

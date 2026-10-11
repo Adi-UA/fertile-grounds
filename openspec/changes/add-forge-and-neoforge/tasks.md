@@ -21,16 +21,16 @@
 
 ## 4. NeoForge build on main
 
-- [ ] 4.1 Add the `neoforge` subproject with ModDevGradle, `neoforge.mods.toml` (Minecraft range limited to 26.3, Jade optional), the `@Mod` entry point, and the `RegisterEvent` registrar. Verified when the NeoForge GameTest server starts with no registration error.
-- [ ] 4.2 Add the shared vanilla `SavedData` classes from design decision 3 in `common`, plus NeoForge implementations for every platform service, and load the shared mixin config. Add GameTests that run on every loader for:
+- [x] 4.1 Add the `neoforge` subproject with ModDevGradle, `neoforge.mods.toml` (Minecraft range limited to 26.3, Jade optional), the `@Mod` entry point, and the `RegisterEvent` registrar. Verified when the NeoForge GameTest server starts with no registration error.
+- [x] 4.2 Add the shared vanilla `SavedData` classes from design decision 3 in `common`, plus NeoForge implementations for every platform service, and load the shared mixin config. Add GameTests that run on every loader for:
   - each loader hook in the `forge-loaders` spec: hoe tilling, guide book once, gamerule defaults, and fairy attributes
   - a codec round trip of each saved-data record
 
   Verified when those GameTests pass on Fabric and NeoForge.
-- [ ] 4.3 Register the Jade plugins with `@WailaPlugin` and the client renderer and model layer through NeoForge's client events, with Jade for NeoForge as a dev-only runtime dependency. Verified when `JadeDataTests` passes on NeoForge.
-- [ ] 4.4 Register `TestCatalog` in `RegisterGameTestsEvent`, and add `--loader neoforge` to `run_gametests.py`, using a JUnit report or the log parser from design decision 6. Confirm the data-load markers still match NeoForge's log by planting a broken tag. Verified when `python3 scripts/run_gametests.py --loader neoforge` passes all 97 tests and fails on the planted tag.
-- [ ] 4.5 Run the NeoForge GameTests with `-PnoJade`, and start the NeoForge dedicated server. Verified when the GameTests pass without Jade and the server log has no class-loading error for `fertilegrounds`.
-- [ ] 4.6 Extend `AssetConsistencyTest` to compare the id, name, description, license, icon, and Minecraft version in `fabric.mod.json` and `neoforge.mods.toml`. Verified with `./gradlew test`, plus a check that fails on a planted description mismatch.
+- [x] 4.3 Register the Jade plugins with `@WailaPlugin` and the client renderer and model layer through NeoForge's client events, with Jade for NeoForge as a dev-only runtime dependency. Verified when `JadeDataTests` passes on NeoForge.
+- [x] 4.4 Register `TestCatalog` in `RegisterGameTestsEvent`, and add `--loader neoforge` to `run_gametests.py`, using a JUnit report or the log parser from design decision 6. Confirm the data-load markers still match NeoForge's log by planting a broken tag. Verified when `python3 scripts/run_gametests.py --loader neoforge` passes all 97 tests and fails on the planted tag.
+- [x] 4.5 Run the NeoForge GameTests with `-PnoJade`, and start the NeoForge dedicated server. Verified when the GameTests pass without Jade and the server log has no class-loading error for `fertilegrounds`.
+- [x] 4.6 Extend `AssetConsistencyTest` to compare the id, name, description, license, icon, and Minecraft version in `fabric.mod.json` and `neoforge.mods.toml`. Verified with `./gradlew test`, plus a check that fails on a planted description mismatch.
 - [ ] 4.7 Turn the CI job into a matrix over `fabric` and `neoforge`, with each loader's jar as an artifact. Verified when a push to `main` shows two green jobs with 97 tests each.
 
 ## 5. Forge build on main

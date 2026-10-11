@@ -1,6 +1,7 @@
 # Builds the mod and runs every check on each push and pull request: compile, formatting, unit
-# tests, then the in-world GameTests through scripts/run_gametests.py, which also fails on data files
-# that only log a load error. A failed run keeps the test report and server log for download.
+# tests, then each loader's in-world GameTests through scripts/run_gametests.py, which also fails
+# on data files that only log a load error. Each loader runs as its own job, all at the same time,
+# and a failed run keeps that loader's test report and server log for download.
 
 name: build
 on: [pull_request, push]
@@ -8,6 +9,10 @@ on: [pull_request, push]
 jobs:
   build:
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        loader: [fabric, neoforge]
     steps:
       - name: checkout repository
         uses: actions/checkout@v6
@@ -21,14 +26,14 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build and unit tests
-        run: ./gradlew build -x runGameTest
+        run: ./gradlew :common:build :${{ matrix.loader }}:build -x :fabric:runGameTest
       - name: gametests and data-load scan
-        run: python3 scripts/run_gametests.py
+        run: python3 scripts/run_gametests.py --loader ${{ matrix.loader }}
       - name: keep gametest report and log
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: gametest-results
+          name: gametest-results-${{ matrix.loader }}
           path: |
             build/gametest-*-report.xml
             build/gametest.log
@@ -36,5 +41,5 @@ jobs:
       - name: capture build artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: Artifacts
-          path: '*/build/libs/'
+          name: ${{ matrix.loader }}-jars
+          path: ${{ matrix.loader }}/build/libs/

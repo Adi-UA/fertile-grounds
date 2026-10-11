@@ -27,3 +27,4 @@ rootProject.name = 'fertilegrounds'
 // that loader's jar from it. See AGENTS.md for which code goes where.
 include('common')
 include('fabric')
+include('neoforge')

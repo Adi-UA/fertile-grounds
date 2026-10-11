@@ -59,7 +59,8 @@ public final class TestCatalog {
           TraderTests.class,
           JadeDataTests.class,
           GuideBookTests.class,
-          FairyGroveTests.class);
+          FairyGroveTests.class,
+          LoaderHookTests.class);
 
   private TestCatalog() {}
 

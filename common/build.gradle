@@ -48,7 +48,7 @@ test {
 	useJUnitPlatform()
 	// Tests read repo files (docs/GUIDE.md, each loader's metadata) by repo-relative paths.
 	workingDir = rootProject.projectDir
-	inputs.files(rootProject.file("docs/GUIDE.md"), fileTree("src"), fileTree("../fabric/src"))
+	inputs.files(rootProject.file("docs/GUIDE.md"), rootProject.file("gradle.properties"), fileTree("src"), fileTree("../fabric/src"), fileTree("../neoforge/src"))
 }
 
 // Writes one vanilla test-instance file per @FertileTest method, so every loader's test server

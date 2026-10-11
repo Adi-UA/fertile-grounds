@@ -6,13 +6,15 @@ import com.fertilegrounds.block.GrowthBoostedSandBlock;
 import net.minecraft.world.level.block.Block;
 import snownee.jade.api.IWailaCommonRegistration;
 import snownee.jade.api.IWailaPlugin;
+import snownee.jade.api.WailaPlugin;
 
 /**
  * Registers the server half of the mod's Jade tooltips: the data only the server knows, sent for
- * the block a player looks at. Fabric only loads this through the {@code jade} entrypoint, so no
- * Jade class loads when Jade isn't installed. The client half is {@code
- * FertileGroundsJadeClientPlugin}.
+ * the block a player looks at. Fabric loads this through the {@code jade} entrypoint and NeoForge's
+ * Jade finds it by its {@link WailaPlugin} annotation, so no Jade class loads when Jade isn't
+ * installed. The client half is {@code FertileGroundsJadeClientPlugin}.
  */
+@WailaPlugin
 public class FertileGroundsJadePlugin implements IWailaPlugin {
 
   @Override
