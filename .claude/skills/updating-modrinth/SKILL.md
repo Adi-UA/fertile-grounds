@@ -56,20 +56,20 @@ Skip any jar whose `version_number` already exists. A NeoForge or Forge file goe
 
 ## 3. Description
 
-`.../settings/description` holds a CodeMirror editor, not a textarea, so typing is slow and setting `.value` does nothing. Replace the whole text with a synthetic paste:
+`.../settings/description` holds a CodeMirror editor, not a textarea, so typing is slow and setting `.value` does nothing. A synthetic paste after `cmd+a` can replace only part of the text and save both copies, so change the document through CodeMirror itself:
 
 1. Read the current text from the API (`(await fetch('https://api.modrinth.com/v2/project/fertile-grounds?t=' + Date.now()).then(r => r.json())).body`), not the editor: CodeMirror only renders the lines on screen. Make edits as exact string replacements on that text, each matching once.
-2. Click inside the editor, then press `cmd+a`.
-3. Run in `javascript_tool`:
+2. Run in `javascript_tool` and check it prints `[true, <length>]`:
 
 ```js
 const body = `...full markdown...`;
-const el = document.querySelector('.cm-content');
-const dt = new DataTransfer(); dt.setData('text/plain', body);
-el.dispatchEvent(new ClipboardEvent('paste', {clipboardData: dt, bubbles: true, cancelable: true}));
+let tile = document.querySelector('.cm-content').cmTile, view = tile.view;
+while (!view && tile.parent) { tile = tile.parent; view = tile.view; }
+view.dispatch({changes: {from: 0, to: view.state.doc.length, insert: body}});
+[view.state.doc.toString() === body, view.state.doc.length]
 ```
 
-4. Click **Save**, then check the API `body` equals the new text exactly.
+3. Click **Save**, then check the API `body` equals the new text exactly.
 
 Keep the description consistent with the GitHub README: the hero image, one section per feature with its gif, the texture table, the loader list (Fabric needs Fabric API; NeoForge and Forge need nothing else), the README and guide links, and the Art section copied word for word. Embed media by raw URL (`https://raw.githubusercontent.com/Adi-UA/fertile-grounds/refs/heads/main/docs/media/<file>`), since gallery uploads cap file size.
 
@@ -79,7 +79,7 @@ From `https://modrinth.com/mod/fertile-grounds/versions`, upload the jars oldest
 
 1. Click **Create version** (right after a page load the first click often does nothing; check `document.querySelectorAll('input[type=file]').length` and click again). Use `find` for "file input in upload dialog", then `file_upload` the jar. Don't click the file input; that opens a native picker.
 2. **Environment step** (shown on the first upload of a session): pick **Client and server**, then **Required on both**, which the older versions store as `client_and_server`.
-3. **Metadata step:** the loader must match the jar (table in step 1; Modrinth reads it from `fabric.mod.json`, `neoforge.mods.toml` or `mods.toml`), and detected versions must match the jar's Minecraft version. Modrinth reads the jar's `minecraft` range, which can detect more versions than the jar was built for. Click **Edit** beside Detected versions, **Clear all**, and tick only the jar's own version, matching the older uploads. Keep extra patch versions only when the jar was verified on them (the 26.1 jar covers 26.1, 26.1.1 and 26.1.2). The editor reflows after each click, so take a screenshot before the next one. Environment: client and server.
+3. **Metadata step:** the loader must match the jar (table in step 1; Modrinth reads it from `fabric.mod.json`, `neoforge.mods.toml` or `mods.toml`), and detected versions must match the jar's Minecraft version. Modrinth reads the jar's `minecraft` range, which can detect more versions than the jar was built for. Click **Edit** beside Detected versions, **Clear all**, and tick only the jar's own version, matching the older uploads. Keep extra patch versions only when the jar was verified on them (the 26.1 Fabric jar covers 26.1, 26.1.1 and 26.1.2, while the 26.1 NeoForge and Forge jars list only 26.1.2, the only version their loaders have a stable build for). The editor reflows after each click, so take a screenshot before the next one. Environment: client and server.
 4. **Dependencies:** NeoForge and Forge jars get none; remove any suggested row. For a Fabric jar, ignore the "Suggested" Fabric API row, because it pins a version for the wrong Minecraft release. Click **Add dependency** → paste `P7dR8mSH` → pick Fabric API → type the branch's pin in Version and pick it → relation **Required** → **Add dependency**.
 5. **Add details:** pick the type from the table in step 1. Version number and subtitle autofill as `<mod>+<mc>` and `Fertile Grounds <mod>+<mc>`; keep them for Fabric, and add `-neoforge` or `-forge` to both for the other loaders. Type a one or two sentence changelog in the editor; a NeoForge or Forge changelog names the loader version it was tested on.
 6. Click **Create version**, then verify it (step 5) before starting the next jar.

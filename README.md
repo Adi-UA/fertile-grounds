@@ -89,7 +89,7 @@ Fertile Grounds is made to drop into a modpack without fuss. It hasn't been trie
 
 ## Versions
 
-Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, and 26.3** on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), and on **26.2 and 26.3** on **NeoForge** and **Forge**, whose jars need nothing else. The 26.3 NeoForge and Forge files are marked beta until those loaders have a final 26.3 build. Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for 26.x. On Minecraft 1.21.11 or older, use version 1.2.0, which has the enriched soils and Bean Fairy visits. Only 26.1 and newer get new features from now on.
+Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, and 26.3** on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), and on **26.1, 26.2, and 26.3** on **NeoForge** and **Forge**, whose jars need nothing else (on 26.1, they need Minecraft 26.1.2). The 26.3 NeoForge and Forge files are marked beta until those loaders have a final 26.3 build. Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for 26.x. On Minecraft 1.21.11 or older, use version 1.2.0, which has the enriched soils and Bean Fairy visits. Only 26.1 and newer get new features from now on.
 
 ## For modpack makers
 
