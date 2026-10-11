@@ -7,7 +7,7 @@
 
 ## 2. Items and blocks
 
-- [ ] 2.1 Ask the user for the Jarred Fairy, Empty Fairy Hotel, and Occupied Fairy Hotel textures and emissive layers (offer UV guides); verify no missing-texture warnings in the `runClient` log
+- [x] 2.1 Ask the user for the Jarred Fairy, Empty Fairy Hotel, and Occupied Fairy Hotel textures and emissive layers (offer UV guides); verify no missing-texture warnings in the `runClient` log
 - [x] 2.2 Register the Jarred Fairy item and data component, both hotel blocks and items, loot tables, and lang keys; verify a GameTest places both hotels, reads light levels 5 and 12, and breaking an occupied hotel drops an occupied hotel
 - [x] 2.3 Add the hotel recipe; verify a GameTest crafts it with mixed flowers and the recipe loads with no parse error
 
