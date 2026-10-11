@@ -6,14 +6,14 @@ body:
     id: mod_version
     attributes:
       label: Fertile Grounds version
-      placeholder: 1.2.0+1.21.11
+      placeholder: 2.0.0+26.3
     validations:
       required: true
   - type: input
     id: fabric_api
     attributes:
       label: Minecraft, Fabric Loader and Fabric API versions
-      placeholder: 1.21.11, Loader 0.19.3, API 0.141.0+1.21.11
+      placeholder: 26.3, Loader 0.19.5, API 0.161.0+26.3
     validations:
       required: true
   - type: textarea

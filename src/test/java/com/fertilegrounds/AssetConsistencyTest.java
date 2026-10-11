@@ -61,6 +61,35 @@ class AssetConsistencyTest {
     assertNone("Missing lang entries", missing);
   }
 
+  // ---- Public docs ----
+
+  /**
+   * docs/GUIDE.md is the GitHub copy of the guide book: it has a section for every book page,
+   * titled like the page, and a ready-to-paste command for every gamerule.
+   */
+  @Test
+  void theGitHubGuideMatchesTheBookAndGamerules() throws IOException {
+    final String guide = Files.readString(Path.of("docs/GUIDE.md"));
+    final JsonObject lang = readJson(ASSETS.resolve("lang/en_us.json"));
+    final List<String> missing = new ArrayList<>();
+    for (final String key : lang.keySet()) {
+      if (key.startsWith("book." + NS + ".guide.page.")) {
+        final String title = lang.get(key).getAsString().split("\n")[0];
+        if (key.endsWith(".page.1")
+            ? !guide.contains("# " + title)
+            : !guide.contains("## " + title)) {
+          missing.add("page \"" + title + "\"");
+        }
+      }
+    }
+    for (final String rule : gameRules()) {
+      if (!guide.contains("/gamerule " + NS + ":" + rule + " ")) {
+        missing.add("gamerule " + rule);
+      }
+    }
+    assertNone("Missing from docs/GUIDE.md", missing);
+  }
+
   @Test
   void everyKeyUsedInCodeOrDataHasALangEntry() throws IOException {
     final Set<String> lang = readJson(ASSETS.resolve("lang/en_us.json")).keySet();
