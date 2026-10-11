@@ -1,7 +1,6 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+# Builds the mod and runs every check on each push and pull request: compile, formatting, unit
+# tests, then the in-world GameTests through scripts/run_gametests.py, which also fails on data files
+# that only log a load error. A failed run keeps the test report and server log for download.
 
 name: build
 on: [pull_request, push]
@@ -21,10 +20,21 @@ jobs:
           distribution: 'microsoft'
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: build
-        run: ./gradlew build
+      - name: build and unit tests
+        run: ./gradlew build -x runGameTest
+      - name: gametests and data-load scan
+        run: python3 scripts/run_gametests.py
+      - name: keep gametest report and log
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: gametest-results
+          path: |
+            build/gametest-*-report.xml
+            build/gametest.log
+          if-no-files-found: ignore
       - name: capture build artifacts
         uses: actions/upload-artifact@v7
         with:
           name: Artifacts
-          path: build/libs/
+          path: '*/build/libs/'
