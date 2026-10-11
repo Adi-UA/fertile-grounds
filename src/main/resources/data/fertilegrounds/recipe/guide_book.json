@@ -1,0 +1,65 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:bone_meal"
+  ],
+  "result": {
+    "components": {
+      "minecraft:item_name": {
+        "translate": "item.fertilegrounds.guide_book"
+      },
+      "minecraft:written_book_content": {
+        "author": "Fertile Grounds",
+        "pages": [
+          {
+            "translate": "book.fertilegrounds.guide.page.1"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.2"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.3"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.4"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.5"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.6"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.7"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.8"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.9"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.10"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.11"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.12"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.13"
+          },
+          {
+            "translate": "book.fertilegrounds.guide.page.14"
+          }
+        ],
+        "resolved": true,
+        "title": ""
+      }
+    },
+    "id": "minecraft:written_book"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "fertilegrounds:item/glow_overlay",
+  "textures": {
+    "glow": "fertilegrounds:item/empty_fairy_hotel_glow"
+  }
+}

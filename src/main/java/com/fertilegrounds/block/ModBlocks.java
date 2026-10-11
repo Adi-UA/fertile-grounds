@@ -1,6 +1,7 @@
 package com.fertilegrounds.block;
 
 import com.fertilegrounds.FertileGrounds;
+import com.fertilegrounds.util.ModGameRules;
 import com.fertilegrounds.util.ModIdsUtil;
 import java.util.function.Function;
 import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
@@ -23,22 +24,20 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
  */
 public final class ModBlocks {
 
-  /** Tier 1 (Enriched Dirt/Sand): a modest boost from cheap ingredients. */
-  private static final float ENRICHED_BOOST_CHANCE = 0.15F;
-
-  /** Tier 3 (Super Enriched Dirt): ~3.3x tier 1, gated behind Glowstone Dust. */
-  private static final float SUPER_ENRICHED_BOOST_CHANCE = 0.5F;
-
   // ---- Tier 1: Enriched — cheap ingredients, modest boost ----
 
   public static final Block ENRICHED_DIRT =
-      registerBlockWithItem("enriched_dirt", Block::new, ModBlockProperties.dirtProperties());
+      registerBlockWithItem(
+          "enriched_dirt",
+          properties -> new EnrichedDirtBlock(properties, SoilTier.ENRICHED),
+          ModBlockProperties.dirtProperties());
 
   public static final Block ENRICHED_FARMLAND =
       registerBlockOnly(
           "enriched_farmland",
           properties ->
-              new GrowthBoostedFarmlandBlock(properties, ENRICHED_BOOST_CHANCE, ENRICHED_DIRT),
+              new GrowthBoostedFarmlandBlock(
+                  properties, ModGameRules.ENRICHED_BOOST_CHANCE, ENRICHED_DIRT, SoilTier.ENRICHED),
           ModBlockProperties.farmlandProperties());
 
   // ---- Tier 2: Enriched Sand — boosts existing sand-grown plants, no tilling ----
@@ -46,21 +45,55 @@ public final class ModBlocks {
   public static final Block ENRICHED_SAND =
       registerBlockWithItem(
           "enriched_sand",
-          properties -> new GrowthBoostedSandBlock(properties, ENRICHED_BOOST_CHANCE),
+          properties ->
+              new GrowthBoostedSandBlock(
+                  properties, ModGameRules.ENRICHED_BOOST_CHANCE, SoilTier.ENRICHED),
           ModBlockProperties.sandProperties());
 
   // ---- Tier 3: Super Enriched — Glowstone Dust gated, ~3.3x boost ----
 
   public static final Block SUPER_ENRICHED_DIRT =
-      registerBlockWithItem("super_enriched_dirt", Block::new, ModBlockProperties.dirtProperties());
+      registerBlockWithItem(
+          "super_enriched_dirt",
+          properties -> new EnrichedDirtBlock(properties, SoilTier.SUPER_ENRICHED),
+          ModBlockProperties.dirtProperties());
 
   public static final Block SUPER_ENRICHED_FARMLAND =
       registerBlockOnly(
           "super_enriched_farmland",
           properties ->
               new GrowthBoostedFarmlandBlock(
-                  properties, SUPER_ENRICHED_BOOST_CHANCE, SUPER_ENRICHED_DIRT),
+                  properties,
+                  ModGameRules.SUPER_ENRICHED_BOOST_CHANCE,
+                  SUPER_ENRICHED_DIRT,
+                  SoilTier.SUPER_ENRICHED),
           ModBlockProperties.farmlandProperties());
+
+  // ---- Blight: cursed soil that spreads; Fertilizer and fairies cure it ----
+
+  public static final Block BLIGHTED_DIRT =
+      registerBlockWithItem(
+          "blighted_dirt", BlightedDirtBlock::new, ModBlockProperties.blightedDirtProperties());
+
+  // ---- Fairy Hotels: lanterns a caught fairy can live in ----
+
+  public static final Block EMPTY_FAIRY_HOTEL =
+      registerBlockWithItem(
+          "empty_fairy_hotel",
+          properties -> new FairyHotelBlock(properties, false),
+          ModBlockProperties.fairyHotelProperties(5));
+
+  public static final Block FAIRY_HOTEL =
+      registerBlockWithItem(
+          "fairy_hotel",
+          properties -> new FairyHotelBlock(properties, true),
+          ModBlockProperties.fairyHotelProperties(12).randomTicks());
+
+  public static final Block CHIME_FAIRY_HOTEL =
+      registerBlockWithItem(
+          "chime_fairy_hotel",
+          ChimeHotelBlock::new,
+          ModBlockProperties.fairyHotelProperties(12).randomTicks());
 
   private ModBlocks() {}
 
@@ -73,7 +106,8 @@ public final class ModBlocks {
     registerTillable(ENRICHED_DIRT, ENRICHED_FARMLAND);
     registerTillable(SUPER_ENRICHED_DIRT, SUPER_ENRICHED_FARMLAND);
     FertileGrounds.LOGGER.info(
-        "Fertile Grounds: registered 5 blocks (2 tillable pairs + enriched sand)");
+        "Fertile Grounds: registered 9 blocks (2 tillable pairs, enriched sand, blighted dirt,"
+            + " 3 fairy hotels)");
   }
 
   /** Same rule as vanilla dirt: only tills when the block above is air. */

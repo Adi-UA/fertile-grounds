@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:game_rules",
+  "rules": {
+    "minecraft:random_tick_speed": 100,
+    "fertilegrounds:fairy_visit_chance": 0,
+    "fertilegrounds:fairy_hotel_honey_chance": 0
+  }
+}

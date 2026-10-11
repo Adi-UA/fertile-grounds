@@ -1,0 +1,24 @@
+{
+  "parent": "fertilegrounds:first_fairy_visit",
+  "criteria": {
+    "done": {
+      "trigger": "fertilegrounds:harvest_moon_visit"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:glow_berries"
+    },
+    "title": {
+      "translate": "advancements.fertilegrounds.harvest_moon_visit.title"
+    },
+    "description": {
+      "translate": "advancements.fertilegrounds.harvest_moon_visit.description"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

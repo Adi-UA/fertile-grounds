@@ -8,9 +8,6 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class FairyTiming {
 
-  /** Chance per player, per night, that a fairy visits a crop near them on its own. */
-  public static final float NATURAL_VISIT_CHANCE = 0.01F;
-
   /** How far into the night a natural visit can land (10 seconds to 5 minutes, in ticks). */
   public static final int NATURAL_DELAY_MIN_TICKS = 200;
 
@@ -49,6 +46,58 @@ public final class FairyTiming {
    */
   public static long dustArrivalTick(final long now, final boolean isNight, final int delayTicks) {
     return isNight ? now + delayTicks : now;
+  }
+
+  /** At most this many distinct flower types count toward the flower bonus. */
+  public static final int MAX_FLOWER_TYPES = 10;
+
+  /**
+   * The gamerule values that turn a farm's surroundings into a better visit chance.
+   *
+   * @param flowerPercent each distinct flower type adds this percent of the base chance
+   * @param hivePercent a nearby beehive adds this percent of the base chance
+   * @param harvestMoonMultiplier the full-moon multiplier on the final chance
+   */
+  public record Bonuses(int flowerPercent, int hivePercent, int harvestMoonMultiplier) {}
+
+  /**
+   * The natural visit chance for one crop, in percent: the base chance, plus a share of it for each
+   * distinct flower type (up to {@link #MAX_FLOWER_TYPES}) and for a beehive, times the Harvest
+   * Moon multiplier on a full moon, capped at 100.
+   */
+  public static double visitChance(
+      final int basePercent,
+      final int flowerTypes,
+      final boolean hasHive,
+      final boolean fullMoon,
+      final Bonuses bonuses) {
+    final double flowerShare =
+        Math.min(flowerTypes, MAX_FLOWER_TYPES) * bonuses.flowerPercent() / 100.0;
+    final double hiveShare = hasHive ? bonuses.hivePercent() / 100.0 : 0;
+    final double chance = basePercent * (1 + flowerShare + hiveShare);
+    return Math.min(100, fullMoon ? chance * bonuses.harvestMoonMultiplier() : chance);
+  }
+
+  /**
+   * Whether a player gets a natural visit tonight.
+   *
+   * @param chancePercent the chance from {@link #visitChance}, 0 to 100
+   * @param roll a uniform random number from 0 (inclusive) to 100 (exclusive)
+   */
+  public static boolean rollsNaturalVisit(final double chancePercent, final double roll) {
+    return roll < chancePercent;
+  }
+
+  /** Heralds appear this long before a fairy arrives (1 minute). */
+  public static final int HERALD_LEAD_TICKS = 1200;
+
+  /**
+   * Whether fireflies should herald a pending visit: at night, from a minute before it's due. A
+   * visit scheduled less than a minute ahead (Fairy Dust after dark) is heralded right away.
+   */
+  public static boolean isHeraldTime(
+      final long arrivalTick, final long now, final boolean isNight) {
+    return isNight && arrivalTick - now <= HERALD_LEAD_TICKS;
   }
 
   /** A pending visit happens once it's night and its arrival tick has passed. */

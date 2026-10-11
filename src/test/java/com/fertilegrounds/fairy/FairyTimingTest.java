@@ -47,4 +47,71 @@ class FairyTimingTest {
   void nothingIsDueDuringTheDay() {
     assertFalse(FairyTiming.isDue(0, 1_000_000, false));
   }
+
+  private static final FairyTiming.Bonuses DEFAULTS = new FairyTiming.Bonuses(10, 50, 3);
+
+  @Test
+  void zeroChanceNeverRollsAVisit() {
+    assertFalse(FairyTiming.rollsNaturalVisit(0, 0.0));
+  }
+
+  @Test
+  void rollMustLandUnderTheChance() {
+    assertTrue(FairyTiming.rollsNaturalVisit(1.3, 1.29));
+    assertFalse(FairyTiming.rollsNaturalVisit(1.3, 1.3));
+  }
+
+  @Test
+  void fullChanceAlwaysRollsAVisit() {
+    assertTrue(FairyTiming.rollsNaturalVisit(100, 99.999));
+  }
+
+  @Test
+  void noBonusesKeepTheBaseChance() {
+    assertEquals(1.0, FairyTiming.visitChance(1, 0, false, false, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void eachFlowerTypeAddsATenthOfTheBase() {
+    assertEquals(1.3, FairyTiming.visitChance(1, 3, false, false, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void flowerTypesAreCappedAtTen() {
+    assertEquals(
+        FairyTiming.visitChance(1, 10, false, false, DEFAULTS),
+        FairyTiming.visitChance(1, 14, false, false, DEFAULTS),
+        1e-9);
+  }
+
+  @Test
+  void aHiveAddsHalfTheBase() {
+    assertEquals(1.5, FairyTiming.visitChance(1, 0, true, false, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void harvestMoonTriplesAFullFarm() {
+    assertEquals(7.5, FairyTiming.visitChance(1, 10, true, true, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void chanceNeverPassesOneHundred() {
+    assertEquals(100.0, FairyTiming.visitChance(50, 10, true, true, DEFAULTS), 1e-9);
+  }
+
+  @Test
+  void heraldsStartAMinuteBeforeArrival() {
+    assertFalse(FairyTiming.isHeraldTime(10_000, 10_000 - 1201, true));
+    assertTrue(FairyTiming.isHeraldTime(10_000, 10_000 - 1200, true));
+  }
+
+  @Test
+  void aVisitDueSoonIsHeraldedRightAway() {
+    assertTrue(FairyTiming.isHeraldTime(10_000 + 600, 10_000, true));
+  }
+
+  @Test
+  void noHeraldsDuringTheDay() {
+    assertFalse(FairyTiming.isHeraldTime(10_000, 10_000, false));
+  }
 }

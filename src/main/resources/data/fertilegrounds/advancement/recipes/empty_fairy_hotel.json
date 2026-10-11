@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_firefly_bush": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:firefly_bush"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "fertilegrounds:empty_fairy_hotel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_firefly_bush",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fertilegrounds:empty_fairy_hotel"
+    ]
+  },
+  "sends_telemetry_event": false
+}

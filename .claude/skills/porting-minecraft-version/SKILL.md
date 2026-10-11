@@ -5,7 +5,7 @@ description: Port Fertile Grounds to a new Minecraft version, or backport a feat
 
 # Porting between Minecraft versions
 
-Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 1.21.11). Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
+Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 26.1). Since 2.0 the targets are `26.2` and `26.1`; the 1.21.11 and older branches are frozen on 1.2.0, and their rows below stay for history. Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
 
 ## 1. Set up the branch
 
@@ -37,7 +37,7 @@ unzip -p <common jar> data/minecraft/advancement/recipes/building_blocks/coarse_
 
 ## 4. Verify
 
-Run the `AGENTS.md` verification steps on this branch. In `scripts/server_smoke_test.py`, use that version's game rule name and command syntax: 1.21.11 and newer use `random_tick_speed`, and older versions use the camelCase `randomTickSpeed` (check the branch's `GameRules` class).
+Run the `AGENTS.md` verification steps on this branch. The GameTests use 26.3's `GameTestHelper`, data-driven test environments (`src/gametest/resources/data/fertilegrounds/test_environment/`), and snake_case game rule names (`random_tick_speed`); check each against the branch's `GameTestHelper`, test environment registry, and `GameRules` class (before 1.21.11, rules are camelCase like `randomTickSpeed`). `run_gametests.py`'s `ERROR_MARKERS` and the client log check's `LOADED_MARKER` were copied from the 26.3 sources; confirm each string still appears in that branch's sources, then add any difference to the table below.
 
 ## 5. Finish
 
@@ -57,11 +57,25 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.3 | Farmland model | Parent `block/template_farmland` | Parent `block/template_cube_bottom_top_indented` with `bottom`/`side`/`top` textures |
 | 26.3 | Recipe-unlock advancement | `"recipe": "<id>"` | `"recipes": "<id>"` |
 | 26.3 | Entity renderer registration | Fabric `EntityRendererRegistry.register` | Deprecated; vanilla `EntityRenderers.register` is public |
+| 26.3 | Farmland trample call | `fallOn` calls static `FarmlandBlock.turnToDirt(entity, state, level, pos)` | Instance `turnToBaseBlock(entity, state, level, pos)`; the hotel trample mixin wraps that call, so older branches wrap `turnToDirt` instead and also check hotels in the mod tiers' own `fallOn` (see the Farmland row) |
+| 26.3 | Dropping an item from a player | `player.drop(stack, false, false)` | `createItemStackToDrop(stack, false, false)`, then add the entity yourself (what `/give` does) |
+| 26.3 | Loot table tag entry | `{"type": "minecraft:tag", "name": "ns:tag"}` (26.2 and older) | `"items": "#ns:tag"` |
 | 26.3 | `BlockPos.withinManhattan` | `(origin, reachX, reachY, reachZ)` | `(origin, reach)`; per-axis forms are `withinClippedManhattan` and `withinBoxByManhattanDistance` |
+| 26.3 | Lantern-like push reaction | `PushReaction.DESTROY` | `PushReaction.POPPED` (Fairy Hotel properties) |
+| 26.3 | Advancement `location` conditions | A JSON list of conditions keyed `"condition"` | One condition object (`{"type": "minecraft:all_of", "terms": [...]}`) keyed `"type"` |
+| 26.3 | `TradeSet` | Class with `getTrades()`; vanilla's Wandering Trader rare pool has 15 trades | Record with `trades()`; the pool has 16 |
+| 26.3 | Falling block codec | `FallingBlock.codec()` is abstract, so Enriched Sand names a `simpleCodec` | Removed (see Block codecs) |
+| 26.2 | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |
+| 26.2 | Advancement trigger classes | `net.minecraft.advancements.criterion` (`PlayerTrigger`) | `net.minecraft.advancements.triggers` |
 | 26.2 | `FlyingMoveControl` | Not generic: `new FlyingMoveControl(mob, ...)` | Generic: `new FlyingMoveControl<>(mob, ...)` |
+| 26.1 | Wandering Trader trades | Code: Fabric `TradeOfferHelper.registerWanderingTraderOffers(b -> b.addOffersToPool(WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, new VillagerTrades.ItemsForEmeralds(item, emeralds, count, maxUses, xp)))` | Data: `data/<ns>/villager_trade/wandering_trader/*.json` listed in the `minecraft:wandering_trader/uncommon` villager trade tag; no code |
+| 26.1 | Time of day | `level.getDayTime()` | World clocks: `level.getOverworldClockTime()` (used for gift cooldown days and Jarred Fairy expiry) |
+| 26.1 | Farmland class | `FarmBlock` | `FarmlandBlock` |
+| 26.1 | Fabric POI registration | `PointOfInterestHelper.register(id, tickets, searchDistance, blocks...)` (object builder 21.1) | `PoiHelper.register` with the same arguments (object builder 23.0) |
 | 26.1 | Fabric server tick event | `ServerTickEvents.END_WORLD_TICK` | `END_LEVEL_TICK` |
 | 26.1 | Hotbar message | `player.displayClientMessage(component, true)` | `player.sendOverlayMessage(component)` |
 | 26.1 | Fabric model layers | `EntityModelLayerRegistry.registerModelLayer` | `ModelLayerRegistry.registerModelLayer` |
+| 26.1 | Optional mod dependency (Jade) | `modCompileOnly` and `modLocalRuntime "maven.modrinth:jade:<1.21.11 version>"`; check the Jade API jar for changed provider methods | `compileOnly`, `gametestCompileOnly`, and `localRuntime` (skipped with `-PnoJade`) |
 | 26.1 | Build setup | Obfuscated: `mappings loom.officialMojangMappings()` and `modImplementation` | Unobfuscated: plain `implementation`, no mappings |
 | 1.21.11 | `ResourceLocation` | `net.minecraft.resources.ResourceLocation` | Renamed `Identifier` |
 | 1.21.11 | Game rule names | camelCase (`randomTickSpeed`) | snake_case (`random_tick_speed`) |

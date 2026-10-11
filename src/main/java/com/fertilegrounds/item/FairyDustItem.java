@@ -41,7 +41,7 @@ public class FairyDustItem extends Item {
       tell(player, "message.fertilegrounds.fairy_dust.no_night");
       return InteractionResult.FAIL;
     }
-    if (!FairyVisitScheduler.requestVisit(serverLevel, pos)) {
+    if (!FairyVisitScheduler.requestVisit(serverLevel, pos, player)) {
       tell(player, "message.fertilegrounds.fairy_dust.already_coming");
       return InteractionResult.FAIL;
     }
