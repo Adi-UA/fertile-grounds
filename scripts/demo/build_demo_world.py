@@ -103,6 +103,7 @@ def sign(lines: list[str], command: str | None = None, wall: str | None = None, 
 
     Since 26.3 a sign runs click commands only with `allow_op_features`, which only an operator's
     command (such as this setblock) can set; without it, clicking says click actions are disabled.
+    Older versions drop the unknown tag and run the command anyway.
     """
     first = json.dumps(lines[0])
     extra = ""
@@ -569,8 +570,13 @@ def gamerule_modes() -> dict[str, list[str]]:
 # ---- Datapack ----
 
 
+def minecraft_version() -> str:
+    """The branch's Minecraft version, from gradle.properties."""
+    return re.search(r"^minecraft_version=(.+)$", (ROOT / "gradle.properties").read_text(), re.M).group(1)
+
+
 def data_pack_format() -> int:
-    jar = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar"
+    jar = Path.home() / f".gradle/caches/fabric-loom/{minecraft_version()}/minecraft-client.jar"
     with zipfile.ZipFile(jar) as z:
         return json.loads(z.read("version.json"))["pack_version"]["data_major"]
 
@@ -813,7 +819,10 @@ def run_checks(rcon: Rcon, s: Site) -> list[str]:
     }
     for label, (dx, dy, dz, block) in blocks.items():
         check(rcon, label, f"execute if block {s.at(dx, dy, dz)} {block}", f)
-    check(rcon, "Test mode sign runs its command", f"execute if data block {s.at(-4, 3, -1)} {{allow_op_features:1b}}", f)
+    sign_check = "front_text.messages[0].click_event"
+    if tuple(map(int, minecraft_version().split("."))) >= (26, 3):
+        sign_check = "{allow_op_features:1b}"  # see sign()
+    check(rcon, "Test mode sign runs its command", f"execute if data block {s.at(-4, 3, -1)} {sign_check}", f)
     reply = rcon.run("execute if entity @e[tag=fgdemo_hero]")
     match = re.search(r"count: (\d+)", reply, re.IGNORECASE)
     count = int(match.group(1)) if match else 0
