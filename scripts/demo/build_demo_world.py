@@ -413,14 +413,15 @@ def build_hero(s: Site) -> list[str]:
                 c.append(s.set(HERO_X + dx, 1, dz, "flowering_azalea"))
             elif rng.random() < 0.6:
                 c.append(s.set(HERO_X + dx, 1, dz, rng.choice(FLOWERS + ["pink_petals[flower_amount=4]"])))
-    c += hero_fairies(s)
+    c.append("function fgdemo:hero/fairies")
     c.append(station_sign(s, 142, -3, ["Hero grove", "a finished grove", "and its fairies", ""], 4))
     return c
 
 
 def hero_fairies(s: Site) -> list[str]:
     """About 30 Bean Fairies posed over the hero grove. With no AI they hover in place, wings still
-    beating, and never fly off; PersistenceRequired keeps them through restarts."""
+    beating, and never fly off. The mod never saves fairies to disk, so hero/tick summons them again
+    whenever a player comes near and none are there."""
     rng = random.Random(33)
     spots = [(dx, dz) for dx in (-10, 0, 10) for dz in (-10, 0, 10) if (dx, dz) != (0, 0)]
     c = []
@@ -606,6 +607,18 @@ def write_datapack(site: Site) -> None:
         + [f"function fgdemo:build/{name}" for name in BUILDERS],
     )
     write("reset/all", [kill, "function fgdemo:build/all"])
+    write("hero/fairies", hero_fairies(site))
+    hero = site.at(HERO_X, 2, 0)
+    write(
+        "hero/tick",
+        [
+            f"execute positioned {hero} if entity @a[distance=..96]"
+            " unless entity @e[tag=fgdemo_hero,distance=..40] run function fgdemo:hero/fairies"
+        ],
+    )
+    tick = pack / "data" / "minecraft" / "tags" / "function" / "tick.json"
+    tick.parent.mkdir(parents=True)
+    tick.write_text(json.dumps({"values": ["fgdemo:hero/tick"]}, indent=2))
     for mode, lines in gamerule_modes().items():
         write(f"mode/{mode}", lines)
 
