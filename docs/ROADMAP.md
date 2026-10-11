@@ -62,4 +62,4 @@ Visit polish comes before hotels because catching needs the linger window. The G
 
 ## Next steps
 
-All 17 changes are built on `main`, archived except the four waiting on art or Crowdin, and backported to 26.2 and 26.1 at 2.0.0. What's left before 2.0.0: the demo world, the user's in-game check of the Fairy Grove, the user's textures for Fertilizer and the three hotels (placeholders ship until then), and publishing (see `prepare-2-0-release`).
+All 17 changes are built on `main`, backported to 26.2 and 26.1 at 2.0.0, and archived except `add-translations` (waiting on a Crowdin project). The user's textures are in, and `scripts/demo/build_demo_world.py` builds the demo and test world. What's left before 2.0.0: the user's in-game check of the Fairy Grove and the demo world, then publishing (see `prepare-2-0-release`).
