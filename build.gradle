@@ -98,6 +98,8 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+	// AssetConsistencyTest reads these files directly, so a change to them reruns the tests.
+	inputs.files("docs/GUIDE.md", fileTree("src/main/resources"), fileTree("src/gametest/resources"))
 }
 
 processResources {

@@ -57,6 +57,10 @@ Never guess a Minecraft signature or data format. After `genSources`, the decomp
 
 No AI art ships in the mod. The user draws or traces every texture by hand in Aseprite, based on vanilla textures, and AI may only guide that work: UV templates, labeled guides, palettes, and placeholders (kept out of `art_source/`) that the user's art replaces before release. Never generate a texture meant to ship. The user keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. Moving a model part's `texOffs` or an element's `uv` changes which texture pixels it reads, so tell the user before doing it.
 
+## Public docs
+
+`README.md`, `docs/GUIDE.md`, `CONTRIBUTING.md`, and `SECURITY.md` are public and use the guide book's plain, friendly voice. `docs/GUIDE.md` mirrors the guide book's pages and lists every gamerule with a command; `AssetConsistencyTest` fails when they drift. GIFs and images live in `docs/media/`.
+
 ## Git and releases
 
 Use Conventional Commits, one commit per step per branch. Never push; the user pushes and publishes releases. Jar versions are `<mod_version>+<minecraft_version>` (set in `build.gradle`); bump `mod_version` by semver on every branch and release all branch jars together. Mirror each GitHub release to Modrinth with `.claude/skills/updating-modrinth/SKILL.md`, then to CurseForge with `.claude/skills/updating-curseforge/SKILL.md`.
