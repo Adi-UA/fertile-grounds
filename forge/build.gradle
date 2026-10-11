@@ -53,7 +53,7 @@ repositories {
 }
 
 dependencies {
-	implementation minecraft.dependency("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+	implementation minecraft.dependency("net.minecraftforge:forge:${forge_minecraft_version}-${forge_version}")
 	annotationProcessor "net.minecraftforge:eventbus-validator:${eventbus_version}"
 	gametestAnnotationProcessor "net.minecraftforge:eventbus-validator:${eventbus_version}"
 }
