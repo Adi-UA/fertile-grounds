@@ -296,7 +296,8 @@ def build_hotels(s: Site) -> list[str]:
 
 def build_chime(s: Site) -> list[str]:
     c = s.fill((61, 0, 6), (67, 0, 12), f"{MOD}:enriched_farmland[moisture=7]")
-    c += s.fill((61, 1, 6), (67, 1, 12), "wheat[age=6]")
+    # Young wheat, so the field ripens and the hotel rings while you watch, not before you arrive.
+    c += s.fill((61, 1, 6), (67, 1, 12), "wheat[age=3]")
     c += [s.set(64, 0, 9, "water"), s.set(64, 1, 9, "air")]
     # The comparator goes down first, so the hotel's placement updates it.
     c += [
