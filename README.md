@@ -10,7 +10,7 @@
 
 I originally started this little farming mod for my partner and me to play on our private server. It began as a few richer soils that save you from bone-mealing the same field over and over, and it grew from there: a shy Bean Fairy who visits at night, hotels for fairies who decide to stay, and, late in the game, whole gardens the fairies build for you.
 
-**Richer soil, shy little fairies, and a farm that grows a little faster every day.** Fertile Grounds is a cozy Fabric mod that keeps the vanilla look and plays nicely with big farming mods. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
+**Richer soil, shy edamame fairies, and a farm that grows a little faster every day.** Fertile Grounds is a cozy Fabric mod that keeps the vanilla look and plays nicely with big farming mods. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
 
 ![Bean Fairies hovering over a flower-filled Fairy Grove at night, lit by lanterns](docs/media/hero.jpg)
 
