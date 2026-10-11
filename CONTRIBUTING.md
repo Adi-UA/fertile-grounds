@@ -54,7 +54,7 @@ The flow is propose, build, archive:
 2. **Build.** Work through `tasks.md` in order, checking each task off when its check passes. In Claude Code, `/opsx:apply <name>` does this, and `/opsx:update <name>` revises the plan when the code teaches you something.
 3. **Archive.** When every task is done, `/opsx:archive <name>` (or `openspec archive <name>`) merges the change's specs into `openspec/specs/`.
 
-`openspec validate <name> --strict` checks a plan's format, and `openspec list` shows what's in progress. [docs/ROADMAP.md](docs/ROADMAP.md) lists what 2.0 has, what comes next, and ideas that were turned down, so check it before proposing something new.
+`openspec validate <name> --strict` checks a plan's format, and `openspec list` shows what's in progress. [docs/ROADMAP.md](docs/ROADMAP.md) lists what 2.0 has and what comes next, so check it before proposing something new.
 
 Small fixes don't need a plan. Open an issue first for anything bigger, so we can agree on the approach.
 

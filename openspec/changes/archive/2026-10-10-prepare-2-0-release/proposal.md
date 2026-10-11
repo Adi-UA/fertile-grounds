@@ -2,7 +2,7 @@
 
 ## Why
 
-Changes 1 to 16 work on 26.3 and passed the user's playtest; `add-fairy-grove` lands before this change starts (`add-blight` was built, then removed on 2026-10-10 to keep the mod cozy). Before release, three things remain: narrowing the supported versions to the ones that are cheap to keep in step, giving players and listing pages a clear message about that, and a demo world the user can load to record screenshots and video of the core features.
+Changes 1 to 16 work on 26.3 and passed the user's playtest; `add-fairy-grove` lands before this change starts. Before release, three things remain: narrowing the supported versions to the ones that are cheap to keep in step, giving players and listing pages a clear message about that, and a demo world the user can load to record screenshots and video of the core features.
 
 The user chose 26.x only after comparing the numbers (2026-10-10). Fabric API downloads from the last 90 days put 26.x at about 57% of Fabric players and 1.21.11 at 21%. 1.21.11 is the last version before Minecraft dropped code-name scrambling, so a 1.21.11 port needs a different build setup and four features rewritten. The user accepts that 1.21.11 players stay on 1.2.0.
 
