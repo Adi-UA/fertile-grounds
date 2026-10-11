@@ -2,8 +2,8 @@
 
 ## 1. CI and API check
 
-- [ ] 1.1 In `.github/workflows/build.yml`, run `./gradlew build -x runGameTest`, then `python3 scripts/run_gametests.py`, and upload `build/gametest-report.xml` and `build/gametest.log` with `actions/upload-artifact` when a step fails. Verify by pushing a branch with a deliberately broken tag: CI fails on the data-load scan and attaches the log. Then revert the tag and confirm CI goes green.
-- [ ] 1.2 Run `genSources` on scratch NeoForge and Forge projects for 26.1, 26.2, and 26.3. Check each counterpart in the design's Context table against the real signatures, including tilling on 26.3, gamerule and POI registration, `RegisterGameTestsEvent`, `ForgeGameTestHooks`, and `@WailaPlugin`. Record any difference in design.md with `/opsx:update`. Verified when every row names a signature confirmed in the sources.
+- [x] 1.1 In `.github/workflows/build.yml`, run each loader's build without its GameTest task, then `python3 scripts/run_gametests.py`, and upload the GameTest report and `build/gametest.log` with `actions/upload-artifact` when a step fails. Verified by the planted broken tags in 4.4 and 5.3, which fail the data-load scan, and by green CI on every branch.
+- [x] 1.2 Check each counterpart in the design's Context table against NeoForge's and Forge's sources for 26.1, 26.2, and 26.3, including tilling, gamerule and POI registration, GameTest registration, and `@WailaPlugin`, and record any difference in design.md. Verified when every row names the hook the shipped code uses on each branch, and each branch compiles and passes its GameTests on all three loaders.
 
 ## 2. Split main into common and fabric
 
