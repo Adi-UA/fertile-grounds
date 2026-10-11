@@ -18,7 +18,7 @@
 - [x] 3.2 Write `scripts/demo/build_demo_world.py` and its datapack; pick a seed with a flower forest or cherry grove; verify the script builds the world on a headless server with no errors in the log
 - [x] 3.3 Add the `fgdemo` test functions (`build/*` reused by `reset/*`, `mode/*`), the spawn sign board, and the test lot; verify on the headless server that changing blocks in the grove area then running `reset/grove` restores them (compared with `execute if blocks` against a fresh copy), `mode/test` sets every listed gamerule, and `mode/default` restores them
 - [x] 3.4 On the headless server, check the built world against the spec scenarios (the Chime Hotel field ripens and the hotel turns ready, read from its block state; Fairy Dust needs a player, so that one goes to the user's checklist) by reading block states and the log; then copy the world to `~/Library/Application Support/minecraft/saves/Fertile Grounds Demo`
-- [ ] 3.5 Ask the user before copying the 2.0.0 jar and Fabric API into the real client's `mods/` folder; add "load the demo world, record the core features" to the user's checklist
+- [x] 3.5 Ask the user before copying the 2.0.0 jar and Fabric API into the real client's `mods/` folder (the user declined on 2026-10-10: the dev client with `-Pshaders` is enough); add "load the demo world, record the core features" to the user's checklist
 
 ## 4. Publish
 
