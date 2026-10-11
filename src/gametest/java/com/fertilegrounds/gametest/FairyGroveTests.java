@@ -91,6 +91,9 @@ public class FairyGroveTests {
         BlockPos.betweenClosed(hill.offset(-1, -8, -1), hill.offset(1, 6, 1))) {
       helper.setBlock(pos, Blocks.STONE);
     }
+    // Grass in the scanned area: since 26.1 it isn't in #minecraft:dirt, which once refused it.
+    helper.setBlock(hill.above(6), Blocks.GRASS_BLOCK);
+    helper.setBlock(SOIL.offset(12, 0, 12), Blocks.GRASS_BLOCK);
     helper.setBlock(SOIL.offset(12, 1, -12), Blocks.OAK_LOG);
     helper.setBlock(SOIL.offset(12, 2, -12), Blocks.OAK_LEAVES);
     final TestPlayer player = holdingDiamonds(helper);
