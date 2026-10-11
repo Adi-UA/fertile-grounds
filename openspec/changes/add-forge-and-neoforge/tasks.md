@@ -58,9 +58,10 @@
 ## 8. Port to 26.2 and 26.1
 
 - [ ] 8.1 Port groups 2 to 7 to `26.2` with the porting skill, using NeoForge 26.2.0.x and Forge 65.1.x. Verified when `run_gametests.py` and `client_log_check.py` pass for all three loaders and CI is green on `26.2`.
-- [ ] 8.2 Port from `26.2` to `26.1` with NeoForge 26.1.2.x and Forge 64.1.x, verified the same way on `26.1`.
+- [ ] 8.2 After the 26.2 and 26.3 release (9.1, 9.2), port from `26.2` to `26.1` with NeoForge 26.1.2.x and Forge 64.1.x, verified the same way on `26.1`.
 
 ## 9. Release
 
-- [ ] 9.1 Build the six NeoForge and Forge jars from the pushed branch heads, and have the maintainer attach them to the v2.0.0 GitHub release with the commit each one was built from. Verified with `gh release view v2.0.0` listing nine jars.
-- [ ] 9.2 Upload the new jars to Modrinth and then CurseForge with the updated skills, oldest Minecraft version first, with each 26.3 file as Beta while its loader has no final build. Verified through each skill's verify step.
+- [ ] 9.1 Build the four NeoForge and Forge jars for 26.2 and 26.3 from the pushed branch heads, attach them to the v2.0.0 GitHub release, and name in the release notes the commit each one was built from. Verified with `gh release view v2.0.0` listing seven jars.
+- [ ] 9.2 Upload the new jars to Modrinth and then CurseForge with the updated skills, oldest Minecraft version first, with each 26.3 file as Beta while its loader has no final build, leaving the existing Fabric files untouched. Verified through each skill's verify step.
+- [ ] 9.3 After 8.2, add the two 26.1 jars the same way (9.1 and 9.2), so the release lists nine jars.
