@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds the "Fertile Grounds Demo" world on a headless dev server.
 
-The script starts `./gradlew runDemoServer` on a fresh world, picks a flower forest or cherry
+The script starts `./gradlew :fabric:runDemoServer` on a fresh world, picks a flower forest or cherry
 grove, and writes an `fgdemo` datapack whose functions flatten a plot and build every station from
 `fill` and `setblock` commands. It talks to the server over RCON (local only, random password),
 checks the result, stops the server, turns cheats on in level.dat, and copies the world into the
@@ -178,7 +178,7 @@ def build_spawn(s: Site) -> list[str]:
         c.append(s.set(-4, 3 - row, -3 + 2 * col, sign(lines, command, wall="east")))
     # The guide book on a lectern, built from the guide book recipe's own result.
     recipe = json.loads(
-        (ROOT / f"src/main/resources/data/{MOD}/recipe/guide_book.json").read_text()
+        (ROOT / f"common/src/main/resources/data/{MOD}/recipe/guide_book.json").read_text()
     )
     book = recipe["result"]
     item = f'{{id:"{book["id"]}",count:1,components:{snbt(book["components"])}}}'
@@ -518,14 +518,12 @@ BUILDERS = {
 
 def mod_gamerule_defaults() -> dict[str, str]:
     """Every mod gamerule and its default, read from ModGameRules.java so the list stays in step."""
-    source = (ROOT / f"src/main/java/com/{MOD}/util/ModGameRules.java").read_text()
+    source = (ROOT / f"common/src/main/java/com/{MOD}/util/ModGameRules.java").read_text()
     rules = {
         name: default
         for name, default in re.findall(r'(?:percent|integer)\(\s*"([a-z_]+)",\s*(\d+)', source)
     }
-    for default, name in re.findall(
-        r'forBoolean\((true|false)\).*?id\("([a-z_]+)"\)', source, flags=re.S
-    ):
+    for name, default in re.findall(r'bool\(\s*"([a-z_]+)",\s*(true|false)', source):
         rules[name] = default
     return rules
 
@@ -687,7 +685,7 @@ def start_server(log_path: Path) -> subprocess.Popen:
     process = subprocess.Popen(
         [
             "./gradlew",
-            "runDemoServer",
+            ":fabric:runDemoServer",
             "--console=plain",
             # Jade lists the mod's client tooltip plugin, which the dev server's split classpath
             # leaves out (the shipped jar has it), so the dev server runs without Jade.
