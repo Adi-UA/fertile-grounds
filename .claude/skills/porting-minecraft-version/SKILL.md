@@ -41,7 +41,7 @@ unzip -p <common jar> data/minecraft/advancement/recipes/building_blocks/coarse_
 
 ## 4. Verify
 
-Run the `AGENTS.md` verification steps on this branch for every loader: `python3 scripts/run_gametests.py --loader all` and `client_log_check.py --loader <each>`. The GameTests use 26.3's `GameTestHelper`, data-driven test environments (`common/src/gametest/resources/data/fertilegrounds/test_environment/`), test-instance data that `TestCatalog` writes, empty `.nbt` structures (their `DataVersion` is 26.3's), and snake_case game rule names (`random_tick_speed`); check each against the branch's `GameTestHelper`, test environment registry, and `GameRules` class (before 1.21.11, rules are camelCase like `randomTickSpeed`). `run_gametests.py`'s `ERROR_MARKERS` and the client log check's `LOADED_MARKER` were copied from the 26.3 sources; confirm each string still appears in that branch's sources, then add any difference to the table below.
+Run the `AGENTS.md` verification steps on this branch for every loader: `python3 scripts/run_gametests.py --loader all` and `client_log_check.py --loader <each>`. The GameTests use 26.3's `GameTestHelper`, data-driven test environments (`common/src/gametest/resources/data/fertilegrounds/test_environment/`), test-instance data that `TestCatalog` writes, empty `.nbt` structures (their `DataVersion` is 26.3's), and snake_case game rule names (`random_tick_speed`); check each against the branch's `GameTestHelper`, test environment registry, and `GameRules` class (before 1.21.11, rules are camelCase like `randomTickSpeed`). `run_gametests.py`'s `ERROR_MARKERS` were copied from the 26.3 sources; confirm each string still appears in that branch's sources. The client log check's `LOADED_MARKER` is built at runtime, so it only shows up in a real log: a passing client check confirms it. Add any difference to the table below.
 
 ## 5. Finish
 
@@ -51,7 +51,7 @@ Update the branch's `README.md` (version line, requirements, branch table), then
 
 Add a row each time a hop turns up a change. Only list changes that were checked against real code; a range like "1.21.2 to 1.21.10" means the change happened somewhere between those two supported versions. Loader "All" means vanilla, so every loader sees it.
 
-These loader facts were checked on 26.3 only. On each hop, compare them with the older branch's loader sources and turn any difference into a table row:
+These loader facts were checked on 26.3, and 26.2 matches them except for the rows marked 26.3 in the table below. On each hop, compare them with the older branch's loader sources and turn any difference into a table row:
 
 | Loader | Area | On 26.3 |
 |---|---|---|
@@ -81,7 +81,10 @@ These loader facts were checked on 26.3 only. On each hop, compare them with the
 | 26.3 | All | Lantern-like push reaction | `PushReaction.DESTROY` | `PushReaction.POPPED` (Fairy Hotel properties) |
 | 26.3 | All | Advancement `location` conditions | A JSON list of conditions keyed `"condition"` | One condition object (`{"type": "minecraft:all_of", "terms": [...]}`) keyed `"type"` |
 | 26.3 | All | `TradeSet` | Class with `getTrades()`; vanilla's Wandering Trader rare pool has 15 trades | Record with `trades()`; the pool has 16 |
-| 26.3 | All | Sign click commands (demo world) | A waxed sign runs its `run_command` click event | The sign also needs `allow_op_features:1b`, which only an operator's command sets; the demo script's `sign()` adds it (confirm on 26.2 when porting, since only 26.3 was checked) |
+| 26.3 | All | Sign click commands (demo world) | A waxed sign runs its `run_command` click event | The sign also needs `allow_op_features:1b`, which only an operator's command sets; the demo script's `sign()` adds it, and 26.2 ignores the extra tag |
+| 26.3 | NeoForge | Hoe tilling | `BlockEvent.BlockToolModificationEvent` on `NeoForge.EVENT_BUS` for `ItemAbilities.HOE_TILL`, gated by `HoeItem.onlyIfAirAbove` | Data map `data/neoforge/data_maps/block/transformables.json`; the event is gone |
+| 26.3 | Forge | Hoe tilling | `BlockEvent.BlockToolModificationEvent.BUS` (a `Predicate` listener returning false) for `ToolActions.HOE_TILL`, gated by `HoeItem.onlyIfAirAbove` | No tilling hook; `PlayerInteractEvent.RightClickBlock` runs a vanilla `BlockTransformer` |
+| 26.3 | Forge | Version numbers | Forge 65.x: `loaderVersion = "[65,)"` in both `mods.toml` files (main and gametest), `data_pack_format` 107 | Forge 66.x: `[66,)`, format 121 |
 | 26.3 | All | Falling block codec | `FallingBlock.codec()` is abstract, so Enriched Sand names a `simpleCodec` | Removed (see Block codecs) |
 | 26.2 | All | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |
 | 26.2 | All | Advancement trigger classes | `net.minecraft.advancements.criterion` (`PlayerTrigger`) | `net.minecraft.advancements.triggers` |
