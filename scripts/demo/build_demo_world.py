@@ -5,7 +5,7 @@ The script starts `./gradlew :fabric:runDemoServer` on a fresh world, picks a fl
 grove, and writes an `fgdemo` datapack whose functions flatten a plot and build every station from
 `fill` and `setblock` commands. It talks to the server over RCON (local only, random password),
 checks the result, stops the server, turns cheats on in level.dat, and copies the world into the
-Minecraft saves folder and the dev client's run/saves. The datapack stays in the save, so `/function fgdemo:reset/<station>` and
+Minecraft saves folder and each loader's dev client saves (Fabric, NeoForge, Forge). The datapack stays in the save, so `/function fgdemo:reset/<station>` and
 `/function fgdemo:mode/<mode>` work while testing.
 
     python3 scripts/demo/build_demo_world.py            # build, check, copy to saves
@@ -36,7 +36,8 @@ SERVER_DIR = ROOT / "run" / "demo-server"
 LEVEL_NAME = "Fertile Grounds Demo"
 WORLD = SERVER_DIR / LEVEL_NAME
 SAVES = Path.home() / "Library" / "Application Support" / "minecraft" / "saves"
-DEV_SAVES = ROOT / "run" / "saves"  # the dev client's saves, for `runClient -Pshaders`
+# Each loader's dev client keeps its own saves (see the runs in each loader's build.gradle).
+DEV_SAVES = (ROOT / "run" / "saves", ROOT / "run" / "neoforge" / "saves", ROOT / "run" / "forge-client" / "saves")
 SEED = "fertilegrounds"
 RCON_PORT = 25599
 SERVER_PORT = 25598
@@ -950,7 +951,7 @@ def main() -> int:
         return 1
     allow_commands(WORLD / "level.dat")
     if not args.no_copy:
-        for saves in (SAVES, DEV_SAVES):
+        for saves in (SAVES, *DEV_SAVES):
             target = saves / LEVEL_NAME
             if target.exists():
                 backup = saves / f"{LEVEL_NAME} (old {time.strftime('%Y%m%d-%H%M%S')})"

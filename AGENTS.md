@@ -45,7 +45,7 @@ python3 scripts/client_log_check.py --loader forge  # boots a loader's client, f
 ./gradlew :fabric:runGameTest -PnoJade  # GameTests without Jade (also :neoforge:runGameTestServer)
 ./gradlew :fabric:runClient           # dev client (also :neoforge:runClient, :forge:runClient)
 ./gradlew :fabric:runClient -Pshaders # dev client with Sodium and Iris; put a shader pack in run/shaderpacks/
-python3 scripts/demo/build_demo_world.py  # builds the demo and test world, copies it to both saves folders
+python3 scripts/demo/build_demo_world.py  # builds the demo and test world, copies it to the launcher's and each dev client's saves
 ./gradlew :fabric:genSources          # decompile Minecraft to read real signatures
 ```
 
