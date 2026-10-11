@@ -2,6 +2,7 @@
   "values": [
     "#minecraft:replaceable",
     "#minecraft:dirt",
+    "#minecraft:grass_blocks",
     "#minecraft:base_stone_overworld",
     "#minecraft:sand",
     "#minecraft:snow",
