@@ -6,20 +6,20 @@ Each version branch (`26.1`, `26.2`, `main` for 26.3) is today a single Fabric L
 
 | Fabric API | Used in | NeoForge | Forge |
 |---|---|---|---|
-| `ModInitializer`, `ClientModInitializer` | entry points | `@Mod` class, plus a `Dist.CLIENT` one | `@Mod` class, client setup event |
+| `ModInitializer`, `ClientModInitializer` | entry points | `@Mod` class, plus a `@Mod(dist = Dist.CLIENT)` one | `@Mod` class, plus a `Dist.CLIENT` `@Mod.EventBusSubscriber` |
 | `Registry.register` in static fields | 8 `Mod*` classes | `RegisterEvent` | `RegisterEvent` |
-| `ServerTickEvents.END_LEVEL_TICK` | visit scheduler, speed aura, chimes, grove builder | `LevelTickEvent.Post` | `TickEvent.LevelTickEvent`, end phase |
-| `ServerLifecycleEvents` | chimes, grove builder | `ServerStartedEvent`, `ServerStoppingEvent` | same names in Forge |
-| `ServerPlayConnectionEvents.JOIN` | guide book gift | `PlayerEvent.PlayerLoggedInEvent` | same name in Forge |
+| `ServerTickEvents.END_LEVEL_TICK` | visit scheduler, speed aura, chimes, grove builder | `LevelTickEvent.Post` | `TickEvent.LevelTickEvent.Post` |
+| `ServerLifecycleEvents.SERVER_STOPPED` | chimes, grove builder | `ServerStoppedEvent` | `ServerStoppedEvent` |
+| `ServerPlayConnectionEvents.JOIN` | guide book gift | `PlayerEvent.PlayerLoggedInEvent` | `PlayerEvent.PlayerLoggedInEvent` |
 | `AttachmentRegistry` | visits, gift cooldowns, grove jobs, guide flag | `AttachmentType` in `NeoForgeRegistries.ATTACHMENT_TYPES` | vanilla `SavedData` (decision 3) |
-| `BlockTransformerHelper.registerTilling` (26.3), `TillableBlockRegistry` (26.2 and older) | hoe tilling | 26.3: `neoforge:transformables` data map; 26.2 and older: `BlockToolModificationEvent`, `ItemAbilities.HOE_TILL` | 26.3: `RightClickBlock` running a vanilla `BlockTransformer`; 26.2 and older: `BlockToolModificationEvent`, `ToolActions.HOE_TILL` |
+| `BlockTransformerHelper.registerTilling` (26.3), `TillableBlockRegistry` (26.2 and 26.1) | hoe tilling | 26.3: `neoforge:transformables` data map; 26.2 and 26.1: `BlockEvent.BlockToolModificationEvent` for `ItemAbilities.HOE_TILL` | 26.3: `PlayerInteractEvent.RightClickBlock` running a vanilla `BlockTransformer`; 26.2 and 26.1: `BlockEvent.BlockToolModificationEvent` for `ToolActions.HOE_TILL` |
 | `PoiHelper` | Fairy Hotel lookup | vanilla `PoiType` through `RegisterEvent` | same |
 | `FabricDefaultAttributeRegistry` | Bean Fairy | `EntityAttributeCreationEvent` | `EntityAttributeCreationEvent` |
-| `GameRuleBuilder` | 13 gamerules | vanilla gamerule registry through `RegisterEvent` | same |
+| `GameRuleBuilder` | 13 gamerules | none: vanilla's `GameRule` constructor, registered with the other `Mod*` classes | same |
 | `FabricCreativeModeTab` | creative tab | vanilla `CreativeModeTab.builder()` through `RegisterEvent` | same |
-| `ModelLayerRegistry` | fairy model | `EntityRenderersEvent.RegisterLayerDefinitions` | same name in Forge |
+| `ModelLayerRegistry` | fairy model | `EntityRenderersEvent.RegisterLayerDefinitions` and `RegisterRenderers` | same names in Forge |
 | `jade` entrypoint | Jade plugins | `@WailaPlugin` | none, since Jade has no Forge build for 26.x |
-| `fabric-gametest` entrypoint, `@GameTest` | 26 test classes | `RegisterGameTestsEvent` | Forge's GameTest hooks (`ForgeGameTestHooks`) |
+| `fabric-gametest` entrypoint, `@GameTest` | 26 test classes | vanilla `Registries.TEST_FUNCTION` through `RegisterEvent`, in a dev-only test mod | same |
 
 The four mixins (`CreeperMixin`, `FarmlandBlockMixin`, `ItemEntityMixin`, `ServerPlayerMixin`) target vanilla code only. NeoForge and Forge both ship Mixin and MixinExtras, so the mixins stay shared. Minecraft 26.x ships without obfuscation, so all three loaders see the same class and method names. These versions were checked on 2026-10-10 at `maven.neoforged.net` and `maven.minecraftforge.net`:
 
@@ -29,7 +29,7 @@ The four mixins (`CreeperMixin`, `FarmlandBlockMixin`, `ItemEntityMixin`, `Serve
 | 26.2 | 26.2.0.x, stable | 65.1.x, recommended 65.1.0 |
 | 26.3 | 26.3.0.x, beta | 66.0.x, no recommended build |
 
-The NeoForge and Forge names in the table come from each loader's 26.1 sources. Task 1.2 checks every one against `genSources` on each branch before code depends on it.
+Every row holds on all three branches: the code compiles against NeoForge 26.1.2.116, 26.2.0.90, and 26.3.0.69-beta and Forge 64.1.0, 65.1.0, and 66.0.10, and every GameTest passes on each. Hoe tilling is the only hook that differs between Minecraft versions.
 
 ## Goals / Non-Goals
 
@@ -70,7 +70,7 @@ Test classes live in `common/src/gametest` and use only vanilla types plus a com
 
 ### 6. Scripts and CI
 
-`run_gametests.py` and `client_log_check.py` take `--loader fabric|neoforge|forge` and call that loader's GameTest or client task. Each run produces a JUnit report if its runner writes one. Otherwise the script parses the log's per-test failure lines and the "All N required tests passed" line. CI runs a matrix job per loader: `./gradlew :<loader>:build` without its GameTest task, then `python3 scripts/run_gametests.py --loader <loader>`, so the data-load scan runs too. `actions/upload-artifact` keeps the report and `gametest.log` when a run fails. Locally, `--loader all` starts the three test servers at the same time, each in its own run folder, and prints one summary. The workflow already triggers on every push and pull request, so the 26.1 and 26.2 branches get it through the normal merge.
+`run_gametests.py` and `client_log_check.py` take `--loader fabric|neoforge|forge` and call that loader's GameTest or client task. Each loader's test server writes a JUnit report, which the script reads for per-test results. CI runs a matrix job per loader: `./gradlew :<loader>:build` without its GameTest task, then `python3 scripts/run_gametests.py --loader <loader>`, so the data-load scan runs too. `actions/upload-artifact` keeps the report and `gametest.log` when a run fails. Locally, `--loader all` starts the three test servers at the same time, each in its own run folder, and prints one summary. The workflow already triggers on every push and pull request, so the 26.1 and 26.2 branches get it through the normal merge.
 
 ### 7. Version, naming, and release
 
@@ -86,7 +86,7 @@ The new jars join the existing v2.0.0 GitHub release. The `v2.0.0` tag points at
 
 ### Look and sound
 
-This change adds no new moment. Every existing moment must look and sound the same on each loader, because all of them read the same assets. Task 6.4 rechecks these in the NeoForge and Forge clients:
+This change adds no new moment. Every existing moment looks and sounds the same on each loader, because all of them read the same assets, and the maintainer confirmed each row in the NeoForge and Forge clients:
 
 | Moment | Look, sound, and particle to compare against Fabric |
 |---|---|
@@ -100,12 +100,12 @@ This change adds no new moment. Every existing moment must look and sound the sa
 
 ### Porting divergence table
 
-Task 7.3 adds a Loader column to the table in `.claude/skills/porting-minecraft-version/SKILL.md`, with a row for each counterpart that differs between 26.1 and 26.3. For example, 26.3 makes hoe tilling data-driven, so check whether NeoForge and Forge 26.3 still fire `BlockToolModificationEvent` for it.
+The table in `.claude/skills/porting-minecraft-version/SKILL.md` has a Loader column, with a row for each loader difference between versions, such as hoe tilling and each Forge version's `loaderVersion` and data pack format.
 
 ## Risks / Trade-offs
 
-- **26.3 loaders aren't final.** Before NeoForge 26.3 goes stable and Forge 66 gets a recommended build, their API can change and break the 26.3 builds. Both 26.3 files ship as Beta. Moving to a final build reruns that loader's tests before a new upload.
+- **26.3 loaders aren't final.** Before NeoForge 26.3 goes stable and Forge 66 gets a recommended build, their API can change and break the 26.3 builds. Both 26.3 files ship as Beta. Moving to a final build reruns that loader's tests before a new upload as Release.
 - **Registration order.** On NeoForge and Forge, a `Mod*` class that loads another registry's class too early crashes the server at startup. GameTests catch it on every run, and a comment on the registrar states the rule.
-- **Fabric jar drift.** The restructure touches every file path. Task 2.5 diffs the new Fabric jar's file list and `fabric.mod.json` against the released 2.0.0 jar, and the 97 Fabric GameTests must still pass.
+- **Fabric jar drift.** The restructure touches every file path. `scripts/compare_release_jar.py` diffs the new Fabric jar's file list and `fabric.mod.json` against the released 2.0.0 jar, and every Fabric GameTest still passes.
 - **CI time.** CI runs the three loaders as parallel matrix jobs on separate runners, so a push waits about as long as one loader takes today (about 2 minutes). Only the billed runner minutes triple, and public repositories get them free.
 - **Three branches, three loaders.** Each restructure lands on `main` first, then gets ported down one branch at a time with the porting skill, per AGENTS.md.

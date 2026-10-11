@@ -51,7 +51,7 @@ Update the branch's `README.md` (version line, requirements, branch table), then
 
 Add a row each time a hop turns up a change. Only list changes that were checked against real code; a range like "1.21.2 to 1.21.10" means the change happened somewhere between those two supported versions. Loader "All" means vanilla, so every loader sees it.
 
-These loader facts were checked on 26.3, and 26.2 matches them except for the rows marked 26.3 in the table below. On each hop, compare them with the older branch's loader sources and turn any difference into a table row:
+These loader facts were checked on 26.3, and 26.2 and 26.1 match them except for the rows marked 26.3 and 26.2 in the table below. On each new hop, compare them with the older branch's loader sources and turn any difference into a table row:
 
 | Loader | Area | On 26.3 |
 |---|---|---|
