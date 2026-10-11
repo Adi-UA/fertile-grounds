@@ -17,7 +17,7 @@ A shrine SHALL be complete when a Chime Hotel stands on Super Enriched Dirt, an 
 - **THEN** nothing is built, the diamond stays, and the action bar says the hotel must stand on Super Enriched Dirt
 
 ### Requirement: Safety check
-Before using the diamond, the game SHALL check every block in the 35x35 area centered on the shrine, from 8 blocks below the shrine's soil to 24 blocks above it, excluding the center 9x9 plot. If any block that is not air and not in `#fertilegrounds:grove_replaceable` sits there, building SHALL NOT start, the diamond SHALL stay, and the action bar SHALL name that block and its coordinates. The tag SHALL hold natural terrain by default: dirt and grass, stone and ores, sand and gravel, clay, snow and ice, logs and leaves, plants, water, lava, and Blighted Dirt.
+Before using the diamond, the game SHALL check every block in the 35x35 area centered on the shrine, from 8 blocks below the shrine's soil to 24 blocks above it, excluding the center 9x9 plot. If any block that is not air and not in `#fertilegrounds:grove_replaceable` sits there, building SHALL NOT start, the diamond SHALL stay, and the action bar SHALL name that block and its coordinates. The tag SHALL hold natural terrain by default: dirt and grass, stone and ores, sand and gravel, clay, snow and ice, logs and leaves, plants, water, and lava.
 
 #### Scenario: A chest nearby
 - **WHEN** a chest sits 10 blocks from the shrine
@@ -61,13 +61,6 @@ The finished grove SHALL hold, around the untouched center 9x9 plot:
 #### Scenario: Lit at night
 - **WHEN** night falls on a finished grove
 - **THEN** lanterns light the borders and rim, so no mob spawns on the plots or paths
-
-### Requirement: Blight cure
-Building SHALL turn every Blighted Dirt in the area into dirt or into the layout block for its spot.
-
-#### Scenario: Reclaiming a blighted field
-- **WHEN** a grove is built over a field where blight has spread
-- **THEN** no Blighted Dirt is left in the area
 
 ### Requirement: Server control
 When the gamerule `fertilegrounds:fairy_grove` is false, using a diamond on a shrine SHALL do nothing except an action bar message saying fairy groves are turned off.

@@ -32,7 +32,6 @@
 			"com.fertilegrounds.gametest.TraderTests",
 			"com.fertilegrounds.gametest.JadeDataTests",
 			"com.fertilegrounds.gametest.GuideBookTests",
-			"com.fertilegrounds.gametest.BlightTests",
 			"com.fertilegrounds.gametest.FairyGroveTests"
 		]
 	},

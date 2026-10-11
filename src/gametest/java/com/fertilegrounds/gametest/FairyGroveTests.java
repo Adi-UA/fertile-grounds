@@ -77,8 +77,8 @@ public class FairyGroveTests {
   }
 
   /**
-   * Over a hill, a dip, a tree, and a patch of blight, the fairies build the whole layout and leave
-   * the shrine's plot alone.
+   * Over a hill, a dip, and a tree, the fairies build the whole layout and leave the shrine's plot
+   * alone.
    */
   @GameTest(
       structure = "fertilegrounds:grove_site",
@@ -93,8 +93,6 @@ public class FairyGroveTests {
     }
     helper.setBlock(SOIL.offset(12, 1, -12), Blocks.OAK_LOG);
     helper.setBlock(SOIL.offset(12, 2, -12), Blocks.OAK_LEAVES);
-    final BlockPos blight = SOIL.offset(8, -1, 8);
-    helper.setBlock(blight, ModBlocks.BLIGHTED_DIRT);
     final TestPlayer player = holdingDiamonds(helper);
     player.useHeldItemOn(helper, HOTEL);
     helper.assertValueEqual(player.getMainHandItem().getCount(), 1, "diamonds left");
@@ -121,12 +119,11 @@ public class FairyGroveTests {
           helper.assertBlockProperty(SOIL.offset(15, 1, 5), LeavesBlock.PERSISTENT, true);
           helper.assertBlockPresent(Blocks.LANTERN, SOIL.offset(15, 2, 5));
           helper.assertBlockPresent(Blocks.GRASS_BLOCK, SOIL.offset(0, 0, 16));
-          // The hill and tree are gone, the dip is filled, and the blight is cured.
+          // The hill and tree are gone, and the dip is filled.
           helper.assertBlockPresent(ModBlocks.ENRICHED_FARMLAND, hill);
           helper.assertBlockPresent(Blocks.AIR, hill.above(6));
           helper.assertBlockPresent(Blocks.AIR, SOIL.offset(12, 2, -12));
           helper.assertBlockPresent(Blocks.DIRT, SOIL.offset(10, -8, 10));
-          helper.assertBlockPresent(Blocks.DIRT, blight);
           // The shrine is untouched.
           helper.assertBlockPresent(ModBlocks.CHIME_FAIRY_HOTEL, HOTEL);
           helper.assertBlockPresent(ModBlocks.SUPER_ENRICHED_DIRT, SOIL);

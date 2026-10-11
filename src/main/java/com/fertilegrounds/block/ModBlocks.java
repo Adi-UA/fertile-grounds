@@ -67,12 +67,6 @@ public final class ModBlocks {
                   SoilTier.SUPER_ENRICHED),
           ModBlockProperties.farmlandProperties());
 
-  // ---- Blight: cursed soil that spreads; Fertilizer and fairies cure it ----
-
-  public static final Block BLIGHTED_DIRT =
-      registerBlockWithItem(
-          "blighted_dirt", BlightedDirtBlock::new, ModBlockProperties.blightedDirtProperties());
-
   // ---- Fairy Hotels: lanterns a caught fairy can live in ----
 
   public static final Block EMPTY_FAIRY_HOTEL =
@@ -104,8 +98,7 @@ public final class ModBlocks {
     registerTillable(ENRICHED_DIRT, ENRICHED_FARMLAND);
     registerTillable(SUPER_ENRICHED_DIRT, SUPER_ENRICHED_FARMLAND);
     FertileGrounds.LOGGER.info(
-        "Fertile Grounds: registered 9 blocks (2 tillable pairs, enriched sand, blighted dirt,"
-            + " 3 fairy hotels)");
+        "Fertile Grounds: registered 8 blocks (2 tillable pairs, enriched sand, 3 fairy hotels)");
   }
 
   /** Same rule as vanilla dirt: only tills when the block above is air. */

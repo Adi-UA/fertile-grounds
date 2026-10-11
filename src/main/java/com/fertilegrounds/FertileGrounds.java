@@ -1,6 +1,5 @@
 package com.fertilegrounds;
 
-import com.fertilegrounds.blight.WitchCurse;
 import com.fertilegrounds.block.ModBlocks;
 import com.fertilegrounds.entity.ModEntities;
 import com.fertilegrounds.fairy.FairyGiftCooldowns;
@@ -49,7 +48,6 @@ public class FertileGrounds implements ModInitializer {
     FairySpeedAura.register();
     HotelChimes.register();
     GuideBookGift.register();
-    WitchCurse.register();
     GroveBuilder.register();
   }
 }
