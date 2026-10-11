@@ -20,7 +20,7 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `src/test/` | JUnit tests for the Minecraft-free logic, plus `AssetConsistencyTest` for resource files |
 | `src/gametest/` | Fabric GameTests: in-world checks with mock players, one class per feature, with their test environments and structures under `resources/` |
 | `scripts/` | `run_gametests.py` runs the GameTests and fails on data-load errors; `client_log_check.py` boots the client and fails on asset warnings |
-| `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` lists what ships, what is next, and what was skipped |
+| `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` lists what ships and what is next |
 | `art_source/` | Hand-painted textures (`block/`, `item/`) |
 
 Keep one job per class. Registration lives in the `Mod*` classes; the entry points only call `register()`. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Comments explain Minecraft quirks for someone new to modding, not what the code already says.

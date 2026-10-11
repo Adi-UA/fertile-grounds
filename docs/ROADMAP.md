@@ -22,27 +22,3 @@ Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3. Minecraft 1.21.11 and older 
 | Change | What it adds |
 |---|---|
 | `add-translations` | A Crowdin project so players can translate the mod without Git |
-
-## Considered and skipped
-
-| Idea | Why skipped |
-|---|---|
-| Hydrated soil tier | Sprinklerz, Moisturization, and Farming for Blockheads already cover watering |
-| Blessed harvest bonus drops | Needs per-crop tracking and fights auto-harvesters |
-| Fairy variants, new soils, new biomes | Kept to one fairy, the existing soil tiers, and vanilla biomes |
-| Fairy Rings, biome gifts | Rejected with the no-new-biomes rule |
-| Wider fairy reach (berries, cocoa, saplings) | Crops are enough for now; packs can extend `fairy_crops` |
-| Sculk sensors detect fairy arrival | Not needed for now |
-| Seasons-aware fairies | Deferred; revisit with Serene Seasons later |
-| Recipe viewer info pages, Mod Menu screen | The guide book and gamerules cover them |
-| Fairy Wing, gifts from escaping fairies | A slipping-away fairy leaves only a flower |
-| Jar friendship (8 flowers over 4 days), 7-day jars | Replaced by Fairy Hotels |
-| Patchouli guide | No support for 26.2 or 26.3 |
-| Resource crops, machines, chunk-loading wards, seed sorting, Tidy Hotel | Out of scope for a lightweight vanilla+ mod; moving player items risks loss |
-| Seed Pouch | Overlaps vanilla bundles |
-| Waving, note block echo, thank-you notes, cookies for fairies, lit-candle traces | Fairies stay a little mysterious |
-| Returning named fairies, fairy painting, banner pattern | Long-term bonds and keepsakes deferred |
-| Per-farm opt-out, Fairy Dust on flowers, fairy stats | Not wanted, or low value |
-| Spyglass watching, sniffer-diggable soil, ancient flowers counting double | Not picked; spyglass went to the Chime Hotel instead |
-| Lean proofs of the rule classes | Dropped; JUnit and GameTests cover the rules |
-| Blighted Dirt (spreading cursed soil from witches, craftable for sabotage) | Too punishing for a cozy farming mod |

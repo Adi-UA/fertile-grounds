@@ -23,6 +23,6 @@
 ## 4. Publish
 
 - [x] 4.0 The user replaces the placeholder textures with hand-drawn art (Fertilizer; Empty, Occupied, and Chime Fairy Hotel blocks and items; Jarred Fairy; each glow layer) on `main`, then Claude merges it into `26.2`, `26.1`, and `26.3`; verify `client_log_check.py` and the asset test pass on each, close the art tasks in `add-fertilizer`, `add-fairy-jar`, and `add-chime-hotel`, and archive those three
-- [ ] 4.1 The user pushes the branches and creates the GitHub release with the three 2.0.0 jars
-- [ ] 4.2 Update Modrinth with `updating-modrinth`: three new versions and a description that says older versions stay on 1.2.0; verify through the public API
-- [ ] 4.3 Update CurseForge with `updating-curseforge` the same way; verify the page shows the same message
+- [x] 4.1 Push the branches and creates the GitHub release with the three 2.0.0 jars
+- [x] 4.2 Update Modrinth with `updating-modrinth`: three new versions and a description that says older versions stay on 1.2.0; verify through the public API
+- [x] 4.3 Update CurseForge with `updating-curseforge` the same way; verify the page shows the same message
