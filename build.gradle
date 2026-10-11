@@ -31,6 +31,17 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
+
+	// A headless server in its own folder, so scripts/demo/build_demo_world.py can build the demo
+	// world without touching run/'s client settings.
+	runs {
+		demoServer {
+			server()
+			configName = "Demo Server"
+			runDir "run/demo-server"
+			ideConfigGenerated false
+		}
+	}
 }
 
 // In-world tests with Fabric API's GameTest module. Loom adds a separate "gametest" source set

@@ -41,6 +41,7 @@ python3 scripts/client_log_check.py   # boots the client, fails on mod warnings
 ./gradlew runGameTest -PnoJade        # GameTests without Jade, to check the mod works without it
 ./gradlew runClient                   # dev client, for models and textures
 ./gradlew runClient -Pshaders         # dev client with Sodium and Iris; put a shader pack in run/shaderpacks/
+python3 scripts/demo/build_demo_world.py  # builds the demo and test world, copies it to both saves folders
 ./gradlew genSources                  # decompile Minecraft to read real signatures
 ```
 
