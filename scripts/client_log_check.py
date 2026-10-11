@@ -5,9 +5,12 @@ asset. The client logs one as a warning and draws the purple-black placeholder o
 so this script reads that log instead. It takes about a minute; run it for changes that touch
 assets.
 
-Usage (from the repo root): python3 scripts/client_log_check.py
+Usage (from the repo root):
+    python3 scripts/client_log_check.py                    # the Fabric client
+    python3 scripts/client_log_check.py --loader neoforge  # or forge
 """
 
+import argparse
 import os
 import queue
 import re
@@ -18,6 +21,7 @@ import threading
 import time
 
 MOD_ID = "fertilegrounds"
+LOADERS = ("fabric", "neoforge", "forge")
 BOOT_TIMEOUT_SECONDS = 300
 # Atlases are built once resource loading finishes, after every model and texture warning, so the
 # block atlas line means the client reached the title screen.
@@ -53,9 +57,12 @@ def pump(stream, into: queue.Queue) -> None:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--loader", choices=LOADERS, default="fabric", help="which loader's dev client to boot")
+    args = parser.parse_args()
     # A new session lets us stop Gradle and the game process it starts in one signal.
     client = subprocess.Popen(
-        ["./gradlew", "runClient", "--console=plain"],
+        ["./gradlew", f":{args.loader}:runClient", "--console=plain"],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
@@ -82,7 +89,10 @@ def main() -> int:
                 loaded = True
                 deadline = time.time() + SETTLE_SECONDS
     finally:
-        os.killpg(client.pid, signal.SIGTERM)
+        try:
+            os.killpg(client.pid, signal.SIGTERM)
+        except (ProcessLookupError, PermissionError):
+            pass  # the client already exited, and its process group with it
         client.wait(timeout=60)
 
     problems = [entry.rstrip() for entry in entries(log) if is_problem(entry)]

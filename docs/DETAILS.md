@@ -130,11 +130,12 @@ This branch targets Minecraft 26.3. Version 2.0 supports 26.1, 26.2, and 26.3, e
 
 ## Requirements
 
-- Minecraft 26.3
-- [Fabric Loader](https://fabricmc.net/) 0.19.5+
-- [Fabric API](https://modrinth.com/mod/fabric-api) 0.161.0+26.3
-- Java 25+
-- Optional: [Jade](https://modrinth.com/mod/jade) for look-at tooltips
+- Minecraft 26.3 (or the version of the branch's jar), Java 25+
+- One loader:
+  - [Fabric Loader](https://fabricmc.net/) 0.19.5+ with [Fabric API](https://modrinth.com/mod/fabric-api) 0.161.0+26.3
+  - [NeoForge](https://neoforged.net/) 26.3.0.69-beta+
+  - [Forge](https://files.minecraftforge.net/) 66.0.10+
+- Optional: [Jade](https://modrinth.com/mod/jade) for look-at tooltips, on Fabric and NeoForge (Jade has no Forge build for 26.x)
 
 ## Building from source
 
@@ -142,7 +143,7 @@ This branch targets Minecraft 26.3. Version 2.0 supports 26.1, 26.2, and 26.3, e
 ./gradlew build
 ```
 
-The mod jar is output to `build/libs/fertilegrounds-<mod version>+<minecraft version>.jar` (e.g. `fertilegrounds-2.0.0+26.3.jar`). The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop it in your `mods/` folder alongside Fabric API.
+Each loader's jar lands in its own `build/libs/` folder: `fabric/` builds `fertilegrounds-2.0.0+26.3.jar`, and `neoforge/` and `forge/` build `fertilegrounds-neoforge-2.0.0+26.3.jar` and `fertilegrounds-forge-2.0.0+26.3.jar`. The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop the jar for your loader in your `mods/` folder, alongside Fabric API on Fabric.
 
 ## Development
 
