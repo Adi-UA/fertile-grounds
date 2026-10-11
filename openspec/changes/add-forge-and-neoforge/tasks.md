@@ -17,7 +17,7 @@
 
 - [x] 3.1 Add the common `@FertileTest` annotation and `TestCatalog`, register its functions on Fabric, generate the test-instance files at build time, and convert the gametest structures to `.nbt`. Verified when `SetupTests` runs from the catalog and `--filter` still selects single tests.
 - [x] 3.2 Convert all 26 test classes to `@FertileTest`, and add JUnit coverage for `TestCatalog`'s annotation reading. Verified when `run_gametests.py` reports the same pass count as before the change (97) and `rg 'fabricmc' common/src/gametest` finds nothing.
-- [ ] 3.3 Commit groups 1 to 3 on `main` as separate Conventional Commits and confirm CI is green.
+- [x] 3.3 Commit groups 1 to 3 on `main` as separate Conventional Commits and confirm CI is green.
 
 ## 4. NeoForge build on main
 
@@ -31,7 +31,7 @@
 - [x] 4.4 Register `TestCatalog` in `RegisterGameTestsEvent`, and add `--loader neoforge` to `run_gametests.py`, using a JUnit report or the log parser from design decision 6. Confirm the data-load markers still match NeoForge's log by planting a broken tag. Verified when `python3 scripts/run_gametests.py --loader neoforge` passes all 97 tests and fails on the planted tag.
 - [x] 4.5 Run the NeoForge GameTests with `-PnoJade`, and start the NeoForge dedicated server. Verified when the GameTests pass without Jade and the server log has no class-loading error for `fertilegrounds`.
 - [x] 4.6 Extend `AssetConsistencyTest` to compare the id, name, description, license, icon, and Minecraft version in `fabric.mod.json` and `neoforge.mods.toml`. Verified with `./gradlew test`, plus a check that fails on a planted description mismatch.
-- [ ] 4.7 Turn the CI job into a matrix over `fabric` and `neoforge`, with each loader's jar as an artifact. Verified when a push to `main` shows two green jobs with 97 tests each.
+- [x] 4.7 Turn the CI job into a matrix over `fabric` and `neoforge`, with each loader's jar as an artifact. Verified when a push to `main` shows two green jobs with 97 tests each.
 
 ## 5. Forge build on main
 
@@ -39,14 +39,14 @@
 - [x] 5.2 Add Forge implementations for every platform service, reusing the shared `SavedData` classes, and keep Jade classes out of the Forge jar. Verified when the loader-hook and saved-data GameTests from 4.2 pass on Forge, and `unzip -l` on the Forge jar lists no `compat/jade` class.
 - [x] 5.3 Register `TestCatalog` through Forge's GameTest hooks with the `fertilegrounds` namespace enabled. Mark `JadeDataTests` to skip on Forge, with the reason. Add `--loader forge` to `run_gametests.py` and confirm the data-load markers with a planted broken tag. Verified when `python3 scripts/run_gametests.py --loader forge` passes every test except the Jade ones and fails on the planted tag.
 - [x] 5.4 Start the Forge dedicated server, and extend `AssetConsistencyTest` to Forge's `mods.toml`. Verified when the server log has no class-loading error for `fertilegrounds`, and the metadata check fails on a planted mismatch.
-- [ ] 5.5 Add `forge` to the CI matrix, and add `--loader all` to `run_gametests.py`, which runs the three loaders' test servers in parallel in separate run folders. Verified when a push to `main` shows three green jobs running at the same time, and `--loader all` locally finishes in less than the three separate runs added together.
+- [x] 5.5 Add `forge` to the CI matrix, and add `--loader all` to `run_gametests.py`, which runs the three loaders' test servers in parallel in separate run folders. Verified when a push to `main` shows three green jobs running at the same time, and `--loader all` locally finishes in less than the three separate runs added together.
 
 ## 6. Client and in-game checks
 
 - [x] 6.1 Add `--loader neoforge` and `--loader forge` to `client_log_check.py`. Verified when it boots each dev client with no missing model, texture, or sound warning.
 - [x] 6.2 Add these to the maintainer's in-game checklist for NeoForge and Forge, since the test server can't restart a world: "a half-built Fairy Grove finishes after a world restart" and "a pending fairy visit survives a world restart".
 - [x] 6.3 Add "the creative tab lists every item in the same order as Fabric" to the checklist for both loaders.
-- [ ] 6.4 Check the design's Look and sound table in the NeoForge and Forge `runClient`, and add each row to the in-game checklist as "matches Fabric".
+- [x] 6.4 Check the design's Look and sound table in the NeoForge and Forge `runClient`, and add each row to the in-game checklist as "matches Fabric".
 
 ## 7. Docs and skills
 
@@ -57,11 +57,11 @@
 
 ## 8. Port to 26.2 and 26.1
 
-- [ ] 8.1 Port groups 2 to 7 to `26.2` with the porting skill, using NeoForge 26.2.0.x and Forge 65.1.x. Verified when `run_gametests.py` and `client_log_check.py` pass for all three loaders and CI is green on `26.2`.
+- [x] 8.1 Port groups 2 to 7 to `26.2` with the porting skill, using NeoForge 26.2.0.x and Forge 65.1.x. Verified when `run_gametests.py` and `client_log_check.py` pass for all three loaders and CI is green on `26.2`.
 - [ ] 8.2 After the 26.2 and 26.3 release (9.1, 9.2), port from `26.2` to `26.1` with NeoForge 26.1.2.x and Forge 64.1.x, verified the same way on `26.1`.
 
 ## 9. Release
 
-- [ ] 9.1 Build the four NeoForge and Forge jars for 26.2 and 26.3 from the pushed branch heads, attach them to the v2.0.0 GitHub release, and name in the release notes the commit each one was built from. Verified with `gh release view v2.0.0` listing seven jars.
-- [ ] 9.2 Upload the new jars to Modrinth and then CurseForge with the updated skills, oldest Minecraft version first, with each 26.3 file as Beta while its loader has no final build, leaving the existing Fabric files untouched. Verified through each skill's verify step.
+- [x] 9.1 Build the four NeoForge and Forge jars for 26.2 and 26.3 from the pushed branch heads, attach them to the v2.0.0 GitHub release, and name in the release notes the commit each one was built from. Verified with `gh release view v2.0.0` listing seven jars.
+- [x] 9.2 Upload the new jars to Modrinth and then CurseForge with the updated skills, oldest Minecraft version first, with each 26.3 file as Beta while its loader has no final build, leaving the existing Fabric files untouched. Verified through each skill's verify step.
 - [ ] 9.3 After 8.2, add the two 26.1 jars the same way (9.1 and 9.2), so the release lists nine jars.
