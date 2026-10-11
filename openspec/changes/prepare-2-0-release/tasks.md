@@ -9,8 +9,8 @@
 ## 2. Release builds
 
 - [x] 2.1 Archive the 13 changes with every task done with `/opsx:archive`; verify `openspec list` shows only this change, the four changes waiting on art, and `add-translations` (waiting on Crowdin)
-- [ ] 2.2 Backport 2.0 to `26.2`, then `26.1`, with the porting skill; verify `./gradlew build` (GameTests included) and `client_log_check.py` on each
-- [ ] 2.3 Bump `mod_version` to 2.0.0 on `main`, `26.2`, and `26.1`; verify each jar is named `fertilegrounds-2.0.0+<mc>.jar`
+- [x] 2.2 Backport 2.0 to `26.2`, then `26.1`, with the porting skill; verify `./gradlew build` (GameTests included) and `client_log_check.py` on each
+- [x] 2.3 Bump `mod_version` to 2.0.0 on `main`, `26.2`, and `26.1`; verify each jar is named `fertilegrounds-2.0.0+<mc>.jar`
 
 ## 3. Demo world
 
