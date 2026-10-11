@@ -2,7 +2,7 @@
 
 ## 1. Item and recipe
 
-- [ ] 1.1 Ask the user for the hand-drawn Fertilizer texture; verify the PNG sits in `textures/item/` and loads with no missing-texture warning in the `runClient` log
+- [x] 1.1 Ask the user for the hand-drawn Fertilizer texture; verify the PNG sits in `textures/item/` and loads with no missing-texture warning in the `runClient` log
 - [x] 1.2 Register `FERTILIZER` in `ModItems`, add it to the creative tab, add lang keys; verify `client_log_check.py` reports no warnings, and add "Fertilizer shows in the creative tab" to the user's in-game checklist
 - [x] 1.3 Add the recipe and recipe advancement; verify the recipe loads with no parse error and its result count is 4, and add an in-game checklist item for the mixed-flower craft
 

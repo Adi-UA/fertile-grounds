@@ -7,7 +7,7 @@
 
 ## 2. Block
 
-- [ ] 2.1 Ask the user for the Chime Hotel texture and emissive layer (offer a UV guide); verify no missing-texture warnings in the `runClient` log
+- [x] 2.1 Ask the user for the Chime Hotel texture and emissive layer (offer a UV guide); verify no missing-texture warnings in the `runClient` log
 - [x] 2.2 Register the Chime Hotel block, item, loot table, POI membership, recipe, sound event, and lang keys; verify a GameTest crafts it from an occupied hotel, places it, and a `HotelEffectTests` check sees it boost crops
 
 ## 3. Chime
