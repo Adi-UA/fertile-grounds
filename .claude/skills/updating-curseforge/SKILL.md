@@ -50,7 +50,7 @@ Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set.call
 ta.dispatchEvent(new Event('input', {bubbles: true}));
 ```
 
-Use the Modrinth body, but point the Fabric API link at `https://www.curseforge.com/minecraft/mc-mods/fabric-api`. Click **Save**.
+CurseForge keeps its own formatting (its own bullets, and Jade and Fabric API linked to CurseForge pages), so make the same edits as on Modrinth as exact string replacements on the textarea's current text, each matching once. Click **Save**. A reload right after saving can still show the old text; wait a few seconds and reload again before deciding the save failed, and keep the new text in a file, since a reload clears page variables.
 
 ## 4. Add one file per jar (Files tab)
 
@@ -69,9 +69,9 @@ Upload the jars oldest Minecraft version first (26.1, then 26.2, then 26.3; with
    | 1.21.x, 1.20.1 (1.2.0 only, frozen; never upload 2.0+ for these) | its own version only | Java 17, 18, 19, 20, 21, 22, 25 |
 
    Environment is always Client and Server; Modloader is the jar's loader (Fabric, NeoForge or Forge, only one). Remove a chip with its x (chips shift left, so screenshot before each click). Add a version by clicking the Minecraft field, typing it, and ticking the checkbox.
-3. **Changelog:** the editor switches between Markdown and WYSIWYG on its own; plain text works in both. Click it and type one or two sentences.
-4. **Dependencies and type:** for a Fabric jar, leave "Include default project relations" on; it adds Fabric API as a Required Dependency, and CurseForge doesn't pin versions. For a NeoForge or Forge jar, turn it off, since those need no Fabric API. Release Type is Release, or Beta for a NeoForge or Forge file whose loader has no final build for that Minecraft version.
-5. Click **Add File**. The new row shows Uploading, then Processing, then Under Review. CurseForge moderators approve it, which can take hours, so "Under Review" counts as done.
+3. **Changelog:** the editor switches between Markdown and WYSIWYG on its own; plain text works in both. Scroll it into view, click inside it, type one or two sentences, and check its word count is no longer 0 (a click on the toolbar types nowhere).
+4. **Dependencies and type:** for a Fabric jar, leave "Include default project relations" on; it adds Fabric API as a Required Dependency, and CurseForge doesn't pin versions. For a NeoForge or Forge jar, turn it off, then click **Remove relation** in the Fabric API row, which stays listed after the toggle, until it reads "Project removed from relations"; those jars need no Fabric API. Release Type is Release, or Beta for a NeoForge or Forge file whose loader has no final build for that Minecraft version.
+5. Click **Add File** (use `find` for it; a coordinate click sometimes misses). If the form stays open, check the Files tab in a second tab before clicking again, so a retry can't upload twice. The new row shows Uploading, then Processing, then Under Review. CurseForge moderators approve it, which can take hours, so "Under Review" counts as done.
 
 ## 5. Verify
 
