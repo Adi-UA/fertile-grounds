@@ -68,7 +68,7 @@ Upgrade a hotel to a **Chime Hotel** with a Note Block and a Spyglass. Its fairy
 
 ![Fairies circling a shrine while a lantern-lit garden of farm plots grows out from it](docs/media/fairy_grove.gif)
 
-Late in the game, build a shrine: a Chime Hotel on Super Enriched Dirt, with hotel fairies around it and flowers nearby. Give it a **Diamond**, and its fairies turn the land around it into a leveled, lantern-lit garden of watered farm plots, hedges, and beehives. If anything built by a player is in the way, the shrine tells you and keeps your diamond.
+A cozy farm is fun. Breaking 400 dirt blocks to build one the first time is not. So late in the game, build a shrine: a Chime Hotel on Super Enriched Dirt, with hotel fairies around it and flowers nearby. Give it a **Diamond**, and its fairies turn the land around it into a leveled, lantern-lit garden of watered farm plots, hedges, and beehives. If anything built by a player is in the way, the shrine tells you and keeps your diamond.
 
 ## Little extras
 

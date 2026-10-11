@@ -45,7 +45,7 @@ The editor is a Markdown `textarea`. Replace its text with React's native setter
 
 ```js
 const body = `...Modrinth body...`;
-const ta = [...document.querySelectorAll('textarea')].find(t => t.value.includes('Crops Growing Demo'));
+const ta = [...document.querySelectorAll('textarea')].find(t => t.value.length > 200);
 Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set.call(ta, body);
 ta.dispatchEvent(new Event('input', {bubbles: true}));
 ```
@@ -53,6 +53,8 @@ ta.dispatchEvent(new Event('input', {bubbles: true}));
 Use the Modrinth body, but point the Fabric API link at `https://www.curseforge.com/minecraft/mc-mods/fabric-api`. Click **Save**.
 
 ## 4. Add one file per jar (Files tab)
+
+Upload the jars oldest Minecraft version first (26.1, then 26.2, then 26.3), so the newest lands on top of the file list.
 
 1. Click **Add File**. Use `find` for "file input for jar upload", then `file_upload` the jar. Don't click Choose File; that opens a native picker.
 2. **Tags:** the form copies Environment, Modloader, Java and Minecraft from an earlier upload, and not always the one you expect. Wait 2 seconds, then read the real values:
