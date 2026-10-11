@@ -46,7 +46,7 @@
 - [x] 6.1 Add `--loader neoforge` and `--loader forge` to `client_log_check.py`. Verified when it boots each dev client with no missing model, texture, or sound warning.
 - [x] 6.2 Add these to the maintainer's in-game checklist for NeoForge and Forge, since the test server can't restart a world: "a half-built Fairy Grove finishes after a world restart" and "a pending fairy visit survives a world restart".
 - [x] 6.3 Add "the creative tab lists every item in the same order as Fabric" to the checklist for both loaders.
-- [ ] 6.4 Check the design's Look and sound table in the NeoForge and Forge `runClient`, and add each row to the in-game checklist as "matches Fabric".
+- [x] 6.4 Check the design's Look and sound table in the NeoForge and Forge `runClient`, and add each row to the in-game checklist as "matches Fabric".
 
 ## 7. Docs and skills
 
