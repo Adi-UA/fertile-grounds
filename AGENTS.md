@@ -21,7 +21,7 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `src/gametest/` | Fabric GameTests: in-world checks with mock players, one class per feature, with their test environments and structures under `resources/` |
 | `scripts/` | `run_gametests.py` runs the GameTests and fails on data-load errors; `client_log_check.py` boots the client and fails on asset warnings |
 | `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` orders them |
-| `art_source/` | The user's painted textures (`block/`, `item/`) |
+| `art_source/` | Hand-painted textures (`block/`, `item/`) |
 
 Keep one job per class. Registration lives in the `Mod*` classes; the entry points only call `register()`. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Comments explain Minecraft quirks for someone new to modding, not what the code already says.
 
@@ -47,7 +47,7 @@ python3 scripts/demo/build_demo_world.py  # builds the demo and test world, copi
 
 ## Verification
 
-`AssetConsistencyTest` catches missing lang keys, models, and textures and outdated recipe JSON. Data files and mob behavior fail silently until a world loads, so each feature adds GameTests in `src/gametest/` (register new classes in its `fabric.mod.json`), and `run_gametests.py` also fails on data that logs a load error without breaking a test. Tests use mock players for anything a player does; tests that move the clock or change gamerules get their own test environment, since tests sharing one run at the same time, and tests that need day or night set clear weather (as `no_random_ticks` does), since rain and thunder darken the sky. The test server never loads models, textures, or sounds, so for changes that touch assets, run `client_log_check.py`. Only looks, sounds, and sleeping through the night (vanilla needs every real player asleep) go to the user as a short in-game checklist; say which parts went untested. Every fixed bug gets a regression check in a GameTest or JUnit, so it can't silently return on another branch.
+`AssetConsistencyTest` catches missing lang keys, models, and textures and outdated recipe JSON. Data files and mob behavior fail silently until a world loads, so each feature adds GameTests in `src/gametest/` (register new classes in its `fabric.mod.json`), and `run_gametests.py` also fails on data that logs a load error without breaking a test. Tests use mock players for anything a player does; tests that move the clock or change gamerules get their own test environment, since tests sharing one run at the same time, and tests that need day or night set clear weather (as `no_random_ticks` does), since rain and thunder darken the sky. The test server never loads models, textures, or sounds, so for changes that touch assets, run `client_log_check.py`. Only looks, sounds, and sleeping through the night (vanilla needs every real player asleep) go to the maintainer as a short in-game checklist; say which parts went untested. Every fixed bug gets a regression check in a GameTest or JUnit, so it can't silently return on another branch.
 
 ## Looking things up
 
@@ -55,12 +55,8 @@ Never guess a Minecraft signature or data format. After `genSources`, the decomp
 
 ## Art
 
-No AI art ships in the mod. The user draws or traces every texture by hand in Aseprite, based on vanilla textures, and AI may only guide that work: UV templates, labeled guides, palettes, and placeholders (kept out of `art_source/`) that the user's art replaces before release. Never generate a texture meant to ship. The user keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. Moving a model part's `texOffs` or an element's `uv` changes which texture pixels it reads, so tell the user before doing it.
-
-## Public docs
-
-`README.md`, `docs/GUIDE.md`, `CONTRIBUTING.md`, and `SECURITY.md` are public and use the guide book's plain, friendly voice. `docs/GUIDE.md` mirrors the guide book's pages and lists every gamerule with a command; `AssetConsistencyTest` fails when they drift. GIFs and images live in `docs/media/`.
+No AI art ships in the mod. The maintainer draws or traces every texture by hand in Aseprite, based on vanilla textures, and AI may only guide that work: UV templates, labeled guides, palettes, and placeholders (kept out of `art_source/`) that hand-drawn art replaces before release. Never generate a texture meant to ship. The maintainer keeps the sources in `art_source/`; never overwrite a painted texture or commit intermediate art files. Moving a model part's `texOffs` or an element's `uv` changes which texture pixels it reads, so flag it in the pull request.
 
 ## Git and releases
 
-Use Conventional Commits, one commit per step per branch. Never push; the user pushes and publishes releases. Jar versions are `<mod_version>+<minecraft_version>` (set in `build.gradle`); bump `mod_version` by semver on every branch and release all branch jars together. Mirror each GitHub release to Modrinth with `.claude/skills/updating-modrinth/SKILL.md`, then to CurseForge with `.claude/skills/updating-curseforge/SKILL.md`.
+Use Conventional Commits, one commit per step per branch. Never push; the maintainer pushes and publishes releases. Jar versions are `<mod_version>+<minecraft_version>` (set in `build.gradle`); bump `mod_version` by semver on every branch and release all branch jars together. Mirror each GitHub release to Modrinth with `.claude/skills/updating-modrinth/SKILL.md`, then to CurseForge with `.claude/skills/updating-curseforge/SKILL.md`.
