@@ -1,0 +1,18 @@
+# In-world tests for Fertile Grounds. Development only; never shipped. A separate mod, like on the
+# other loaders, so its data (such as the extra fairy_crops entry) merges with the main mod's.
+modLoader = "javafml"
+loaderVersion = "[64,)"
+license = "MIT"
+
+[[mods]]
+modId = "fertilegrounds_gametest"
+version = "1.0.0"
+displayName = "Fertile Grounds GameTests"
+description = '''In-world tests for Fertile Grounds. Development only; never shipped.'''
+
+[[dependencies.fertilegrounds_gametest]]
+modId = "fertilegrounds"
+mandatory = true
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"

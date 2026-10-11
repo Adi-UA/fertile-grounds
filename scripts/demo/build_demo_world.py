@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Builds the "Fertile Grounds Demo" world on a headless dev server.
 
-The script starts `./gradlew runDemoServer` on a fresh world, picks a flower forest or cherry
+The script starts `./gradlew :fabric:runDemoServer` on a fresh world, picks a flower forest or cherry
 grove, and writes an `fgdemo` datapack whose functions flatten a plot and build every station from
 `fill` and `setblock` commands. It talks to the server over RCON (local only, random password),
 checks the result, stops the server, turns cheats on in level.dat, and copies the world into the
-Minecraft saves folder and the dev client's run/saves. The datapack stays in the save, so `/function fgdemo:reset/<station>` and
+Minecraft saves folder and each loader's dev client saves (Fabric, NeoForge, Forge). The datapack stays in the save, so `/function fgdemo:reset/<station>` and
 `/function fgdemo:mode/<mode>` work while testing.
 
     python3 scripts/demo/build_demo_world.py            # build, check, copy to saves
@@ -36,7 +36,8 @@ SERVER_DIR = ROOT / "run" / "demo-server"
 LEVEL_NAME = "Fertile Grounds Demo"
 WORLD = SERVER_DIR / LEVEL_NAME
 SAVES = Path.home() / "Library" / "Application Support" / "minecraft" / "saves"
-DEV_SAVES = ROOT / "run" / "saves"  # the dev client's saves, for `runClient -Pshaders`
+# Each loader's dev client keeps its own saves (see the runs in each loader's build.gradle).
+DEV_SAVES = (ROOT / "run" / "saves", ROOT / "run" / "neoforge" / "saves", ROOT / "run" / "forge-client" / "saves")
 SEED = "fertilegrounds"
 RCON_PORT = 25599
 SERVER_PORT = 25598
@@ -98,16 +99,23 @@ class Site:
 
 
 def sign(lines: list[str], command: str | None = None, wall: str | None = None, rotation: int = 0):
-    """A waxed oak sign; clicking it runs `command` when there is one."""
+    """A waxed oak sign; clicking it runs `command` when there is one.
+
+    Since 26.3 a sign runs click commands only with `allow_op_features`, which only an operator's
+    command (such as this setblock) can set; without it, clicking says click actions are disabled.
+    Older versions drop the unknown tag and run the command anyway.
+    """
     first = json.dumps(lines[0])
+    extra = ""
     if command:
+        extra = ",allow_op_features:1b"
         first = (
             "{text:" + json.dumps(lines[0]) + ',color:"dark_green",'
             'click_event:{action:"run_command",command:' + json.dumps(command) + "}}"
         )
     messages = ",".join([first] + [json.dumps(line) for line in lines[1:4]])
     state = f"oak_wall_sign[facing={wall}]" if wall else f"oak_sign[rotation={rotation}]"
-    return f"{state}{{is_waxed:1b,front_text:{{messages:[{messages}]}}}}"
+    return f"{state}{{is_waxed:1b{extra},front_text:{{messages:[{messages}]}}}}"
 
 
 def snbt(value) -> str:
@@ -178,7 +186,7 @@ def build_spawn(s: Site) -> list[str]:
         c.append(s.set(-4, 3 - row, -3 + 2 * col, sign(lines, command, wall="east")))
     # The guide book on a lectern, built from the guide book recipe's own result.
     recipe = json.loads(
-        (ROOT / f"src/main/resources/data/{MOD}/recipe/guide_book.json").read_text()
+        (ROOT / f"common/src/main/resources/data/{MOD}/recipe/guide_book.json").read_text()
     )
     book = recipe["result"]
     item = f'{{id:"{book["id"]}",count:1,components:{snbt(book["components"])}}}'
@@ -289,7 +297,8 @@ def build_hotels(s: Site) -> list[str]:
 
 def build_chime(s: Site) -> list[str]:
     c = s.fill((61, 0, 6), (67, 0, 12), f"{MOD}:enriched_farmland[moisture=7]")
-    c += s.fill((61, 1, 6), (67, 1, 12), "wheat[age=6]")
+    # Young wheat, so the field ripens and the hotel rings while you watch, not before you arrive.
+    c += s.fill((61, 1, 6), (67, 1, 12), "wheat[age=3]")
     c += [s.set(64, 0, 9, "water"), s.set(64, 1, 9, "air")]
     # The comparator goes down first, so the hotel's placement updates it.
     c += [
@@ -518,14 +527,12 @@ BUILDERS = {
 
 def mod_gamerule_defaults() -> dict[str, str]:
     """Every mod gamerule and its default, read from ModGameRules.java so the list stays in step."""
-    source = (ROOT / f"src/main/java/com/{MOD}/util/ModGameRules.java").read_text()
+    source = (ROOT / f"common/src/main/java/com/{MOD}/util/ModGameRules.java").read_text()
     rules = {
         name: default
         for name, default in re.findall(r'(?:percent|integer)\(\s*"([a-z_]+)",\s*(\d+)', source)
     }
-    for default, name in re.findall(
-        r'forBoolean\((true|false)\).*?id\("([a-z_]+)"\)', source, flags=re.S
-    ):
+    for name, default in re.findall(r'bool\(\s*"([a-z_]+)",\s*(true|false)', source):
         rules[name] = default
     return rules
 
@@ -563,8 +570,13 @@ def gamerule_modes() -> dict[str, list[str]]:
 # ---- Datapack ----
 
 
+def minecraft_version() -> str:
+    """The branch's Minecraft version, from gradle.properties."""
+    return re.search(r"^minecraft_version=(.+)$", (ROOT / "gradle.properties").read_text(), re.M).group(1)
+
+
 def data_pack_format() -> int:
-    jar = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar"
+    jar = Path.home() / f".gradle/caches/fabric-loom/{minecraft_version()}/minecraft-client.jar"
     with zipfile.ZipFile(jar) as z:
         return json.loads(z.read("version.json"))["pack_version"]["data_major"]
 
@@ -687,7 +699,7 @@ def start_server(log_path: Path) -> subprocess.Popen:
     process = subprocess.Popen(
         [
             "./gradlew",
-            "runDemoServer",
+            ":fabric:runDemoServer",
             "--console=plain",
             # Jade lists the mod's client tooltip plugin, which the dev server's split classpath
             # leaves out (the shipped jar has it), so the dev server runs without Jade.
@@ -807,6 +819,10 @@ def run_checks(rcon: Rcon, s: Site) -> list[str]:
     }
     for label, (dx, dy, dz, block) in blocks.items():
         check(rcon, label, f"execute if block {s.at(dx, dy, dz)} {block}", f)
+    sign_check = "front_text.messages[0].click_event"
+    if tuple(map(int, minecraft_version().split("."))) >= (26, 3):
+        sign_check = "{allow_op_features:1b}"  # see sign()
+    check(rcon, "Test mode sign runs its command", f"execute if data block {s.at(-4, 3, -1)} {sign_check}", f)
     reply = rcon.run("execute if entity @e[tag=fgdemo_hero]")
     match = re.search(r"count: (\d+)", reply, re.IGNORECASE)
     count = int(match.group(1)) if match else 0
@@ -952,7 +968,7 @@ def main() -> int:
         return 1
     allow_commands(WORLD / "level.dat")
     if not args.no_copy:
-        for saves in (SAVES, DEV_SAVES):
+        for saves in (SAVES, *DEV_SAVES):
             target = saves / LEVEL_NAME
             if target.exists():
                 backup = saves / f"{LEVEL_NAME} (old {time.strftime('%Y%m%d-%H%M%S')})"

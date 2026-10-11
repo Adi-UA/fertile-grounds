@@ -1,0 +1,19 @@
+# In-world tests for Fertile Grounds. Development only; never shipped. A separate mod, like on
+# Fabric, so its data (such as the extra fairy_crops entry) merges with the main mod's instead of
+# replacing files at the same path.
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+
+[[mods]]
+modId = "fertilegrounds_gametest"
+version = "1.0.0"
+displayName = "Fertile Grounds GameTests"
+description = '''In-world tests for Fertile Grounds. Development only; never shipped.'''
+
+[[dependencies.fertilegrounds_gametest]]
+modId = "fertilegrounds"
+type = "required"
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"

@@ -4,7 +4,7 @@ Thanks for helping! Bug reports and ideas go in [issues](https://github.com/Adi-
 
 ## Translations
 
-All of the mod's text lives in `src/main/resources/assets/fertilegrounds/lang/`. `en_us.json` is the English source, and each other language is a file named after Minecraft's language code, such as `de_de.json` or `pt_br.json` (the [Minecraft Wiki](https://minecraft.wiki/w/Language) lists every code).
+All of the mod's text lives in `common/src/main/resources/assets/fertilegrounds/lang/`. `en_us.json` is the English source, and each other language is a file named after Minecraft's language code, such as `de_de.json` or `pt_br.json` (the [Minecraft Wiki](https://minecraft.wiki/w/Language) lists every code).
 
 To add or update a language:
 
@@ -12,7 +12,7 @@ To add or update a language:
 2. Translate the values and keep the keys as they are. Keep each `%s`, which the game fills in with a number or name, and each `%%`, which shows as a percent sign.
 3. In the guide book pages (`book.fertilegrounds.guide.page.*`), `\n` starts a new line. A book page fits about 14 short lines, so keep each page close to the English length.
 4. Leave out any key you haven't translated. The game shows English for it, never a raw key.
-5. Run `./gradlew test`. It fails if your file has a key that `en_us.json` doesn't, which usually means a typo or a key the mod no longer uses.
+5. Run `./gradlew :common:test`. It fails if your file has a key that `en_us.json` doesn't, which usually means a typo or a key the mod no longer uses.
 6. Open a pull request.
 
 Translations come from people who speak the language. Please don't submit machine translations.
@@ -24,15 +24,16 @@ You need Java 25 and Git. Gradle downloads everything else, including Minecraft.
 ```bash
 git clone https://github.com/Adi-UA/fertile-grounds.git
 cd fertile-grounds
-./gradlew runClient                  # opens Minecraft with the mod (and Jade) loaded
-./gradlew runClient -PnoJade         # the same, without the optional Jade mod
-./gradlew runClient -Pshaders        # adds Sodium and Iris; put a shader pack zip in run/shaderpacks/
-./gradlew build                      # compiles, checks formatting, runs every test
+./gradlew :fabric:runClient          # opens Minecraft on Fabric with the mod (and Jade) loaded
+./gradlew :neoforge:runClient        # the same on NeoForge; :forge:runClient for Forge
+./gradlew :fabric:runClient -PnoJade # without the optional Jade mod
+./gradlew :fabric:runClient -Pshaders  # adds Sodium and Iris; put a shader pack zip in run/shaderpacks/
+./gradlew build                      # compiles, checks formatting, runs the unit tests and Fabric GameTests
 ./gradlew spotlessApply              # formats the code the way the build expects
-./gradlew genSources                 # decompiles Minecraft so you can read its code
+./gradlew :fabric:genSources         # decompiles Minecraft so you can read its code
 ```
 
-The `-P` flags work on any Gradle task, so `./gradlew runGameTest -PnoJade` runs the in-world tests without Jade.
+The game code lives in `common/`, and `fabric/`, `neoforge/`, and `forge/` each build that loader's jar from it. The `-P` flags work on any Gradle task, so `./gradlew :neoforge:runGameTestServer -PnoJade` runs the in-world tests on NeoForge without Jade.
 
 [AGENTS.md](AGENTS.md) maps out the code: which folder holds what, and every command. It's written for AI coding agents, but it's the quickest tour for people too.
 
@@ -64,17 +65,17 @@ A green build only proves the code compiles, so most features have tests that ru
 
 | What | Command | What it checks |
 |---|---|---|
-| Unit tests | `./gradlew test` | Rules that don't need Minecraft (fairy timing, chances, grove layout), plus every lang key, model, texture, recipe, and doc table matching up |
-| GameTests | `./gradlew build` | Starts a test server and runs about 100 in-world tests, with fake players that use items, get messages, and earn advancements |
-| GameTests with a log scan | `python3 scripts/run_gametests.py` | The same tests, and it fails if any data file logs a load error; add `--filter 'fairy_grove*'` to run a few |
-| Without Jade | `./gradlew runGameTest -PnoJade` | The mod works when the optional Jade mod is missing |
-| Client check | `python3 scripts/client_log_check.py` | Opens the real game and fails on missing models or textures |
+| Unit tests | `./gradlew :common:test` | Rules that don't need Minecraft (fairy timing, chances, grove layout), plus every lang key, model, texture, recipe, and doc table matching up |
+| GameTests | `python3 scripts/run_gametests.py --loader all` | Starts each loader's test server and runs about 100 in-world tests, with fake players that use items, get messages, and earn advancements |
+| One loader | `python3 scripts/run_gametests.py --loader fabric` | The same tests on one loader; every run also fails if a data file logs a load error, and `--filter 'fairy_grove*'` runs a few |
+| Without Jade | `./gradlew :fabric:runGameTest -PnoJade` | The mod works when the optional Jade mod is missing |
+| Client check | `python3 scripts/client_log_check.py --loader forge` | Opens the real game on one loader and fails on missing models or textures |
 
-GameTests live in `src/gametest/`, one class per feature, and each new class goes in `src/gametest/resources/fabric.mod.json`. Tests that change the time or gamerules get their own test environment, since tests sharing one run at the same time. Every bug fix adds a test that fails without the fix.
+GameTests live in `common/src/gametest/`, one class per feature, and each new class goes in `TestCatalog`. Tests that change the time or gamerules get their own test environment, since tests sharing one run at the same time. Every bug fix adds a test that fails without the fix.
 
-Some things a test server can't judge: how a block looks, how a sound feels, or sleeping through the night. Check those yourself in `./gradlew runClient`, and say what you checked in your pull request.
+Some things a test server can't judge: how a block looks, how a sound feels, or sleeping through the night. Check those yourself in each loader's `runClient`, and say what you checked in your pull request.
 
-**The demo world.** `python3 scripts/demo/build_demo_world.py` builds a world with every feature laid out along a path, and copies it to your saves folder. Signs at spawn switch on fast-testing mode (quick crop growth, fairies every night) and reset any station, so it's the fastest way to try a change by hand. `./gradlew runClient -Pshaders` adds Sodium and Iris for recording; put a shader pack in `run/shaderpacks/`.
+**The demo world.** `python3 scripts/demo/build_demo_world.py` builds a world with every feature laid out along a path, and copies it to your saves folder. Signs at spawn switch on fast-testing mode (quick crop growth, fairies every night) and reset any station, so it's the fastest way to try a change by hand. `./gradlew :fabric:runClient -Pshaders` adds Sodium and Iris for recording; put a shader pack in `run/shaderpacks/`.
 
 ## Pull requests
 

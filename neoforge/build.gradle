@@ -1,0 +1,90 @@
+plugins {
+	id 'multiloader-loader'
+	id 'net.neoforged.moddev'
+	id 'maven-publish'
+}
+
+base {
+	archivesName = "${mod_id}-neoforge"
+}
+
+sourceSets {
+	// In-world tests: never shipped, only added to the dev runs below.
+	gametest {
+		compileClasspath += main.output
+		runtimeClasspath += main.output
+	}
+}
+
+commonSources('main')
+// NeoForge has no separate client source set; client classes only load on the client.
+commonSources('client', 'main')
+commonSources('gametest')
+
+neoForge {
+	version = neoforge_version
+	addModdingDependenciesTo(sourceSets.gametest)
+
+	runs {
+		configureEach {
+			// Test functions only register in the dev runs, where the gametest classes exist.
+			systemProperty 'neoforge.enabledGameTestNamespaces', 'fertilegrounds-gametest'
+			sourceSet = sourceSets.gametest
+		}
+		client {
+			client()
+			gameDirectory = rootProject.file('run/neoforge')
+		}
+		server {
+			server()
+			gameDirectory = rootProject.file('run/neoforge-server')
+			programArgument '--nogui'
+		}
+		gameTestServer {
+			type = 'gameTestServer'
+			gameDirectory = rootProject.file('run/neoforge-gametest')
+			// A JUnit-style report, and `-PgametestFilter=<pattern>` runs only matching tests.
+			programArguments.addAll '--report', rootProject.file('build/gametest-neoforge-report.xml').absolutePath
+			if (project.hasProperty('gametestFilter')) {
+				programArguments.addAll '--tests', project.property('gametestFilter')
+			}
+		}
+	}
+
+	mods {
+		"${mod_id}" {
+			sourceSet sourceSets.main
+		}
+		// The tests are a separate dev-only mod, as on Fabric.
+		"fertilegrounds_gametest" {
+			sourceSet sourceSets.gametest
+		}
+	}
+}
+
+dependencies {
+	// Jade is optional: compiled against, never bundled. Dev runs include it; pass -PnoJade to
+	// check the mod works without it.
+	compileOnly "maven.modrinth:jade:${jade_neoforge_version}"
+	gametestCompileOnly "maven.modrinth:jade:${jade_neoforge_version}"
+	if (!project.hasProperty('noJade')) {
+		// Dev runs use the gametest classpath (see runs above), which includes main's classes.
+		gametestRuntimeOnly "maven.modrinth:jade:${jade_neoforge_version}"
+	}
+}
+
+processResources {
+	def props = [version: project.version, minecraft_version_range: minecraft_version_range, neoforge_version: neoforge_version]
+	inputs.properties props
+	filesMatching('META-INF/neoforge.mods.toml') {
+		expand props
+	}
+}
+
+publishing {
+	publications {
+		create('mavenJava', MavenPublication) {
+			from components.java
+		}
+	}
+}
