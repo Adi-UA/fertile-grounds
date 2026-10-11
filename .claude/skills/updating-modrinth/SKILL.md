@@ -19,10 +19,10 @@ Mirror a GitHub release onto the Modrinth project: one Modrinth version per jar,
 ## 1. Gather inputs
 
 ```bash
-V=1.2.0   # mod version being published
+V=2.0.0   # mod version being published
 D=build/modrinth-upload && rm -rf $D && mkdir -p $D
 gh release download v$V -R Adi-UA/fertile-grounds -D $D -p '*.jar'
-for b in 26.3 26.2 26.1; do   # 2.0+ ships 26.x only; 1.21.11 and older are frozen on 1.2.0
+for b in 26.1 26.2 26.3; do   # 2.0+ ships 26.x only; 1.21.11 and older are frozen on 1.2.0
   echo "$b $(git show "${b}:gradle.properties" | rg -o 'fabric_api_version=.*')"; done
 ```
 
@@ -65,11 +65,11 @@ el.dispatchEvent(new ClipboardEvent('paste', {clipboardData: dt, bubbles: true, 
 
 4. Check the editor now contains the new text only once, then click **Save**.
 
-Keep the description consistent with the GitHub README: the growth demo gif, the tier list, the latest feature section with its gif, the Fabric API requirement, the README link, and the Art section copied word for word. Embed gifs by raw URL (`https://raw.githubusercontent.com/Adi-UA/fertile-grounds/refs/heads/main/docs/<file>.gif`), since gallery uploads cap file size.
+Keep the description consistent with the GitHub README: the hero image, one section per feature with its gif, the texture table, the Fabric API requirement, the README and guide links, and the Art section copied word for word. Embed media by raw URL (`https://raw.githubusercontent.com/Adi-UA/fertile-grounds/refs/heads/main/docs/media/<file>`), since gallery uploads cap file size.
 
 ## 4. Create one version per jar
 
-From `https://modrinth.com/mod/fertile-grounds/versions`, for each jar:
+From `https://modrinth.com/mod/fertile-grounds/versions`, upload the jars oldest Minecraft version first (26.1, then 26.2, then 26.3), so the newest lands on top of the version list. For each jar:
 
 1. Click **Create version**. Use `find` for "file input in upload dialog", then `file_upload` the jar. Don't click the file input; that opens a native picker.
 2. **Metadata step:** loader must be Fabric, and detected versions must match the jar's Minecraft version. Modrinth reads the jar's `minecraft` range, which can detect more versions than the jar was built for. Click **Edit** beside Detected versions, **Clear all**, and tick only the jar's own version, matching the older uploads. Keep extra patch versions only when the jar was verified on them (the 26.1 jar covers 26.1, 26.1.1 and 26.1.2). The editor reflows after each click, so take a screenshot before the next one. Environment: client and server.
