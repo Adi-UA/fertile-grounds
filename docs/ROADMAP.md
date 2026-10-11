@@ -4,7 +4,7 @@ Fertile Grounds is a cozy, lightweight vanilla+ mod that complements big farming
 
 ## In 2.0
 
-Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3. Minecraft 1.21.11 and older stay on 1.2.0, since porting further back means an obfuscated build setup and rewriting four features.
+Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3, on Fabric, NeoForge, and Forge. Minecraft 1.21.11 and older stay on 1.2.0, since porting further back means an obfuscated build setup and rewriting four features.
 
 | Feature | Spec |
 |---|---|
@@ -15,6 +15,7 @@ Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3. Minecraft 1.21.11 and older 
 | Fairy Grove | `fairy-grove` |
 | Trader trades, Jade tooltips, guide book, advancements | `trader-offers`, `jade-tooltips`, `guide-book`, `mod-advancements` |
 | Tags and gamerules for every number | `fairy-content-tags`, `tuning-gamerules` |
+| NeoForge and Forge jars | `forge-loaders` |
 | Unit tests, GameTests, and the client log check | `verification-suite`, `in-world-tests` |
 
 ## Next
@@ -22,4 +23,3 @@ Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3. Minecraft 1.21.11 and older 
 | Change | What it adds |
 |---|---|
 | `add-translations` | A Crowdin project so players can translate the mod without Git |
-| `add-forge-and-neoforge` | NeoForge and Forge jars of 2.0.0 for Minecraft 26.1, 26.2, and 26.3, tested in the game on every loader |
