@@ -12,7 +12,7 @@ Each version branch (`26.1`, `26.2`, `main` for 26.3) is today a single Fabric L
 | `ServerLifecycleEvents` | chimes, grove builder | `ServerStartedEvent`, `ServerStoppingEvent` | same names in Forge |
 | `ServerPlayConnectionEvents.JOIN` | guide book gift | `PlayerEvent.PlayerLoggedInEvent` | same name in Forge |
 | `AttachmentRegistry` | visits, gift cooldowns, grove jobs, guide flag | `AttachmentType` in `NeoForgeRegistries.ATTACHMENT_TYPES` | vanilla `SavedData` (decision 3) |
-| `BlockTransformerHelper.registerTilling` | hoe tilling | `BlockToolModificationEvent`, `ItemAbilities.HOE_TILL` | `BlockToolModificationEvent`, `ToolActions.HOE_TILL` |
+| `BlockTransformerHelper.registerTilling` (26.3), `TillableBlockRegistry` (26.2 and older) | hoe tilling | 26.3: `neoforge:transformables` data map; 26.2 and older: `BlockToolModificationEvent`, `ItemAbilities.HOE_TILL` | 26.3: `RightClickBlock` running a vanilla `BlockTransformer`; 26.2 and older: `BlockToolModificationEvent`, `ToolActions.HOE_TILL` |
 | `PoiHelper` | Fairy Hotel lookup | vanilla `PoiType` through `RegisterEvent` | same |
 | `FabricDefaultAttributeRegistry` | Bean Fairy | `EntityAttributeCreationEvent` | `EntityAttributeCreationEvent` |
 | `GameRuleBuilder` | 13 gamerules | vanilla gamerule registry through `RegisterEvent` | same |
