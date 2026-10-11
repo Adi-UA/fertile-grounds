@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -57,21 +58,32 @@ public final class TestCatalog {
           ChimeHotelTests.class,
           RedstoneTests.class,
           TraderTests.class,
-          JadeDataTests.class,
           GuideBookTests.class,
           FairyGroveTests.class,
           LoaderHookTests.class);
 
+  /**
+   * Jade publishes no Forge build for Minecraft 26.x, so the Forge build leaves the Jade
+   * integration and these tests out; the other loaders compile and run them.
+   */
+  private static final String JADE_TESTS = "com.fertilegrounds.gametest.JadeDataTests";
+
   private TestCatalog() {}
 
   static List<Class<?>> classes() {
-    return CLASSES;
+    final List<Class<?>> classes = new ArrayList<>(CLASSES);
+    try {
+      classes.add(Class.forName(JADE_TESTS, false, TestCatalog.class.getClassLoader()));
+    } catch (final ClassNotFoundException e) {
+      // The Forge build, without Jade.
+    }
+    return classes;
   }
 
   /** Each test's id and the code it runs, for the {@code test_function} registry. */
   public static Map<Identifier, Consumer<GameTestHelper>> functions() {
     final Map<Identifier, Consumer<GameTestHelper>> functions = new LinkedHashMap<>();
-    for (final Class<?> type : CLASSES) {
+    for (final Class<?> type : classes()) {
       final Object tests = newInstance(type);
       for (final Method method : testMethods(type)) {
         functions.put(id(type, method), helper -> invoke(method, tests, helper));
@@ -83,7 +95,7 @@ public final class TestCatalog {
   /** Each test's id and its test-instance file, as written into the gametest data pack. */
   static Map<Identifier, JsonObject> instances() {
     final Map<Identifier, JsonObject> instances = new LinkedHashMap<>();
-    for (final Class<?> type : CLASSES) {
+    for (final Class<?> type : classes()) {
       for (final Method method : testMethods(type)) {
         final FertileTest test = method.getAnnotation(FertileTest.class);
         final Identifier id = id(type, method);

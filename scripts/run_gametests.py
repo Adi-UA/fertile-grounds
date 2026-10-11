@@ -20,7 +20,7 @@ from pathlib import Path
 
 LOADERS = ("fabric", "neoforge", "forge")
 # The Gradle task that runs the test server, per loader.
-TASKS = {"fabric": ":fabric:runGameTest", "neoforge": ":neoforge:runGameTestServer", "forge": ":forge:runGameTestServer"}
+TASKS = {"fabric": ":fabric:runGameTest", "neoforge": ":neoforge:runGameTestServer", "forge": ":forge:runGametestGameTestServer"}
 TEST_NAMESPACE = "fertilegrounds-gametest"
 LOG = Path("build/gametest.log")
 

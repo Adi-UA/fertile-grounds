@@ -89,7 +89,10 @@ def main() -> int:
                 loaded = True
                 deadline = time.time() + SETTLE_SECONDS
     finally:
-        os.killpg(client.pid, signal.SIGTERM)
+        try:
+            os.killpg(client.pid, signal.SIGTERM)
+        except (ProcessLookupError, PermissionError):
+            pass  # the client already exited, and its process group with it
         client.wait(timeout=60)
 
     problems = [entry.rstrip() for entry in entries(log) if is_problem(entry)]

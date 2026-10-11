@@ -315,7 +315,8 @@ class AssetConsistencyTest {
       if (Files.readString(file).contains("@FertileTest(")
           || Files.readString(file).contains("@FertileTest\n")) {
         final String className = file.getFileName().toString().replace(".java", "");
-        if (!catalog.contains(" " + className + ".class")) {
+        if (!catalog.contains(" " + className + ".class")
+            && !catalog.contains(".gametest." + className + "\"")) {
           missing.add(className);
         }
       }

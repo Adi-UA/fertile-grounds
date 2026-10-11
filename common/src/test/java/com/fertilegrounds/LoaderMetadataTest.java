@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,13 +23,17 @@ class LoaderMetadataTest {
 
   private static final Path FABRIC = Path.of("fabric/src/main/resources/fabric.mod.json");
 
-  private static final List<Path> TOML =
-      List.of(Path.of("neoforge/src/main/resources/META-INF/neoforge.mods.toml"));
+  /** Each mods.toml file and the key it names the mod's icon with. */
+  private static final Map<Path, String> TOML =
+      Map.of(
+          Path.of("neoforge/src/main/resources/META-INF/neoforge.mods.toml"), "iconFile",
+          Path.of("forge/src/main/resources/META-INF/mods.toml"), "logoFile");
 
   @Test
   void everyLoaderDescribesTheModTheSameWay() throws IOException {
     final JsonObject fabric = JsonParser.parseString(Files.readString(FABRIC)).getAsJsonObject();
-    for (final Path file : TOML) {
+    for (final Map.Entry<Path, String> entry : TOML.entrySet()) {
+      final Path file = entry.getKey();
       final String toml = Files.readString(file);
       final String where = file + " vs " + FABRIC;
       assertEquals(fabric.get("id").getAsString(), value(toml, "modId"), "mod id, " + where);
@@ -40,7 +44,8 @@ class LoaderMetadataTest {
           "description, " + where);
       assertEquals(
           fabric.get("license").getAsString(), value(toml, "license"), "license, " + where);
-      assertEquals(fabric.get("icon").getAsString(), value(toml, "iconFile"), "icon, " + where);
+      assertEquals(
+          fabric.get("icon").getAsString(), value(toml, entry.getValue()), "icon, " + where);
     }
   }
 
@@ -60,7 +65,7 @@ class LoaderMetadataTest {
     assertTrue(
         gradle.getProperty("minecraft_version_range").startsWith("[" + minecraft + ","),
         "minecraft_version_range in gradle.properties starts at " + minecraft);
-    for (final Path file : TOML) {
+    for (final Path file : TOML.keySet()) {
       assertTrue(
           Files.readString(file).contains("versionRange = \"${minecraft_version_range}\""),
           file + " reads its Minecraft range from gradle.properties");

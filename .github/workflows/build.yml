@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        loader: [fabric, neoforge]
+        loader: [fabric, neoforge, forge]
     steps:
       - name: checkout repository
         uses: actions/checkout@v6

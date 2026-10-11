@@ -3,4 +3,5 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}" apply false
 	id 'net.neoforged.moddev' version "${moddevgradle_version}" apply false
+	id 'net.minecraftforge.gradle' version "${forgegradle_version}" apply false
 }

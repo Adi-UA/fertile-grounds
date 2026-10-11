@@ -35,15 +35,15 @@
 
 ## 5. Forge build on main
 
-- [ ] 5.1 Add the `forge` subproject with ForgeGradle 7 following Forge's 26.3 MDK. Add `META-INF/mods.toml` (Minecraft range limited to 26.3, no Jade entry), the `@Mod` entry point, the `RegisterEvent` registrar, and the shared mixin config. Verified when the Forge GameTest server starts with no registration error.
-- [ ] 5.2 Add Forge implementations for every platform service, reusing the shared `SavedData` classes, and keep Jade classes out of the Forge jar. Verified when the loader-hook and saved-data GameTests from 4.2 pass on Forge, and `unzip -l` on the Forge jar lists no `compat/jade` class.
-- [ ] 5.3 Register `TestCatalog` through Forge's GameTest hooks with the `fertilegrounds` namespace enabled. Mark `JadeDataTests` to skip on Forge, with the reason. Add `--loader forge` to `run_gametests.py` and confirm the data-load markers with a planted broken tag. Verified when `python3 scripts/run_gametests.py --loader forge` passes every test except the Jade ones and fails on the planted tag.
-- [ ] 5.4 Start the Forge dedicated server, and extend `AssetConsistencyTest` to Forge's `mods.toml`. Verified when the server log has no class-loading error for `fertilegrounds`, and the metadata check fails on a planted mismatch.
+- [x] 5.1 Add the `forge` subproject with ForgeGradle 7 following Forge's 26.3 MDK. Add `META-INF/mods.toml` (Minecraft range limited to 26.3, no Jade entry), the `@Mod` entry point, the `RegisterEvent` registrar, and the shared mixin config. Verified when the Forge GameTest server starts with no registration error.
+- [x] 5.2 Add Forge implementations for every platform service, reusing the shared `SavedData` classes, and keep Jade classes out of the Forge jar. Verified when the loader-hook and saved-data GameTests from 4.2 pass on Forge, and `unzip -l` on the Forge jar lists no `compat/jade` class.
+- [x] 5.3 Register `TestCatalog` through Forge's GameTest hooks with the `fertilegrounds` namespace enabled. Mark `JadeDataTests` to skip on Forge, with the reason. Add `--loader forge` to `run_gametests.py` and confirm the data-load markers with a planted broken tag. Verified when `python3 scripts/run_gametests.py --loader forge` passes every test except the Jade ones and fails on the planted tag.
+- [x] 5.4 Start the Forge dedicated server, and extend `AssetConsistencyTest` to Forge's `mods.toml`. Verified when the server log has no class-loading error for `fertilegrounds`, and the metadata check fails on a planted mismatch.
 - [ ] 5.5 Add `forge` to the CI matrix, and add `--loader all` to `run_gametests.py`, which runs the three loaders' test servers in parallel in separate run folders. Verified when a push to `main` shows three green jobs running at the same time, and `--loader all` locally finishes in less than the three separate runs added together.
 
 ## 6. Client and in-game checks
 
-- [ ] 6.1 Add `--loader neoforge` and `--loader forge` to `client_log_check.py`. Verified when it boots each dev client with no missing model, texture, or sound warning.
+- [x] 6.1 Add `--loader neoforge` and `--loader forge` to `client_log_check.py`. Verified when it boots each dev client with no missing model, texture, or sound warning.
 - [ ] 6.2 Add these to the maintainer's in-game checklist for NeoForge and Forge, since the test server can't restart a world: "a half-built Fairy Grove finishes after a world restart" and "a pending fairy visit survives a world restart".
 - [ ] 6.3 Add "the creative tab lists every item in the same order as Fabric" to the checklist for both loaders.
 - [ ] 6.4 Check the design's Look and sound table in the NeoForge and Forge `runClient`, and add each row to the in-game checklist as "matches Fabric".
