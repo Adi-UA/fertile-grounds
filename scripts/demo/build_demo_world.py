@@ -46,7 +46,7 @@ MOD = "fertilegrounds"
 FILL_LIMIT = 32768
 
 # The plot, relative to the origin at spawn: stations run east along a path at z = 0.
-PLOT = (-58, -26, 140, 26)
+PLOT = (-58, -26, 186, 26)
 FLOOR_DEPTH = 8  # dirt this deep under the grass, so the grove's safety scan sees only dirt
 CLEAR_HEIGHT = 48  # air this high above the grass
 
@@ -58,6 +58,8 @@ EDGE_PLANTS = [
 MEADOW_PLANTS = EDGE_PLANTS + [
     "short_grass", "short_grass", "fern", "bush", "firefly_bush", "oxeye_daisy", "cornflower",
 ]  # fmt: skip
+
+AZALEA = ["flowering_azalea_leaves[persistent=true]", "azalea_leaves[persistent=true]"]
 
 FLOWERS = [
     "dandelion", "poppy", "blue_orchid", "allium", "azure_bluet",
@@ -138,6 +140,7 @@ BOXES = {
     "chime": ((59, 3), (71, 14)),
     "grove": ((99, -20), (137, 20)),
     "test_lot": ((-57, -19), (-9, 19)),
+    "hero": ((143, -20), (181, 20)),
 }
 
 
@@ -167,7 +170,7 @@ def build_spawn(s: Site) -> list[str]:
         (["Reset chime", "replant the", "Chime field", "reset/chime"], "reset/chime"),
         (["Reset grove", "shrine and", "hillside back", "reset/grove"], "reset/grove"),
         (["Reset test lot", "flat grass", "again", "reset/test_lot"], "reset/test_lot"),
-        (["Commands work", "typed too:", "/function", "fgdemo:<name>"], None),
+        (["Reset hero", "the hero grove", "and its fairies", "reset/hero"], "reset/hero"),
     ]
     for i, (lines, path) in enumerate(board):
         row, col = divmod(i, 4)
@@ -341,6 +344,103 @@ def build_grove(s: Site) -> list[str]:
     return c
 
 
+HERO_X = 162
+GROVE_RADIUS, CENTER_RADIUS, INNER_LINE, OUTER_LINE, PLOT_SPACING = 17, 4, 5, 15, 10
+
+
+def grove_cell(dx: int, dz: int) -> str:
+    """Mirrors GroveLayout.cell, so the hero grove looks like one the fairies built."""
+    ax, az = abs(dx), abs(dz)
+    if ax > GROVE_RADIUS or az > GROVE_RADIUS:
+        return "outside"
+    if ax <= CENTER_RADIUS and az <= CENTER_RADIUS:
+        return "center"
+    if ax > OUTER_LINE or az > OUTER_LINE:
+        return "meadow"
+    on_x, on_z = ax in (INNER_LINE, OUTER_LINE), az in (INNER_LINE, OUTER_LINE)
+    if on_x and on_z:
+        return "hive" if ax == INNER_LINE and az == INNER_LINE else "hedge"
+    if on_x or on_z:
+        return "border"
+
+    def plot_center(d: int) -> int:
+        return 0 if abs(d) <= CENTER_RADIUS else (1 if d > 0 else -1) * PLOT_SPACING
+
+    return "water" if dx == plot_center(dx) and dz == plot_center(dz) else "farmland"
+
+
+HERO_CROPS = ["wheat[age=7]", "carrots[age=7]", "potatoes[age=7]", "beetroots[age=3]"]
+
+
+def build_hero(s: Site) -> list[str]:
+    rng = random.Random(21)
+    c: list[str] = []
+    for dx in range(-GROVE_RADIUS, GROVE_RADIUS + 1):
+        for dz in range(-GROVE_RADIUS, GROVE_RADIUS + 1):
+            x, cell = HERO_X + dx, grove_cell(dx, dz)
+            if cell == "farmland":
+                # One crop per plot, so the plots read as a patchwork from above.
+                plot = (dx // PLOT_SPACING + 2) * 3 + (dz // PLOT_SPACING + 2)
+                crop = HERO_CROPS[plot % len(HERO_CROPS)]
+                c += [s.set(x, 0, dz, f"{MOD}:enriched_farmland[moisture=7]"), s.set(x, 1, dz, crop)]
+            elif cell == "water":
+                c.append(s.set(x, 0, dz, "water"))
+            elif cell == "border" and rng.randrange(4):
+                c.append(s.set(x, 1, dz, rng.choice(FLOWERS)))
+            elif cell in ("hive", "hedge"):
+                middle = "beehive[facing=south]" if cell == "hive" else AZALEA[0]
+                c += [s.set(x, 1, dz, middle), s.set(x, 2, dz, "lantern")]
+            elif cell == "meadow":
+                roll = rng.randrange(20)
+                if roll == 0:
+                    c += [s.set(x, 1, dz, AZALEA[0]), s.set(x, 2, dz, "lantern")]
+                elif roll < 4:
+                    c.append(s.set(x, 1, dz, rng.choice(AZALEA)))
+                elif roll < 10:
+                    c.append(s.set(x, 1, dz, rng.choice(FLOWERS + EDGE_PLANTS)))
+                elif roll < 16:
+                    c.append(s.set(x, 1, dz, "short_grass"))
+    # The shrine in the middle, ringed by a flower bed and four blossoming azaleas.
+    c.append(s.set(HERO_X, 0, 0, f"{MOD}:super_enriched_dirt"))
+    c.append(s.set(HERO_X, 1, 0, f"{MOD}:chime_fairy_hotel"))
+    for dx, dz in ((3, 0), (-3, 0), (0, 3), (0, -3)):
+        c.append(s.set(HERO_X + dx, 1, dz, f"{MOD}:fairy_hotel"))
+    for dx in range(-CENTER_RADIUS, CENTER_RADIUS + 1):
+        for dz in range(-CENTER_RADIUS, CENTER_RADIUS + 1):
+            if (dx, dz) == (0, 0) or (abs(dx) == 3 and dz == 0) or (abs(dz) == 3 and dx == 0):
+                continue
+            if abs(dx) == 4 and abs(dz) == 4:
+                c.append(s.set(HERO_X + dx, 1, dz, "flowering_azalea"))
+            elif rng.random() < 0.6:
+                c.append(s.set(HERO_X + dx, 1, dz, rng.choice(FLOWERS + ["pink_petals[flower_amount=4]"])))
+    c += hero_fairies(s)
+    c.append(station_sign(s, 142, -3, ["Hero grove", "a finished grove", "and its fairies", ""], 4))
+    return c
+
+
+def hero_fairies(s: Site) -> list[str]:
+    """About 30 Bean Fairies posed over the hero grove. With no AI they hover in place, wings still
+    beating, and never fly off; PersistenceRequired keeps them through restarts."""
+    rng = random.Random(33)
+    spots = [(dx, dz) for dx in (-10, 0, 10) for dz in (-10, 0, 10) if (dx, dz) != (0, 0)]
+    c = []
+    for dx, dz in spots:
+        for _ in range(3):
+            fx, fz = dx + rng.uniform(-3.5, 3.5), dz + rng.uniform(-3.5, 3.5)
+            c.append(fairy(s, HERO_X + fx, rng.uniform(1.6, 3.2), fz, rng.uniform(0, 360)))
+    for dx, dz in ((3, 0), (-3, 0), (0, 3), (0, -3), (1.5, 1.5), (-1.5, -1.5)):
+        c.append(fairy(s, HERO_X + dx + 0.5, rng.uniform(2.4, 3.4), dz + 0.5, rng.uniform(0, 360)))
+    return c
+
+
+def fairy(s: Site, x: float, y: float, z: float, yaw: float) -> str:
+    return (
+        f"summon {MOD}:bean_fairy {s.x + x:.2f} {s.y + y:.2f} {s.z + z:.2f} "
+        f"{{NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Invulnerable:1b,Rotation:[{yaw:.0f}f,0f],"
+        f'Tags:["fgdemo_hero"]}}'
+    )
+
+
 def build_test_lot(s: Site) -> list[str]:
     c = s.fill((-56, 0, -3), (-53, 0, 3), "water")
     c += [s.set(-55, 1, z, "lily_pad") for z in (-2, 1)] + [s.set(-54, 1, -1, "lily_pad")]
@@ -381,7 +481,7 @@ def in_station(x: int, z: int, margin: int = 1) -> bool:
 def build_scenery(s: Site) -> list[str]:
     """Cherry and birch trees along both edges and a flower meadow between the stations."""
     c: list[str] = []
-    for i, x in enumerate(range(-52, 137, 11)):
+    for i, x in enumerate(range(-52, PLOT[2] - 3, 11)):
         for z in (-23, 23):
             wood = "cherry" if (i + (z > 0)) % 3 else "birch"
             c += tree(s, x + (3 if z > 0 else 0), z, wood, 5 if wood == "cherry" else 6)
@@ -407,6 +507,7 @@ BUILDERS = {
     "chime": build_chime,
     "grove": build_grove,
     "test_lot": build_test_lot,
+    "hero": build_hero,
     "scenery": build_scenery,  # outside every station box, so only reset/all rebuilds it
 }
 
@@ -688,9 +789,17 @@ def run_checks(rcon: Rcon, s: Site) -> list[str]:
         "test lot pond": (-55, 0, 0, "water"),
         "edge tree": (-52, 1, -23, "birch_log"),
         "cherry by the spawn": (6, 1, -10, "cherry_log"),
+        "hero shrine": (162, 1, 0, f"{MOD}:chime_fairy_hotel"),
+        "hero ripe crop": (154, 1, -12, "#minecraft:crops"),
     }
     for label, (dx, dy, dz, block) in blocks.items():
         check(rcon, label, f"execute if block {s.at(dx, dy, dz)} {block}", f)
+    reply = rcon.run("execute if entity @e[tag=fgdemo_hero]")
+    match = re.search(r"count: (\d+)", reply, re.IGNORECASE)
+    count = int(match.group(1)) if match else 0
+    print(f"  {'pass' if count >= 25 else 'FAIL'}: {count} hero fairies hovering")
+    if count < 25:
+        f.append("hero fairies")
     for dx, dz in ((3, 0), (-3, 0), (0, 3), (0, -3)):
         check(rcon, f"shrine hotel at {dx},{dz}", f"execute if block {s.at(118 + dx, 1, dz)} {MOD}:fairy_hotel", f)
 

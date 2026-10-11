@@ -25,7 +25,7 @@ The README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and th
 - **THEN** its README says the branch stays on 1.2.0 and links to `main`
 
 ### Requirement: Demo world
-Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Library/Application Support/minecraft/saves/`, with cheats on, laid out so each core feature has its own spot along a short path: the soil comparison rows, a fairy farm with ten kinds of flowers and a hive, a Fairy Hotel garden, a Chime Hotel wired to a lamp, a Fairy Grove shrine with a clear area around it, the guide book on a lectern, and chests with every mod item. It SHALL load without errors in `runClient` and in a real 26.3 client with the 2.0.0 jar and Fabric API.
+Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Library/Application Support/minecraft/saves/`, with cheats on, laid out so each core feature has its own spot along a short path: the soil comparison rows, a fairy farm with ten kinds of flowers and a hive, a Fairy Hotel garden, a Chime Hotel wired to a lamp, a Fairy Grove shrine with a clear area around it, a finished hero grove with Bean Fairies that hover in place for photos, the guide book on a lectern, and chests with every mod item. It SHALL load without errors in `runClient` and in a real 26.3 client with the 2.0.0 jar and Fabric API.
 
 #### Scenario: Recording a visit
 - **WHEN** the user loads the demo world, uses Fairy Dust on the fairy farm from the supply chest, and sets the time to night
@@ -53,6 +53,10 @@ The world SHALL also hold an empty test lot of flat grass, with water nearby and
 #### Scenario: Quick growth check
 - **WHEN** the user runs `/function fgdemo:mode/test` and watches the soil rows
 - **THEN** the enriched rows visibly outgrow the vanilla row within a minute, and `/function fgdemo:reset/soil` replants them
+
+#### Scenario: Hero shot
+- **WHEN** the user walks past the grove shrine to the hero grove at any time, before or after restarting the world
+- **THEN** about 30 Bean Fairies hover over its ripe plots and shrine, wings beating, and none of them fly away or despawn
 
 #### Scenario: Back to recording
 - **WHEN** the user runs `/function fgdemo:mode/demo`
