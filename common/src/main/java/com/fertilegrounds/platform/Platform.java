@@ -1,0 +1,26 @@
+package com.fertilegrounds.platform;
+
+import com.mojang.serialization.Codec;
+
+/**
+ * The few things shared code needs from the mod loader: saving data on worlds and players, and
+ * checking for other mods. Everything else a loader does (events, registration hooks) happens in
+ * that loader's own entry point, which calls into shared code.
+ */
+public interface Platform {
+
+  Platform INSTANCE = Services.load(Platform.class);
+
+  /**
+   * A value saved with each world (each dimension has its own), read back after a restart.
+   *
+   * @param path the id under this mod's namespace, which must never change once released
+   * @param empty the value of a world that never saved one
+   */
+  <T> LevelData<T> levelData(String path, Codec<T> codec, T empty);
+
+  /** A flag saved on each player, kept through death and restarts. */
+  PlayerFlag playerFlag(String path);
+
+  boolean isModLoaded(String modId);
+}
