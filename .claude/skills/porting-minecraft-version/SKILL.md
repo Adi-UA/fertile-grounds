@@ -66,6 +66,7 @@ Add a row each time a hop turns up a change. Only list changes that were checked
 | 26.3 | `TradeSet` | Class with `getTrades()`; vanilla's Wandering Trader rare pool has 15 trades | Record with `trades()`; the pool has 16 |
 | 26.3 | Falling block codec | `FallingBlock.codec()` is abstract, so Enriched Sand names a `simpleCodec` | Removed (see Block codecs) |
 | 26.2 | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |
+| 26.2 | Advancement trigger classes | `net.minecraft.advancements.criterion` (`PlayerTrigger`) | `net.minecraft.advancements.triggers` |
 | 26.2 | `FlyingMoveControl` | Not generic: `new FlyingMoveControl(mob, ...)` | Generic: `new FlyingMoveControl<>(mob, ...)` |
 | 26.1 | Wandering Trader trades | Code: Fabric `TradeOfferHelper.registerWanderingTraderOffers(b -> b.addOffersToPool(WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, new VillagerTrades.ItemsForEmeralds(item, emeralds, count, maxUses, xp)))` | Data: `data/<ns>/villager_trade/wandering_trader/*.json` listed in the `minecraft:wandering_trader/uncommon` villager trade tag; no code |
 | 26.1 | Time of day | `level.getDayTime()` | World clocks: `level.getOverworldClockTime()` (used for gift cooldown days and Jarred Fairy expiry) |
