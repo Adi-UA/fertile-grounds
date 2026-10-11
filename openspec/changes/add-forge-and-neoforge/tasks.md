@@ -50,9 +50,9 @@
 
 ## 7. Docs and skills
 
-- [ ] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, and `openspec/config.yaml` to name all three loaders, what each jar needs, and that Jade tooltips need Fabric or NeoForge. Verified with a read-through against the `release-2-0` spec's Consistent docs scenarios.
-- [ ] 7.2 Update AGENTS.md (layout, per-loader Gradle tasks, the `--loader` flags) and keep it under 150 lines. Verified when every path and command it names resolves.
-- [ ] 7.3 Add a Loader column and the NeoForge and Forge rows to the porting divergence table in `.claude/skills/porting-minecraft-version/SKILL.md`, and add a step to port all loaders one version at a time.
+- [x] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, and `openspec/config.yaml` to name all three loaders, what each jar needs, and that Jade tooltips need Fabric or NeoForge. Verified with a read-through against the `release-2-0` spec's Consistent docs scenarios.
+- [x] 7.2 Update AGENTS.md (layout, per-loader Gradle tasks, the `--loader` flags) and keep it under 150 lines. Verified when every path and command it names resolves.
+- [x] 7.3 Add a Loader column and the NeoForge and Forge rows to the porting divergence table in `.claude/skills/porting-minecraft-version/SKILL.md`, and add a step to port all loaders one version at a time.
 - [ ] 7.4 Add NeoForge and Forge steps to the Modrinth and CurseForge skills: the version numbers `2.0.0+<mc>-neoforge` and `2.0.0+<mc>-forge`, each loader's tag, no Fabric API dependency, and the Beta type while a loader has no final build for that version.
 
 ## 8. Port to 26.2 and 26.1

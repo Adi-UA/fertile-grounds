@@ -22,3 +22,4 @@ Version 2.0 runs on Minecraft 26.1, 26.2, and 26.3. Minecraft 1.21.11 and older 
 | Change | What it adds |
 |---|---|
 | `add-translations` | A Crowdin project so players can translate the mod without Git |
+| `add-forge-and-neoforge` | NeoForge and Forge jars of 2.0.0 for Minecraft 26.1, 26.2, and 26.3, tested in the game on every loader |

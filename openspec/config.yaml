@@ -1,7 +1,8 @@
 schema: spec-driven
 
 context: |
-  Fertile Grounds is a cozy, lightweight vanilla+ Fabric mod. Features complement big farming
+  Fertile Grounds is a cozy, lightweight vanilla+ mod for Fabric, NeoForge, and Forge, built from
+  one shared codebase in common/. Features complement big farming
   mods (Farmer's Delight, Jade) instead of copying them, read shared tags so other mods' content
   works without code, and keep the vanilla look. docs/ROADMAP.md holds the release plan and the
   implementation order of changes.
@@ -10,8 +11,8 @@ context: |
   Every tunable number sits behind a gamerule. Every player-facing string uses a translation key.
   No AI art ships: the maintainer draws or traces every texture in Aseprite from vanilla textures, and AI
   only supplies guides, templates, palettes, and placeholders. Specs describe the look, never pixels.
-  Verification runs JUnit and Fabric GameTests with mock players (src/gametest); every bug fixed
-  adds a check.
+  Verification runs JUnit and GameTests with mock players (common/src/gametest) on every loader;
+  every bug fixed adds a check.
 
 rules:
   proposal:
@@ -21,7 +22,7 @@ rules:
     - Scenarios use WHEN/THEN and describe what a player or modpack maker observes.
     - Write numbers as defaults and name the gamerule that changes them.
   design:
-    - Name any Minecraft or Fabric API that differs between 26.1 and 26.3, and add it to the porting divergence table.
+    - Name any Minecraft, Fabric, NeoForge, or Forge API that differs between 26.1 and 26.3, and add it to the porting divergence table.
     - Include a "Look and sound" table with one row per player-facing moment (placing, breaking, using, ambient), naming its look, one vanilla sound, and one vanilla particle, all present in 26.1. Glowing parts use an emissive model layer the maintainer paints.
   tasks:
     - "Each task names its verification: a JUnit test, a GameTest run by `python3 scripts/run_gametests.py` (with a mock player for anything a player does), a `client_log_check.py` run, or an in-game checklist item for the maintainer."
