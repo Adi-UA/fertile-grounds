@@ -1,6 +1,6 @@
 # Fertile Grounds in detail
 
-The exact numbers, recipes, and settings behind each feature. The [README](../README.md) has the short version.
+The exact numbers, recipes, and tags behind each feature. The [README](../README.md) has the short version, and the [guide](GUIDE.md) has the friendly one plus every setting.
 
 ## Gameplay
 
@@ -74,7 +74,7 @@ A Wandering Trader can roll Fairy Dust or Fertilizer among its rare trades: 2 Fa
 
 ### Guide book
 
-Every player gets a **Fertile Grounds Guide** the first time they join a world with the mod, including worlds from older versions; it covers every feature in 12 short pages, in the player's own language. Lost it? Craft a new one from a Book and Bone Meal. Packs with their own quest book can turn the gift off with `fertilegrounds:give_guide_book false`.
+Every player gets a **Fertile Grounds Guide** the first time they join a world with the mod, including worlds from older versions; it covers every feature in 13 short pages (also [on GitHub](GUIDE.md)), in the player's own language. Lost it? Craft a new one from a Book and Bone Meal. Packs with their own quest book can turn the gift off with `fertilegrounds:give_guide_book false`.
 
 ### Redstone
 
@@ -112,28 +112,7 @@ Tags decide which blocks count as crops and flowers. Add to them with a datapack
 
 Gift loot lives in the loot tables `fertilegrounds:gameplay/fairy_gift/common`, `uncommon`, and `rare`; a datapack can replace any of them.
 
-Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances are whole percentages from 0 to 100, and a change applies right away.
-
-| Gamerule | Default | What it sets |
-|---|---|---|
-| `fertilegrounds:fairy_visit_chance` | 1 | Chance per player, per night, of a natural Bean Fairy visit (0 turns natural visits off; Fairy Dust still works) |
-| `fertilegrounds:fairy_flower_bonus` | 10 | Percent of the base visit chance each different small flower near the crop adds (up to 10 kinds) |
-| `fertilegrounds:fairy_hive_bonus` | 50 | Percent of the base visit chance a nearby beehive or bee nest adds |
-| `fertilegrounds:harvest_moon_multiplier` | 3 | What the visit chance is multiplied by on full-moon nights (1 to 10, not a percentage) |
-| `fertilegrounds:fairy_linger_seconds` | 60 | Seconds a fairy stays over the crops after growing them (0 to 600, not a percentage) |
-| `fertilegrounds:fairy_gift_chance_natural` | 30 | Chance a natural visit leaves its player a gift |
-| `fertilegrounds:fairy_gift_chance_dust` | 10 | Chance a Fairy Dust visit leaves its player a gift |
-| `fertilegrounds:fairy_gift_cooldown_days` | 3 | In-game days between gifts for one player (0 to 30, not a percentage) |
-| `fertilegrounds:jarred_fairy_days` | 3 | In-game days a Jarred Fairy waits before it slips away (1 to 30, not a percentage) |
-| `fertilegrounds:fairy_hotel_boost_chance` | 50 | Chance per random tick that an occupied hotel grows a crop within 4 blocks |
-| `fertilegrounds:fairy_hotel_petted_boost_chance` | 65 | The same chance for a hotel brushed since the last dawn |
-| `fertilegrounds:fairy_hotel_honey_chance` | 10 | Chance per random tick that an occupied hotel adds honey to a hive within 4 blocks |
-| `fertilegrounds:chime_ready_percent` | 80 | Percent of the crops near a Chime Hotel that must be fully grown for it to ring (1 to 100) |
-| `fertilegrounds:fairy_grove` | true | Whether a diamond on a Chime Hotel shrine builds a Fairy Grove (true or false) |
-| `fertilegrounds:fairy_hotel_speed` | true | Whether players near an occupied hotel get Fairy Speed (true or false) |
-| `fertilegrounds:give_guide_book` | true | Whether each player gets the guide book on their first join (true or false) |
-| `fertilegrounds:enriched_boost_chance` | 15 | Boost chance per random tick for Enriched Farmland and Enriched Sand |
-| `fertilegrounds:super_enriched_boost_chance` | 50 | Boost chance per random tick for Super Enriched Farmland |
+Gamerules tune the numbers per world. The [guide's settings section](GUIDE.md#settings-and-commands) lists every one with its default and a ready-to-paste command.
 
 ## Minecraft version
 

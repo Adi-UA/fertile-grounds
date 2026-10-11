@@ -1,6 +1,6 @@
-# Contributing
+# Contributing to Fertile Grounds
 
-Bug reports and ideas go in [GitHub issues](https://github.com/Adi-UA/fertile-grounds/issues/new/choose). For code changes, `AGENTS.md` covers the layout, commands, and tests.
+Thanks for helping! Bug reports and ideas go in [issues](https://github.com/Adi-UA/fertile-grounds/issues/new/choose), and questions go in [Discussions](https://github.com/Adi-UA/fertile-grounds/discussions). This page covers translations, then how to work on the code: setting up, how features get planned, and how testing works.
 
 ## Translations
 
@@ -16,3 +16,72 @@ To add or update a language:
 6. Open a pull request.
 
 Translations come from people who speak the language. Please don't submit machine translations.
+
+## Setting up
+
+You need Java 25 and Git. Gradle downloads everything else, including Minecraft.
+
+```bash
+git clone https://github.com/Adi-UA/fertile-grounds.git
+cd fertile-grounds
+./gradlew runClient                  # opens Minecraft with the mod (and Jade) loaded
+./gradlew runClient -PnoJade         # the same, without the optional Jade mod
+./gradlew runClient -Pshaders        # adds Sodium and Iris; put a shader pack zip in run/shaderpacks/
+./gradlew build                      # compiles, checks formatting, runs every test
+./gradlew spotlessApply              # formats the code the way the build expects
+./gradlew genSources                 # decompiles Minecraft so you can read its code
+```
+
+The `-P` flags work on any Gradle task, so `./gradlew runGameTest -PnoJade` runs the in-world tests without Jade.
+
+[AGENTS.md](AGENTS.md) maps out the code: which folder holds what, and every command. It's written for AI coding agents, but it's the quickest tour for people too.
+
+**Branches.** Each Minecraft version has its own branch. `main` is the newest (26.3), and `26.2` and `26.1` get each change after it works on `main`. Target `main` with your pull request unless a fix only applies to an older version. The 1.21.11, 1.21.10, 1.21.1, and 1.20.1 branches are frozen on version 1.2.0.
+
+## How features get planned
+
+Every feature starts as a written plan in [`openspec/`](openspec/), using [OpenSpec](https://github.com/Fission-AI/OpenSpec). A plan says what changes and why, what players will see (as WHEN/THEN scenarios), how it's built, and a task list where every task names how it's checked.
+
+| Folder | What's in it |
+|---|---|
+| `openspec/specs/` | How the mod behaves today, one folder per feature |
+| `openspec/changes/<name>/` | A planned change: `proposal.md`, `design.md`, `tasks.md`, and spec changes |
+| `openspec/changes/archive/` | Finished changes, kept for history |
+
+The flow is propose, build, archive:
+
+1. **Propose.** Write the change's plan. With [Claude Code](https://claude.com/claude-code), run `/opsx:propose <what you want>` and it drafts all four files. By hand, install the CLI (`npm install -g @fission-ai/openspec`) and run `openspec new change <name>`.
+2. **Build.** Work through `tasks.md` in order, checking each task off when its check passes. In Claude Code, `/opsx:apply <name>` does this, and `/opsx:update <name>` revises the plan when the code teaches you something.
+3. **Archive.** When every task is done, `/opsx:archive <name>` (or `openspec archive <name>`) merges the change's specs into `openspec/specs/`.
+
+`openspec validate <name> --strict` checks a plan's format, and `openspec list` shows what's in progress. [docs/ROADMAP.md](docs/ROADMAP.md) lists the changes in the order they were built, and ideas that were turned down, so check it before proposing something new.
+
+Small fixes don't need a plan. Open an issue first for anything bigger, so we can agree on the approach.
+
+## How testing works
+
+A green build only proves the code compiles, so most features have tests that run the game.
+
+| What | Command | What it checks |
+|---|---|---|
+| Unit tests | `./gradlew test` | Rules that don't need Minecraft (fairy timing, chances, grove layout), plus every lang key, model, texture, recipe, and doc table matching up |
+| GameTests | `./gradlew build` | Starts a test server and runs about 100 in-world tests, with fake players that use items, get messages, and earn advancements |
+| GameTests with a log scan | `python3 scripts/run_gametests.py` | The same tests, and it fails if any data file logs a load error; add `--filter 'fairy_grove*'` to run a few |
+| Without Jade | `./gradlew runGameTest -PnoJade` | The mod works when the optional Jade mod is missing |
+| Client check | `python3 scripts/client_log_check.py` | Opens the real game and fails on missing models or textures |
+
+GameTests live in `src/gametest/`, one class per feature, and each new class goes in `src/gametest/resources/fabric.mod.json`. Tests that change the time or gamerules get their own test environment, since tests sharing one run at the same time. Every bug fix adds a test that fails without the fix.
+
+Some things a test server can't judge: how a block looks, how a sound feels, or sleeping through the night. Check those yourself in `./gradlew runClient`, and say what you checked in your pull request.
+
+**The demo world.** `python3 scripts/demo/build_demo_world.py` builds a world with every feature laid out along a path, and copies it to your saves folder. Signs at spawn switch on fast-testing mode (quick crop growth, fairies every night) and reset any station, so it's the fastest way to try a change by hand. `./gradlew runClient -Pshaders` adds Sodium and Iris for recording; put a shader pack in `run/shaderpacks/`.
+
+## Pull requests
+
+1. Run `./gradlew spotlessApply` to format the code, then `./gradlew build`.
+2. Use [Conventional Commits](https://www.conventionalcommits.org/), like `fix: Let the Fairy Grove clear grass`.
+3. Keep each class to one job, and write comments that explain Minecraft quirks to someone new to modding. AGENTS.md has the rest of the house style.
+4. Every player-facing line goes through a translation key in `en_us.json`, written in plain, friendly English. If you change a guide book page, update [docs/GUIDE.md](docs/GUIDE.md) too; the unit tests check that they match.
+5. Don't edit textures. Every texture is drawn by hand, so suggest art changes in an issue instead.
+
+By contributing, you agree that your work is released under the project's [MIT license](LICENSE).
