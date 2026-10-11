@@ -41,6 +41,7 @@ python3 scripts/run_gametests.py --filter 'fairy_dust*'  # only tests whose name
 python3 scripts/client_log_check.py   # boots the client, fails on mod warnings
 ./gradlew runGameTest -PnoJade        # GameTests without Jade, to check the mod works without it
 ./gradlew runClient                   # dev client, for models and textures
+./gradlew runClient -Pshaders         # dev client with Sodium and Iris; put a shader pack in run/shaderpacks/
 ./gradlew genSources                  # decompile Minecraft to read real signatures
 ```
 
