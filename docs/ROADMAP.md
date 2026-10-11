@@ -28,14 +28,13 @@ Each step depends on the ones before it.
 | 14 | `add-jade-integration` | Optional Jade tooltips for soil, pending visits, hotel petting, and Chime Hotel crop counts | None |
 | 15 | `add-guide-book` | Vanilla written guide on first join, craftable copy | None |
 | 16 | `add-translations` | Translation-ready text and contributor guide | None |
-| 17 | `add-blight` | Blighted Dirt spreads into soil and withers crops; rare from witches, craftable for sabotage; cured by Fertilizer and fairies | Blighted Dirt |
-| 18 | `add-fairy-grove` | Diamond on a Chime Hotel shrine: fairies level a 35x35 area into lit, watered farm plots with flower borders, hives, and leaf hedges | None |
+| 17 | `add-fairy-grove` | Diamond on a Chime Hotel shrine: fairies level a 35x35 area into lit, watered farm plots with flower borders, hives, and leaf hedges | None |
 
-Visit polish comes before hotels because catching needs the linger window. The GameTest suite comes before hotels so their tests can use mock players from the start. The guide book comes late so its pages describe final behavior, and translations come next so every string so far has a key. Blight comes before the grove because the grove cures it; both add their own lang keys and guide pages.
+Visit polish comes before hotels because catching needs the linger window. The GameTest suite comes before hotels so their tests can use mock players from the start. The guide book comes late so its pages describe final behavior, and translations come next so every string so far has a key. The grove comes last because it builds on Chime Hotels; it adds its own lang keys and guide page.
 
 ### Release steps
 
-`prepare-2-0-release` holds them: after step 18 works on 26.3, backport to 26.2, then 26.1, running the full verification suite on each; bump `mod_version` to 2.0.0 on all three branches; build the demo world; swap in the user's art; then publish to GitHub, Modrinth, and CurseForge with the release skills.
+`prepare-2-0-release` holds them: after step 17 works on 26.3, backport to 26.2, then 26.1, running the full verification suite on each; bump `mod_version` to 2.0.0 on all three branches; build the demo world; swap in the user's art; then publish to GitHub, Modrinth, and CurseForge with the release skills.
 
 ## Considered and skipped
 
@@ -59,7 +58,8 @@ Visit polish comes before hotels because catching needs the linger window. The G
 | Per-farm opt-out, Fairy Dust on flowers, fairy stats | Not wanted, or low value |
 | Spyglass watching, sniffer-diggable soil, ancient flowers counting double | Not picked; spyglass went to the Chime Hotel instead |
 | Lean proofs of the rule classes | Dropped; JUnit and GameTests cover the rules |
+| Blighted Dirt (spreading cursed soil from witches, craftable for sabotage) | Built, then removed before release (2026-10-10): the user wants the mod to stay cozy |
 
 ## Next steps
 
-All 18 changes are built on `main` and pass the GameTests. What's left before 2.0.0: the user's in-game playthrough (changes 17 and 18 are still untested in game), the user's textures for Fertilizer, the three hotels, and Blighted Dirt (placeholders ship until then), a Crowdin project for translations, archiving the changes with `/opsx:archive`, then the release steps above.
+All 17 changes are built on `main`, archived except the four waiting on art or Crowdin, and backported to 26.2 and 26.1 at 2.0.0. What's left before 2.0.0: the demo world, the user's in-game check of the Fairy Grove, the user's textures for Fertilizer and the three hotels (placeholders ship until then), and publishing (see `prepare-2-0-release`).

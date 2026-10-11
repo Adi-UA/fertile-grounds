@@ -56,14 +56,6 @@ Hotels within 8 blocks of each other share their crop and honey help, so a clust
 
 A **Chime Hotel** (shapeless: an Occupied Fairy Hotel, a Note Block, and a Spyglass) does everything an occupied hotel does, and its fairy watches the field for you. Every 5 seconds it counts the crops within 8 blocks (2 up or down), and once at least 4 are there and 80% are fully grown, it rings a soft 3-note chime that players hear up to 32 blocks away. It rings once per harvest: after you harvest and replant, it rings again when the field is ready. It also chimes once when placed, so you learn the sound. Crops from other mods that never report being fully grown keep it from ringing; the `fertilegrounds:fairy_crops` tag decides what counts.
 
-### Blight
-
-**Blighted Dirt** is cursed, ashen soil. On each random tick it picks one touching block, and if that block is surface soil (dirt, grass, farmland, sand, or red sand, with nothing solid on top), it turns into Blighted Dirt 20% of the time. Enriched soil holds out twice as long and Super Enriched four times as long. Any plant on a block blight takes withers into a dead bush and drops nothing. Blight never crosses stone, a dirt path, water, or anything else outside the `fertilegrounds:blightable` tag, so a path around a farm protects it. Nothing grows on Blighted Dirt except dead bushes, and a hoe can't till it.
-
-Blight starts two ways. A witch killed by a player has a 1% chance to blight the soil in a 3x3 patch under it, and every player within 32 blocks reads a chat message about it. Or craft it (shapeless: Dirt + Nether Wart + Blaze Rod + Fermented Spider Eye), which is handy for sabotage on servers.
-
-To cure it, use **Fertilizer** on a blighted block (by hand or from a Dispenser) to turn it back into dirt. A Bean Fairy visit also cures the blight under its 5x5 patch.
-
 ### Fairy Grove
 
 Build a shrine: a **Chime Hotel** standing on **Super Enriched Dirt**, an occupied Fairy Hotel (or Chime Hotel) exactly 3 blocks north, south, east, and west of it at the same height, and at least 4 small flowers within 3 blocks. Use a **Diamond** on the Chime Hotel, and its fairies rebuild the 35x35 area around the shrine over about 30 seconds:
@@ -72,7 +64,7 @@ Build a shrine: a **Chime Hotel** standing on **Super Enriched Dirt**, an occupi
 - grass borders with flowers between the plots, a beehive with a lantern at each of the 4 crossings next to the shrine, and a flowering azalea hedge with a lantern at the other 12
 - a 2-block meadow rim of grass, flowers, and azalea bushes, some lit by lanterns
 
-The land is leveled to the shrine's soil: everything up to 24 blocks above it is cleared, and dips up to 8 blocks deep are filled with dirt. Blighted Dirt in the area turns back into dirt. The shrine's own 9x9 plot is never touched. It can't be undone.
+The land is leveled to the shrine's soil: everything up to 24 blocks above it is cleared, and dips up to 8 blocks deep are filled with dirt. The shrine's own 9x9 plot is never touched. It can't be undone.
 
 Before using the diamond, the grove checks that the area holds only natural terrain (the `fertilegrounds:grove_replaceable` tag: dirt, stone, sand, gravel, ores, logs, leaves, plants, crops, farmland, water, and similar). If anything else is there, such as a chest or a wall, you keep the diamond and the action bar names the block and where it is. An incomplete shrine also keeps the diamond and says what's missing. A block placed mid-build stays, along with the rest of its column. A grove interrupted by a restart finishes afterward.
 
@@ -115,7 +107,6 @@ Tags decide which blocks count as crops and flowers. Add to them with a datapack
 | Tag | Type | Default | Used for |
 |---|---|---|---|
 | `fertilegrounds:fairy_crops` | Block | `#minecraft:crops` | Crops a Bean Fairy, Fairy Dust, or a Fairy Hotel may grow, and the crops a Chime Hotel watches |
-| `fertilegrounds:blightable` | Block | Dirt, grass block, farmland, sand, red sand, and the mod's enriched soils | Soil that Blighted Dirt and the witch curse can take |
 | `fertilegrounds:grove_replaceable` | Block | Natural terrain: dirt, stone, sand, gravel, ores, logs, leaves, plants, crops, farmland, water, and lava | Blocks a Fairy Grove may clear or fill; anything else stops it |
 | `fertilegrounds:fairy_flowers` | Block and item | `#minecraft:small_flowers`, plus `#c:flowers/small` when another mod defines it | Flower-based features, the Fairy Hotel recipe, and the flower a Jarred Fairy leaves |
 
@@ -138,8 +129,6 @@ Gamerules tune the numbers per world with `/gamerule <name> <value>`. Chances ar
 | `fertilegrounds:fairy_hotel_petted_boost_chance` | 65 | The same chance for a hotel brushed since the last dawn |
 | `fertilegrounds:fairy_hotel_honey_chance` | 10 | Chance per random tick that an occupied hotel adds honey to a hive within 4 blocks |
 | `fertilegrounds:chime_ready_percent` | 80 | Percent of the crops near a Chime Hotel that must be fully grown for it to ring (1 to 100) |
-| `fertilegrounds:blight_spread_chance` | 20 | Chance per random tick that Blighted Dirt takes the plain soil it picked; enriched soil resists (0 stops all spreading) |
-| `fertilegrounds:witch_blight_chance` | 1 | Chance that a witch killed by a player blights the soil under it |
 | `fertilegrounds:fairy_grove` | true | Whether a diamond on a Chime Hotel shrine builds a Fairy Grove (true or false) |
 | `fertilegrounds:fairy_hotel_speed` | true | Whether players near an occupied hotel get Fairy Speed (true or false) |
 | `fertilegrounds:give_guide_book` | true | Whether each player gets the guide book on their first join (true or false) |

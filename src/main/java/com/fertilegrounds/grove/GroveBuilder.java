@@ -127,8 +127,8 @@ public final class GroveBuilder {
   }
 
   /**
-   * Rebuilds one column: clears it above the ground, fills dips below, cures blight, and places the
-   * layout block. A column that gained a non-natural block since the safety check is left alone.
+   * Rebuilds one column: clears it above the ground, fills dips below, and places the layout block.
+   * A column that gained a non-natural block since the safety check is left alone.
    */
   private static void buildColumn(
       final ServerLevel level,
@@ -147,16 +147,13 @@ public final class GroveBuilder {
         level.setBlockAndUpdate(ground.above(dy), Blocks.AIR.defaultBlockState());
       }
     }
-    // Fill down to the first solid block; below that, only blight changes.
-    boolean underground = false;
+    // Fill down to the first solid block.
     for (int dy = 1; dy <= FairyGrove.FILL_DEPTH; dy++) {
       final BlockPos pos = ground.below(dy);
-      final BlockState state = level.getBlockState(pos);
-      final boolean blighted = state.is(ModBlocks.BLIGHTED_DIRT);
-      if (blighted || (!underground && !state.isSolidRender())) {
-        level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
+      if (level.getBlockState(pos).isSolidRender()) {
+        break;
       }
-      underground |= blighted || state.isSolidRender();
+      level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
     }
     // Seeded by position, so the same grove gets the same flowers if it's ever rebuilt.
     final RandomSource random = RandomSource.create(ground.asLong());

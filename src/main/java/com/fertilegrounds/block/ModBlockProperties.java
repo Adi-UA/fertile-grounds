@@ -54,18 +54,6 @@ final class ModBlockProperties {
   }
 
   /**
-   * @return vanilla {@code Blocks.DIRT}'s settings with rooted dirt's softer sound and random
-   *     ticks, which drive the spreading
-   */
-  static BlockBehaviour.Properties blightedDirtProperties() {
-    return BlockBehaviour.Properties.of()
-        .mapColor(MapColor.TERRACOTTA_GRAY)
-        .randomTicks()
-        .strength(0.5F)
-        .sound(SoundType.ROOTED_DIRT);
-  }
-
-  /**
    * @return vanilla {@code Blocks.LANTERN}'s settings with a wooden map color and the hotel's own
    *     light level
    */

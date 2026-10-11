@@ -17,7 +17,7 @@ import net.minecraft.world.level.gamerules.GameRule;
  * tiers, ordinary crops still can't be planted here; this only speeds up things that already grow
  * on sand. Falls under gravity exactly like vanilla sand ({@link FallingBlock}).
  */
-public class GrowthBoostedSandBlock extends FallingBlock implements TieredSoil {
+public class GrowthBoostedSandBlock extends FallingBlock {
 
   private final GameRule<Integer> boostChanceRule;
 
@@ -55,11 +55,6 @@ public class GrowthBoostedSandBlock extends FallingBlock implements TieredSoil {
   /** The gamerule holding this soil's boost chance, which Jade shows. */
   public GameRule<Integer> boostChanceRule() {
     return this.boostChanceRule;
-  }
-
-  @Override
-  public SoilTier tier() {
-    return this.tier;
   }
 
   /** A comparator reads this soil's tier. */

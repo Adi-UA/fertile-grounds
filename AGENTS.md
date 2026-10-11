@@ -12,7 +12,6 @@ A Fabric mod adding tiered soil blocks that passively bone-meal crops, plus the 
 | `entity/` | `BeanFairy` mob, its `VisitCropGoal`, registration (`ModEntities`) |
 | `fairy/` | When fairies visit: `FairyTiming` (pure rules), `FairyVisits` (saved list), `FairyVisitScheduler` (tick handler) |
 | `hotel/` | Jarred Fairies and Fairy Hotels: `JarredFairyRules` (pure rules), `JarredFairies` (slipping away in the world), `ChimeRules` and `HotelChimes` (when a Chime Hotel rings); the hotel blocks live in `block/` |
-| `blight/` | Blighted Dirt's spread odds (`BlightRules`, pure), taking and curing soil (`Blight`), and the witch curse; the block lives in `block/` |
 | `grove/` | The Fairy Grove: `GroveLayout` (pure), `GroveShrine` (the shrine check), `FairyGrove` (start and safety scan), `GroveBuilder` (saved jobs, column building, builder fairies) |
 | `compat/jade/` | Optional Jade tooltips: server data providers here, tooltip lines in `src/client/.../compat/jade/`; loaded only through the `jade` entrypoint |
 | `mixin/` | Small mixins, only where Fabric API has no hook (container opened, item entity tick, creeper goals, farmland trampling) |
@@ -41,6 +40,7 @@ python3 scripts/run_gametests.py --filter 'fairy_dust*'  # only tests whose name
 python3 scripts/client_log_check.py   # boots the client, fails on mod warnings
 ./gradlew runGameTest -PnoJade        # GameTests without Jade, to check the mod works without it
 ./gradlew runClient                   # dev client, for models and textures
+./gradlew runClient -Pshaders         # dev client with Sodium and Iris; put a shader pack in run/shaderpacks/
 ./gradlew genSources                  # decompile Minecraft to read real signatures
 ```
 

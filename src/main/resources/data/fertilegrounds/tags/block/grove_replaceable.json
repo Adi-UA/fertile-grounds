@@ -12,7 +12,6 @@
     "#minecraft:saplings",
     "#minecraft:crops",
     "#minecraft:terracotta",
-    "#fertilegrounds:blightable",
     { "id": "#c:ores", "required": false },
     { "id": "#c:gravels", "required": false },
     { "id": "#c:sandstone/blocks", "required": false },
@@ -47,7 +46,6 @@
     "minecraft:firefly_bush",
     "minecraft:cave_vines",
     "minecraft:cave_vines_plant",
-    "fertilegrounds:blighted_dirt",
     "fertilegrounds:enriched_farmland",
     "fertilegrounds:super_enriched_farmland"
   ]
