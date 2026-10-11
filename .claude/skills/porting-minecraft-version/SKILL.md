@@ -87,6 +87,8 @@ These loader facts were checked on 26.3, and 26.2 matches them except for the ro
 | 26.3 | Forge | Version numbers | Forge 65.x: `loaderVersion = "[65,)"` in both `mods.toml` files (main and gametest), `data_pack_format` 107 | Forge 66.x: `[66,)`, format 121 |
 | 26.3 | All | Falling block codec | `FallingBlock.codec()` is abstract, so Enriched Sand names a `simpleCodec` | Removed (see Block codecs) |
 | 26.2 | All | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |
+| 26.2 | Forge | Version numbers | Forge 64.x: `loaderVersion = "[64,)"` in both `mods.toml` files, `data_pack_format` 101 | Forge 65.x: `[65,)`, format 107 |
+| 26.2 | NeoForge, Forge | Minecraft patch release | NeoForge's only stable 26.1 builds (26.1.2.x) and Forge's recommended build (64.1.0) run on 26.1.2, so `forge_minecraft_version=26.1.2`; NeoForge picks 26.1.2 from its own version, while `common` and Fabric stay on 26.1 | Both loaders build for 26.2 itself |
 | 26.2 | All | Advancement trigger classes | `net.minecraft.advancements.criterion` (`PlayerTrigger`) | `net.minecraft.advancements.triggers` |
 | 26.2 | All | `FlyingMoveControl` | Not generic: `new FlyingMoveControl(mob, ...)` | Generic: `new FlyingMoveControl<>(mob, ...)` |
 | 26.1 | All | `#minecraft:dirt` block tag | Also holds grass block, podzol, mycelium, moss, and mud | Only dirt, coarse dirt, and rooted dirt; grass, podzol, and mycelium moved to `#minecraft:grass_blocks` (the grove's tag lists both) |
