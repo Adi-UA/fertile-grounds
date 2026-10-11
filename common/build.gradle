@@ -1,0 +1,83 @@
+// All game code, data, and assets, compiled against plain Minecraft (NeoForm) so nothing here can
+// use a mod loader's API. The loader projects compile these same sources into their own jars.
+plugins {
+	id 'multiloader-common'
+	id 'net.neoforged.moddev'
+}
+
+sourceSets {
+	// Client-only code (models, renderers, tooltips). Kept apart so Fabric's split source sets
+	// still catch shared code that touches a client class.
+	client {
+		compileClasspath += main.output
+		runtimeClasspath += main.output
+	}
+	// In-world tests: never shipped, run on each loader's test server.
+	gametest {
+		compileClasspath += main.output
+		runtimeClasspath += main.output
+	}
+	test {
+		compileClasspath += gametest.output
+		runtimeClasspath += gametest.output
+	}
+}
+
+neoForge {
+	neoFormVersion = neo_form_version
+	addModdingDependenciesTo(sourceSets.client)
+	addModdingDependenciesTo(sourceSets.gametest)
+	addModdingDependenciesTo(sourceSets.test)
+}
+
+dependencies {
+	compileOnly "org.spongepowered:mixin:${mixin_version}"
+	compileOnly "io.github.llamalad7:mixinextras-common:${mixinextras_version}"
+
+	// Jade is optional: compiled against, never bundled. Its API is the same on every loader.
+	compileOnly "maven.modrinth:jade:${jade_version}"
+	clientCompileOnly "maven.modrinth:jade:${jade_version}"
+	gametestCompileOnly "maven.modrinth:jade:${jade_version}"
+
+	testImplementation platform("org.junit:junit-bom:${junit_version}")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+test {
+	useJUnitPlatform()
+	// Tests read repo files (docs/GUIDE.md, each loader's metadata) by repo-relative paths.
+	workingDir = rootProject.projectDir
+	inputs.files(rootProject.file("docs/GUIDE.md"), rootProject.file("gradle.properties"), fileTree("src"), fileTree("../fabric/src"), fileTree("../neoforge/src"), fileTree("../forge/src"))
+}
+
+// Writes one vanilla test-instance file per @FertileTest method, so every loader's test server
+// loads the same tests from data. See com.fertilegrounds.gametest.TestCatalog.
+def testInstances = layout.buildDirectory.dir("generated/testInstances")
+def generateTestInstances = tasks.register('generateTestInstances', JavaExec) {
+	classpath = sourceSets.gametest.runtimeClasspath
+	mainClass = 'com.fertilegrounds.gametest.TestCatalog'
+	args testInstances.get().asFile.absolutePath
+	inputs.files(sourceSets.gametest.output)
+	outputs.dir(testInstances)
+}
+
+// What the loader projects read: each source set's Java and resource folders.
+['main', 'client', 'gametest'].each { name ->
+	def suffix = name.capitalize()
+	def java = configurations.create("commonJava${suffix}") {
+		canBeResolved = false
+		canBeConsumed = true
+	}
+	def resources = configurations.create("commonResources${suffix}") {
+		canBeResolved = false
+		canBeConsumed = true
+	}
+	artifacts {
+		add(java.name, sourceSets.getByName(name).java.sourceDirectories.singleFile)
+		add(resources.name, sourceSets.getByName(name).resources.sourceDirectories.singleFile)
+	}
+}
+artifacts {
+	add('commonResourcesGametest', testInstances) { builtBy generateTestInstances }
+}

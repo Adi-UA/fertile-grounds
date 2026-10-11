@@ -5,7 +5,7 @@ description: Publish a Fertile Grounds release to CurseForge (author console htt
 
 # Updating CurseForge
 
-Mirror a GitHub release onto the CurseForge project: one file per jar, plus the summary, categories and description. Do Modrinth first (`.claude/skills/updating-modrinth/SKILL.md`), since CurseForge copies its summary and description. The user is signed in to CurseForge in Chrome; Claude drives the browser.
+Mirror a GitHub release onto the CurseForge project: one file per jar (Fabric, NeoForge and Forge), plus the summary, categories and description. Do Modrinth first (`.claude/skills/updating-modrinth/SKILL.md`), since CurseForge copies its summary and description. The user is signed in to CurseForge in Chrome; Claude drives the browser.
 
 ## Guardrails (read first)
 
@@ -54,7 +54,7 @@ Use the Modrinth body, but point the Fabric API link at `https://www.curseforge.
 
 ## 4. Add one file per jar (Files tab)
 
-Upload the jars oldest Minecraft version first (26.1, then 26.2, then 26.3), so the newest lands on top of the file list.
+Upload the jars oldest Minecraft version first (26.1, then 26.2, then 26.3; within a version: Fabric, NeoForge, Forge), so the newest lands on top of the file list. Use the loader and release type from the table in the Modrinth skill's step 1.
 
 1. Click **Add File**. Use `find` for "file input for jar upload", then `file_upload` the jar. Don't click Choose File; that opens a native picker.
 2. **Tags:** the form copies Environment, Modloader, Java and Minecraft from an earlier upload, and not always the one you expect. Wait 2 seconds, then read the real values:
@@ -68,14 +68,14 @@ Upload the jars oldest Minecraft version first (26.1, then 26.2, then 26.3), so 
    | 26.x | its own version only (pick `26.3`, never `26.3-snapshot`) | Java 25 |
    | 1.21.x, 1.20.1 (1.2.0 only, frozen; never upload 2.0+ for these) | its own version only | Java 17, 18, 19, 20, 21, 22, 25 |
 
-   Environment is always Client and Server; Modloader is Fabric. Remove a chip with its x (chips shift left, so screenshot before each click). Add a version by clicking the Minecraft field, typing it, and ticking the checkbox.
+   Environment is always Client and Server; Modloader is the jar's loader (Fabric, NeoForge or Forge, only one). Remove a chip with its x (chips shift left, so screenshot before each click). Add a version by clicking the Minecraft field, typing it, and ticking the checkbox.
 3. **Changelog:** the editor switches between Markdown and WYSIWYG on its own; plain text works in both. Click it and type one or two sentences.
-4. **Dependencies:** leave "Include default project relations" on. It adds Fabric API as a Required Dependency. CurseForge doesn't pin versions, so there's nothing else to set. Release Type stays Release.
+4. **Dependencies and type:** for a Fabric jar, leave "Include default project relations" on; it adds Fabric API as a Required Dependency, and CurseForge doesn't pin versions. For a NeoForge or Forge jar, turn it off, since those need no Fabric API. Release Type is Release, or Beta for a NeoForge or Forge file whose loader has no final build for that Minecraft version.
 5. Click **Add File**. The new row shows Uploading, then Processing, then Under Review. CurseForge moderators approve it, which can take hours, so "Under Review" counts as done.
 
 ## 5. Verify
 
-Reload the page (`location.reload()`), then re-read the General summary and categories, the Description `textarea`, and the Files rows with the snippet from step 1. Each new row needs the right file name, Release type, Minecraft version, Java tags, Client, Server and Fabric.
+Reload the page (`location.reload()`), then re-read the General summary and categories, the Description `textarea`, and the Files rows with the snippet from step 1. Each new row needs the right file name, release type, Minecraft version, Java tags, Client, Server and its one loader, and only Fabric files list Fabric API as a relation.
 
 ## 6. Report
 

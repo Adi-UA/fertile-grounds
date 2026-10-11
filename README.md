@@ -10,7 +10,7 @@
 
 I originally started this little farming mod for my partner and me to play on our private server. It began as a few richer soils that save you from bone-mealing the same field over and over, and it grew from there: a shy Bean Fairy who visits at night, hotels for fairies who decide to stay, and, late in the game, whole gardens the fairies build for you.
 
-**Richer soil, shy edamame fairies, and a farm that grows a little faster every day.** Fertile Grounds is a cozy Fabric mod that keeps the vanilla look and plays nicely with big farming mods. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
+**Richer soil, shy edamame fairies, and a farm that grows a little faster every day.** Fertile Grounds is a cozy mod for Fabric, NeoForge, and Forge that keeps the vanilla look and plays nicely with big farming mods. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
 
 ![Bean Fairies hovering over a flower-filled Fairy Grove at night, lit by lanterns](docs/media/hero.jpg)
 
@@ -72,7 +72,7 @@ A cozy farm is fun. Breaking 400 dirt blocks to build one the first time is not.
 
 ## Little extras
 
-- Optional **[Jade](https://modrinth.com/mod/jade)** tooltips show soil boosts, coming visits, and how many crops are ready.
+- Optional **[Jade](https://modrinth.com/mod/jade)** tooltips show soil boosts, coming visits, and how many crops are ready, on Fabric and NeoForge.
 - Wandering Traders sometimes sell Fairy Dust and Fertilizer.
 - Its own advancement tab, with seven advancements to earn.
 
@@ -82,14 +82,14 @@ Fertile Grounds is made to drop into a modpack without fuss. It hasn't been trie
 
 - **It builds on vanilla.** The new farmland is vanilla farmland underneath, so crops, hoes, and other mods' farming tools treat it like the real thing. No world generation changes, and no new biomes or ores.
 - **Tags instead of hard-coded lists.** Fairies grow anything in the crops tag and count flowers from the shared `c:flowers/small` tag, so crops and flowers from other mods join in with no extra code.
-- **Light touch on Minecraft's code.** It uses Fabric API's hooks wherever it can, with only four small mixins, each for a spot Fabric API doesn't cover. Fewer mixins means fewer clashes with other mods.
+- **Light touch on Minecraft's code.** It uses each loader's own hooks wherever it can, with only four small mixins, each for a spot no loader covers. Fewer mixins means fewer clashes with other mods.
 - **Optional extras stay optional.** Jade support loads only when Jade is installed, and the tests run with and without it.
 - **Settings live in the world.** Every number is a gamerule, so a server sets them once and every player sees the same rules, and datapacks can replace the trades, gift loot, and tags.
-- **Tested in the game.** About 100 automated in-world tests run on every build for each Minecraft version, along with a check that the game loads every model and texture with no warnings.
+- **Tested in the game.** About 100 automated in-world tests run on every build for each Minecraft version and each loader, along with a check that the game loads every model and texture with no warnings.
 
 ## Versions
 
-Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, and 26.3** with [Fabric API](https://modrinth.com/mod/fabric-api). On Minecraft 1.21.11 or older, use version 1.2.0, which has the enriched soils and Bean Fairy visits. Only 26.1 and newer get new features from now on.
+Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, and 26.3**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**. The NeoForge and Forge jars need nothing else. Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for 26.x. On Minecraft 1.21.11 or older, use version 1.2.0, which has the enriched soils and Bean Fairy visits. Only 26.1 and newer get new features from now on.
 
 ## For modpack makers
 
