@@ -1,0 +1,100 @@
+"""Boots the dev client to the title screen and fails on any warning or error about this mod.
+
+The dedicated server never loads models, textures, or sounds, so the GameTests can't see a broken
+asset. The client logs one as a warning and draws the purple-black placeholder or plays nothing,
+so this script reads that log instead. It takes about a minute; run it for changes that touch
+assets.
+
+Usage (from the repo root): python3 scripts/client_log_check.py
+"""
+
+import os
+import queue
+import re
+import signal
+import subprocess
+import sys
+import threading
+import time
+
+MOD_ID = "fertilegrounds"
+BOOT_TIMEOUT_SECONDS = 300
+# Atlases are built once resource loading finishes, after every model and texture warning, so the
+# block atlas line means the client reached the title screen.
+LOADED_MARKER = "textures/atlas/blocks.png-atlas"
+SETTLE_SECONDS = 5  # keep reading a little longer for late sound warnings
+
+# Every log entry starts with a timestamp; some warnings (missing texture references) continue
+# on the next lines, which is where the texture name appears.
+ENTRY_START = re.compile(r"^\[\d{2}:\d{2}:\d{2}\] \[[^\]]+/(\w+)\]")
+
+
+def entries(lines: list[str]) -> list[str]:
+    """Joins each log entry with its continuation lines."""
+    grouped: list[str] = []
+    for line in lines:
+        if ENTRY_START.match(line) or not grouped:
+            grouped.append(line)
+        else:
+            grouped[-1] += line
+    return grouped
+
+
+def is_problem(entry: str) -> bool:
+    match = ENTRY_START.match(entry)
+    return bool(match) and match.group(1) in ("WARN", "ERROR") and MOD_ID in entry
+
+
+def pump(stream, into: queue.Queue) -> None:
+    """Copies each line of the stream into the queue, then None once the stream closes."""
+    for line in stream:
+        into.put(line)
+    into.put(None)
+
+
+def main() -> int:
+    # A new session lets us stop Gradle and the game process it starts in one signal.
+    client = subprocess.Popen(
+        ["./gradlew", "runClient", "--console=plain"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        start_new_session=True,
+    )
+    # The idle title screen prints nothing, so a plain readline() would block forever. A reader
+    # thread feeds a queue instead, and the loop below waits on it with a timeout.
+    lines: queue.Queue[str | None] = queue.Queue()
+    threading.Thread(target=pump, args=(client.stdout, lines), daemon=True).start()
+    log: list[str] = []
+    initialized = loaded = False
+    deadline = time.time() + BOOT_TIMEOUT_SECONDS
+    try:
+        while (remaining := deadline - time.time()) > 0:
+            try:
+                line = lines.get(timeout=remaining)
+            except queue.Empty:
+                break
+            if line is None:
+                break  # the client exited, most likely a crash
+            log.append(line)
+            initialized |= "Fertile Grounds initializing" in line
+            if initialized and not loaded and LOADED_MARKER in line:
+                loaded = True
+                deadline = time.time() + SETTLE_SECONDS
+    finally:
+        os.killpg(client.pid, signal.SIGTERM)
+        client.wait(timeout=60)
+
+    problems = [entry.rstrip() for entry in entries(log) if is_problem(entry)]
+    for problem in problems:
+        print(f"FAIL: {problem}")
+    if not loaded:
+        print("".join(log[-60:]))
+        print("FAIL: client never reached the title screen")
+        return 1
+    print("pass: client reached the title screen" + ("" if problems else " with no warnings for " + MOD_ID))
+    return 1 if problems else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

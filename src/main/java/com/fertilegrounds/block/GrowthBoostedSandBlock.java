@@ -1,15 +1,17 @@
 package com.fertilegrounds.block;
 
 import com.fertilegrounds.util.GrowthBoostUtil;
-import com.mojang.serialization.Codec;
+import com.fertilegrounds.util.ModGameRules;
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRule;
 
 /**
  * A sand variant that passively fertilizes whatever grows directly on top of it (cactus, sugar
@@ -17,28 +19,33 @@ import net.minecraft.world.level.block.state.BlockState;
  * tiers, ordinary crops still can't be planted here; this only speeds up things that already grow
  * on sand. Falls under gravity exactly like vanilla sand ({@link FallingBlock}).
  */
-public class GrowthBoostedSandBlock extends FallingBlock {
+public class GrowthBoostedSandBlock extends FallingBlock implements TieredSoil {
 
+  /**
+   * Before 26.3, every falling block names a codec. Vanilla only uses it to describe the block
+   * type, so it rebuilds the one Enriched Sand the mod registers.
+   */
   public static final MapCodec<GrowthBoostedSandBlock> CODEC =
-      RecordCodecBuilder.mapCodec(
-          instance ->
-              instance
-                  .group(
-                      propertiesCodec(),
-                      Codec.FLOAT
-                          .fieldOf("growth_boost_chance")
-                          .forGetter(block -> block.growthBoostChance))
-                  .apply(instance, GrowthBoostedSandBlock::new));
+      simpleCodec(
+          properties ->
+              new GrowthBoostedSandBlock(
+                  properties, ModGameRules.ENRICHED_BOOST_CHANCE, SoilTier.ENRICHED));
 
-  private final float growthBoostChance;
+  private final GameRule<Integer> boostChanceRule;
+
+  private final SoilTier tier;
 
   /**
    * @param properties block properties, e.g. from {@code ModBlockProperties.sandProperties()}
-   * @param growthBoostChance per-random-tick probability (0.0-1.0) of fertilizing the plant above
+   * @param boostChanceRule the gamerule holding the per-random-tick percent chance of fertilizing
+   *     the plant above, read on every tick so {@code /gamerule} changes apply at once
+   * @param tier the tier a comparator reads
    */
-  public GrowthBoostedSandBlock(final Properties properties, final float growthBoostChance) {
+  public GrowthBoostedSandBlock(
+      final Properties properties, final GameRule<Integer> boostChanceRule, final SoilTier tier) {
     super(properties);
-    this.growthBoostChance = growthBoostChance;
+    this.boostChanceRule = boostChanceRule;
+    this.tier = tier;
   }
 
   @Override
@@ -58,6 +65,29 @@ public class GrowthBoostedSandBlock extends FallingBlock {
       final BlockPos pos,
       final RandomSource random) {
     super.randomTick(state, world, pos, random);
-    GrowthBoostUtil.tryBoostAbove(world, pos, random, this.growthBoostChance);
+    GrowthBoostUtil.tryBoostAbove(
+        world, pos, random, world.getGameRules().get(this.boostChanceRule));
+  }
+
+  /** The gamerule holding this soil's boost chance, which Jade shows. */
+  public GameRule<Integer> boostChanceRule() {
+    return this.boostChanceRule;
+  }
+
+  @Override
+  public SoilTier tier() {
+    return this.tier;
+  }
+
+  /** A comparator reads this soil's tier. */
+  @Override
+  protected boolean hasAnalogOutputSignal(final BlockState state) {
+    return true;
+  }
+
+  @Override
+  protected int getAnalogOutputSignal(
+      final BlockState state, final Level level, final BlockPos pos, final Direction direction) {
+    return this.tier.comparatorSignal();
   }
 }

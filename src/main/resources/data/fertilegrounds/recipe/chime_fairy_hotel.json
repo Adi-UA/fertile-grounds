@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "fertilegrounds:fairy_hotel",
+    "minecraft:note_block",
+    "minecraft:spyglass"
+  ],
+  "result": {
+    "count": 1,
+    "id": "fertilegrounds:chime_fairy_hotel"
+  }
+}

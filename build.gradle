@@ -8,11 +8,18 @@ version = "${project.mod_version}+${project.minecraft_version}"
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	// Modrinth's maven, only for the optional Jade integration (the setup Jade's docs recommend).
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 
 loom {
@@ -26,6 +33,28 @@ loom {
 	}
 }
 
+// In-world tests with Fabric API's GameTest module. Loom adds a separate "gametest" source set
+// (src/gametest), which never ships in the mod jar, and a runGameTest task that runs every test on a
+// headless server and fails the build if any test fails.
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "fertilegrounds-gametest"
+		enableGameTests = true
+		enableClientGameTests = false
+		eula = true
+	}
+}
+
+// Every GameTest run writes a JUnit-style report, and `-PgametestFilter=<pattern>` (for example
+// '*fertilizer*') runs only the tests whose ids match.
+loom.runs.matching { it.name == "gameTest" }.configureEach {
+	vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.file("gametest-report.xml").get().asFile}"
+	if (project.hasProperty("gametestFilter")) {
+		vmArg "-Dfabric-api.gametest.filter=${project.property("gametestFilter")}"
+	}
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	// Minecraft ${project.minecraft_version} ships unobfuscated, so there's no mapping step and
@@ -35,6 +64,14 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	// Jade is optional: compiled against, never bundled, and only loaded through its own
+	// entrypoint. Dev runs include it; pass -PnoJade to check the mod works without it.
+	compileOnly "maven.modrinth:jade:${project.jade_version}"
+	gametestCompileOnly "maven.modrinth:jade:${project.jade_version}"
+	if (!project.hasProperty("noJade")) {
+		localRuntime "maven.modrinth:jade:${project.jade_version}"
+	}
 
 	testImplementation platform("org.junit:junit-bom:${project.junit_version}")
 	testImplementation "org.junit.jupiter:junit-jupiter"

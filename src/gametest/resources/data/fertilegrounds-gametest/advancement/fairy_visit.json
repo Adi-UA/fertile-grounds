@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "done": {
+      "trigger": "fertilegrounds:fairy_visit"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

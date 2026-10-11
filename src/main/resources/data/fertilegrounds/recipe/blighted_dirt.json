@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:dirt",
+    "minecraft:nether_wart",
+    "minecraft:blaze_rod",
+    "minecraft:fermented_spider_eye"
+  ],
+  "result": {
+    "id": "fertilegrounds:blighted_dirt"
+  }
+}
