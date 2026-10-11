@@ -16,7 +16,6 @@ Late in a world, players have diamonds, hotels full of fairies, and Super Enrich
   - One-block flower borders run between the plots.
   - At the 16 border crossings: the 4 inner ones get a beehive with a lantern on top, and the 12 outer ones get a flowering azalea leaf hedge with a lantern on top.
   - A 2-block meadow rims the edge, with grass, flowers, and azalea leaf bushes lit by lanterns.
-- **Blight:** every Blighted Dirt in the area turns back into dirt (`add-blight`).
 - **Server control:** the gamerule `fairy_grove` (default true) turns the shrine off.
 - A guide book page and the gameplay docs explain the shrine.
 
@@ -36,4 +35,4 @@ None.
 
 ## Impact
 
-A use-on-block hook for diamonds on the Chime Hotel, a pure layout class, a scan and a column-by-column builder saved with the world, a block tag, a gamerule, lang keys, and a guide page. Depends on `add-chime-hotel`, `add-fertilizer` (Super Enriched Dirt), and `add-blight`.
+A use-on-block hook for diamonds on the Chime Hotel, a pure layout class, a scan and a column-by-column builder saved with the world, a block tag, a gamerule, lang keys, and a guide page. Depends on `add-chime-hotel`, and `add-fertilizer` (Super Enriched Dirt).

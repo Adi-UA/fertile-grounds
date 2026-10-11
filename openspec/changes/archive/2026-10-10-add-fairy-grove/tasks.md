@@ -13,7 +13,7 @@
 ## 3. Building
 
 - [x] 3.1 Add `GroveJobs` and the column builder; verify a GameTest on a small hill builds the full layout (spot checks of farmland moisture, water, hives, hedge leaves persistent, lanterns) and leaves the center plot untouched
-- [x] 3.2 Verify GameTests that a chest placed mid-build is left alone, Blighted Dirt in the area is gone, and nothing happens with the gamerule off
+- [x] 3.2 Verify GameTests that a chest placed mid-build is left alone and nothing happens with the gamerule off
 - [x] 3.3 Verify building resumes after a reload by saving and reloading the job attachment in a GameTest; add "stop the server mid-build and rejoin" to the in-game checklist
 - [x] 3.4 Add the 4 builder fairies; verify a GameTest sees them spawn, never start a visit, and despawn when the job ends
 
