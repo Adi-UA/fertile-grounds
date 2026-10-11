@@ -24,9 +24,15 @@ You need Java 25 and Git. Gradle downloads everything else, including Minecraft.
 ```bash
 git clone https://github.com/Adi-UA/fertile-grounds.git
 cd fertile-grounds
-./gradlew runClient     # opens Minecraft with the mod loaded
-./gradlew genSources    # decompiles Minecraft so you can read its code
+./gradlew runClient                  # opens Minecraft with the mod (and Jade) loaded
+./gradlew runClient -PnoJade         # the same, without the optional Jade mod
+./gradlew runClient -Pshaders        # adds Sodium and Iris; put a shader pack zip in run/shaderpacks/
+./gradlew build                      # compiles, checks formatting, runs every test
+./gradlew spotlessApply              # formats the code the way the build expects
+./gradlew genSources                 # decompiles Minecraft so you can read its code
 ```
+
+The `-P` flags work on any Gradle task, so `./gradlew runGameTest -PnoJade` runs the in-world tests without Jade.
 
 [AGENTS.md](AGENTS.md) maps out the code: which folder holds what, and every command. It's written for AI coding agents, but it's the quickest tour for people too.
 
