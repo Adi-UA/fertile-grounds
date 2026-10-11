@@ -7,18 +7,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** Enriched or Super Enriched Dirt: plain dirt that a comparator reads as its tier. */
-public class EnrichedDirtBlock extends Block implements TieredSoil {
+public class EnrichedDirtBlock extends Block {
 
   private final SoilTier tier;
 
   public EnrichedDirtBlock(final Properties properties, final SoilTier tier) {
     super(properties);
     this.tier = tier;
-  }
-
-  @Override
-  public SoilTier tier() {
-    return this.tier;
   }
 
   @Override

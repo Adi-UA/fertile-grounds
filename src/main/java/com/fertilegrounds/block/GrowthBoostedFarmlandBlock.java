@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
  * conditions and odds, just a corrected target. Trampling also skips farmland near an occupied
  * Fairy Hotel, like {@code FarmlandBlockMixin} does for vanilla farmland.
  */
-public class GrowthBoostedFarmlandBlock extends FarmlandBlock implements TieredSoil {
+public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
 
   private static final float TRAMPLE_ROLL_FALL_DISTANCE_OFFSET = 0.5F;
   private static final float MIN_TRAMPLE_BOUNDING_BOX_VOLUME = 0.512F;
@@ -92,11 +92,6 @@ public class GrowthBoostedFarmlandBlock extends FarmlandBlock implements TieredS
   /** The gamerule holding this soil's boost chance, which Jade shows. */
   public GameRule<Integer> boostChanceRule() {
     return this.boostChanceRule;
-  }
-
-  @Override
-  public SoilTier tier() {
-    return this.tier;
   }
 
   /** A comparator reads this soil's tier. */

@@ -25,7 +25,7 @@ The README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and th
 - **THEN** its README says the branch stays on 1.2.0 and links to `main`
 
 ### Requirement: Demo world
-Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Library/Application Support/minecraft/saves/`, with cheats on, laid out so each core feature has its own spot along a short path: the soil comparison rows, a fairy farm with ten kinds of flowers and a hive, a Fairy Hotel garden, a Chime Hotel wired to a lamp, a blighted plot walled off by a path, a Fairy Grove shrine with a clear area around it, the guide book on a lectern, and chests with every mod item. It SHALL load without errors in `runClient` and in a real 26.3 client with the 2.0.0 jar and Fabric API.
+Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Library/Application Support/minecraft/saves/`, with cheats on, laid out so each core feature has its own spot along a short path: the soil comparison rows, a fairy farm with ten kinds of flowers and a hive, a Fairy Hotel garden, a Chime Hotel wired to a lamp, a Fairy Grove shrine with a clear area around it, the guide book on a lectern, and chests with every mod item. It SHALL load without errors in `runClient` and in a real 26.3 client with the 2.0.0 jar and Fabric API.
 
 #### Scenario: Recording a visit
 - **WHEN** the user loads the demo world, uses Fairy Dust on the fairy farm from the supply chest, and sets the time to night
@@ -41,18 +41,18 @@ Before publishing, a 26.3 save named "Fertile Grounds Demo" SHALL exist in `~/Li
 
 ### Requirement: Demo world doubles as a test world
 The demo save SHALL keep its datapack installed so the user can test features quickly. A sign board at spawn SHALL list these commands:
-- `/function fgdemo:reset/<station>` and `/function fgdemo:reset/all` rebuild a station, or every station, to its starting state, including the blighted plot and the grove area after a grove was built
-- `/function fgdemo:mode/test` sets fast-testing gamerules: random tick speed 30, `fairy_visit_chance` 100, `blight_spread_chance` 100, `witch_blight_chance` 100, `jarred_fairy_days` 1, and night
+- `/function fgdemo:reset/<station>` and `/function fgdemo:reset/all` rebuild a station, or every station, to its starting state, including the grove area after a grove was built
+- `/function fgdemo:mode/test` sets fast-testing gamerules: random tick speed 30, `fairy_visit_chance` 100, `jarred_fairy_days` 1, and night
 - `/function fgdemo:mode/demo` restores the still recording settings, and `/function fgdemo:mode/default` restores every mod gamerule to its default
-The world SHALL also hold an empty test lot of flat grass, with water nearby and room for a second grove, and a supply chest with witch and Bean Fairy spawn eggs.
+The world SHALL also hold an empty test lot of flat grass, with water nearby and room for a second grove, and a supply chest with Bean Fairy spawn eggs.
 
 #### Scenario: Grove again
 - **WHEN** the user builds a grove, then runs `/function fgdemo:reset/grove`
 - **THEN** the hillside and the shrine are back as they were, ready for another diamond
 
-#### Scenario: Quick blight check
-- **WHEN** the user runs `/function fgdemo:mode/test` and watches the blighted plot
-- **THEN** blight visibly spreads within a minute, and `/function fgdemo:reset/blight` puts the plot back
+#### Scenario: Quick growth check
+- **WHEN** the user runs `/function fgdemo:mode/test` and watches the soil rows
+- **THEN** the enriched rows visibly outgrow the vanilla row within a minute, and `/function fgdemo:reset/soil` replants them
 
 #### Scenario: Back to recording
 - **WHEN** the user runs `/function fgdemo:mode/demo`

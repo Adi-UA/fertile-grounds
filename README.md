@@ -34,11 +34,6 @@
 - Upgrade to a **Chime Hotel** and it rings a soft chime when your field is ready to harvest, with a redstone signal for farm machines.
 - Late game, give a Chime Hotel shrine a Diamond and its fairies turn the land around it into a **Fairy Grove**: a leveled, lantern-lit garden of watered farm plots.
 
-## Beware the blight
-
-- Rarely, a fallen witch leaves **Blighted Dirt** behind. It creeps across soil and withers crops until you cure it with Fertilizer or a fairy visit.
-- On servers, rivals can craft it to sabotage each other's farms. A simple path keeps it out.
-
 ## Little extras
 
 - A friendly **guide book** on your first join explains everything, in your own language.

@@ -22,12 +22,6 @@ public final class ModTags {
   public static final TagKey<Block> FAIRY_FLOWERS = block("fairy_flowers");
 
   /**
-   * Soil blight can take. Defaults to dirt, grass, farmland, sand, red sand, and the mod's enriched
-   * soils.
-   */
-  public static final TagKey<Block> BLIGHTABLE = block("blightable");
-
-  /**
    * Natural terrain a Fairy Grove may clear or fill. Anything else in the grove's area, including
    * every block entity, stops the grove from being built.
    */

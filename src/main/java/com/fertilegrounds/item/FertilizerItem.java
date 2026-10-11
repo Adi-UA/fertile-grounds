@@ -1,7 +1,5 @@
 package com.fertilegrounds.item;
 
-import com.fertilegrounds.blight.Blight;
-import com.fertilegrounds.block.ModBlocks;
 import com.fertilegrounds.block.SoilUpgrades;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -21,8 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Upgrades the soil it's used on in place (see {@link SoilUpgrades}), keeping whatever grows on
- * top, or cures Blighted Dirt back into dirt. Dispensers use the same {@link #upgrade} through
- * {@code FertilizerDispenseBehavior}.
+ * top. Dispensers use the same {@link #upgrade} through {@code FertilizerDispenseBehavior}.
  */
 public class FertilizerItem extends Item {
 
@@ -34,7 +31,7 @@ public class FertilizerItem extends Item {
   public InteractionResult useOn(final UseOnContext context) {
     final Level level = context.getLevel();
     final BlockPos pos = context.getClickedPos();
-    if (!worksOn(level, pos)) {
+    if (upgradedBlock(level, pos).isEmpty()) {
       return InteractionResult.PASS;
     }
     // The client only predicts the arm swing; the server swaps the block.
@@ -46,14 +43,11 @@ public class FertilizerItem extends Item {
   }
 
   /**
-   * Swaps the soil at {@code pos} for its upgrade, or cures blight, with a sound and particles.
+   * Swaps the soil at {@code pos} for its upgrade, with a sound and particles.
    *
    * @return false if Fertilizer does nothing to that block
    */
   public static boolean upgrade(final ServerLevel level, final BlockPos pos) {
-    if (Blight.cure(level, pos)) {
-      return true;
-    }
     final Optional<Block> upgraded = upgradedBlock(level, pos);
     if (upgraded.isEmpty()) {
       return false;
@@ -72,11 +66,6 @@ public class FertilizerItem extends Item {
         0.3,
         0.0);
     return true;
-  }
-
-  private static boolean worksOn(final LevelReader level, final BlockPos pos) {
-    return level.getBlockState(pos).is(ModBlocks.BLIGHTED_DIRT)
-        || upgradedBlock(level, pos).isPresent();
   }
 
   private static Optional<Block> upgradedBlock(final LevelReader level, final BlockPos pos) {
