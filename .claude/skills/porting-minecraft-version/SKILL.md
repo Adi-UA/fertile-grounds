@@ -81,6 +81,7 @@ These loader facts were checked on 26.3 only. On each hop, compare them with the
 | 26.3 | All | Lantern-like push reaction | `PushReaction.DESTROY` | `PushReaction.POPPED` (Fairy Hotel properties) |
 | 26.3 | All | Advancement `location` conditions | A JSON list of conditions keyed `"condition"` | One condition object (`{"type": "minecraft:all_of", "terms": [...]}`) keyed `"type"` |
 | 26.3 | All | `TradeSet` | Class with `getTrades()`; vanilla's Wandering Trader rare pool has 15 trades | Record with `trades()`; the pool has 16 |
+| 26.3 | All | Sign click commands (demo world) | A waxed sign runs its `run_command` click event | The sign also needs `allow_op_features:1b`, which only an operator's command sets; the demo script's `sign()` adds it (confirm on 26.2 when porting, since only 26.3 was checked) |
 | 26.3 | All | Falling block codec | `FallingBlock.codec()` is abstract, so Enriched Sand names a `simpleCodec` | Removed (see Block codecs) |
 | 26.2 | All | Vanilla entity type constants | `EntityType.COW` and friends | New `EntityTypes` class holds them (`EntityTypes.COW`); `EntityType` remains for the type itself |
 | 26.2 | All | Advancement trigger classes | `net.minecraft.advancements.criterion` (`PlayerTrigger`) | `net.minecraft.advancements.triggers` |

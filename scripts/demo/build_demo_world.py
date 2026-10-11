@@ -99,16 +99,22 @@ class Site:
 
 
 def sign(lines: list[str], command: str | None = None, wall: str | None = None, rotation: int = 0):
-    """A waxed oak sign; clicking it runs `command` when there is one."""
+    """A waxed oak sign; clicking it runs `command` when there is one.
+
+    Since 26.3 a sign runs click commands only with `allow_op_features`, which only an operator's
+    command (such as this setblock) can set; without it, clicking says click actions are disabled.
+    """
     first = json.dumps(lines[0])
+    extra = ""
     if command:
+        extra = ",allow_op_features:1b"
         first = (
             "{text:" + json.dumps(lines[0]) + ',color:"dark_green",'
             'click_event:{action:"run_command",command:' + json.dumps(command) + "}}"
         )
     messages = ",".join([first] + [json.dumps(line) for line in lines[1:4]])
     state = f"oak_wall_sign[facing={wall}]" if wall else f"oak_sign[rotation={rotation}]"
-    return f"{state}{{is_waxed:1b,front_text:{{messages:[{messages}]}}}}"
+    return f"{state}{{is_waxed:1b{extra},front_text:{{messages:[{messages}]}}}}"
 
 
 def snbt(value) -> str:
@@ -806,6 +812,7 @@ def run_checks(rcon: Rcon, s: Site) -> list[str]:
     }
     for label, (dx, dy, dz, block) in blocks.items():
         check(rcon, label, f"execute if block {s.at(dx, dy, dz)} {block}", f)
+    check(rcon, "Test mode sign runs its command", f"execute if data block {s.at(-4, 3, -1)} {{allow_op_features:1b}}", f)
     reply = rcon.run("execute if entity @e[tag=fgdemo_hero]")
     match = re.search(r"count: (\d+)", reply, re.IGNORECASE)
     count = int(match.group(1)) if match else 0
