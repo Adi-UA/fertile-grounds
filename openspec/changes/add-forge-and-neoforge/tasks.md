@@ -44,8 +44,8 @@
 ## 6. Client and in-game checks
 
 - [x] 6.1 Add `--loader neoforge` and `--loader forge` to `client_log_check.py`. Verified when it boots each dev client with no missing model, texture, or sound warning.
-- [ ] 6.2 Add these to the maintainer's in-game checklist for NeoForge and Forge, since the test server can't restart a world: "a half-built Fairy Grove finishes after a world restart" and "a pending fairy visit survives a world restart".
-- [ ] 6.3 Add "the creative tab lists every item in the same order as Fabric" to the checklist for both loaders.
+- [x] 6.2 Add these to the maintainer's in-game checklist for NeoForge and Forge, since the test server can't restart a world: "a half-built Fairy Grove finishes after a world restart" and "a pending fairy visit survives a world restart".
+- [x] 6.3 Add "the creative tab lists every item in the same order as Fabric" to the checklist for both loaders.
 - [ ] 6.4 Check the design's Look and sound table in the NeoForge and Forge `runClient`, and add each row to the in-game checklist as "matches Fabric".
 
 ## 7. Docs and skills
@@ -53,7 +53,7 @@
 - [x] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, and `openspec/config.yaml` to name all three loaders, what each jar needs, and that Jade tooltips need Fabric or NeoForge. Verified with a read-through against the `release-2-0` spec's Consistent docs scenarios.
 - [x] 7.2 Update AGENTS.md (layout, per-loader Gradle tasks, the `--loader` flags) and keep it under 150 lines. Verified when every path and command it names resolves.
 - [x] 7.3 Add a Loader column and the NeoForge and Forge rows to the porting divergence table in `.claude/skills/porting-minecraft-version/SKILL.md`, and add a step to port all loaders one version at a time.
-- [ ] 7.4 Add NeoForge and Forge steps to the Modrinth and CurseForge skills: the version numbers `2.0.0+<mc>-neoforge` and `2.0.0+<mc>-forge`, each loader's tag, no Fabric API dependency, and the Beta type while a loader has no final build for that version.
+- [x] 7.4 Add NeoForge and Forge steps to the Modrinth and CurseForge skills: the version numbers `2.0.0+<mc>-neoforge` and `2.0.0+<mc>-forge`, each loader's tag, no Fabric API dependency, and the Beta type while a loader has no final build for that version.
 
 ## 8. Port to 26.2 and 26.1
 
