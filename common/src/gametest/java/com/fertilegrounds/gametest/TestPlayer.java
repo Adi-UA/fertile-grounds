@@ -2,6 +2,7 @@ package com.fertilegrounds.gametest;
 
 import com.fertilegrounds.util.ModIdsUtil;
 import com.mojang.authlib.GameProfile;
+import com.mojang.logging.LogUtils;
 import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,14 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -45,15 +49,36 @@ final class TestPlayer extends ServerPlayer {
    * players, so each test calls {@link #leave()} when done.
    */
   static TestPlayer join(final GameTestHelper helper) {
-    final CommonListenerCookie cookie =
-        CommonListenerCookie.createInitial(
-            new GameProfile(UUID.randomUUID(), "test-player"), false);
+    return join(helper, new GameProfile(UUID.randomUUID(), "test-player"));
+  }
+
+  /**
+   * Leaves, which saves this player to the world's player data, then joins again as the same player
+   * loaded from that save, the way a real rejoin or server restart does.
+   */
+  TestPlayer rejoin(final GameTestHelper helper) {
+    this.leave();
+    return join(helper, this.getGameProfile());
+  }
+
+  private static TestPlayer join(final GameTestHelper helper, final GameProfile profile) {
+    final CommonListenerCookie cookie = CommonListenerCookie.createInitial(profile, false);
     final TestPlayer player = new TestPlayer(helper, cookie);
+    // Vanilla loads a joining player's save before placing them (see PrepareSpawnTask).
+    final MinecraftServer server = helper.getLevel().getServer();
+    try (ProblemReporter.ScopedCollector reporter =
+        new ProblemReporter.ScopedCollector(player.problemPath(), LogUtils.getLogger())) {
+      server
+          .getPlayerList()
+          .loadPlayerData(player.nameAndId())
+          .map(tag -> TagValueInput.create(reporter, server.registryAccess(), tag))
+          .ifPresent(player::load);
+    }
     // Fully qualified: inside ServerPlayer, the plain name means WaypointTransmitter.Connection.
     final net.minecraft.network.Connection connection =
         new net.minecraft.network.Connection(PacketFlow.SERVERBOUND);
     new EmbeddedChannel(connection);
-    helper.getLevel().getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+    server.getPlayerList().placeNewPlayer(connection, player, cookie);
     // Joining applies the server's default game mode, so set survival afterward; this also
     // updates the player's abilities, which decide whether items get used up.
     player.setGameMode(GameType.SURVIVAL);
