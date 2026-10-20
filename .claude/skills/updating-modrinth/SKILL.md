@@ -9,7 +9,7 @@ Mirror a GitHub release onto the Modrinth project: one Modrinth version per jar 
 
 ## Guardrails (read first)
 
-- **Never delete, hide or edit an existing version.** Old versions stay exactly as they are. Only create new ones.
+- **Never delete, hide or edit an existing version.** Old versions stay exactly as they are. Only create new ones. The one exception: once a Beta NeoForge or Forge file's loader gets a final build and its GameTests pass on that build (`ORG_GRADLE_PROJECT_neoforge_version=<build> python3 scripts/run_gametests.py --loader neoforge`, or `forge_version`), change only its type to Release (Edit → Edit details) and its changelog's "Tested on" sentence; the file stays.
 - **Only touch** the summary, tags, description and new versions. Never change visibility, license, members, links, monetization, the icon, the gallery or anything in the danger zone without asking.
 - **Upload only jars from the GitHub release** (`gh release download`), never a local `build/libs` jar that could differ.
 - **Verify every save through the public API** (step 5) before moving on. A screenshot alone isn't proof; Save buttons sometimes miss the first click.

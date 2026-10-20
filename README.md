@@ -105,6 +105,8 @@ The art in this repo is partially AI generated. I'm using AI to help me learn pi
 
 I trace over vanilla textures so I don't borrow stylistic choices from other artists.
 
+The code is AI assisted too, planned with [OpenSpec](https://github.com/Fission-AI/OpenSpec), and all of it is open on [GitHub](https://github.com/Adi-UA/fertile-grounds).
+
 ## Feedback and license
 
 Found a bug or have an idea? [Open an issue](https://github.com/Adi-UA/fertile-grounds/issues/new/choose), or share your farm in [Discussions](https://github.com/Adi-UA/fertile-grounds/discussions). MIT licensed, see [LICENSE](LICENSE).
