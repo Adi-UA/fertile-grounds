@@ -9,7 +9,7 @@ Mirror a GitHub release onto the CurseForge project: one file per jar (Fabric, N
 
 ## Guardrails (read first)
 
-- **Never archive, delete or edit an existing file.** Old files stay exactly as they are. Only add new ones.
+- **Never archive, delete or edit an existing file.** Old files stay exactly as they are. Only add new ones. The one exception is promoting a Beta file to Release, under the rule in the Modrinth skill's guardrails: click the file's **Edit file** button, change only Release Type and the changelog, and click **Submit**; the file stays approved.
 - **Only touch** the summary, categories, description and new files. Never change the name, slug, logo, license, members, visibility ("Unlisted project"), default relations or donation settings without asking.
 - **Upload only jars from the GitHub release** (`gh release download`, see the Modrinth skill step 1), never a local `build/libs` jar.
 - **Verify every change** by reading it back after a reload (step 5). CurseForge has no keyless public API for project details, so the author console is the source of truth.
