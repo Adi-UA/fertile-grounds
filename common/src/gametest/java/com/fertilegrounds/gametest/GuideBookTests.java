@@ -7,6 +7,9 @@ import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -42,6 +45,35 @@ public class GuideBookTests {
     GuideBookGift.giveOnFirstJoin(player);
     helper.assertValueEqual(guidesHeld(player), 1, "guides after joining again");
     player.leave();
+    helper.succeed();
+  }
+
+  /**
+   * The guide flag is saved with the player, so leaving and joining again gives no second guide.
+   */
+  @FertileTest
+  public void rejoiningGivesNoSecondGuide(final GameTestHelper helper) {
+    final TestPlayer rejoined = TestPlayer.join(helper).rejoin(helper);
+    helper.assertTrue(ModSavedData.RECEIVED_GUIDE.isSet(rejoined), "marked after rejoining");
+    helper.assertValueEqual(guidesHeld(rejoined), 1, "guides after rejoining");
+    rejoined.leave();
+    helper.succeed();
+  }
+
+  /**
+   * Dying and leaving the End both replace the player with a new copy, which must keep the flag
+   * (Fabric and NeoForge copy it only when it's marked to survive death).
+   */
+  @FertileTest
+  public void guideFlagSurvivesDeathAndTheEnd(final GameTestHelper helper) {
+    final PlayerList players = helper.getLevel().getServer().getPlayerList();
+    final ServerPlayer afterDeath =
+        players.respawn(TestPlayer.join(helper), false, Entity.RemovalReason.KILLED);
+    helper.assertTrue(ModSavedData.RECEIVED_GUIDE.isSet(afterDeath), "marked after dying");
+    final ServerPlayer afterEnd =
+        players.respawn(afterDeath, true, Entity.RemovalReason.CHANGED_DIMENSION);
+    helper.assertTrue(ModSavedData.RECEIVED_GUIDE.isSet(afterEnd), "marked after the End");
+    players.remove(afterEnd);
     helper.succeed();
   }
 
