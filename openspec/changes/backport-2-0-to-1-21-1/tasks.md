@@ -39,11 +39,12 @@ All work happens on the local `1.21.1` branch. Nothing gets pushed or published 
 
 ## 6. Docs and the playtest gate
 
-- [x] 6.1 Add every new difference to the porting skill's table (hop "1.21.1 (from 26.1)") and update the `1.21.1` branch README to say it carries 2.0 and gets updates after 26.x. Verify: each row names code checked in this port.
+- [x] 6.1 Add every new difference to the porting skill's table (hop "1.21.1 (from 26.1)") and update the `1.21.1` branch README to say it carries 2.0.0 only. Verify: each row names code checked in this port.
 - [x] 6.2 Commit the port on `1.21.1` as `feat: Backport 2.0.0 to Minecraft 1.21.1` (with smaller commits per group where they build). Verify: `git log` shows the commits on top of `origin/1.21.1`.
 - [ ] 6.3 Give the maintainer an in-game checklist for 1.21.1 on all three loaders: fairy look and wing animation, soil and hotel textures, the unlit glow layers, the glow-particle and chime heralds, the Glow Berries hotel recipe, sounds, and sleeping through a visit night. Verify: the maintainer marks every item.
+- [x] 6.4 Update the `1.21.10` and `1.21.11` branch READMEs to say 2.0.0 is coming more slowly, with one or two 1.21.1 compromises as examples, and that versions from 1.21.1 up to 26.1 get 2.0.0 only; leave `1.20.1` as it is. Verify: both READMEs read that way.
 
 ## 7. Release (only after the gate passes)
 
-- [ ] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` to list 1.21.1 and say it gets updates later. Verify: the `release-2-0` scenarios read true from those files.
+- [ ] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` to list 1.21.1, say 1.21.10 and 1.21.11 get 2.0.0 later, and say versions from 1.21.1 up to 26.1 get 2.0.0 only. Verify: the `release-2-0` scenarios read true from those files.
 - [ ] 7.2 The maintainer pushes and publishes the jars to GitHub, then Claude mirrors them to Modrinth and CurseForge with the store skills, leaving every 1.2.0 file in place. Verify: the store skills' read-back steps.

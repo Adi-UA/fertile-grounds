@@ -11,9 +11,9 @@ Downloads jumped after 2.0.0 (Modrinth: 600 in the 30 days to 2026-10-22, up 249
 - The build moves back to an obfuscated setup: Loom with Mojang mappings for Fabric, and NeoForm 1.21.1 for `common`. NeoForge and Forge already run with Mojang names on 1.21.1, so they need no renaming step.
 - The GameTest harness is rebuilt on 1.21.1's older test API, where tests are generated functions and batches instead of test functions, test-instance files, and test environments. All existing tests port over.
 - New differences found during the port go into the porting skill's divergence table.
-- Only after the success gate (every GameTest, `client_log_check.py` on each loader, and the maintainer's playtest) does the listing text change to say 2.0 runs on 1.21.1 and that older versions get updates later than 26.x.
+- Only after the success gate (every GameTest, `client_log_check.py` on each loader, and the maintainer's playtest) does the listing text change to say 2.0 runs on 1.21.1, that 1.21.10 and 1.21.11 get it later, and that versions from 1.21.1 up to 26.1 get 2.0.0 only.
 
-Out of scope: 1.21.11, 1.21.10, and 1.20.1 (they stay on 1.2.0), publishing anything before the gate passes, new features, and bringing `add-translations` to 1.21.1.
+Out of scope: the 1.21.11 and 1.21.10 backports themselves (their READMEs only announce them), 1.20.1 (it stays on 1.2.0), publishing anything before the gate passes, new features, and bringing `add-translations` to 1.21.1.
 
 New art: none. The 26.1 textures ship unchanged; only model and item JSON formats change.
 
@@ -25,7 +25,7 @@ None.
 
 ### Modified Capabilities
 
-- `release-2-0`: the supported versions add Minecraft 1.21.1 on all three loaders, and the listing text says older versions get updates more slowly.
+- `release-2-0`: the supported versions add Minecraft 1.21.1 on all three loaders, and the listing text says versions from 1.21.1 up to 26.1 get 2.0.0 only, with 1.21.10 and 1.21.11 coming.
 
 ## Impact
 
