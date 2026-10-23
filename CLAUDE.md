@@ -8,4 +8,4 @@ Keep every instruction file under 150 lines. `AGENTS.md` holds repo facts any ag
 ## Claude notes
 
 - When a port or feature turns up a new API or data-format change, add it to the divergence table in `.claude/skills/porting-minecraft-version/SKILL.md` in the same commit, so the next backport doesn't rediscover it.
-- Gradle's `runClient`, `runServer`, and the smoke test need the sandbox disabled (they bind ports and write to `run/`).
+- Gradle's `runClient`, `runServer`, `runGameTest` (so also `build`), `run_gametests.py`, and the client log check need the sandbox disabled (they bind ports and write to `run/`).

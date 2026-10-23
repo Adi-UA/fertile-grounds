@@ -1,0 +1,25 @@
+{
+  "parent": "fertilegrounds:first_fairy_catch",
+  "criteria": {
+    "done": {
+      "trigger": "fertilegrounds:fairy_moved_in"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "fertilegrounds:fairy_hotel"
+    },
+    "title": {
+      "translate": "advancements.fertilegrounds.first_fairy_hotel.title"
+    },
+    "description": {
+      "translate": "advancements.fertilegrounds.first_fairy_hotel.description"
+    },
+    "frame": "goal"
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

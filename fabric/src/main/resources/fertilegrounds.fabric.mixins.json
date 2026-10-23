@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.fertilegrounds.fabric.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CropBlockMixin",
+    "FarmlandBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

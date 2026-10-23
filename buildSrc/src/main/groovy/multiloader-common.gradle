@@ -1,0 +1,58 @@
+// Settings every project shares: Java 21, the jar version, formatting, and the Modrinth maven for
+// optional mods. Adapted from jaredlll08/MultiLoader-Template (branches 26.1.1 and 1.21.1).
+plugins {
+	id 'java-library'
+	id 'com.diffplug.spotless'
+}
+
+version = "${mod_version}+${minecraft_version}"
+group = maven_group
+
+java {
+	toolchain.languageVersion = JavaLanguageVersion.of(21)
+	withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8'
+	options.release = 21
+}
+
+repositories {
+	mavenCentral()
+	exclusiveContent {
+		forRepository {
+			maven { name = 'Sponge'; url = 'https://repo.spongepowered.org/repository/maven-public' }
+		}
+		filter { includeGroupAndSubgroups('org.spongepowered') }
+	}
+	// Modrinth's maven, only for the optional Jade integration and dev-only shaders (the setup
+	// Jade's docs recommend).
+	exclusiveContent {
+		forRepository {
+			maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' }
+		}
+		filter { includeGroup 'maven.modrinth' }
+	}
+}
+
+spotless {
+	java {
+		target 'src/*/java/**/*.java'
+		googleJavaFormat()
+		removeUnusedImports()
+		importOrder()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+
+tasks.named('check') {
+	dependsOn 'spotlessCheck'
+}
+
+jar {
+	from(rootProject.file('LICENSE')) {
+		rename { "${it}_${mod_id}" }
+	}
+}

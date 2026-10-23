@@ -2,52 +2,104 @@
   <img src="docs/icon.png" width="96" alt="Fertile Grounds icon">
 </p>
 
-# Fertile Grounds for Minecraft 1.21.1
+# Fertile Grounds
+
+[![build](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml/badge.svg)](https://github.com/Adi-UA/fertile-grounds/actions/workflows/build.yml)
 
 [![Modrinth downloads](https://img.shields.io/modrinth/dt/fertile-grounds?logo=modrinth&label=Modrinth)](https://modrinth.com/mod/fertile-grounds) [![CurseForge downloads](https://img.shields.io/curseforge/dt/1627313?logo=curseforge&label=CurseForge)](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds)
 
-> **This branch stays on Fertile Grounds 1.2.0.** Version 2.0 adds Fertilizer, Fairy Hotels, Chime Hotels, Fairy Groves, and much more, but only for Minecraft 26.1 and newer. Minecraft 26.1 ships its code unscrambled, so Fabric mods there are much easier to build and keep working across updates, and every future version of Fertile Grounds will support 26.1 onward only. If you can, come play the new version on 26.x! :) See the [`main` branch](https://github.com/Adi-UA/fertile-grounds/tree/main) for 2.0.
+I originally started this little farming mod for my partner and me to play on our private server. It began as a few richer soils that save you from bone-mealing the same field over and over, and it grew from there: a shy Bean Fairy who visits at night, hotels for fairies who decide to stay, and, late in the game, whole gardens the fairies build for you.
 
-I originally started this little farming mod for my partner and me to play on our private server. Version 1.2.0 is the cozy beginning: richer soils that save you from bone-mealing the same field over and over, and a shy Bean Fairy who visits at night. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
+**Richer soil, shy edamame fairies, and a farm that grows a little faster every day.** Fertile Grounds is a cozy mod for Fabric, NeoForge, and Forge that keeps the vanilla look and plays nicely with big farming mods. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
 
-![Vanilla farmland next to Enriched Sand, Enriched Dirt, and Super Enriched Dirt, with the enriched crops growing faster](docs/hero.gif)
+![Bean Fairies hovering over a flower-filled Fairy Grove at night, lit by lanterns](docs/media/hero.jpg)
+
+## Your guide book
+
+Every player gets a **Fertile Grounds Guide** the first time they join a world with the mod. It explains every feature in a few short pages, in your own language. Lost it? Craft a new one from a **Book** and **Bone Meal**. You can also [read the guide here on GitHub](docs/GUIDE.md), along with every setting you can change.
 
 ## Grow more, work less
 
-**Enriched Soil** gives your crops a free pinch of bone meal now and then, so they grow about 4 times faster, or 11 times faster on **Super Enriched** soil. It still floods, dries out, and gets trampled like normal dirt or sand.
+<table align="center">
+  <tr>
+    <td align="center"><img src="docs/media/textures/enriched_dirt.png" width="96" alt="Enriched Dirt"><br><b>Enriched Dirt</b><br>Dirt + Bone Meal</td>
+    <td align="center"><img src="docs/media/textures/enriched_farmland_top.png" width="96" alt="Enriched Farmland"><br><b>Enriched Farmland</b><br>till it with a hoe</td>
+    <td align="center"><img src="docs/media/textures/enriched_sand.png" width="96" alt="Enriched Sand"><br><b>Enriched Sand</b><br>Sand + Bone Meal</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/media/textures/super_enriched_dirt.png" width="96" alt="Super Enriched Dirt"><br><b>Super Enriched Dirt</b><br>add Glowstone Dust</td>
+    <td align="center"><img src="docs/media/textures/super_enriched_farmland_top.png" width="96" alt="Super Enriched Farmland"><br><b>Super Enriched Farmland</b><br>the fastest soil</td>
+    <td align="center"><img src="docs/media/textures/fertilizer.png" width="96" alt="Fertilizer"><br><b>Fertilizer</b><br>upgrades soil in place</td>
+  </tr>
+</table>
 
-| Soil | Craft it from | Boost chance per random tick |
-|---|---|---|
-| Enriched Dirt, till it into Enriched Farmland | Dirt + Bone Meal | 15% |
-| Enriched Sand | Sand + Bone Meal | 15% |
-| Super Enriched Dirt, till it into Super Enriched Farmland | Dirt + Bone Meal + Glowstone Dust | 50% |
-
-Every recipe is shapeless, and each one unlocks in your recipe book once you hold its ingredients. Enriched farmland turns back into its own enriched dirt when it dries out or gets trampled, never plain dirt. Enriched Sand speeds up plants that grow on sand and take bone meal, like bamboo.
-
-*The clip is sped up; at normal speed the soils keep the same order, just slower.*
+- **Enriched Soil** gives your crops a free pinch of bone meal now and then, so they grow about 4 times faster, or 11 times faster on **Super Enriched** soil.
+- **Fertilizer** upgrades the farm you already have, right under your crops. No digging up, no replanting.
 
 ## Meet the Bean Fairy
 
-![A Bean Fairy visiting a farm at night and growing the crops](docs/bean_fairy.gif)
+![A Bean Fairy floating down to a farm at night and growing the crops in rings](docs/media/fairy_visit.gif)
 
-Some nights, a tiny Bean Fairy floats down and fully grows every crop in a 5x5 patch. Each night, every player has a 1% chance of a visit to a crop within 16 blocks. If everyone sleeps through it, the crops are grown at dawn anyway.
+- Some nights, a tiny Bean Fairy floats down and grows a whole patch of crops at once. **Fairy Dust** calls one on purpose.
+- Flowers and beehives make your farm more welcoming, and under a full **Harvest Moon** fairies visit three times as often.
+- Fairies sometimes leave a gift behind. Bigger farms get better gifts.
 
-To call one on purpose, craft **Fairy Dust** (Glowstone Dust + Amethyst Shard + Bone Meal) and use it on a growing crop. Fairies only come at night: within about 30 seconds if it's already dark, or at nightfall. The creative tab also has a Bean Fairy Spawn Egg, which sends a fairy to the nearest crop.
+## Catch a fairy
 
-## Requirements
+![Sneaking up on a lingering Bean Fairy and catching it in a glass bottle](docs/media/fairy_in_bottle.gif)
 
-- Minecraft 1.21.1
-- [Fabric Loader](https://fabricmc.net/) 0.19.3 or newer
-- [Fabric API](https://modrinth.com/mod/fabric-api) 0.116.15+1.21.1
-- Java 17 or newer
+After its work, a fairy stays for a minute. Sneak up slowly, since running scares it off, and use a **Glass Bottle** on it. A jarred fairy slips away after 3 days, so give it a home before then.
 
-## Building from source
+## Give it a home
 
-```
-./gradlew build
-```
+![Brushing a Fairy Hotel hanging from a pergola, with hearts and sparkles](docs/media/hotel_petting.gif)
 
-The jar lands in `build/libs/fertilegrounds-1.2.0+1.21.1.jar`. Drop it in your `mods/` folder next to Fabric API. `./gradlew runClient` opens a test game with the mod loaded.
+- Build a **Fairy Hotel** and your fairy moves in for good. Hotels stand or hang like lanterns.
+- A hotel fairy helps nearby crops grow, fills beehives with honey, keeps creepers away, and stops trampling. You even walk a little faster near it.
+- Brush the hotel once a day. Fairies love it, and they help a little more after.
+
+## Hear when it's harvest time
+
+![A Chime Hotel ringing over a ripe wheat field while a redstone lamp blinks](docs/media/chime_hotel.gif)
+
+Upgrade a hotel to a **Chime Hotel** with a Note Block and a Spyglass. Its fairy watches the field and rings a soft chime when the crops are ready. Put a comparator behind it, and the chime sends a redstone signal to a lamp or a farm machine.
+
+## Grow a Fairy Grove
+
+![Fairies circling a shrine while a lantern-lit garden of farm plots grows out from it](docs/media/fairy_grove.gif)
+
+A cozy farm is fun. Breaking 400 dirt blocks to build one the first time is not. So late in the game, build a shrine: a Chime Hotel on Super Enriched Dirt, with hotel fairies around it and flowers nearby. Give it a **Diamond**, and its fairies turn the land around it into a leveled, lantern-lit garden of watered farm plots, hedges, and beehives. If anything built by a player is in the way, the shrine tells you and keeps your diamond.
+
+## Little extras
+
+- Optional **[Jade](https://modrinth.com/mod/jade)** tooltips show soil boosts, coming visits, and how many crops are ready, on Fabric and NeoForge.
+- Wandering Traders sometimes sell Fairy Dust and Fertilizer.
+- Its own advancement tab, with seven advancements to earn.
+
+## Built to fit in
+
+Fertile Grounds is made to drop into a modpack without fuss. It hasn't been tried in every pack, but this is how it stays out of the way:
+
+- **It builds on vanilla.** The new farmland is vanilla farmland underneath, so crops, hoes, and other mods' farming tools treat it like the real thing. No world generation changes, and no new biomes or ores.
+- **Tags instead of hard-coded lists.** Fairies grow anything in the crops tag and count flowers from the shared `c:flowers/small` tag, so crops and flowers from other mods join in with no extra code.
+- **Light touch on Minecraft's code.** It uses each loader's own hooks wherever it can, with only a few small mixins, each for a spot no loader covers. Fewer mixins means fewer clashes with other mods.
+- **Optional extras stay optional.** Jade support loads only when Jade is installed, and the tests run with and without it.
+- **Settings live in the world.** Every number is a gamerule, so a server sets them once and every player sees the same rules, and datapacks can replace the gift loot and tags.
+- **Tested in the game.** About 100 automated in-world tests run on every build for each Minecraft version and each loader, along with a check that the game loads every model and texture with no warnings.
+
+## Versions
+
+This branch is Fertile Grounds 2.0 for Minecraft **1.21.1**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**. Jade tooltips work on Fabric and NeoForge. New features land on 26.1 and newer first and reach 1.21.1 later.
+
+1.21.1 lacks a few things 26.x has, so a few details differ: glowing parts of hotels and the Jarred Fairy don't glow in the dark, fairies announce a visit with a glow and a chime instead of fireflies, the Empty Fairy Hotel takes Glow Berries instead of a Firefly Bush, and rabbits only raid crops on vanilla farmland.
+
+## For modpack makers
+
+Every number is a gamerule, and crops and flowers come from tags, so modded content works without code. The [guide](docs/GUIDE.md#settings-and-commands) lists every setting with a ready-to-paste command, and [docs/DETAILS.md](docs/DETAILS.md) has the exact numbers, recipes, and tags.
+
+## Contributing
+
+Bug reports, ideas, translations, and code are all welcome. [CONTRIBUTING.md](CONTRIBUTING.md) explains how to set up the project, how features are planned, and how the tests work. Found a security problem? See [SECURITY.md](SECURITY.md).
 
 ## Art
 
@@ -57,4 +109,4 @@ I trace over vanilla textures so I don't borrow stylistic choices from other art
 
 ## Feedback and license
 
-Found a bug or have an idea? [Open an issue](https://github.com/Adi-UA/fertile-grounds/issues/new/choose). New features land on Minecraft 26.1 and newer. MIT licensed, see [LICENSE](LICENSE).
+Found a bug or have an idea? [Open an issue](https://github.com/Adi-UA/fertile-grounds/issues/new/choose), or share your farm in [Discussions](https://github.com/Adi-UA/fertile-grounds/discussions). MIT licensed, see [LICENSE](LICENSE).
