@@ -25,26 +25,26 @@ Minecraft 1.21.1 ships obfuscated, but NeoForge and Forge both run it with Mojan
 | Project | 26.1 | 1.21.1 |
 |---|---|---|
 | `common` | ModDevGradle on NeoForm 26.1 | ModDevGradle 2.0.148 on NeoForm 1.21.1-20240808.144430 |
-| `fabric` | Loom, no mappings, `implementation` | Loom with `loom.officialMojangMappings()`, `modImplementation`, `modCompileOnly`/`modLocalRuntime` for Jade |
+| `fabric` | Loom (`net.fabricmc.fabric-loom`), no mappings, `implementation` | Loom's remapping plugin (`net.fabricmc.fabric-loom-remap`) with `loom.officialMojangMappings()`, `modImplementation`, `modCompileOnly`/`modLocalRuntime` for Jade |
 | `neoforge` | ModDevGradle, NeoForge 26.1.2.116 | Same plugin, NeoForge 21.1.264, `loaderVersion "[4,)"` |
-| `forge` | ForgeGradle 7.0.40, EventBus 7 | ForgeGradle 7.0.40 if it can set up 52.1.20, else ForgeGradle 6 pinned exactly (template: `[6.0.24,6.2)`), with `reobf = false`; EventBus 6 (`MinecraftForge.EVENT_BUS`, `@SubscribeEvent`) |
+| `forge` | ForgeGradle 7.0.40, EventBus 7 | ForgeGradle 7.0.40 (it sets up 52.1.20); EventBus 6 (`MinecraftForge.EVENT_BUS`, mod-bus events through `getModEventBus()`); no MixinExtras |
 
-Mixins keep the manifest `MixinConfigs` entry on Forge. The template's `org.spongepowered.mixin` `0.7-SNAPSHOT` plugin stays out, since AGENTS.md forbids snapshot dependencies, and no refmap is needed when Forge runs with Mojang names. The Java toolchain and the mixin config's `compatibilityLevel` go to 21. Loom keeps the Jade plugin off the dev server's classpath, so `-PnoJade` behaves the same as on 26.x.
+Mixins keep the manifest `MixinConfigs` entry on Forge. The template's `org.spongepowered.mixin` `0.7-SNAPSHOT` plugin stays out, since AGENTS.md forbids snapshot dependencies, and no refmap is needed when Forge runs with Mojang names. The Java toolchain and the mixin config's `compatibilityLevel` go to 21. Loom keeps the Jade plugin off the dev server's classpath, so `-PnoJade` behaves the same as on 26.x. Jade's Fabric jar uses Fabric's intermediary names, so `common` compiles against Jade's NeoForge jar, which uses Mojang's names like `common` does.
 
 ### Version-specific code
 
 The table rows below 26.1 say what changes. Each one gets the 1.21.1 form, copied from vanilla or 1.2.0 code where they already have it. The four features that need rewriting, not renaming, are these:
 
-- **Wandering Trader offers:** 1.21.1 has no data-driven villager trades. Fabric uses `TradeOfferHelper.registerWanderingTraderOffers`, and NeoForge and Forge use their `WandererTradesEvent`. The 26.1 `villager_trade` JSON values (price, count, uses) move into one shared `common` table that all three read.
-- **Farmland tiers:** `FarmBlock` hardcodes its revert to dirt, so the mod tiers bring back 1.2.0's own moisture and trample handling, and `FarmlandBlockMixin` wraps the static `turnToDirt` (table row "Farmland trample call").
-- **Bean Fairy rendering:** before render states, `BeanFairyRenderer` extends `MobRenderer<BeanFairy, BeanFairyModel>`, and the model becomes a `HierarchicalModel` whose `setupAnim` gets the entity and resets the pose itself. The `texOffs` values stay as they are, so no texture moves.
-- **Saved data and gamerules:** 1.21.1 has no codec `SavedDataType` or `GameRule` registry. Forge's `LevelData` wraps a `SavedData` subclass that encodes the same codec into NBT (`SavedData.Factory`). Gamerules go through `GameRules.register` with `IntegerValue`/`BooleanValue` and keep the snake_case names (`fairy_visit_chance`) the docs use, since 1.21.1 accepts any rule name. Fabric uses `GameRuleRegistry`, so rule ranges stay enforced. NeoForge and Forge need a way to enforce ranges, and the port picks the one their sources support.
+- **Wandering Trader offers:** 1.21.1 has no data-driven villager trades, and vanilla's `ItemsForEmeralds` is package-private. `WanderingTraderOffers` builds the two 26.1 offers (price, count, uses) as `ItemListing` lambdas, and each loader adds them to vanilla's rare list (level 2): Fabric through `TradeOfferHelper.registerWanderingTraderOffers`, NeoForge and Forge through `WandererTradesEvent.getRareTrades()`.
+- **Crops on the farmland tiers:** 26.1 already reimplements moisture and trampling (it predates 26.3's `FarmlandBlock(baseBlock)`), so that code carries over. 1.21.1 crops check `Blocks.FARMLAND` instead of the `supports_crops` and `grows_crops` tags, so those tag files go. `CropBlockMixin` and `PitcherCropBlockMixin` (shared, plain `@Inject`) turn a `mayPlaceOn` no into a yes for any `FarmBlock`; NeoForge and Forge still ask `mayPlaceOn` when no other mod decides. For growth speed, NeoForge already counts any `FarmBlock`; Forge asks `isFertile`, which the tiers define; Fabric gets a Fabric-only `CropBlockMixin` that wraps vanilla's farmland check. Trample protection near hotels uses each loader's hook: `FarmlandTrampleEvent` on NeoForge and Forge, a Fabric-only mixin around `turnToDirt` on Fabric, all through `FairyHotelLookup.protectsFromTrampling`.
+- **Bean Fairy rendering:** before render states, `BeanFairyRenderer` extends `MobRenderer<BeanFairy, BeanFairyModel>`, and the model is a `HierarchicalModel` whose `setupAnim` resets the pose itself. 1.2.0's 1.21.1 model and renderer already do this with the same `texOffs`, so the port reuses them and no texture moves.
+- **Saved data and gamerules:** 1.21.1 has no codec `SavedDataType` or `GameRule` registry. NeoForge's attachments take the codec directly, and Forge's `LevelData` wraps a `SavedData` subclass that stores the codec's value as NBT in `fertilegrounds_<path>.dat` (`SavedData.Factory`). Gamerules keep their names (`fertilegrounds:fairy_visit_chance`), defaults, and ranges through two new `Platform` methods, `intRule` and `boolRule`: Fabric uses `GameRuleRegistry` with `GameRuleFactory.createIntRule(default, min, max)`; NeoForge and Forge call vanilla's private ranged `IntegerValue.create` through `IntegerRuleInvoker`, a Mixin `@Invoker`, since an access transformer would need a different name format per loader and ForgeGradle 7 doesn't apply one to Forge 52. Each loader loads `ModGameRules` from its entry point, as no registry event covers gamerules.
 
-Everything else is a mechanical rename or format change: `Identifier` to `ResourceLocation`; item and entity ids without `setId`; `EntityType.create(level)`; plural data folders (`recipes/`, `advancements/`, `loot_tables/`, `tags/blocks/`); recipe `{"item"}` ingredients and `{"id"}` results; no `items/` model files; tinted spawn eggs; `isNight()`; `getDayTime()` instead of world clocks; `FarmBlock`; `displayClientMessage(…, true)`; bone meal without `BonemealSource`; and loot tag entries in the `{"type": "minecraft:tag"}` form. Fabric's tilling uses `TillableBlockRegistry` as 1.2.0 does. NeoForge's and Forge's use `BlockToolModificationEvent`, as 26.1 already does, on their 1.21.1 buses. The moon phase is read with `level.getMoonPhase()`. Any API with no 1.21.1 equivalent stops the work and goes to the maintainer, never a silent drop.
+Everything else is a mechanical rename or format change: `Identifier` to `ResourceLocation`; item and entity ids without `setId`; `EntityType.create(level)`; recipe ingredients as `{"item"}` objects (1.21.1 already has singular data folders and `{"id"}` results, as the 1.2.0 files show); no `items/` model files; tinted spawn eggs; `isNight()`; `getDayTime()` instead of world clocks; `FarmBlock`; `displayClientMessage(…, true)`; bone meal without `BonemealSource`; and loot tag entries in the `{"type": "minecraft:tag"}` form. Fabric's tilling uses `TillableBlockRegistry` as 1.2.0 does. NeoForge's and Forge's use `BlockToolModificationEvent`, as 26.1 already does, on their 1.21.1 buses. The moon phase is read with `level.getMoonPhase()`. Any API with no 1.21.1 equivalent stops the work and goes to the maintainer, never a silent drop.
 
 ### Code style
 
-The port keeps the 26.1 layout: one job per class, registration only in the `Mod*` classes, Minecraft-free rules in their own classes, and short per-loader copies instead of awkward shared abstractions. Every rewritten piece copies an idiom from vanilla 1.21.1 or a well-known 1.21.1 multiloader mod, starting with MultiLoader-Template's `1.21.1` branch and Jade's 1.21.1 sources. Sources get named in commit messages, not code comments; comments stay as sparse as on 26.1. The diff against 26.1 stays limited to what 1.21.1 forces.
+Mixins stay few and stack with other mods' mixins: shared ones use plain Mixin (`@Inject`, `@Invoker`), since Forge 52 ships no MixinExtras, and MixinExtras only appears in the Fabric-only config. Where a loader has a hook, the loader uses it instead of a mixin. The port keeps the 26.1 layout: one job per class, registration only in the `Mod*` classes, Minecraft-free rules in their own classes, and short per-loader copies instead of awkward shared abstractions. Every rewritten piece copies an idiom from vanilla 1.21.1 or a well-known 1.21.1 multiloader mod, starting with MultiLoader-Template's `1.21.1` branch and Jade's 1.21.1 sources. Sources get named in commit messages, not code comments; comments stay as sparse as on 26.1. The diff against 26.1 stays limited to what 1.21.1 forces.
 
 ### Old worlds
 
@@ -52,15 +52,16 @@ The port keeps the 26.1 layout: one job per class, registration only in the `Mod
 
 ### GameTests on the 1.21.1 API
 
-On 1.21.1, a test is a `TestFunction` built from a `@GameTestGenerator` method. Batches run one after another, and `@BeforeBatch` runs setup on the level. `TestCatalog` keeps `@FertileTest` and the 26.1 test ids, but builds `TestFunction`s instead of writing test-instance files:
+On 1.21.1, a test is a `TestFunction` built from a `@GameTestGenerator` method. Batches run one after another, and a `@BeforeBatch` method runs setup on the level before a batch's tests start (setup at test start comes too late for checks like "the night is dark", since the sky darkens over ticks). `TestCatalog` keeps `@FertileTest` and the 26.1 test ids, and its `tests()` generator builds the `TestFunction`s:
 
 | 26.1 | 1.21.1 |
 |---|---|
-| `environment` (a `test_environment` JSON) | Batch name. The batch's `@BeforeBatch` sets the same time, weather, and gamerules from one Java table that replaces the JSON files |
+| `environment` (a `test_environment` JSON) | Batch name. `TestEnvironments` has one `@BeforeBatch` method per environment, which first puts back the rules and time the test server started with, then sets the environment's time, weather, and gamerules |
 | `structure` (`fertilegrounds-gametest:empty`) | Structure name. Its `.nbt` gets re-saved with 1.21.1's `DataVersion` (3955) |
-| `maxTicks`, `skyAccess`, `padding` | `TestFunction` fields with the same names (padding comes from the loader's runner, so the port checks it there) |
+| `maxTicks`, `skyAccess` | `TestFunction` fields with the same names |
+| `padding` | Dropped: 1.21.1 spaces tests 5 blocks apart. A test whose mobs wander into a neighbor's area gets a bigger empty structure |
 
-Fabric lists the generator class under the `fabric-gametest` entrypoint. NeoForge and Forge register it through `RegisterGameTestsEvent`. `run_gametests.py` keeps its interface. Its `ERROR_MARKERS` get re-checked against 1.21.1 sources, and its summary parser gets checked against 1.21.1's test reporter output. The mock player (`TestPlayer`) and `GameTestHelper` calls get fixed against 1.21.1's helper.
+Fabric lists `TestCatalog` and `TestEnvironments` under the `fabric-gametest` entrypoint, and NeoForge and Forge register both through `RegisterGameTestsEvent`. NeoForge keeps only generated tests whose structure namespace it allows, so its run allows `fertilegrounds-gametest` and `fertilegrounds`; Forge's name filter stays off, since only the test mod registers tests. Only Fabric API has report and filter options in 1.21.1, so every loader's run passes `fertilegrounds.gametest.report` and `fertilegrounds.gametest.filter`, which `TestCatalog` reads. `run_gametests.py` keeps its interface. Its `ERROR_MARKERS` get re-checked against 1.21.1 sources, and its summary parser gets checked against 1.21.1's test reporter output. The mock player (`TestPlayer`) and `GameTestHelper` calls get fixed against 1.21.1's helper.
 
 ## Server safety
 
@@ -68,11 +69,19 @@ The mod still sends no packets, and nothing new is saved. Saved data keeps the s
 
 ## Look and sound
 
-Nothing new. The 26.1 sounds and particles all exist in 1.21.1 except any the port finds missing. A missing one gets the closest vanilla 1.21.1 sound or particle, and it's listed for the maintainer's in-game check.
+Nothing new. These are the gaps 1.21.1 forces, each on the maintainer's in-game checklist:
+
+| 26.1 | 1.21.1 |
+|---|---|
+| Glow layers on hotel and Jarred Fairy models use element `light_emission` | No such field; the layers draw unlit. Hotels already give off light 5 (empty) or 12, so their glow pixels stay bright; item icons draw the glow as `layer1` of `item/generated` |
+| Visit heralds: `ParticleTypes.FIREFLY` and `SoundEvents.FIREFLY_BUSH_IDLE` | `ParticleTypes.GLOW` and `SoundEvents.AMETHYST_BLOCK_CHIME` (volume 0.3, pitch 1.5) |
+| Empty Fairy Hotel recipe: a Firefly Bush on top | Glow Berries on top (the maintainer approved); its unlock advancement, the guide book page, and `docs/` say so on this branch |
+| Grove clears `#minecraft:grass_blocks`, pale moss, and firefly bushes | Those don't exist; `#minecraft:dirt` already holds grass, podzol, and mycelium |
+| Rabbits raid crops on any `supports_crops` block | Rabbits only raid vanilla farmland |
+| Fairy Speed icon in the `gui` atlas | In the `mob_effects` atlas |
 
 ## Risks / Trade-offs
 
 - [Skipping two hops hides differences no table row names] → each compile error gets checked against 1.21.1 sources, and the GameTests catch behavior gaps.
-- [ForgeGradle 7 may not set up 52.1.20] → fall back to ForgeGradle 6 pinned exactly, and record which one worked in the table.
 - [The mock player or `GameTestHelper` may lack methods the tests use] → write the missing helper in `TestSupport`, the way vanilla does it.
 - [A failed trial costs the work] → the work stays on the local `1.21.1` branch until the gate passes. On failure the maintainer decides, and the branch can go back to `origin/1.21.1`.
