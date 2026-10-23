@@ -89,7 +89,7 @@ Fertile Grounds is made to drop into a modpack without fuss. It hasn't been trie
 
 ## Versions
 
-This branch is Fertile Grounds 2.0 for Minecraft **1.21.1**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**. Jade tooltips work on Fabric and NeoForge. New features land on 26.1 and newer first and reach 1.21.1 later.
+This branch is Fertile Grounds 2.0 for Minecraft **1.21.1**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**. Jade tooltips work on Fabric and NeoForge. Versions from 1.21.1 up to 26.1 get 2.0.0 only; new features after that stay on 26.1 and newer.
 
 1.21.1 lacks a few things 26.x has, so a few details differ: glowing parts of hotels and the Jarred Fairy don't glow in the dark, fairies announce a visit with a glow and a chime instead of fireflies, the Empty Fairy Hotel takes Glow Berries instead of a Firefly Bush, and rabbits only raid crops on vanilla farmland.
 

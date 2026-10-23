@@ -116,16 +116,16 @@ Gamerules tune the numbers per world. The [guide's settings section](GUIDE.md#se
 
 ## Minecraft version
 
-This branch targets Minecraft 1.21.1. Version 2.0 supports 26.1, 26.2, 26.3, and 1.21.1, each on its own branch; changes land on `main` first and are backported one version at a time, reaching 1.21.1 last. Other older Minecraft versions stay on 1.2.0, and their branches are frozen:
+This branch targets Minecraft 1.21.1. Version 2.0 supports 26.1, 26.2, 26.3, and 1.21.1, each on its own branch; changes land on `main` first and are backported one version at a time. Versions from 1.21.1 up to 26.1 get 2.0.0 only, with 1.21.10 and 1.21.11 coming later; 1.20.1 stays on 1.2.0:
 
 | Branch | Minecraft version | Mod version |
 |---|---|---|
 | `26.3` / `main` | 26.3 (latest) | 2.0 |
 | `26.2` | 26.2 | 2.0 |
 | `26.1` | 26.1 | 2.0 |
-| `1.21.11` | 1.21.11 | 1.2.0 (frozen) |
-| `1.21.10` | 1.21.10 | 1.2.0 (frozen) |
-| `1.21.1` | 1.21.1 (this branch) | 2.0 |
+| `1.21.11` | 1.21.11 | 1.2.0 (2.0.0 coming) |
+| `1.21.10` | 1.21.10 | 1.2.0 (2.0.0 coming) |
+| `1.21.1` | 1.21.1 (this branch) | 2.0.0 (final) |
 | `1.20.1` | 1.20.1 | 1.2.0 (frozen) |
 
 ## Requirements
