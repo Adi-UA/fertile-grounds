@@ -1,17 +1,17 @@
 ---
 name: updating-curseforge
-description: Publish a Fertile Grounds release to CurseForge (author console https://authors.curseforge.com/#/projects/1627313) with Claude in Chrome, mirroring the GitHub release and Modrinth page. Use when asked to update CurseForge, upload jars or files to CurseForge, or sync CurseForge with GitHub or Modrinth.
+description: Publish a Fertile Grounds release to CurseForge (author console https://authors.curseforge.com/#/projects/1627313) with Claude in Chrome, mirroring the Modrinth page. Use when asked to update CurseForge, upload jars or files to CurseForge, or sync CurseForge with GitHub or Modrinth.
 ---
 
 # Updating CurseForge
 
-Mirror a GitHub release onto the CurseForge project: one file per jar (Fabric, NeoForge and Forge), plus the summary, categories and description. Do Modrinth first (`.claude/skills/updating-modrinth/SKILL.md`), since CurseForge copies its summary and description. The user is signed in to CurseForge in Chrome; Claude drives the browser.
+Publish a release on the CurseForge project: one file per jar (Fabric, NeoForge and Forge), plus the summary, categories and description. Do Modrinth first (`.claude/skills/updating-modrinth/SKILL.md`), since CurseForge copies its summary and description. The user is signed in to CurseForge in Chrome; Claude drives the browser.
 
 ## Guardrails (read first)
 
 - **Never archive, delete or edit an existing file.** Old files stay exactly as they are. Only add new ones. The one exception is promoting a Beta file to Release, under the rule in the Modrinth skill's guardrails: click the file's **Edit file** button, change only Release Type and the changelog, and click **Submit**; the file stays approved.
 - **Only touch** the summary, categories, description and new files. Never change the name, slug, logo, license, members, visibility ("Unlisted project"), default relations or donation settings without asking.
-- **Upload only jars from the GitHub release** (`gh release download`, see the Modrinth skill step 1), never a local `build/libs` jar.
+- **Upload only the jars the Modrinth skill's step 1 built**, the same files Modrinth got.
 - **Verify every change** by reading it back after a reload (step 5). CurseForge has no keyless public API for project details, so the author console is the source of truth.
 - **Stop and ask the user** if CurseForge shows you logged out, asks for a password or 2FA, or shows a dialog you didn't expect. Never type credentials.
 - **Close the tab and the Claude tab group when done.**
