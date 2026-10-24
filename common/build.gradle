@@ -60,6 +60,8 @@ def generateTestInstances = tasks.register('generateTestInstances', JavaExec) {
 	args testInstances.get().asFile.absolutePath
 	inputs.files(sourceSets.gametest.output)
 	outputs.dir(testInstances)
+	// Start empty, so a renamed or deleted test leaves no stale instance behind.
+	doFirst { delete testInstances }
 }
 
 // What the loader projects read: each source set's Java and resource folders.

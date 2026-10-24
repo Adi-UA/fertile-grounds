@@ -273,14 +273,21 @@ class AssetConsistencyTest {
 
   /**
    * Recipe advancements use "recipes" for recipe_unlocked, not the old "recipe" key, which fails to
-   * parse on 26.3. Item predicates use a plain string or tag for "items" to match vanilla's style
-   * (b95a82e); a list still parses, but one criterion per item reads like vanilla's advancements.
+   * parse on 26.3. Their rewards list is "recipes" on every version, and vanilla skips an unknown
+   * key, so a reward named "recipe" never unlocks. Item predicates use a plain string or tag for
+   * "items" to match vanilla's style (b95a82e); a list still parses, but one criterion per item
+   * reads like vanilla's advancements.
    */
   @Test
   void advancementsUseTheCurrentShape() throws IOException {
     final List<String> problems = new ArrayList<>();
     for (final Path file : files(DATA.resolve("advancement"), ".json")) {
-      final JsonObject criteria = readJson(file).getAsJsonObject("criteria");
+      final JsonObject advancement = readJson(file);
+      final JsonObject rewards = advancement.getAsJsonObject("rewards");
+      if (rewards != null && rewards.has("recipe")) {
+        problems.add(file.getFileName() + ": rewards use \"recipe\", not \"recipes\"");
+      }
+      final JsonObject criteria = advancement.getAsJsonObject("criteria");
       for (final var criterion : criteria.entrySet()) {
         final JsonObject conditions =
             criterion.getValue().getAsJsonObject().getAsJsonObject("conditions");
