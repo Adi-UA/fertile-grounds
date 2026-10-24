@@ -123,9 +123,9 @@ This branch targets Minecraft 1.21.11. Version 2.0 supports 26.1, 26.2, 26.3, 1.
 | `26.3` / `main` | 26.3 (latest) | 2.0 |
 | `26.2` | 26.2 | 2.0 |
 | `26.1` | 26.1 | 2.0 |
-| `1.21.11` | 1.21.11 (this branch) | 2.0.0 (final) |
+| `1.21.11` | 1.21.11 (this branch) | 2.0 (final) |
 | `1.21.10` | 1.21.10 | 1.2.0 (2.0.0 coming) |
-| `1.21.1` | 1.21.1 | 2.0.0 (final) |
+| `1.21.1` | 1.21.1 | 2.0 (final) |
 | `1.20.1` | 1.20.1 | 1.2.0 (frozen) |
 
 ## Requirements

@@ -4,7 +4,7 @@ Fertile Grounds is a cozy, lightweight vanilla+ mod that complements big farming
 
 ## In 2.0
 
-Version 2.0 runs on Minecraft 26.1, 26.2, 26.3, and 1.21.1, on Fabric, NeoForge, and Forge. 1.21.10 and 1.21.11 get 2.0.0 next, more slowly, since each older version means an obfuscated build setup and a few compromises. Versions from 1.21.1 up to 26.1 get 2.0.0 only; 1.20.1 stays on 1.2.0.
+Version 2.0 runs on Minecraft 26.1, 26.2, 26.3, 1.21.11, and 1.21.1, on Fabric, NeoForge, and Forge. 1.21.10 gets 2.0.0 next, more slowly, since each older version means an obfuscated build setup and a few compromises. Versions from 1.21.1 up to 26.1 get 2.0.0 only; 1.20.1 stays on 1.2.0.
 
 | Feature | Spec |
 |---|---|
