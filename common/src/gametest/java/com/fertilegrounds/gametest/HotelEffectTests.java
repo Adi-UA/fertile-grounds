@@ -213,10 +213,11 @@ public class HotelEffectTests {
         helper.spawn(EntityType.CREEPER, hotel.getX() + 5.5F, 1, hotel.getZ() + 0.5F);
     final Vec3 hotelCenter = Vec3.atCenterOf(helper.absolutePos(hotel));
     // Vanilla's flee goal picks a random spot away from the hotel, so give it until maxTicks.
+    // The goal stops once the hotel is out of its 6-block search, so the creeper may stop at 6.5.
     helper.succeedWhen(
         () -> {
           helper.assertTrue(
-              creeper.position().distanceTo(hotelCenter) > AvoidFairyHotelGoal.AVOID_DISTANCE + 1,
+              creeper.position().distanceTo(hotelCenter) > AvoidFairyHotelGoal.AVOID_DISTANCE,
               "the creeper left the hotel's 6-block range");
           creeper.discard();
         });
