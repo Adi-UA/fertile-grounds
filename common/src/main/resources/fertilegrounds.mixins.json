@@ -3,12 +3,14 @@
   "package": "com.fertilegrounds.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AttachedStemBlockMixin",
     "CreeperMixin",
     "CropBlockMixin",
     "IntegerRuleInvoker",
     "ItemEntityMixin",
     "PitcherCropBlockMixin",
-    "ServerPlayerMixin"
+    "ServerPlayerMixin",
+    "StemBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
