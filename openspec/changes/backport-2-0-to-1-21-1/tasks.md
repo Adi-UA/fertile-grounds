@@ -47,4 +47,4 @@ All work happens on the local `1.21.1` branch. Nothing gets pushed or published 
 ## 7. Release (only after the gate passes)
 
 - [x] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` to list 1.21.1, say 1.21.10 and 1.21.11 get 2.0.0 later, and say versions from 1.21.1 up to 26.1 get 2.0.0 only. Verify: the `release-2-0` scenarios read true from those files.
-- [ ] 7.2 The maintainer pushes and publishes the jars to GitHub, then Claude mirrors them to Modrinth and CurseForge with the store skills, leaving every 1.2.0 file in place. Verify: the store skills' read-back steps.
+- [x] 7.2 The maintainer pushes and publishes the jars to GitHub, then Claude mirrors them to Modrinth and CurseForge with the store skills, leaving every 1.2.0 file in place. Verify: the store skills' read-back steps.
