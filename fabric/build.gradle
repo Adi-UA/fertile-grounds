@@ -1,0 +1,100 @@
+plugins {
+	id 'multiloader-loader'
+	id 'net.fabricmc.fabric-loom-remap'
+	id 'maven-publish'
+}
+
+base {
+	archivesName = mod_id
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"fertilegrounds" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
+	runs {
+		configureEach {
+			runDir "../run"
+		}
+		// A headless server in its own folder, so scripts/demo/build_demo_world.py can build the
+		// demo world without touching run/'s client settings.
+		demoServer {
+			server()
+			configName = "Demo Server"
+			runDir "../run/demo-server"
+			ideConfigGenerated false
+		}
+	}
+}
+
+// In-world tests with Fabric API's GameTest module. Loom adds a separate "gametest" source set,
+// which never ships in the mod jar, and a runGameTest task that runs every test on a headless
+// server and fails the build if any test fails. The tests themselves live in common/src/gametest.
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "fertilegrounds-gametest"
+		enableGameTests = true
+		enableClientGameTests = false
+		eula = true
+	}
+}
+
+commonSources('main')
+commonSources('client')
+commonSources('gametest')
+
+// Every GameTest run writes a JUnit-style report, and `-PgametestFilter=<pattern>` (for example
+// '*fertilizer*') runs only the tests whose ids match.
+loom.runs.matching { it.name == "gameTest" }.configureEach {
+	vmArg "-Dfabric-api.gametest.report-file=${rootProject.layout.buildDirectory.file("gametest-fabric-report.xml").get().asFile}"
+	if (project.hasProperty("gametestFilter")) {
+		vmArg "-Dfabric-api.gametest.filter=${project.property("gametestFilter")}"
+	}
+}
+
+dependencies {
+	// Minecraft ${minecraft_version} ships obfuscated, so Loom maps it to Mojang's names, and mod
+	// dependencies use the mod* configurations that remap them the same way.
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	mappings loom.officialMojangMappings()
+	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+	// Jade is optional: compiled against, never bundled, and only loaded through its own
+	// entrypoint. Dev runs include it; pass -PnoJade to check the mod works without it.
+	modCompileOnly "maven.modrinth:jade:${jade_version}"
+	if (!project.hasProperty("noJade")) {
+		modLocalRuntime "maven.modrinth:jade:${jade_version}"
+	}
+
+	// Shaders for recording the demo world: -Pshaders adds Sodium and Iris to dev runs only, so
+	// a shader pack in run/shaderpacks/ can be turned on. Neither ships in or touches the mod jar.
+	if (project.hasProperty("shaders")) {
+		modLocalRuntime "maven.modrinth:sodium:${sodium_version}"
+		modLocalRuntime "maven.modrinth:iris:${iris_version}"
+	}
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			from components.java
+		}
+	}
+}

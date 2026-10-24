@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:game_rules",
+  "rules": {
+    "fertilegrounds:give_guide_book": false
+  }
+}

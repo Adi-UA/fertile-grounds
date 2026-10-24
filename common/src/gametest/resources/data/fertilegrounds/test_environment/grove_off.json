@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:all_of",
+  "definitions": [
+    "fertilegrounds:no_random_ticks",
+    {
+      "type": "minecraft:game_rules",
+      "rules": {
+        "fertilegrounds:fairy_grove": false
+      }
+    }
+  ]
+}

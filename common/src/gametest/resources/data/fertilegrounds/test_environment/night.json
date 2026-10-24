@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:all_of",
+  "definitions": [
+    "fertilegrounds:no_random_ticks",
+    {
+      "type": "minecraft:time_of_day",
+      "time": 18000
+    }
+  ]
+}

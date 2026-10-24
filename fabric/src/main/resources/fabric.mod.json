@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "fertilegrounds",
+	"version": "${version}",
+	"name": "Fertile Grounds",
+	"description": "Tiered soil enrichment blocks that passively boost nearby crop growth.",
+	"authors": [
+		"Adi Banerjee"
+	],
+	"contact": {},
+	"license": "MIT",
+	"icon": "assets/fertilegrounds/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.fertilegrounds.fabric.FertileGroundsFabric"
+		],
+		"client": [
+			"com.fertilegrounds.fabric.client.FertileGroundsFabricClient"
+		],
+		"jade": [
+			"com.fertilegrounds.compat.jade.FertileGroundsJadePlugin",
+			"com.fertilegrounds.client.compat.jade.FertileGroundsJadeClientPlugin"
+		]
+	},
+	"mixins": [
+		"fertilegrounds.mixins.json",
+		"fertilegrounds.fabric.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"jade": "*"
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"schemaVersion": 1,
+	"id": "fertilegrounds-gametest",
+	"version": "1.0.0",
+	"name": "Fertile Grounds GameTests",
+	"description": "In-world tests for Fertile Grounds. Development only; never shipped.",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.fertilegrounds.fabric.gametest.FertileGroundsFabricGameTests"
+		]
+	},
+	"depends": {
+		"fertilegrounds": "*",
+		"fabric-gametest-api-v1": "*"
+	}
+}
