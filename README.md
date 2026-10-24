@@ -49,11 +49,13 @@ To call one on purpose, craft **Fairy Dust** (Glowstone Dust + Amethyst Shard + 
 
 The jar lands in `build/libs/fertilegrounds-1.2.0+1.21.10.jar`. Drop it in your `mods/` folder next to Fabric API. `./gradlew runClient` opens a test game with the mod loaded.
 
-## Art
+## AI use
 
-The art in this repo is partially AI generated. I'm using AI to help me learn pixel art: it draws guides for me, and I trace over them by hand. I also ask it for help learning Aseprite, color theory, and how Minecraft models work. If you know other ways to learn that would let me keep building Minecraft mods at the same pace, I'm open to suggestions!
+I build Fertile Grounds using Claude Code to write most of the code, tests, and documentation. But I plan features, review the work, and approve each step using standardized workflows with [OpenSpec](https://github.com/Fission-AI/OpenSpec) and evals via unit and GameTest. Each build runs about 100 automated tests, and I test how the game looks, sounds, and feels myself.
 
-I trace over vanilla textures so I don't borrow stylistic choices from other artists.
+I hand-draw or trace every texture in Aseprite using vanilla textures, so no AI-made textures are included. Claude only creates guides to help me understand how UV unwrapping works.
+
+All the code is also always open source on [GitHub](https://github.com/Adi-UA/fertile-grounds) for transparency.
 
 ## Feedback and license
 
