@@ -48,8 +48,9 @@ public class SoilRegressionTests {
   }
 
   /**
-   * Melon and pumpkin stems stand on both farmland tiers, as on 26.x, where stems read the {@code
-   * supports_crops} tag; here {@code StemBlockMixin} and {@code AttachedStemBlockMixin} allow it.
+   * Melon and pumpkin stems stand on both farmland tiers. 26.x stems read the {@code
+   * supports_crops} tag through {@code supports_stem_crops}; 1.21.11 and older check vanilla
+   * farmland, so {@code StemBlockMixin} and {@code AttachedStemBlockMixin} allow it there.
    */
   @FertileTest
   public void stemsStandOnModFarmland(final GameTestHelper helper) {

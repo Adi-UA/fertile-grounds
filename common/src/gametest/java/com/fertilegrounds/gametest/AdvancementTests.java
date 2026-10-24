@@ -1,9 +1,12 @@
 package com.fertilegrounds.gametest;
 
+import com.fertilegrounds.FertileGrounds;
 import com.fertilegrounds.block.ModBlocks;
 import com.fertilegrounds.item.ModItems;
 import com.fertilegrounds.util.ModIdsUtil;
+import java.util.List;
 import java.util.stream.Stream;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -59,6 +62,38 @@ public class AdvancementTests {
     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.FERTILIZER));
     player.useHeldItemOn(helper, soil);
     helper.assertTrue(player.hasAdvancement("use_fertilizer"), "Fertilizer advancement");
+    player.leave();
+    helper.succeed();
+  }
+
+  /**
+   * Each recipe advancement puts its recipe in the player's recipe book. Vanilla skips an unknown
+   * key in an advancement's rewards with no log line, so a misnamed key ships silently: the 26.1
+   * and 26.2 jars of 2.0.0 said "recipe" instead of "recipes".
+   */
+  @FertileTest
+  public void recipeAdvancementsUnlockTheirRecipes(final GameTestHelper helper) {
+    final TestPlayer player = TestPlayer.join(helper);
+    final List<AdvancementHolder> recipeAdvancements =
+        helper.getLevel().getServer().getAdvancements().getAllAdvancements().stream()
+            .filter(
+                holder ->
+                    holder.id().getNamespace().equals(FertileGrounds.MOD_ID)
+                        && holder.id().getPath().startsWith("recipes/"))
+            .toList();
+    helper.assertTrue(!recipeAdvancements.isEmpty(), "the mod has recipe advancements");
+    for (final AdvancementHolder holder : recipeAdvancements) {
+      final String path = holder.id().getPath().substring("recipes/".length());
+      final ResourceLocation recipe = ModIdsUtil.id(path);
+      helper.assertTrue(!player.getRecipeBook().contains(recipe), "new players lack " + recipe);
+      holder
+          .value()
+          .criteria()
+          .keySet()
+          .forEach(criterion -> player.getAdvancements().award(holder, criterion));
+      helper.assertTrue(
+          player.getRecipeBook().contains(recipe), holder.id() + " unlocks " + recipe);
+    }
     player.leave();
     helper.succeed();
   }

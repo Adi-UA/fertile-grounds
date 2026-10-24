@@ -292,7 +292,12 @@ class AssetConsistencyTest {
   void advancementsUseTheCurrentShape() throws IOException {
     final List<String> problems = new ArrayList<>();
     for (final Path file : files(DATA.resolve("advancement"), ".json")) {
-      final JsonObject criteria = readJson(file).getAsJsonObject("criteria");
+      final JsonObject advancement = readJson(file);
+      final JsonObject rewards = advancement.getAsJsonObject("rewards");
+      if (rewards != null && rewards.has("recipe")) {
+        problems.add(file.getFileName() + ": rewards use \"recipe\", not \"recipes\"");
+      }
+      final JsonObject criteria = advancement.getAsJsonObject("criteria");
       for (final var criterion : criteria.entrySet()) {
         final JsonObject conditions =
             criterion.getValue().getAsJsonObject().getAsJsonObject("conditions");
