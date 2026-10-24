@@ -73,6 +73,7 @@ public class TestEnvironments {
   public void night(final ServerLevel level) {
     quiet(level);
     level.setDayTime(18000);
+    setBool(level, GameRules.RULE_DAYLIGHT, false);
   }
 
   @BeforeBatch(batch = "fertilegrounds:quick_visit")

@@ -13,6 +13,9 @@ public class SetupTests {
   @FertileTest(environment = "fertilegrounds:night")
   public void nightEnvironmentIsDarkWithNoRandomTicks(final GameTestHelper helper) {
     helper.assertTrue(helper.getLevel().isNight(), "the night environment is dark");
+    // The test server's clock runs while a test waits for its chunks to load, so the night
+    // environment also stops it; otherwise a slow machine could reach dawn before the test starts.
+    helper.assertValueEqual(helper.getLevel().getDayTime(), 18000L, "clock time");
     helper.assertValueEqual(
         helper.getLevel().getGameRules().getInt(GameRules.RULE_RANDOMTICKING),
         0,
