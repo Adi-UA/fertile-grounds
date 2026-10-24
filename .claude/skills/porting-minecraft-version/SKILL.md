@@ -130,6 +130,7 @@ These loader facts were checked on 26.3, and 26.2 and 26.1 match them except for
 | 1.21.2 to 26.1 | All | Structure files | `DataVersion` 3955 | Newer data versions |
 | 1.21.2 to 26.1 | Forge | Build and events | ForgeGradle 7.0.40 sets up Forge 52.1.20 but applies no access transformer; EventBus 6 (`MinecraftForge.EVENT_BUS`, mod events through `getModEventBus()`); no MixinExtras, so mixins needing it go in a Fabric-only config; `loaderVersion "[52,)"`, `data_pack_format` 48; Mojang's library maven must serve `lwjgl-freetype` on Apple Silicon | EventBus 7, MixinExtras bundled |
 | 1.21.2 to 26.1 | NeoForge, Forge | Farmland trampling near hotels | `BlockEvent.FarmlandTrampleEvent`, cancelled near an occupied hotel | The shared trample mixin |
+| 1.21.2 to 26.1 | All | Sign text in commands (demo world) | Each line a JSON string, clicks as `clickEvent` with `action` and `value`; the game re-saves the JSON, so checks search the line instead of matching it | SNBT text with `click_event` |
 | 1.20.2 to 1.21.1 | All | Bone meal | `isValidBonemealTarget(level, pos, state, isClient)` | No `isClient` argument |
 | 1.20.2 to 1.21.1 | All | `ItemStack.consume` | Missing; use `shrink(1)` (creative mode restores the stack) | `consume(amount, entity)` |
 | 1.20.2 to 1.21.1 | All | `EntityType.Builder.eyeHeight` | Missing; the default eye height is used | Present |
