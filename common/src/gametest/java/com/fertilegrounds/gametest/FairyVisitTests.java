@@ -1,9 +1,12 @@
 package com.fertilegrounds.gametest;
 
 import com.fertilegrounds.entity.ModEntities;
+import com.fertilegrounds.item.ModItems;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 
@@ -102,6 +105,33 @@ public class FairyVisitTests {
     helper.spawn(ModEntities.BEAN_FAIRY, CENTER.getX() + 0.5F, CENTER.getY(), CENTER.getZ() + 0.5F);
     helper.succeedWhen(
         () -> helper.assertTrue(TestSupport.fairies(helper).isEmpty(), "fairy left"));
+  }
+
+  /**
+   * A player uses the spawn egg on the grass 3 blocks from a carrot patch, as in the demo world;
+   * the fairy finds the patch and grows it.
+   */
+  @FertileTest(
+      structure = "fertilegrounds:empty_medium",
+      environment = "fertilegrounds:quick_visit",
+      skyAccess = true,
+      maxTicks = 600)
+  public void spawnEggFairyGrowsTheNearestPatch(final GameTestHelper helper) {
+    for (final BlockPos pos :
+        BlockPos.betweenClosed(CENTER.offset(-2, -1, -2), CENTER.offset(2, -1, 2))) {
+      helper.setBlock(pos, Blocks.FARMLAND);
+      helper.setBlock(pos.above(), Blocks.CARROTS);
+    }
+    final BlockPos grass = CENTER.offset(0, -1, -5);
+    helper.setBlock(grass, Blocks.GRASS_BLOCK);
+    final TestPlayer player = TestPlayer.join(helper).at(helper, 8.5, 2, 1.5);
+    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.BEAN_FAIRY_SPAWN_EGG));
+    player.useHeldItemOn(helper, grass);
+    helper.succeedWhen(
+        () -> {
+          helper.assertTrue(isGrown(helper, CENTER), "the patch's center grew");
+          player.leave();
+        });
   }
 
   static boolean isGrown(final GameTestHelper helper, final BlockPos pos) {
