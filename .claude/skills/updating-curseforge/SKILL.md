@@ -1,17 +1,17 @@
 ---
 name: updating-curseforge
-description: Publish a Fertile Grounds release to CurseForge (author console https://authors.curseforge.com/#/projects/1627313) with Claude in Chrome, mirroring the GitHub release and Modrinth page. Use when asked to update CurseForge, upload jars or files to CurseForge, or sync CurseForge with GitHub or Modrinth.
+description: Publish a Fertile Grounds release to CurseForge (author console https://authors.curseforge.com/#/projects/1627313) with Claude in Chrome, mirroring the Modrinth page. Use when asked to update CurseForge, upload jars or files to CurseForge, or sync CurseForge with GitHub or Modrinth.
 ---
 
 # Updating CurseForge
 
-Mirror a GitHub release onto the CurseForge project: one file per jar (Fabric, NeoForge and Forge), plus the summary, categories and description. Do Modrinth first (`.claude/skills/updating-modrinth/SKILL.md`), since CurseForge copies its summary and description. The user is signed in to CurseForge in Chrome; Claude drives the browser.
+Publish a release on the CurseForge project: one file per jar (Fabric, NeoForge and Forge), plus the summary, categories and description. Do Modrinth first (`.claude/skills/updating-modrinth/SKILL.md`), since CurseForge copies its summary and description. The user is signed in to CurseForge in Chrome; Claude drives the browser.
 
 ## Guardrails (read first)
 
-- **Never archive, delete or edit an existing file.** Old files stay exactly as they are. Only add new ones.
+- **Never archive, delete or edit an existing file.** Old files stay exactly as they are. Only add new ones. The one exception is promoting a Beta file to Release, under the rule in the Modrinth skill's guardrails: click the file's **Edit file** button, change only Release Type and the changelog, and click **Submit**; the file stays approved.
 - **Only touch** the summary, categories, description and new files. Never change the name, slug, logo, license, members, visibility ("Unlisted project"), default relations or donation settings without asking.
-- **Upload only jars from the GitHub release** (`gh release download`, see the Modrinth skill step 1), never a local `build/libs` jar.
+- **Upload only the jars the Modrinth skill's step 1 built**, the same files Modrinth got.
 - **Verify every change** by reading it back after a reload (step 5). CurseForge has no keyless public API for project details, so the author console is the source of truth.
 - **Stop and ask the user** if CurseForge shows you logged out, asks for a password or 2FA, or shows a dialog you didn't expect. Never type credentials.
 - **Close the tab and the Claude tab group when done.**
@@ -65,8 +65,9 @@ Upload the jars oldest Minecraft version first (26.1, then 26.2, then 26.3; with
 
    | Jar | Minecraft | Java |
    |---|---|---|
-   | 26.x | its own version only (pick `26.3`, never `26.3-snapshot`) | Java 25 |
-   | 1.21.x, 1.20.1 (1.2.0 only, frozen; never upload 2.0+ for these) | its own version only | Java 17, 18, 19, 20, 21, 22, 25 |
+   | 26.x | its own version only (pick `26.3`, never `26.3-snapshot`); a Fabric jar ticks the same patch releases as on Modrinth (26.1: 26.1, 26.1.1, 26.1.2), NeoForge and Forge only 26.1.2 | Java 25 |
+   | 1.21.11 and 1.21.1 (2.0.x) | its own version only | Java 21, 22, 25 |
+   | 1.21.x, 1.20.1 (1.2.0) | its own version only | Java 17, 18, 19, 20, 21, 22, 25 |
 
    Environment is always Client and Server; Modloader is the jar's loader (Fabric, NeoForge or Forge, only one). Remove a chip with its x (chips shift left, so screenshot before each click). Add a version by clicking the Minecraft field, typing it, and ticking the checkbox.
 3. **Changelog:** the editor switches between Markdown and WYSIWYG on its own; plain text works in both. Scroll it into view, click inside it, type one or two sentences, and check its word count is no longer 0 (a click on the toolbar types nowhere).
