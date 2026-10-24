@@ -37,7 +37,7 @@ The game code lives in `common/`, and `fabric/`, `neoforge/`, and `forge/` each 
 
 [AGENTS.md](AGENTS.md) maps out the code: which folder holds what, and every command. It's written for AI coding agents, but it's the quickest tour for people too.
 
-**Branches.** Each Minecraft version has its own branch. `main` is the newest (26.3), and `26.2` and `26.1` get each change after it works on `main`. Target `main` with your pull request unless a fix only applies to an older version. The 1.21.11, 1.21.10, 1.21.1, and 1.20.1 branches are frozen on version 1.2.0.
+**Branches.** Each Minecraft version has its own branch. `main` is the newest (26.3), and `26.2` and `26.1` get each change after it works on `main`. Target `main` with your pull request unless a fix only applies to an older version. The `1.21.1` branch carries 2.0.0 and gets no later features; `1.21.10` and `1.21.11` get 2.0.0 later, and `1.20.1` stays on 1.2.0.
 
 ## How features get planned
 

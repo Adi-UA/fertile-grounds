@@ -22,7 +22,7 @@ Mirror a GitHub release onto the Modrinth project: one Modrinth version per jar 
 V=2.0.0   # mod version being published
 D=build/modrinth-upload && rm -rf $D && mkdir -p $D
 gh release download v$V -R Adi-UA/fertile-grounds -D $D -p '*.jar'
-for b in 26.1 26.2 26.3; do   # 2.0+ ships 26.x only; 1.21.11 and older are frozen on 1.2.0
+for b in 26.1 26.2 26.3 1.21.1; do   # 2.0.0 also ships for 1.21.1; versions before 26.1 get 2.0.0 only
   echo "$b $(git show "${b}:gradle.properties" | rg -o 'fabric_api_version=.*')"; done
 ```
 
