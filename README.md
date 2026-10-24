@@ -78,7 +78,7 @@ A cozy farm is fun. Breaking 400 dirt blocks to build one the first time is not.
 
 ## Built to fit in
 
-Fertile Grounds is made to drop into a modpack without fuss. It hasn't been tried in every pack, but this is how it stays out of the way:
+Compatible with Sodium, Iris, Farmer's Delight, AppleSkin, etc., and plays nicely in modpacks. Feel free to include it in yours. Here's how it stays out of the way:
 
 - **It builds on vanilla.** The new farmland is vanilla farmland underneath, so crops, hoes, and other mods' farming tools treat it like the real thing. No world generation changes, and no new biomes or ores.
 - **Tags instead of hard-coded lists.** Fairies grow anything in the crops tag and count flowers from the shared `c:flowers/small` tag, so crops and flowers from other mods join in with no extra code.
