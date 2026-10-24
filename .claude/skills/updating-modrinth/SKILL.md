@@ -19,12 +19,12 @@ Publish a release on the Modrinth project: one Modrinth version per jar (Fabric,
 ## 1. Gather inputs
 
 ```bash
-V=2.0.0   # mod version being published
 D=build/modrinth-upload && rm -rf $D && mkdir -p $D
-for b in 26.1 26.2 26.3 1.21.1; do   # each branch being released, checked out at its release commit
+for b in 26.1 26.2 26.3 1.21.11 1.21.1; do   # each branch being released, checked out at its release commit
+  V=$(git show "${b}:gradle.properties" | rg -o '^mod_version=(.*)' -r '$1')   # each branch has its own mod version
   git worktree add -q ../fg-$b $b && (cd ../fg-$b && ./gradlew build -q) \
     && cp ../fg-$b/{fabric,neoforge,forge}/build/libs/fertilegrounds*-$V+$b.jar $D/ && git worktree remove ../fg-$b; done
-for b in 26.1 26.2 26.3 1.21.1; do   # 2.0.0 also ships for 1.21.1; versions before 26.1 get 2.0.0 only
+for b in 26.1 26.2 26.3 1.21.11 1.21.1; do   # versions before 26.1 get 2.0.x only
   echo "$b $(git show "${b}:gradle.properties" | rg -o 'fabric_api_version=.*')"; done
 ```
 

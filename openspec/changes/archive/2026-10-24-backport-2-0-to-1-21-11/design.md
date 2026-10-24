@@ -36,6 +36,16 @@ Each of these follows vanilla 1.21.11 or the 1.21.1 branch, checked against the 
 
 1.2.0 on 1.21.11 stores pending visits in the Fabric attachment `fertilegrounds:pending_fairy_visits` with `FairyVisit.CODEC`, the same id and codec 2.0.0 uses, and `FairyVisitCodecTest` already decodes the 1.2.0 format. 1.2.0 shipped no NeoForge or Forge jars.
 
+### Release run
+
+After the port passed, three bugs surfaced and the release changed shape (maintainer decisions, 2026-10-23):
+
+- **Stems on mod farmland** (1.21.1 lacked the stem mixins): fixed on 1.21.1 and shipped as 2.0.1 there, as a new upload, since CurseForge can't replace a file.
+- **Recipe rewards** (the 26.1 and 26.2 advancements said `"recipe"`, which vanilla skips): fixed and shipped as 2.0.1 on 26.1 and 26.2. 26.3 never had it.
+- **Creeper test** (it waited for more than 7 blocks, and the goal stops at 6): a test-only fix on every branch, so it needs no release.
+- 1.21.11 went out as 2.0.0 without the maintainer's in-game playtest, by the maintainer's choice.
+- New guards on every branch: `AdvancementTests.recipeAdvancementsUnlockTheirRecipes`, `SoilRegressionTests.stemsStandOnModFarmland`, and a rewards-key check in `AssetConsistencyTest`; the test-instance generator now starts from an empty folder, since a stale file from a renamed test failed a run.
+
 ## Server safety
 
 Nothing new: no packets, the same saved keys and codecs, per-player data as on 26.1 (`GuideBookTests` covers rejoin, death, and leaving the End), bounded block scans.

@@ -116,26 +116,26 @@ Gamerules tune the numbers per world. The [guide's settings section](GUIDE.md#se
 
 ## Minecraft version
 
-This branch targets Minecraft 26.3. Version 2.0 supports 26.1, 26.2, 26.3, and 1.21.1, each on its own branch; changes land on `main` first and are backported one version at a time. Versions from 1.21.1 up to 26.1 get 2.0.0 only, with 1.21.10 and 1.21.11 coming later; 1.20.1 stays on 1.2.0:
+This branch targets Minecraft 26.3. Version 2.0 supports 26.1, 26.2, 26.3, 1.21.11, and 1.21.1, each on its own branch; changes land on `main` first and are backported one version at a time. Versions from 1.21.1 up to 26.1 get 2.0.0 only, with 1.21.10 coming later; 1.20.1 stays on 1.2.0:
 
 | Branch | Minecraft version | Mod version |
 |---|---|---|
 | `26.3` / `main` | 26.3 (this branch, latest) | 2.0 |
 | `26.2` | 26.2 | 2.0 |
 | `26.1` | 26.1 | 2.0 |
-| `1.21.11` | 1.21.11 | 1.2.0 (2.0.0 coming) |
+| `1.21.11` | 1.21.11 | 2.0 (final) |
 | `1.21.10` | 1.21.10 | 1.2.0 (2.0.0 coming) |
-| `1.21.1` | 1.21.1 | 2.0.0 (final) |
+| `1.21.1` | 1.21.1 | 2.0 (final) |
 | `1.20.1` | 1.20.1 | 1.2.0 (frozen) |
 
 ## Requirements
 
-- Minecraft 26.3 (or the version of the branch's jar), Java 25+ (Java 21+ on 1.21.1)
+- Minecraft 26.3 (or the version of the branch's jar), Java 25+ (Java 21+ on 1.21.11 and 1.21.1)
 - One loader:
   - [Fabric Loader](https://fabricmc.net/) 0.19.5+ with [Fabric API](https://modrinth.com/mod/fabric-api) 0.161.0+26.3
   - [NeoForge](https://neoforged.net/) 26.3.0.94+
   - [Forge](https://files.minecraftforge.net/) 66.1.0+
-- Optional: [Jade](https://modrinth.com/mod/jade) for look-at tooltips, on Fabric and NeoForge (Jade has no Forge build for 26.x or 1.21.1)
+- Optional: [Jade](https://modrinth.com/mod/jade) for look-at tooltips, on Fabric and NeoForge (Jade has no Forge build for 26.x, 1.21.11, or 1.21.1)
 
 ## Building from source
 

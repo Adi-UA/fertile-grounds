@@ -24,9 +24,9 @@ All work happens on the local `1.21.11` branch in the worktree `../fertile-groun
 
 - [x] 4.1 Add the new rows to the porting table (on `1.21.11` and `main`) and update the `1.21.11` README to say it carries 2.0.0 only. Verify: each row names code checked in this port.
 - [x] 4.2 Commit the port on `1.21.11` as `feat: Backport 2.0.0 to Minecraft 1.21.11`. Verify: `git log` shows it on top of `origin/1.21.11`.
-- [ ] 4.3 Give the maintainer an in-game checklist for 1.21.11 on all three loaders. Verify: the maintainer marks every item.
+- [x] 4.3 Give the maintainer an in-game checklist for 1.21.11 on all three loaders. Verify: the maintainer marks every item. (Skipped by the maintainer's decision; 1.21.11 shipped without the in-game playtest.)
 
 ## 5. Release (only after the gate passes)
 
-- [ ] 5.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` to list 1.21.11, and the `1.21.10` README. Verify: the `release-2-0` scenarios read true.
-- [ ] 5.2 The maintainer pushes; Claude publishes the jars to Modrinth and CurseForge with the store skills, leaving the 1.2.0 files. Verify: the store skills' read-back steps.
+- [x] 5.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` to list 1.21.11, and the `1.21.10` README. Verify: the `release-2-0` scenarios read true.
+- [x] 5.2 The maintainer pushes; Claude publishes the jars to Modrinth and CurseForge with the store skills, leaving the 1.2.0 files. Verify: the store skills' read-back steps.
