@@ -1,17 +1,17 @@
 ---
 name: updating-modrinth
-description: Publish a Fertile Grounds release to Modrinth (https://modrinth.com/mod/fertile-grounds) with Claude in Chrome, mirroring the GitHub release. Use when asked to update Modrinth, upload new versions or jars to Modrinth, or sync the Modrinth page with GitHub.
+description: Publish a Fertile Grounds release to Modrinth (https://modrinth.com/mod/fertile-grounds) with Claude in Chrome, from jars built at each branch's release commit. Use when asked to update Modrinth, upload new versions or jars to Modrinth, or sync the Modrinth page with GitHub.
 ---
 
 # Updating Modrinth
 
-Mirror a GitHub release onto the Modrinth project: one Modrinth version per jar (Fabric, NeoForge and Forge each get their own), plus the summary, tags and description. The user is signed in to Modrinth in Chrome; Claude drives the browser and checks every change through the public API.
+Publish a release on the Modrinth project: one Modrinth version per jar (Fabric, NeoForge and Forge each get their own), plus the summary, tags and description. The user is signed in to Modrinth in Chrome; Claude drives the browser and checks every change through the public API.
 
 ## Guardrails (read first)
 
-- **Never delete, hide or edit an existing version.** Old versions stay exactly as they are. Only create new ones.
+- **Never delete, hide or edit an existing version.** Old versions stay exactly as they are. Only create new ones. The one exception: once a Beta NeoForge or Forge file's loader gets a final build and its GameTests pass on that build (`ORG_GRADLE_PROJECT_neoforge_version=<build> python3 scripts/run_gametests.py --loader neoforge`, or `forge_version`), change only its type to Release (Edit → Edit details) and its changelog's "Tested on" sentence; the file stays.
 - **Only touch** the summary, tags, description and new versions. Never change visibility, license, members, links, monetization, the icon, the gallery or anything in the danger zone without asking.
-- **Upload only jars from the GitHub release** (`gh release download`), never a local `build/libs` jar that could differ.
+- **Upload only jars built at each branch's release commit** (step 1), in a clean worktree so nothing local slips in. GitHub releases hold notes that link to Modrinth and CurseForge, never jars.
 - **Verify every save through the public API** (step 5) before moving on. A screenshot alone isn't proof; Save buttons sometimes miss the first click.
 - **Stop and ask the user** if Modrinth shows you logged out, asks for a password or 2FA, shows a confirm dialog you didn't expect, or a detected Minecraft version looks wrong. Never type credentials.
 - Don't trigger browser `confirm` dialogs. A "Leave site?" block on navigation means unsaved changes: save first.
@@ -19,10 +19,12 @@ Mirror a GitHub release onto the Modrinth project: one Modrinth version per jar 
 ## 1. Gather inputs
 
 ```bash
-V=2.0.0   # mod version being published
 D=build/modrinth-upload && rm -rf $D && mkdir -p $D
-gh release download v$V -R Adi-UA/fertile-grounds -D $D -p '*.jar'
-for b in 26.1 26.2 26.3; do   # 2.0+ ships 26.x only; 1.21.11 and older are frozen on 1.2.0
+for b in 26.1 26.2 26.3 1.21.11 1.21.1; do   # each branch being released, checked out at its release commit
+  V=$(git show "${b}:gradle.properties" | rg -o '^mod_version=(.*)' -r '$1')   # each branch has its own mod version
+  git worktree add -q ../fg-$b $b && (cd ../fg-$b && ./gradlew build -q) \
+    && cp ../fg-$b/{fabric,neoforge,forge}/build/libs/fertilegrounds*-$V+$b.jar $D/ && git worktree remove ../fg-$b; done
+for b in 26.1 26.2 26.3 1.21.11 1.21.1; do   # versions before 26.1 get 2.0.x only
   echo "$b $(git show "${b}:gradle.properties" | rg -o 'fabric_api_version=.*')"; done
 ```
 

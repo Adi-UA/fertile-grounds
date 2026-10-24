@@ -89,7 +89,7 @@ Compatible with Sodium, Iris, Farmer's Delight, AppleSkin, etc., and plays nicel
 
 ## Versions
 
-This branch is Fertile Grounds 2.0.0 for Minecraft **1.21.1**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**. Jade tooltips work on Fabric and NeoForge. Older Minecraft scrambles its code and lacks some newer blocks, so it needs more workarounds, and updates reach 1.21.1, 1.21.10, and 1.21.11 slowly. These versions stay on 2.0.0; new features after that come to 26.1 and newer.
+This branch is Fertile Grounds 2.0.0 for Minecraft **1.21.1**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**. Jade tooltips work on Fabric and NeoForge. Older Minecraft scrambles its code and lacks some newer blocks, so it needs more workarounds, and updates reach 1.21.1, 1.21.10, and 1.21.11 slowly. 1.21.1 and 1.21.11 stay on 2.0; new features after that come to 26.1 and newer.
 
 1.21.1 lacks a few things 26.x has, so a few details differ: glowing parts of hotels and the Jarred Fairy don't glow in the dark, fairies announce a visit with a glow and a chime instead of fireflies, the Empty Fairy Hotel takes Glow Berries instead of a Firefly Bush, and rabbits only raid crops on vanilla farmland.
 
