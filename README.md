@@ -99,13 +99,13 @@ Every number is a gamerule, and crops and flowers come from tags, so modded cont
 
 Bug reports, ideas, translations, and code are all welcome. [CONTRIBUTING.md](CONTRIBUTING.md) explains how to set up the project, how features are planned, and how the tests work. Found a security problem? See [SECURITY.md](SECURITY.md).
 
-## Art
+## AI use
 
-The art in this repo is partially AI generated. I'm using AI to help me learn pixel art: it draws guides for me, and I trace over them by hand. I also ask it for help learning Aseprite, color theory, and how Minecraft models work. If you know other ways to learn that would let me keep building Minecraft mods at the same pace, I'm open to suggestions!
+I build Fertile Grounds using Claude Code to write most of the code, tests, and documentation. But I plan features, review the work, and approve each step using standardized workflows with [OpenSpec](https://github.com/Fission-AI/OpenSpec) and evals via unit and GameTest. Each build runs about 100 automated tests, and I test how the game looks, sounds, and feels myself.
 
-I trace over vanilla textures so I don't borrow stylistic choices from other artists.
+I hand-draw or trace every texture in Aseprite using vanilla textures, so no AI-made textures are included. Claude only creates guides to help me understand how UV unwrapping works.
 
-The code is AI assisted too, planned with [OpenSpec](https://github.com/Fission-AI/OpenSpec), and all of it is open on [GitHub](https://github.com/Adi-UA/fertile-grounds).
+All the code is also always open source on [GitHub](https://github.com/Adi-UA/fertile-grounds) for transparency.
 
 ## Feedback and license
 
