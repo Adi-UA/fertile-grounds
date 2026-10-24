@@ -6,6 +6,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FarmlandBlock;
 
 /** Past soil bugs, each guarded by the commit that fixed it. */
@@ -43,6 +44,32 @@ public class SoilRegressionTests {
   public void enrichedSandCountsAsSand(final GameTestHelper helper) {
     helper.setBlock(SOIL, ModBlocks.ENRICHED_SAND);
     helper.assertBlockTag(BlockTags.SAND, SOIL);
+    helper.succeed();
+  }
+
+  /**
+   * Melon and pumpkin stems stand on both farmland tiers. 26.x stems read the {@code
+   * supports_crops} tag through {@code supports_stem_crops}; 1.21.11 and older check vanilla
+   * farmland, so {@code StemBlockMixin} and {@code AttachedStemBlockMixin} allow it there.
+   */
+  @FertileTest
+  public void stemsStandOnModFarmland(final GameTestHelper helper) {
+    for (final Block farmland :
+        new Block[] {ModBlocks.ENRICHED_FARMLAND, ModBlocks.SUPER_ENRICHED_FARMLAND}) {
+      helper.setBlock(SOIL, farmland);
+      for (final Block stem :
+          new Block[] {
+            Blocks.MELON_STEM,
+            Blocks.PUMPKIN_STEM,
+            Blocks.ATTACHED_MELON_STEM,
+            Blocks.ATTACHED_PUMPKIN_STEM
+          }) {
+        helper.assertTrue(
+            stem.defaultBlockState()
+                .canSurvive(helper.getLevel(), helper.absolutePos(SOIL.above())),
+            stem + " stands on " + farmland);
+      }
+    }
     helper.succeed();
   }
 
