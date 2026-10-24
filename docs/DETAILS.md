@@ -143,7 +143,7 @@ This branch targets Minecraft 26.1. Version 2.0 supports 26.1, 26.2, and 26.3, e
 ./gradlew build
 ```
 
-Each loader's jar lands in its own `build/libs/` folder: `fabric/` builds `fertilegrounds-2.0.0+26.1.jar`, and `neoforge/` and `forge/` build `fertilegrounds-neoforge-2.0.0+26.1.jar` and `fertilegrounds-forge-2.0.0+26.1.jar`. The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop the jar for your loader in your `mods/` folder, alongside Fabric API on Fabric.
+Each loader's jar lands in its own `build/libs/` folder: `fabric/` builds `fertilegrounds-2.0.1+26.1.jar`, and `neoforge/` and `forge/` build `fertilegrounds-neoforge-2.0.1+26.1.jar` and `fertilegrounds-forge-2.0.1+26.1.jar`. The `+<mc version>` suffix matches Fabric's own convention (see Fabric API's own release names) and keeps jars from different branches from colliding if you're collecting builds from more than one version in the same place. Drop the jar for your loader in your `mods/` folder, alongside Fabric API on Fabric.
 
 ## Development
 

@@ -18,7 +18,7 @@
     ["has_bone_meal", "has_the_recipe"]
   ],
   "rewards": {
-    "recipe": ["fertilegrounds:enriched_dirt"]
+    "recipes": ["fertilegrounds:enriched_dirt"]
   },
   "sends_telemetry_event": false
 }
