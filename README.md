@@ -89,7 +89,7 @@ Compatible with Sodium, Iris, Farmer's Delight, AppleSkin, etc., and plays nicel
 
 ## Versions
 
-Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, and 26.3** on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), and on **26.1, 26.2, and 26.3** on **NeoForge** and **Forge**, whose jars need nothing else (on 26.1, they need Minecraft 26.1.2). The 26.3 NeoForge and Forge files are marked beta until those loaders have a final 26.3 build. Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for 26.x. On Minecraft 1.21.11 or older, use version 1.2.0, which has the enriched soils and Bean Fairy visits. Only 26.1 and newer get new features from now on.
+Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, 26.3, 1.21.11, and 1.21.1** on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), **NeoForge**, and **Forge**, whose jars need nothing else (on 26.1, they need Minecraft 26.1.2). Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for these versions. Older Minecraft scrambles its code and lacks some newer blocks, so it needs more workarounds, and updates reach 1.21.1, 1.21.10, and 1.21.11 slowly: 2.0.0 is coming to 1.21.10, and until then it uses version 1.2.0, like 1.20.1 does. 1.21.1 and 1.21.11 stay on 2.0; new features after that come to 26.1 and newer. On 1.21.1 a few details differ: for example, the Empty Fairy Hotel takes Glow Berries instead of a Firefly Bush.
 
 ## For modpack makers
 
@@ -104,6 +104,8 @@ Bug reports, ideas, translations, and code are all welcome. [CONTRIBUTING.md](CO
 The art in this repo is partially AI generated. I'm using AI to help me learn pixel art: it draws guides for me, and I trace over them by hand. I also ask it for help learning Aseprite, color theory, and how Minecraft models work. If you know other ways to learn that would let me keep building Minecraft mods at the same pace, I'm open to suggestions!
 
 I trace over vanilla textures so I don't borrow stylistic choices from other artists.
+
+The code is AI assisted too, planned with [OpenSpec](https://github.com/Fission-AI/OpenSpec), and all of it is open on [GitHub](https://github.com/Adi-UA/fertile-grounds).
 
 ## Feedback and license
 
