@@ -1,23 +1,23 @@
 # fairy-grove Specification
 
 ## Purpose
-Lets endgame players spend a diamond to have their fairies turn the land around a shrine into a lit, flowered garden of watered farm plots.
+Lets endgame players spend a diamond so their fairies turn the land around a shrine into a lit, flowered garden of watered farm plots.
 
 ## Requirements
 
 ### Requirement: Shrine
-A shrine SHALL be complete when a Chime Hotel stands on Super Enriched Dirt, an occupied Fairy Hotel or Chime Hotel (standing or hanging) sits exactly 3 blocks north, south, east, and west of it at the same height, and at least 4 blocks in `#fertilegrounds:fairy_flowers` sit within 3 blocks of it horizontally.
+A shrine SHALL be complete when a Chime Hotel stands on Super Enriched Dirt, an occupied Fairy Hotel or Chime Hotel (standing or hanging) sits exactly 3 blocks north, south, east, and west of it at the same height, and at least 4 blocks in `#fertilegrounds:fairy_flowers` sit within 3 blocks of it horizontally and 1 block up or down.
 
 #### Scenario: Missing hotel
 - **WHEN** a player uses a diamond on a Chime Hotel with only 3 hotels around it
-- **THEN** the diamond stays in their hand and the action bar says the shrine needs an occupied Fairy Hotel 3 blocks away on each side
+- **THEN** the diamond stays in their hand and the action bar says the shrine needs a Fairy Hotel with a fairy 3 blocks away on each side
 
 #### Scenario: Wrong soil
 - **WHEN** the Chime Hotel stands on grass instead of Super Enriched Dirt
 - **THEN** nothing is built, the diamond stays, and the action bar says the hotel must stand on Super Enriched Dirt
 
 ### Requirement: Safety check
-Before using the diamond, the game SHALL check every block in the 35x35 area centered on the shrine, from 8 blocks below the shrine's soil to 24 blocks above it, excluding the center 9x9 plot. If any block that is not air and not in `#fertilegrounds:grove_replaceable` sits there, building SHALL NOT start, the diamond SHALL stay, and the action bar SHALL name that block and its coordinates. The tag SHALL hold natural terrain by default: dirt and grass, stone and ores, sand and gravel, clay, snow and ice, logs and leaves, plants, water, and lava.
+Before using the diamond, the game SHALL check every block in the 35x35 area centered on the shrine, from 8 blocks below the shrine's soil to 24 blocks above it, excluding the center 9x9 plot. If any block that is not air and not in `#fertilegrounds:grove_replaceable` sits there, building SHALL NOT start, the diamond SHALL stay, and the action bar SHALL name that block and its coordinates. The tag SHALL hold natural terrain by default: dirt and grass, stone, ores, and terracotta, sand, sandstone, and gravel, clay and mud, moss, snow and ice, logs and leaves, plants and crops, farmland, water, and lava.
 
 #### Scenario: A chest nearby
 - **WHEN** a chest sits 10 blocks from the shrine
@@ -32,7 +32,7 @@ Before using the diamond, the game SHALL check every block in the 35x35 area cen
 - **THEN** a tree in the area stops the grove from building
 
 ### Requirement: Building the grove
-After a passed check, the game SHALL use up the diamond and rebuild the area over about 30 seconds, one column at a time, while Bean Fairies fly over it. Each column SHALL be cleared to air up to 24 blocks above the shrine's soil level and filled with dirt down to solid ground, at most 8 blocks deep. If a column holds a non-replaceable block by the time the fairies reach it, that column SHALL be skipped. Building SHALL continue after the world is saved and reloaded.
+After a passed check, the game SHALL use up the diamond and rebuild the area over about 30 seconds, one column at a time, while 4 Bean Fairies fly over it. Each column SHALL be cleared to air up to 24 blocks above the shrine's soil level and filled with dirt down to solid ground, at most 8 blocks deep. If a column holds a non-replaceable block by the time the fairies reach it, that column SHALL be skipped. Building SHALL continue after the world is saved and reloaded.
 
 #### Scenario: A hill and a dip
 - **WHEN** the area has a 6-block hill on one side and a 3-block dip on the other
@@ -49,10 +49,10 @@ After a passed check, the game SHALL use up the diamond and rebuild the area ove
 ### Requirement: Garden layout
 The finished grove SHALL hold, around the untouched center 9x9 plot:
 - 8 farm plots of 9x9, each of moist Enriched Farmland around one water block in its center, with nothing planted
-- one-block grass borders between and around the plots, with a small flower on most border blocks
+- one-block grass borders between and around the plots, with a small flower on about 3 of every 4 border blocks
 - a beehive topped with a lantern at each of the 4 inner border crossings
 - a flowering azalea leaf block, which never decays, topped with a lantern at each of the 12 outer border crossings
-- a 2-block meadow rim of grass, flowers, and azalea leaf bushes, with a lantern on every fourth bush
+- a 2-block meadow rim of grass, flowers, and azalea leaf bushes, with a lantern on about 1 bush in 4
 
 #### Scenario: Ready to plant
 - **WHEN** the grove finishes

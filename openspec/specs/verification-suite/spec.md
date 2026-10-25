@@ -1,7 +1,7 @@
 # verification-suite Specification
 
 ## Purpose
-Defines the automatic checks that prove a branch works beyond compiling, so past bugs can't silently return during features or ports.
+Defines the automatic checks that prove a branch works beyond compiling, so fixed bugs can't return unnoticed during features or ports.
 
 ## Requirements
 
@@ -14,43 +14,43 @@ Defines the automatic checks that prove a branch works beyond compiling, so past
 
 #### Scenario: Block item key
 - **WHEN** a block item's name would resolve to an `item.fertilegrounds.*` key instead of the block's `block.fertilegrounds.*` key
-- **THEN** the test fails (regression for 0a7576e)
+- **THEN** the test fails
 
 ### Requirement: Client assets present
 `./gradlew test` SHALL fail when an item lacks an item model definition in `assets/fertilegrounds/items/`, a block lacks a block state file, or any model references a texture that doesn't exist.
 
 #### Scenario: Missing item model definition
 - **WHEN** an item has no `items/<name>.json`
-- **THEN** the test fails and names the item (regression for e5356de)
+- **THEN** the test fails and names the item
 
 ### Requirement: Data file shape
 `./gradlew test` SHALL fail when a recipe uses the `{"item": ...}` ingredient wrapper or an `"item"` result key, or a recipe advancement uses the old `"recipe"` criterion key or an array `items` predicate.
 
 #### Scenario: Old recipe format
 - **WHEN** a recipe uses `{"item": "minecraft:bone_meal"}` as an ingredient
-- **THEN** the test fails (regression for b95a82e and 02ba2bb)
+- **THEN** the test fails
 
-### Requirement: Silent load failures fail the smoke test
-The smoke test SHALL fail when the server log contains a recipe, advancement, loot table, or tag parse error, in addition to registry and tick errors, on the Fabric, NeoForge, and Forge test servers.
+### Requirement: Silent load failures fail the GameTest run
+`python3 scripts/run_gametests.py` SHALL fail when the server log contains a recipe, advancement, loot table, or tag parse error, in addition to registry and tick errors, on the Fabric, NeoForge, and Forge test servers.
 
 #### Scenario: Broken recipe
 - **WHEN** a recipe JSON fails to parse on load
-- **THEN** the smoke test exits 1 and prints the log line
+- **THEN** the run exits 1 and prints the log line
 
 #### Scenario: Broken recipe on Forge
 - **WHEN** the same broken recipe loads on the Forge test server
-- **THEN** the Forge smoke test also exits 1 and prints the log line
+- **THEN** the Forge run also exits 1 and prints the log line
 
 ### Requirement: Runtime regressions
-The smoke test SHALL check, in a real world, that trampled and dried Enriched and Super Enriched Farmland revert to their own dirt tier, that Enriched Sand is in `#minecraft:sand`, that a fairy reaches a roofed crop, and that a fairy with no crop leaves.
+The GameTests SHALL check, in a real world, that trampled and dried Enriched and Super Enriched Farmland revert to their own dirt tier, that Enriched Sand is in `#minecraft:sand`, that a fairy reaches a roofed crop, and that a fairy with no crop leaves.
 
 #### Scenario: Trampling
 - **WHEN** a mob falls 10 blocks onto Enriched Farmland
-- **THEN** the block becomes Enriched Dirt, not vanilla dirt (regression for 83fd1fb)
+- **THEN** the block becomes Enriched Dirt, not vanilla dirt
 
 #### Scenario: Sugar cane soil
-- **WHEN** the smoke test checks Enriched Sand against `#minecraft:sand`
-- **THEN** the check passes (regression for 1e5d483)
+- **WHEN** a GameTest checks Enriched Sand against `#minecraft:sand`
+- **THEN** the check passes
 
 ### Requirement: Client log check
 `python3 scripts/client_log_check.py` SHALL start the dev client, wait for the mod's init line and the title screen, stop the client, and exit 1 when the log names a missing model, texture, or sound for `fertilegrounds`. It SHALL take `--loader fabric` (the default), `--loader neoforge`, or `--loader forge`.
@@ -64,7 +64,7 @@ The smoke test SHALL check, in a real world, that trampled and dried Enriched an
 - **THEN** it boots the Forge dev client and applies the same checks
 
 ### Requirement: Every fix adds a regression
-Each bug fix commit SHALL add a check to the JUnit tests or the smoke test, with a comment naming the commit or bug it guards.
+Each bug fix SHALL add a JUnit test or a GameTest that fails without the fix.
 
 #### Scenario: Future fix
 - **WHEN** a developer fixes a bug found in playtesting
