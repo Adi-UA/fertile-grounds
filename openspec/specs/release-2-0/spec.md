@@ -6,7 +6,7 @@ Defines which Minecraft versions and loaders Fertile Grounds 2.0 supports, how p
 ## Requirements
 
 ### Requirement: Supported versions
-Fertile Grounds 2.0 SHALL ship for Minecraft 26.1, 26.2, 26.3, 1.21.11, 1.21.10, and 1.21.1, as a Fabric, a NeoForge, and a Forge jar for each version. The newest file SHALL be 2.0.1 for 26.1, 26.2, and 1.21.1, where the 2.0.1 patch makes recipe advancements unlock their recipes (26.1 and 26.2) and lets stems stand on mod farmland (1.21.1), and 2.0.0 for 26.3, 1.21.11, and 1.21.10. Players on 1.20.1 SHALL keep 1.2.0, and every 1.2.0 file SHALL stay downloadable and unchanged. The 1.21.11, 1.21.10, and 1.21.1 jars SHALL offer the same features as the 26.1 jars, except where that Minecraft version lacks something, and the port's design names each such gap. Versions older than 26.1 SHALL get no features after 2.0; later features ship for 26.1 and newer.
+Fertile Grounds 2.0 SHALL ship for Minecraft 26.1, 26.2, 26.3, 1.21.11, 1.21.10, and 1.21.1, as a Fabric, a NeoForge, and a Forge jar for each version. The newest file SHALL be 2.0.1 for 26.1, 26.2, 1.21.11, and 1.21.1, where the 2.0.1 patch makes recipe advancements unlock their recipes (26.1 and 26.2), lets stems stand on mod farmland (1.21.1), and draws the Fairy Hotel glass instead of black (1.21.11), and 2.0.0 for 26.3 and 1.21.10. Players on 1.20.1 SHALL keep 1.2.0, and every 1.2.0 file SHALL stay downloadable and unchanged. The 1.21.11, 1.21.10, and 1.21.1 jars SHALL offer the same features as the 26.1 jars, except where that Minecraft version lacks something, and the port's design names each such gap. Versions older than 26.1 SHALL get no features after 2.0; later features ship for 26.1 and newer.
 
 #### Scenario: Player on 1.21.10
 - **WHEN** a 1.21.10 player filters by their version and loader on Modrinth or CurseForge
@@ -18,7 +18,7 @@ Fertile Grounds 2.0 SHALL ship for Minecraft 26.1, 26.2, 26.3, 1.21.11, 1.21.10,
 
 #### Scenario: Player on 1.21.11
 - **WHEN** a 1.21.11 player filters by their version and loader on Modrinth or CurseForge
-- **THEN** they find a 2.0.0 file built for 1.21.11 for Fabric, NeoForge, and Forge, and the page says 1.21.11 gets 2.0.0 only
+- **THEN** they find a 2.0.1 file built for 1.21.11 for Fabric, NeoForge, and Forge, and the page says 1.21.11 gets 2.0 only
 
 #### Scenario: Older 1.21.11 file stays
 - **WHEN** a 1.21.11 player looks at the version list
@@ -61,7 +61,7 @@ The README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and th
 
 #### Scenario: Reading the 1.21.11 branch
 - **WHEN** someone opens the 1.21.11 branch on GitHub
-- **THEN** its README says it carries 2.0.0 for 1.21.11 and gets no later features
+- **THEN** its README says it carries 2.0.1 for 1.21.11 and gets no later features
 
 #### Scenario: Loader requirements
 - **WHEN** someone reads the README's Versions section
