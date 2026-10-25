@@ -7,7 +7,7 @@ package com.fertilegrounds.hotel;
  */
 public final class ChimeRules {
 
-  /** Fewer crops than this never count as a field, so a few stray plants never ring. */
+  /** A field needs at least this many crops, so stray plants never ring. */
   public static final int MIN_CROPS = 4;
 
   private ChimeRules() {}

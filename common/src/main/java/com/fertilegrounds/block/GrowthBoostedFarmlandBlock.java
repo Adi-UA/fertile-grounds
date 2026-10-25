@@ -12,12 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRule;
 
 /**
- * A farmland variant that passively fertilizes whatever crop is planted on top of it, on top of
- * vanilla farmland's normal moisture/hydration behavior.
- *
- * <p>Since 26.3, vanilla {@link FarmlandBlock} takes the block it reverts to on trampling or drying
- * out as a constructor argument, so passing this tier's own dirt block is all it takes to keep a
- * crafted block from downgrading into plain vanilla dirt.
+ * Farmland that passively fertilizes the crop on top. Vanilla {@link FarmlandBlock} takes the block
+ * it reverts to in its constructor, so trampled or dry soil turns back into this tier's dirt.
  */
 public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
 
@@ -26,11 +22,8 @@ public class GrowthBoostedFarmlandBlock extends FarmlandBlock {
   private final SoilTier tier;
 
   /**
-   * @param properties block properties, e.g. from {@code ModBlockProperties.farmlandProperties()}
-   * @param boostChanceRule the gamerule holding the per-random-tick percent chance of fertilizing
-   *     the plant above, read on every tick so {@code /gamerule} changes apply at once
-   * @param driedOutBlock the block this reverts to on trample or drought (this tier's own dirt)
-   * @param tier the tier a comparator reads
+   * @param boostChanceRule the percent chance per random tick of fertilizing the plant above, read
+   *     on every tick so {@code /gamerule} changes apply at once
    */
   public GrowthBoostedFarmlandBlock(
       final Properties properties,

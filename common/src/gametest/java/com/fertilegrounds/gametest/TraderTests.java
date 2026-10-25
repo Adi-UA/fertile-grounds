@@ -23,9 +23,9 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 /**
- * The Wandering Trader's rare trades. Since 26.1 trades are data: each is a {@code villager_trade}
- * file, and the trader rolls 2 from the {@code wandering_trader/uncommon} tag. Rolling is random,
- * so these tests read the pool and build each offer the way the trader does.
+ * The Wandering Trader's rare trades. On 26.x each trade is a {@code villager_trade} file, and the
+ * trader rolls 2 from the {@code wandering_trader/uncommon} tag, so these tests read the pool and
+ * build each offer the way the trader does.
  */
 public class TraderTests {
 

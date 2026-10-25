@@ -6,8 +6,9 @@ context: |
   mods (Farmer's Delight, Jade) instead of copying them, read shared tags so other mods' content
   works without code, and keep the vanilla look. docs/ROADMAP.md holds the release plan and the
   implementation order of changes.
-  Release 2.0.0 targets Minecraft 26.1, 26.2, and 26.3 only; 1.21.11 and older stay on 1.2.0. Build every change on 26.3
-  (main) first; backport to older branches only after every 2.0.0 change works on 26.3.
+  Release 2.0 targets Minecraft 26.1, 26.2, 26.3, 1.21.11, 1.21.10, and 1.21.1; versions from 1.21.1
+  up to 26.1 get 2.0 only, and 1.20.1 stays on 1.2.0. New features land on 26.3 (main) first, then
+  get backported to 26.2 and 26.1.
   Every tunable number sits behind a gamerule. Every player-facing string uses a translation key.
   No AI art ships: the maintainer draws or traces every texture in Aseprite from vanilla textures, and AI
   only supplies guides, templates, palettes, and placeholders. Specs describe the look, never pixels.
@@ -23,7 +24,7 @@ rules:
     - Write numbers as defaults and name the gamerule that changes them.
   design:
     - Name any Minecraft, Fabric, NeoForge, or Forge API that differs between 26.1 and 26.3, and add it to the porting divergence table.
-    - Include a short "Server safety" note per AGENTS.md: what the client sends (ideally nothing) and how the server checks it, what the feature saves on players or worlds and how it survives rejoin, death, leaving the End, and loading an older world, and the size of any block scan.
+    - 'Include a short "Server safety" note per AGENTS.md: what the client sends (ideally nothing) and how the server checks it, what the feature saves on players or worlds and how it survives rejoin, death, leaving the End, and loading an older world, and the size of any block scan.'
     - Include a "Look and sound" table with one row per player-facing moment (placing, breaking, using, ambient), naming its look, one vanilla sound, and one vanilla particle, all present in 26.1. Glowing parts use an emissive model layer the maintainer paints.
   tasks:
     - "Each task names its verification: a JUnit test, a GameTest run by `python3 scripts/run_gametests.py` (with a mock player for anything a player does), a `client_log_check.py` run, or an in-game checklist item for the maintainer."

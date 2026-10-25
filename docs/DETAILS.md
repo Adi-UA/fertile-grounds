@@ -4,19 +4,19 @@ The exact numbers, recipes, and tags behind each feature. The [README](../README
 
 ## Gameplay
 
-Three tiers, each a drop-in soil upgrade that behaves like its vanilla counterpart (till it, plant on it, it still floods/dries/tramples) but with a chance per random tick to instantly advance whatever's growing on top of it, as if bone-mealed:
+Each enriched soil works like its vanilla block: you till it, plant on it, and it dries out or gets trampled the same way. On each random tick, it also has a chance to grow the plant on top by one stage, as bone meal does:
 
-| Tier | Block(s) | Crafted from | Boost chance/tick |
-|---|---|---|---|
-| 1 | Enriched Dirt / Enriched Farmland | Dirt + Bone Meal | 15% |
-| 2 | Enriched Sand | Sand + Bone Meal | 15% |
-| 3 | Super Enriched Dirt / Super Enriched Farmland | Dirt + Bone Meal + Glowstone Dust | 50% |
+| Blocks | Crafted from | Chance per random tick |
+|---|---|---|
+| Enriched Dirt and Enriched Farmland | Dirt + Bone Meal | 15% |
+| Enriched Sand | Sand + Bone Meal | 15% |
+| Super Enriched Dirt and Super Enriched Farmland | Dirt + Bone Meal + Glowstone Dust | 50% |
 
-All three are craftable (shapeless, 1:1:1, no crafting table shape required) and unlock in the recipe book the first time you hold the right ingredients.
+Each recipe is shapeless, with one of each ingredient, and unlocks in the recipe book the first time you hold its ingredients.
 
-**Enriched Dirt / Super Enriched Dirt** work exactly like vanilla dirt: till them into farmland with a hoe, only the farmland form accepts crops. Their farmland reverts back to their *own* dirt tier (not vanilla dirt) on drought or trampling, and shows a darker, moist texture at full hydration, same as vanilla farmland.
+**Enriched Dirt and Super Enriched Dirt** work like vanilla dirt: a hoe tills them into farmland, and only the farmland takes crops. When their farmland dries out or gets trampled, it turns back into its *own* dirt, not vanilla dirt, and it looks darker when wet, as vanilla farmland does.
 
-**Enriched Sand** behaves like vanilla sand (sugar cane can still be planted on it near water), no tilling involved. It boosts whatever bonemealable plant is directly on top of it, bamboo is the clearest example since it can grow on sand; sugar cane and cactus don't accept bone meal in vanilla, so they grow at normal speed on it either way.
+**Enriched Sand** works like vanilla sand, so sugar cane still grows on it next to water. It boosts any plant on top that takes bone meal, such as bamboo. Sugar cane and cactus don't take bone meal in vanilla, so they grow at their normal speed on it.
 
 **Fertilizer** upgrades soil you already farm on, so you don't have to dig up a farm and replant it. Use it on vanilla or Enriched dirt or farmland to turn it into the Super Enriched version, or on vanilla sand to turn it into Enriched Sand. The crop on top keeps its growth stage and farmland keeps its moisture. Dispensers apply it to the block they face. Craft 4 (shapeless) from 1 Bone Meal, 2 Glowstone Dust, and 6 small flowers in any mix; the recipe unlocks when you pick up Glowstone Dust.
 
@@ -70,7 +70,7 @@ Before using the diamond, the grove checks that the area holds only natural terr
 
 ### Wandering Trader
 
-A Wandering Trader can roll Fairy Dust or Fertilizer among its rare trades: 2 Fairy Dust for 4 emeralds (4 times) and 1 Fertilizer for 6 emeralds (3 times). Its vanilla trades stay as they are.
+A Wandering Trader can roll Fairy Dust or Fertilizer among its 2 uncommon trades: 2 Fairy Dust for 4 emeralds (4 times) and 1 Fertilizer for 6 emeralds (3 times). Its vanilla trades stay as they are.
 
 ### Guide book
 
@@ -116,26 +116,26 @@ Gamerules tune the numbers per world. The [guide's settings section](GUIDE.md#se
 
 ## Minecraft version
 
-This branch targets Minecraft 26.3. Version 2.0 supports 26.1, 26.2, and 26.3, each on its own branch; changes land on `main` first and are backported one version at a time. Older Minecraft versions stay on 1.2.0, and their branches are frozen:
+This branch targets Minecraft 26.3. Version 2.0 supports 26.1, 26.2, 26.3, 1.21.11, 1.21.10, and 1.21.1, each on its own branch; changes land on `main` first and are backported one version at a time. Versions from 1.21.1 up to 26.1 get 2.0 only; 1.20.1 stays on 1.2.0:
 
 | Branch | Minecraft version | Mod version |
 |---|---|---|
 | `26.3` / `main` | 26.3 (this branch, latest) | 2.0 |
 | `26.2` | 26.2 | 2.0 |
 | `26.1` | 26.1 | 2.0 |
-| `1.21.11` | 1.21.11 | 1.2.0 (frozen) |
-| `1.21.10` | 1.21.10 | 1.2.0 (frozen) |
-| `1.21.1` | 1.21.1 | 1.2.0 (frozen) |
+| `1.21.11` | 1.21.11 | 2.0 (final) |
+| `1.21.10` | 1.21.10 | 2.0 (final) |
+| `1.21.1` | 1.21.1 | 2.0 (final) |
 | `1.20.1` | 1.20.1 | 1.2.0 (frozen) |
 
 ## Requirements
 
-- Minecraft 26.3 (or the version of the branch's jar), Java 25+
+- Minecraft 26.3 (or the version of the branch's jar), Java 25+ (Java 21+ on 1.21.x)
 - One loader:
   - [Fabric Loader](https://fabricmc.net/) 0.19.5+ with [Fabric API](https://modrinth.com/mod/fabric-api) 0.161.0+26.3
-  - [NeoForge](https://neoforged.net/) 26.3.0.69-beta+
-  - [Forge](https://files.minecraftforge.net/) 66.0.10+
-- Optional: [Jade](https://modrinth.com/mod/jade) for look-at tooltips, on Fabric and NeoForge (Jade has no Forge build for 26.x)
+  - [NeoForge](https://neoforged.net/) 26.3.0.94+
+  - [Forge](https://files.minecraftforge.net/) 66.1.0+
+- Optional: [Jade](https://modrinth.com/mod/jade) for look-at tooltips, on Fabric and NeoForge (Jade has no Forge build for 26.x or 1.21.x)
 
 ## Building from source
 

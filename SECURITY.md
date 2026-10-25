@@ -6,8 +6,8 @@ Fertile Grounds is a small farming mod, but mods run on players' computers and s
 
 | Version | Minecraft | Gets security fixes? |
 |---|---|---|
-| 2.0 | 26.1, 26.2, 26.3 | Yes |
-| 1.2.0 and older | 1.21.11 and older | No, please update to 2.0 on Minecraft 26.1 or newer |
+| 2.0 | 26.1, 26.2, 26.3, 1.21.11, 1.21.10, 1.21.1 | Yes |
+| 1.2.0 and older | 1.21.11 and older | No, please update to 2.0 on Minecraft 1.21.1, 1.21.10, 1.21.11, or 26.1 or newer |
 
 ## Found a problem?
 

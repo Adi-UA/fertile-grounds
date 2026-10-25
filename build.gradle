@@ -1,5 +1,4 @@
-// Each loader's build plugin, declared once here so every project shares one copy. The projects
-// themselves are configured in buildSrc/ and in common/, fabric/, neoforge/, and forge/.
+// Each loader's build plugin, declared once so every project shares one copy.
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}" apply false
 	id 'net.neoforged.moddev' version "${moddevgradle_version}" apply false

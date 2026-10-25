@@ -32,10 +32,9 @@ public final class HarvestMoon {
   }
 
   /**
-   * Since 1.21.11, the moon phase is an "environment attribute" rather than a method on the level.
-   * It's a positional one (a biome could change it), so like vanilla's {@code getMoonBrightness}
-   * this reads it at a spot, the world spawn; dev builds of the game throw if no spot is given.
-   * Phase 0 is the full moon, so the very first night of a world is one.
+   * Reads the moon phase at the world spawn, like vanilla's {@code getMoonBrightness}, because it
+   * is a positional environment attribute and dev builds throw without a position. Phase 0 is the
+   * full moon, so the first night of a world is one.
    */
   public static boolean isTonight(final ServerLevel level) {
     return level

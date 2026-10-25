@@ -1,7 +1,7 @@
 # fairy-visit-feedback Specification
 
 ## Purpose
-Makes every Bean Fairy visit noticeable, so players know when the mod has helped them, even when they slept through it.
+Makes every Bean Fairy visit easy to notice, so players know when a fairy helped them, even when they slept through it.
 
 ## Requirements
 

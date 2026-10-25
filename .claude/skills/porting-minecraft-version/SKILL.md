@@ -5,7 +5,7 @@ description: Port Fertile Grounds to a new Minecraft version, or backport a feat
 
 # Porting between Minecraft versions
 
-Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 26.1), and port all three loaders in the same hop. Since 2.0 the targets are `26.2` and `26.1`; the 1.21.11 and older branches are frozen on 1.2.0, and their rows below stay for history. Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
+Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 26.1), and port all three loaders in the same hop. Since 2.0 the targets are `26.2` and `26.1`. `1.21.1` got 2.0.0 straight from 26.1 (its rows are "1.21.2 to 26.1"), `1.21.11` got it from 26.1 in one hop (rows "26.1" give the 1.21.11 form, and rows "1.21.2 to 1.21.11" changed by then), `1.21.10` got it from `1.21.11` (rows "1.21.11" give what that hop undid), and versions before 26.1 get 2.0.0 only; `1.20.1` stays on 1.2.0. Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
 
 ## 1. Set up the branch
 
@@ -101,10 +101,20 @@ These loader facts were checked on 26.3, and 26.2 and 26.1 match them except for
 | 26.1 | Fabric | Fabric model layers | `EntityModelLayerRegistry.registerModelLayer` | `ModelLayerRegistry.registerModelLayer` |
 | 26.1 | Fabric | Optional mod dependency (Jade) | `modCompileOnly` and `modLocalRuntime "maven.modrinth:jade:<1.21.11 version>"`; check the Jade API jar for changed provider methods | `compileOnly`, `gametestCompileOnly`, and `localRuntime` (skipped with `-PnoJade`) |
 | 26.1 | Fabric | Build setup | Obfuscated: `mappings loom.officialMojangMappings()` and `modImplementation` | Unobfuscated: plain `implementation`, no mappings |
-| 1.21.11 | All | `ResourceLocation` | `net.minecraft.resources.ResourceLocation` | Renamed `Identifier` |
-| 1.21.11 | All | Game rule names | camelCase (`randomTickSpeed`) | snake_case (`random_tick_speed`) |
+| 26.1 | Fabric | Creative tab | `FabricItemGroup.builder()` (item group API) | `FabricCreativeModeTab.builder()` (creative tab API) |
+| 26.1 | All | Server-wide gamerules | 1.21.11's `MinecraftServer` has no `getGameRules` (1.21.10's does); read `server.overworld().getGameRules()` | `server.getGameRules()` |
+| 26.1 | All | Recipes and entity use | `Recipe.assemble(input, registries)`, `Player.interactOn(entity, hand)` | `assemble(input)`, `interactOn(entity, hand, location)` |
+| 26.1 | All | Test environment time | `{"type": "minecraft:time_of_day", "time": 18000}` | `clock_time` with a `clock` |
+| 26.1 | All | Test spacing | Test instances have no `padding`, and tests sit 5 blocks apart, so a fairy test keeps the fairy it spawned and `TestSupport.fairies` looks only 4 blocks to each side | `padding` in the test instance |
+| 26.1 | Forge | Saved data and mod list | `SavedDataType` takes a file name (`fertilegrounds_<path>`); `ModList.get().isLoaded` | An `Identifier`; static `ModList.isLoaded` |
+| 26.1 | Forge | Version numbers | Forge 61.x on 1.21.11: `loaderVersion = "[61,)"`, `data_pack_format` 94 (Forge 60.x on 1.21.10: `[60,)`, format 88); Apple Silicon's `lwjgl-freetype` is only on Mojang's library maven, so `forge/build.gradle` keeps Maven Central from claiming it (also on 1.21.1) | Forge 64.x: `[64,)`, format 101, no repository fix |
+| 1.21.11 | All | Package moves | `net.minecraft.world.entity.npc.VillagerTrades` and `npc.WanderingTrader`, `animal.Bee`, `net.minecraft.Util`, `advancements.critereon`; `ItemListing.getOffer(entity, random)` | `npc.villager.VillagerTrades`, `npc.wanderingtrader.WanderingTrader`, `animal.bee.Bee`, `net.minecraft.util.Util`, `advancements.criterion`; `getOffer(level, entity, random)` |
+| 1.21.11 | All | `ResourceLocation` | `net.minecraft.resources.ResourceLocation`; `ResourceKey.location()` | Renamed `Identifier`; `ResourceKey.identifier()` |
+| 1.21.11 | All | Game rule names | camelCase (`randomTickSpeed`); the clock stops with `doDaylightCycle` (`GameRules.RULE_DAYLIGHT`); a `game_rules` test environment lists `bool_rules` and `int_rules` as `{"rule", "value"}` entries | snake_case (`random_tick_speed`); `doDaylightCycle` became `advance_time`; one `rules` map |
+| 1.21.11 | All | GameTest messages | `assertTrue`, `assertValueEqual`, `fail`, and the other asserts take a `Component`, so test text goes in `Component.literal` | `String` overloads |
+| 1.21.11 | All | Moon phase | `level.getMoonPhase()`, 0 is the full moon | Positional environment attribute `EnvironmentAttributes.MOON_PHASE` (see dev-only checks above) |
 | 1.21.2 to 1.21.10 | All | Entity rendering | `MobRenderer<Entity, Model>`, `HierarchicalModel` with `root()` and `setupAnim(entity, limbSwing, ..., ageInTicks, ...)`; reset pose yourself with `getAllParts().forEach(ModelPart::resetPose)` | Render states: `MobRenderer<Entity, State, Model>`, `createRenderState()`, `setupAnim(state)` resets the pose |
-| 1.21.2 to 1.21.10 | All | Entity creation and ids | `EntityType.create(level)`, `Builder.build(String)` (logs a harmless dev-only "No data fixer" error) | `create(level, EntitySpawnReason)`, `Builder.build(ResourceKey)` |
+| 1.21.2 to 1.21.10 | All | Entity creation and ids | `EntityType.create(level)`, `Builder.build(String)` (on Fabric, logs a harmless "No data fixer" error at startup, in dev and in play; `client_log_check.py` skips it) | `create(level, EntitySpawnReason)`, `Builder.build(ResourceKey)` |
 | 1.21.2 to 1.21.10 | All | Item ids | `new Item.Properties()` | `Properties.setId(key)` before building |
 | 1.21.2 to 1.21.10 | All | Night check | `level.isNight()` | `level.isDarkOutside()` |
 | 1.21.2 to 1.21.10 | All | Goal helpers | Cast `(ServerLevel) mob.level()` | `Goal.getServerLevel(mob)` |
@@ -112,6 +122,26 @@ These loader facts were checked on 26.3, and 26.2 and 26.1 match them except for
 | 1.21.2 to 1.21.10 | All | Item models | Only `models/item/<id>.json` | Also needs `items/<id>.json` |
 | 1.21.2 to 1.21.10 | All | Spawn eggs | `new SpawnEggItem(type, bgColor, spotColor, props)`, tinted by colors (white keeps a painted texture as is) | `Properties.spawnEgg(type)`, per-mob texture |
 | 1.21.2 to 1.21.10 | Fabric | Renderer registration | Vanilla `EntityRenderers.register` is private; use Fabric `EntityRendererRegistry` | Public |
+| 1.21.2 to 1.21.11 | All | Random ticks | Only chunks within 128 blocks of a non-spectator player get them (`ChunkMap.anyPlayerCloseEnoughForSpawning`); GameTests that wait on random ticks stand a mock player in the test (`TestSupport.randomTickWatcher`) and register it with `getChunkSource().move` | Force-loaded test chunks get them with no player near |
+| 1.21.2 to 1.21.11 | All | GameTest API | `@GameTestGenerator` returns `TestFunction`s, `@BeforeBatch` sets up each batch, tests sit 5 blocks apart; `getBlockEntity(pos)` is generic with no class argument, `assertBlockState(pos, predicate, Supplier<String>)`, no `assertBlockTag` or `assertionException` (throw `GameTestAssertException`) | Test instances and test environments as data |
+| 1.21.2 to 1.21.11 | All | Player join | `placeNewPlayer` loads the player's save itself | The caller loads it (`TagValueInput`) |
+| 1.21.2 to 1.21.11 | All | Text in data components | A JSON string holding the text, e.g. `"minecraft:item_name": "{\"translate\":\"...\"}"` (guide book recipe) | A JSON object |
+| 26.1 | All | Wandering Trader rare offers | Code in `VillagerTrades.WANDERING_TRADER_TRADES`: on 1.21.1 a map whose level 2 holds 6 vanilla offers, on 1.21.11 a list of three pools whose index 1 holds 15 (2 picked); vanilla's `ItemsForEmeralds` is package-private, though Fabric API widens it, so its decompiled sources show it public | Data-driven trade sets |
+| 1.21.2 to 1.21.11 | All | Data-load log lines | Recipes and advancements that don't decode log `Parsing error loading recipe` and `Parsing error loading custom advancement` | Registry loading errors |
+| 1.21.2 to 1.21.11 | Forge | `pack.mcmeta` | `"pack_format": <data_pack_format>`; the newer keys fail to parse and Forge then loads none of the mod's data (`Couldn't load pack metadata`) | `"min_format"` and `"max_format"` |
+| 1.21.2 to 1.21.11 | Forge | Registration order | Items register before entity types, so a spawn egg takes a supplier (`ForgeSpawnEggItem`, through `Platform.spawnEgg`) | `Properties.spawnEgg` |
+| 1.21.2 to 1.21.11 | NeoForge | Mock players | A mock connection must list the mod channels (`NetworkRegistry.configureMockConnection`), or a mod that sends a packet on join (Jade) throws; the NeoForge test mod passes it to `TestPlayer.setConnectionSetup` | Not needed |
+| 1.21.11 | All | Gamerules | `GameRules.Key<IntegerValue>`, registered through `Platform.intRule`/`boolRule`: Fabric `GameRuleRegistry`, NeoForge and Forge the private ranged `IntegerValue.create` (which takes a `FeatureFlagSet` on 1.21.10) through the `IntegerRuleInvoker` mixin, each loaded from the entry point | A `GameRule` registry entry |
+| 1.21.2 to 1.21.11 | All | Saved data | `SavedData.Factory` with NBT (Forge stores the codec's value in `fertilegrounds_<path>.dat`) | Codec-based `SavedDataType` |
+| 26.1 | All | Crops on mod farmland | Crops and melon and pumpkin stems check `Blocks.FARMLAND`: shared `CropBlockMixin`, `PitcherCropBlockMixin`, `StemBlockMixin`, and `AttachedStemBlockMixin` allow any `FarmBlock` (1.21.1 lacks the stem ones); growth speed through a Fabric-only mixin, NeoForge's own `FarmBlock` check, and Forge's `isFertile` (on 1.21.1 the tiers override it; Forge 61's default already accepts any `FarmBlock`) | `supports_crops` and `grows_crops` block tags |
+| 1.21.2 to 1.21.11 | All | Model glow | No element `light_emission`; glow layers draw unlit, and item icons put the glow in `layer1` | `light_emission` on the glow elements |
+| 1.21.2 to 1.21.11 | All | Mob effect icons | `assets/minecraft/atlases/mob_effects.json` | The `gui` atlas |
+| 1.21.2 to 1.21.11 | All | Firefly, Firefly Bush, pale moss | No firefly particle, Firefly Bush, or pale moss: heralds use `GLOW` plus `AMETHYST_BLOCK_CHIME`, and the hotel recipe uses Glow Berries | Present |
+| 1.21.2 to 1.21.11 | All | Structure files | `DataVersion` 3955 | Newer data versions |
+| 1.21.2 to 1.21.11 | Forge | Build and events | ForgeGradle 7.0.40 sets up Forge 52.1.20 but applies no access transformer; EventBus 6 (`MinecraftForge.EVENT_BUS`, mod events through `getModEventBus()`); no MixinExtras, so mixins needing it go in a Fabric-only config; `loaderVersion "[52,)"`, `data_pack_format` 48; Mojang's library maven must serve `lwjgl-freetype` on Apple Silicon | EventBus 7, MixinExtras bundled |
+| 1.21.2 to 1.21.11 | NeoForge, Forge | Farmland trampling near hotels | `BlockEvent.FarmlandTrampleEvent`, cancelled near an occupied hotel | The shared trample mixin |
+| 1.21.2 to 26.1 | All | Sign text in commands (demo world) | Each line a JSON string, clicks as `clickEvent` with `action` and `value`; the game re-saves the JSON, so checks search the line instead of matching it | SNBT text with `click_event` |
+| 26.1 | All | Block render layers | Blocks missing from vanilla's `ItemBlockRenderTypes` draw solid, so see-through pixels turn black: Fabric `BlockRenderLayerMap.putBlocks` (`ChunkSectionLayer.CUTOUT` on 1.21.10 and 1.21.11, `RenderType.cutout()` through `INSTANCE` on 1.21.1), NeoForge and Forge `"render_type": "minecraft:cutout"` in the model (children inherit it); `AssetConsistencyTest.hotelsDrawWithCutout` checks both | Picked from the textures |
 | 1.20.2 to 1.21.1 | All | Bone meal | `isValidBonemealTarget(level, pos, state, isClient)` | No `isClient` argument |
 | 1.20.2 to 1.21.1 | All | `ItemStack.consume` | Missing; use `shrink(1)` (creative mode restores the stack) | `consume(amount, entity)` |
 | 1.20.2 to 1.21.1 | All | `EntityType.Builder.eyeHeight` | Missing; the default eye height is used | Present |

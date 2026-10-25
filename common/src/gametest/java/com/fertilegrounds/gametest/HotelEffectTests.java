@@ -194,10 +194,9 @@ public class HotelEffectTests {
   }
 
   /**
-   * A creeper 5 blocks from an occupied hotel is out of its range 5 seconds later. The test world's
-   * floor is barrier, where vanilla never picks a spot to walk to, so the test lays stone first. It
-   * runs in its own environment, since a creeper chases the mock players of tests running beside
-   * it.
+   * A creeper 5 blocks from an occupied hotel is out of its range 5 seconds later. Stone covers the
+   * barrier floor, where vanilla never picks a walk target, and its own environment keeps the
+   * creeper from chasing other tests' mock players.
    */
   @FertileTest(
       structure = "fertilegrounds:empty_large",
@@ -213,11 +212,11 @@ public class HotelEffectTests {
     final Creeper creeper =
         helper.spawn(EntityTypes.CREEPER, hotel.getX() + 5.5F, 1, hotel.getZ() + 0.5F);
     final Vec3 hotelCenter = Vec3.atCenterOf(helper.absolutePos(hotel));
-    // Vanilla's flee goal picks a random spot away from the hotel, so give it until maxTicks.
+    // The flee goal stops once the hotel leaves its 6-block search, so the creeper may stop at 6.5.
     helper.succeedWhen(
         () -> {
           helper.assertTrue(
-              creeper.position().distanceTo(hotelCenter) > AvoidFairyHotelGoal.AVOID_DISTANCE + 1,
+              creeper.position().distanceTo(hotelCenter) > AvoidFairyHotelGoal.AVOID_DISTANCE,
               "the creeper left the hotel's 6-block range");
           creeper.discard();
         });

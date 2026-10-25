@@ -44,8 +44,7 @@ public class FertileGroundsFabric implements ModInitializer {
         FairyHotelLookup.VALID_RANGE,
         FairyHotelLookup.occupiedHotels().toArray(Block[]::new));
     FabricDefaultAttributeRegistry.register(ModEntities.BEAN_FAIRY, BeanFairy.createAttributes());
-    // Since 26.3, hoe tilling is a data-driven "block transformer" instead of HoeItem's old code
-    // map, and this helper appends our rules to vanilla's hoe transformer.
+    // Hoe tilling is a data-driven block transformer; this appends our rules to the hoe's.
     ModBlocks.TILLED.forEach(
         (untilled, tilled) ->
             BlockTransformerHelper.registerTilling(

@@ -1,21 +1,25 @@
 package com.fertilegrounds.gametest;
 
+import com.fertilegrounds.FertileGrounds;
 import com.fertilegrounds.block.ModBlocks;
 import com.fertilegrounds.item.ModItems;
 import com.fertilegrounds.util.ModIdsUtil;
+import java.util.List;
 import java.util.stream.Stream;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
- * The mod's advancements load and are earned through real actions; the visit and gift ones are in
- * {@code VisitFeedbackTests} and {@code FairyGiftTests}. The test data's advancements on each
- * custom trigger load too. An unknown trigger or a broken file makes the advancement loader skip
- * that file with only a log line.
+ * The mod's advancements, and the test data's ones on each custom trigger, load and are earned
+ * through real actions, since the loader skips a broken file with only a log line.
  */
 public class AdvancementTests {
 
@@ -58,6 +62,38 @@ public class AdvancementTests {
     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.FERTILIZER));
     player.useHeldItemOn(helper, soil);
     helper.assertTrue(player.hasAdvancement("use_fertilizer"), "Fertilizer advancement");
+    player.leave();
+    helper.succeed();
+  }
+
+  /**
+   * Each recipe advancement puts its recipe in the player's recipe book, since vanilla skips an
+   * unknown rewards key with no log line.
+   */
+  @FertileTest
+  public void recipeAdvancementsUnlockTheirRecipes(final GameTestHelper helper) {
+    final TestPlayer player = TestPlayer.join(helper);
+    final List<AdvancementHolder> recipeAdvancements =
+        helper.getLevel().getServer().getAdvancements().getAllAdvancements().stream()
+            .filter(
+                holder ->
+                    holder.id().getNamespace().equals(FertileGrounds.MOD_ID)
+                        && holder.id().getPath().startsWith("recipes/"))
+            .toList();
+    helper.assertTrue(!recipeAdvancements.isEmpty(), "the mod has recipe advancements");
+    for (final AdvancementHolder holder : recipeAdvancements) {
+      final String path = holder.id().getPath().substring("recipes/".length());
+      final ResourceKey<Recipe<?>> recipe =
+          ResourceKey.create(Registries.RECIPE, ModIdsUtil.id(path));
+      helper.assertTrue(!player.getRecipeBook().contains(recipe), "new players lack " + recipe);
+      holder
+          .value()
+          .criteria()
+          .keySet()
+          .forEach(criterion -> player.getAdvancements().award(holder, criterion));
+      helper.assertTrue(
+          player.getRecipeBook().contains(recipe), holder.id() + " unlocks " + recipe);
+    }
     player.leave();
     helper.succeed();
   }
