@@ -9,7 +9,7 @@ Publish a release on the Modrinth project: one Modrinth version per jar (Fabric,
 
 ## Guardrails (read first)
 
-- **Never delete, hide or edit an existing version.** Old versions stay exactly as they are. Only create new ones. The one exception: once a Beta NeoForge or Forge file's loader gets a final build and its GameTests pass on that build (`ORG_GRADLE_PROJECT_neoforge_version=<build> python3 scripts/run_gametests.py --loader neoforge`, or `forge_version`), change only its type to Release (Edit → Edit details) and its changelog's "Tested on" sentence; the file stays. A second exception: when the maintainer asks to fix a released jar without a version bump, open that version's **Edit**, upload the rebuilt jar as the primary file, remove the old file, add one changelog sentence naming the fix, and save; the version number stays.
+- **Never delete, hide or edit an existing version.** Old versions stay exactly as they are. Only create new ones. The one exception: once a Beta NeoForge or Forge file's loader gets a final build and its GameTests pass on that build (`ORG_GRADLE_PROJECT_neoforge_version=<build> python3 scripts/run_gametests.py --loader neoforge`, or `forge_version`), change only its type to Release (Edit → Edit details) and its changelog's "Tested on" sentence; the file stays. Modrinth locks a version's primary file ("Primary file cannot be changed after version is uploaded"), so a fixed jar always ships as a new patch version (bump `mod_version` on that branch); the old version stays.
 - **Only touch** the summary, tags, description and new versions. Never change visibility, license, members, links, monetization, the icon, the gallery or anything in the danger zone without asking.
 - **Upload only jars built at each branch's release commit** (step 1), in a clean worktree so nothing local slips in. GitHub releases hold notes that link to Modrinth and CurseForge, never jars.
 - **Verify every save through the public API** (step 5) before moving on. A screenshot alone isn't proof; Save buttons sometimes miss the first click.
@@ -86,7 +86,7 @@ From `https://modrinth.com/mod/fertile-grounds/versions`, upload the jars oldest
 5. **Add details:** pick the type from the table in step 1. Version number and subtitle autofill as `<mod>+<mc>` and `Fertile Grounds <mod>+<mc>`; keep them for Fabric, and add `-neoforge` or `-forge` to both for the other loaders. Type a one or two sentence changelog in the editor; a NeoForge or Forge changelog names the loader version it was tested on.
 6. Click **Create version**, then verify it (step 5) before starting the next jar.
 
-The dialog layout stays the same between jars, so after the first one you can batch the clicks with `browser_batch`. Take a screenshot before each Create click.
+The dialog shifts after the version-number step (the Details step moves fields down once the changelog editor renders), so type the changelog first, then the number and subtitle suffixes, and zoom on the fields before each Create click. The Detected versions **Edit** jumps straight to Details; click **Back** for the Dependencies row. Click **Create version** by `find` ref each time (the button's ref stays `ref_126`).
 
 ## 5. Verify
 
