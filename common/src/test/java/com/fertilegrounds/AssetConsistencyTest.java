@@ -206,6 +206,31 @@ class AssetConsistencyTest {
     assertNone("Blocks without a block state", missing);
   }
 
+  /** This Minecraft version draws blocks solid unless told, which turns hotel glass black. */
+  @Test
+  void hotelsDrawWithCutout() throws IOException {
+    final List<String> problems = new ArrayList<>();
+    for (final Path file : files(ASSETS.resolve("models/block"), ".json")) {
+      final String name = file.getFileName().toString();
+      if (name.startsWith("template_") && name.contains("hotel")) {
+        final JsonElement type = readJson(file).get("render_type");
+        if (type == null || !type.getAsString().equals("minecraft:cutout")) {
+          problems.add(name + " has no \"render_type\": \"minecraft:cutout\"");
+        }
+      }
+    }
+    final String fabricClient =
+        Files.readString(
+            Path.of(
+                "fabric/src/client/java/com/fertilegrounds/fabric/client/FertileGroundsFabricClient.java"));
+    for (final String hotel : List.of("EMPTY_FAIRY_HOTEL", "FAIRY_HOTEL,", "CHIME_FAIRY_HOTEL")) {
+      if (!fabricClient.contains("ModBlocks." + hotel)) {
+        problems.add("Fabric's client puts no cutout layer on " + hotel.replace(",", ""));
+      }
+    }
+    assertNone("Hotels that draw see-through pixels black", problems);
+  }
+
   @Test
   void everyReferencedModelAndTextureExists() throws IOException {
     final List<String> missing = new ArrayList<>();
