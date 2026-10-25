@@ -9,7 +9,7 @@ Publish a release on the CurseForge project: one file per jar (Fabric, NeoForge 
 
 ## Guardrails (read first)
 
-- **Never archive, delete or edit an existing file.** Old files stay exactly as they are. Only add new ones. The one exception is promoting a Beta file to Release, under the rule in the Modrinth skill's guardrails: click the file's **Edit file** button, change only Release Type and the changelog, and click **Submit**; the file stays approved. CurseForge can't replace a file's jar, so when the maintainer asks to fix a released jar without a version bump, upload the rebuilt jar as a new file with the same display name and tags, then archive the old file.
+- **Never archive, delete or edit an existing file.** Old files stay exactly as they are. Only add new ones. The one exception is promoting a Beta file to Release, under the rule in the Modrinth skill's guardrails: click the file's **Edit file** button, change only Release Type and the changelog, and click **Submit**; the file stays approved. CurseForge can't replace a file's jar either, so a fixed jar ships as a new patch version (see the Modrinth skill's guardrails); the old file stays.
 - **Only touch** the summary, categories, description and new files. Never change the name, slug, logo, license, members, visibility ("Unlisted project"), default relations or donation settings without asking.
 - **Upload only the jars the Modrinth skill's step 1 built**, the same files Modrinth got.
 - **Verify every change** by reading it back after a reload (step 5). CurseForge has no keyless public API for project details, so the author console is the source of truth.
