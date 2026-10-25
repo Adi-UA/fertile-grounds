@@ -22,10 +22,8 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 /**
- * Checks the mod's JSON resources against its Java source without starting Minecraft. A missing
- * lang key, model, or texture never crashes the game: it shows up as a raw key or a purple-black
- * placeholder, and an outdated recipe is silently skipped on load. These tests catch all of that at
- * build time instead.
+ * Checks the mod's JSON resources against its Java source without starting Minecraft, since a
+ * missing lang key, model, or texture shows as a raw key or placeholder instead of crashing.
  */
 class AssetConsistencyTest {
 
@@ -95,8 +93,7 @@ class AssetConsistencyTest {
   void everyKeyUsedInCodeOrDataHasALangEntry() throws IOException {
     final Set<String> lang = readJson(ASSETS.resolve("lang/en_us.json")).keySet();
     final Set<String> used = new TreeSet<>();
-    // Keys in Java show up as string literals, e.g. Component.translatable("...") or a helper
-    // that takes the key as a string.
+    // Java names keys in string literals, passed to Component.translatable or a helper.
     final Pattern literal = Pattern.compile("\"((?:[a-zA-Z]+)\\." + NS + "\\.[a-z0-9_.]+)\"");
     for (final Path file : files(JAVA, ".java")) {
       collect(literal, Files.readString(file), used);
@@ -106,8 +103,8 @@ class AssetConsistencyTest {
     }
     // A literal ending in "." is a prefix that code completes, like the guide's page keys.
     used.removeIf(key -> key.endsWith("."));
-    // Advancement titles, sound subtitles, and the guide book recipe's pages name their keys in
-    // JSON; the recipe's text sits inside JSON strings, so its quotes are escaped.
+    // Advancement titles, sound subtitles, and the guide book recipe name their keys in JSON; the
+    // recipe's text sits inside JSON strings, so its quotes are escaped.
     final Pattern jsonKey =
         Pattern.compile(
             "\\\\?\"(?:translate|subtitle)\\\\?\"\\s*:\\s*\\\\?\"([^\"\\\\]*" + NS + "[^\"\\\\]*)");
@@ -164,8 +161,8 @@ class AssetConsistencyTest {
   }
 
   /**
-   * Regression for 0a7576e: block items showed "item.fertilegrounds.*" raw keys. On 1.21.1 a
-   * BlockItem always takes its block's name, so block items must be plain BlockItems.
+   * Block items show the block's name, not a raw item.fertilegrounds.* key. This Minecraft version
+   * gives a BlockItem its block's name, so block items are plain BlockItems.
    */
   @Test
   void blockItemsReuseTheBlockName() throws IOException {
@@ -178,7 +175,7 @@ class AssetConsistencyTest {
 
   // ---- Client assets ----
 
-  /** Regression for e5356de: items showed the missing-model placeholder. */
+  /** Every item has an item model definition, and every definition names an item. */
   @Test
   void itemModelsMatchItems() throws IOException {
     final Set<String> items = new TreeSet<>(blockItems());
@@ -254,9 +251,8 @@ class AssetConsistencyTest {
   // ---- Data file shape ----
 
   /**
-   * Regression for b95a82e: on 1.21.1, ingredients are {"item": ...} or {"tag": ...} objects and
-   * results use "id". The newer plain-string ingredients fail to parse here, and the game just
-   * skips the recipe with a log line.
+   * In this Minecraft version recipes use {"item": ...} or {"tag": ...} ingredients and an "id"
+   * result; plain-string ingredients fail to parse, and the game skips the recipe with a log line.
    */
   @Test
   void recipesUseTheCurrentShape() throws IOException {
@@ -283,10 +279,9 @@ class AssetConsistencyTest {
   }
 
   /**
-   * Recipe advancements use "recipe" for recipe_unlocked on 26.2 and older; 26.3 renamed it
-   * "recipes", which fails to parse here. Item predicates use a plain string or tag for "items" to
-   * match vanilla's style (b95a82e); a list still parses, but one criterion per item reads like
-   * vanilla's advancements.
+   * Advancements use "recipe" in recipe_unlocked (this Minecraft version fails to parse "recipes")
+   * and "recipes" in rewards (vanilla skips an unknown key), and item predicates name one item or
+   * tag, as vanilla does.
    */
   @Test
   void advancementsUseTheCurrentShape() throws IOException {

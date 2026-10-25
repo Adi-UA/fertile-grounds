@@ -1,5 +1,5 @@
-// Settings every project shares: Java 21, the jar version, formatting, and the Modrinth maven for
-// optional mods. Adapted from jaredlll08/MultiLoader-Template (branches 26.1.1 and 1.21.1).
+// Settings every project shares. Adapted from jaredlll08/MultiLoader-Template (branches 26.1.1 and
+// 1.21.1).
 plugins {
 	id 'java-library'
 	id 'com.diffplug.spotless'

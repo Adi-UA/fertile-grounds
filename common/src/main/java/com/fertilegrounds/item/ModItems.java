@@ -54,10 +54,7 @@ public final class ModItems {
     DispenserBlock.registerBehavior(FERTILIZER, new FertilizerDispenseBehavior());
   }
 
-  /**
-   * Like vanilla's {@code Items.registerBlock}: the item shares the block's id and fills {@code
-   * Item.BY_BLOCK} (the map {@code Block.asItem()} reads).
-   */
+  /** Like vanilla's {@code Items.registerBlock}. */
   private static Item registerBlock(final Block block) {
     final ResourceKey<Item> key =
         ResourceKey.create(Registries.ITEM, BuiltInRegistries.BLOCK.getKey(block));

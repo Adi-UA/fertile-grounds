@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 """Builds the "Fertile Grounds Demo" world on a headless dev server.
 
-The script starts `./gradlew :fabric:runDemoServer` on a fresh world, picks a flower forest or cherry
-grove, and writes an `fgdemo` datapack whose functions flatten a plot and build every station from
-`fill` and `setblock` commands. It talks to the server over RCON (local only, random password),
-checks the result, stops the server, turns cheats on in level.dat, and copies the world into the
-Minecraft saves folder and each loader's dev client saves (Fabric, NeoForge, Forge). The datapack stays in the save, so `/function fgdemo:reset/<station>` and
-`/function fgdemo:mode/<mode>` work while testing.
+Writes an `fgdemo` datapack that builds every station, checks the result over local RCON, and
+copies the world into the Minecraft saves folder and each loader's dev client saves. The datapack
+stays in the save, so `/function fgdemo:reset/<station>` and `/function fgdemo:mode/<mode>` work
+while testing.
 
     python3 scripts/demo/build_demo_world.py            # build, check, copy to saves
     python3 scripts/demo/build_demo_world.py --no-copy  # build and check only
@@ -33,7 +31,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SERVER_DIR = ROOT / "run" / "demo-server"
-# Its own name, so it never replaces the 26.x demo world in the launcher's saves.
+# Its own name, so it never replaces another Minecraft version's demo world in the launcher's saves.
 LEVEL_NAME = "Fertile Grounds Demo 1.21.1"
 WORLD = SERVER_DIR / LEVEL_NAME
 SAVES = Path.home() / "Library" / "Application Support" / "minecraft" / "saves"
@@ -100,7 +98,7 @@ class Site:
 
 
 def sign_line(text: str, command: str | None = None) -> str:
-    """One sign line as SNBT: on 1.21.1 each line is a JSON text component stored as a string."""
+    """One sign line as SNBT; this Minecraft version stores each line as a JSON text string."""
     component = {"text": text}
     if command:
         component |= {"color": "dark_green", "clickEvent": {"action": "run_command", "value": command}}
@@ -188,7 +186,6 @@ def build_spawn(s: Site) -> list[str]:
     item = f'{{id:"{book["id"]}",count:1,components:{snbt(book["components"])}}}'
     c.append(s.set(3, 1, -4, f"lectern[facing=south,has_book=true]{{Book:{item}}}"))
     c.append(s.set(3, 1, -5, sign(["Guide book", "every feature,", "page by page", ""], rotation=0)))
-    # Supply chests.
     supplies = [
         [
             ("diamond", 64), (f"{MOD}:fairy_dust", 64), (f"{MOD}:fertilizer", 64),
@@ -227,7 +224,7 @@ def build_path(s: Site) -> list[str]:
                 s.set(x, 2, z, "spruce_fence"),
                 s.set(x, 3, z, "lantern"),
             ]
-    # A soft edge of petals, grass, and a few flowers between the lamp posts.
+    # A soft edge of petals, grass, and scattered flowers between the lamp posts.
     for x in range(-1, 97):
         for z in (-2, 2):
             if x % 10 and rng.random() < 0.6:
@@ -424,9 +421,8 @@ def build_hero(s: Site) -> list[str]:
 
 
 def hero_fairies(s: Site) -> list[str]:
-    """About 30 Bean Fairies posed over the hero grove. With no AI they hover in place, wings still
-    beating, and never fly off. The mod never saves fairies to disk, so hero/tick summons them again
-    whenever a player comes near and none are there."""
+    """About 30 Bean Fairies with no AI posed over the hero grove. The mod never saves fairies to
+    disk, so hero/tick summons them again when a player comes near and none are there."""
     rng = random.Random(33)
     spots = [(dx, dz) for dx in (-10, 0, 10) for dz in (-10, 0, 10) if (dx, dz) != (0, 0)]
     c = []
@@ -697,8 +693,7 @@ def start_server(log_path: Path) -> subprocess.Popen:
             "./gradlew",
             ":fabric:runDemoServer",
             "--console=plain",
-            # Jade lists the mod's client tooltip plugin, which the dev server's split classpath
-            # leaves out (the shipped jar has it), so the dev server runs without Jade.
+            # Jade names the mod's client tooltip plugin, which the dev server's classpath leaves out.
             "-PnoJade",
         ],
         cwd=ROOT,

@@ -34,7 +34,7 @@ import net.minecraft.world.phys.BlockHitResult;
  */
 public class FairyHotelBlock extends LanternBlock {
 
-  /** Brushed since the last dawn: the fairy is happy and boosts crops more often. */
+  /** Brushed since the last dawn: the fairy boosts crops at the petted chance. */
   public static final BooleanProperty PETTED = BooleanProperty.create("petted");
 
   private final boolean occupied;

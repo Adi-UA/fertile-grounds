@@ -9,7 +9,6 @@ base {
 }
 
 sourceSets {
-	// In-world tests: never shipped, run as their own dev-only mod (see src/gametest/resources).
 	gametest {
 		compileClasspath += main.output
 		runtimeClasspath += main.output
@@ -24,8 +23,7 @@ commonSources('main')
 commonSources('client', 'main')
 commonSources('gametest')
 
-// Jade publishes no Forge build for Minecraft 1.21.1, so the Forge jar leaves out the Jade
-// integration and its tests.
+// Jade has no Forge build for Minecraft 1.21.1, so the Forge jar leaves out Jade and its tests.
 tasks.named('compileJava', JavaCompile) {
 	exclude 'com/fertilegrounds/compat/jade/**', 'com/fertilegrounds/client/compat/jade/**'
 }
@@ -68,8 +66,7 @@ minecraft {
 			args '--mixin.config', 'fertilegrounds.mixins.json'
 		}
 		register('client') {
-			// macOS only lets a program open windows from its first thread; Loom and ModDevGradle
-			// add this flag on their own.
+			// macOS opens windows only from a program's first thread; Loom and ModDevGradle add this.
 			if (System.getProperty('os.name').toLowerCase().contains('mac')) {
 				jvmArgs '-XstartOnFirstThread'
 			}
@@ -95,9 +92,8 @@ processResources {
 	filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
 		expand props
 	}
-	// Forge ships upstream Mixin, whose newest compatibility level is JAVA_21 (Fabric's and
-	// NeoForge's Mixin know JAVA_25), and which logs an error for a config without minVersion.
-	// The mixins use nothing newer than Java 21, so Forge's copy says JAVA_21 and Mixin 0.8.
+	// Forge's upstream Mixin tops out at JAVA_21 and logs an error without minVersion, so
+	// Forge's copy says JAVA_21 and 0.8 (the mixins use nothing newer than Java 21).
 	inputs.property 'mixinConfigForForge', 'JAVA_21, minVersion 0.8'
 	filesMatching('fertilegrounds.mixins.json') {
 		filter { line ->

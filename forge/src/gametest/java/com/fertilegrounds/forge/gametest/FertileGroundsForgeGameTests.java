@@ -8,7 +8,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 /**
  * Registers every in-world test with vanilla's test registry on Forge, as a dev-only mod of its
- * own, the way Forge's own test mods do.
+ * own.
  */
 @Mod("fertilegrounds_gametest")
 public final class FertileGroundsForgeGameTests {

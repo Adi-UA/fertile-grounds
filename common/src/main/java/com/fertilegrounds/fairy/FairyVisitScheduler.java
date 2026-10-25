@@ -24,12 +24,12 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Decides when Bean Fairies show up. Once a second, in the overworld only, it:
+ * Decides when Bean Fairies show up, in the overworld only. Twice a second it shows firefly heralds
+ * over visits due within a minute, and once a second it:
  *
  * <ol>
  *   <li>when night starts, announces a Harvest Moon if the moon is full, then rolls a rare natural
  *       visit for each player,
- *   <li>twice a second, shows firefly heralds over visits due within a minute,
  *   <li>sends a fairy to each visit that is due during the night,
  *   <li>grows any visits still pending at dawn directly, so sleeping through the night doesn't skip
  *       the fairy (it "came while you slept").
@@ -160,7 +160,7 @@ public final class FairyVisitScheduler {
 
   /**
    * Picks a random growable crop near {@code center}. It checks every spot (about 10,000, once per
-   * player per night), since sampling a few hundred random spots would usually miss a small farm.
+   * player per night), since sampling a few hundred random spots would miss a small farm.
    */
   private static Optional<BlockPos> findCropNear(final ServerLevel level, final BlockPos center) {
     final List<BlockPos> crops =

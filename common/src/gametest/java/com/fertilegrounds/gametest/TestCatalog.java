@@ -23,9 +23,8 @@ import net.minecraft.world.level.block.Rotation;
 
 /**
  * Every in-world test, in a form all three loaders run the same way: one vanilla {@link
- * TestFunction} per {@link FertileTest} method, from {@link #tests()}. Each loader's gametest code
- * registers this class and {@link TestEnvironments} with vanilla's {@code GameTestRegistry}. Test
- * ids match the ones Fabric API's {@code @GameTest} gave: the class and method name in snake case.
+ * TestFunction} per {@link FertileTest} method, from {@link #tests()}, which each loader registers
+ * with vanilla's {@code GameTestRegistry}.
  */
 public final class TestCatalog {
 

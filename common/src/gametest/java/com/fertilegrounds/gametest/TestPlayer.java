@@ -72,8 +72,7 @@ public final class TestPlayer extends ServerPlayer {
     connectionSetup.accept(connection);
     final MinecraftServer server = helper.getLevel().getServer();
     server.getPlayerList().placeNewPlayer(connection, player, cookie);
-    // Joining applies the server's default game mode, so set survival afterward; this also
-    // updates the player's abilities, which decide whether items get used up.
+    // Joining applies the server's default game mode, so set survival afterward.
     player.setGameMode(GameType.SURVIVAL);
     return player;
   }

@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Builds Fairy Groves a few columns per tick. Jobs are saved with the world through Fabric's data
- * attachment API, so a grove interrupted by a restart finishes afterward.
+ * Builds Fairy Groves a few columns per tick. Jobs save with the world, so a grove interrupted by a
+ * restart finishes afterward.
  */
 public final class GroveBuilder {
 
@@ -140,7 +140,6 @@ public final class GroveBuilder {
         level.setBlockAndUpdate(ground.above(dy), Blocks.AIR.defaultBlockState());
       }
     }
-    // Fill down to the first solid block.
     for (int dy = 1; dy <= FairyGrove.FILL_DEPTH; dy++) {
       final BlockPos pos = ground.below(dy);
       if (level.getBlockState(pos).isSolidRender(level, pos)) {

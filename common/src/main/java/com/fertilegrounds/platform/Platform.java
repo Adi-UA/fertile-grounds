@@ -9,10 +9,8 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.GameRules;
 
 /**
- * The few things shared code needs from the mod loader: saving data on worlds and players,
- * registering gamerules and spawn eggs, and checking for other mods. Everything else a loader does
- * (events, registration hooks) happens in that loader's own entry point, which calls into shared
- * code.
+ * What shared code needs from the mod loader: saving data on worlds and players, registering
+ * gamerules and spawn eggs, and checking for other mods.
  */
 public interface Platform {
 

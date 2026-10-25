@@ -22,9 +22,8 @@ public class FairyVisitTests {
   private static final BlockPos OUTSIDE = CENTER.offset(3, 0, 0);
 
   /**
-   * A 5x5 open-field patch: the fairy grows the center before the edge, never sinks below one block
-   * above the crop (regression for the dive fixed in 366bbe4), leaves the carrot just outside its
-   * reach alone, and flies away.
+   * In a 5x5 open-field patch, the fairy grows the center before the edge, never sinks below one
+   * block above the crop, leaves the carrot right outside its reach alone, and flies away.
    */
   @FertileTest(
       structure = "fertilegrounds:empty_medium",
@@ -74,7 +73,7 @@ public class FairyVisitTests {
         });
   }
 
-  /** Regression for 88d5657: a fairy reaches a crop under a glass roof by flying through it. */
+  /** A fairy reaches a crop under a glass roof by flying through it. */
   @FertileTest(
       structure = "fertilegrounds:empty_medium",
       environment = "fertilegrounds:quick_visit",
@@ -95,7 +94,7 @@ public class FairyVisitTests {
         });
   }
 
-  /** Regression for 88d5657: a fairy with no crop nearby flies away instead of staying stuck. */
+  /** A fairy with no crop nearby flies away instead of staying stuck. */
   @FertileTest(
       structure = "fertilegrounds:empty_medium",
       environment = "fertilegrounds:quick_visit",

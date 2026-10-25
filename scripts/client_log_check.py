@@ -1,9 +1,7 @@
 """Boots the dev client to the title screen and fails on any warning or error about this mod.
 
-The dedicated server never loads models, textures, or sounds, so the GameTests can't see a broken
-asset. The client logs one as a warning and draws the purple-black placeholder or plays nothing,
-so this script reads that log instead. It takes about a minute; run it for changes that touch
-assets.
+The test server never loads models, textures, or sounds, so run this for changes that touch
+assets. It takes about a minute.
 
 Usage (from the repo root):
     python3 scripts/client_log_check.py                    # the Fabric client
@@ -28,8 +26,7 @@ BOOT_TIMEOUT_SECONDS = 300
 LOADED_MARKER = "textures/atlas/blocks.png-atlas"
 SETTLE_SECONDS = 5  # keep reading a little longer for late sound warnings
 
-# Every log entry starts with a timestamp; some warnings (missing texture references) continue
-# on the next lines, which is where the texture name appears.
+# Missing texture warnings continue on the next lines, which hold the texture name.
 ENTRY_START = re.compile(r"^\[\d{2}:\d{2}:\d{2}\] \[[^\]]+/(\w+)\]")
 
 
@@ -78,8 +75,7 @@ def main() -> int:
         text=True,
         start_new_session=True,
     )
-    # The idle title screen prints nothing, so a plain readline() would block forever. A reader
-    # thread feeds a queue instead, and the loop below waits on it with a timeout.
+    # The idle title screen prints nothing, so readline() would block; a thread feeds a queue instead.
     lines: queue.Queue[str | None] = queue.Queue()
     threading.Thread(target=pump, args=(client.stdout, lines), daemon=True).start()
     log: list[str] = []
@@ -92,7 +88,7 @@ def main() -> int:
             except queue.Empty:
                 break
             if line is None:
-                break  # the client exited, most likely a crash
+                break  # the client exited, as after a crash
             log.append(line)
             initialized |= "Fertile Grounds initializing" in line
             if initialized and not loaded and LOADED_MARKER in line:

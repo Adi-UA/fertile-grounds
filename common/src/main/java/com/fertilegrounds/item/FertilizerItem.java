@@ -52,7 +52,7 @@ public class FertilizerItem extends Item {
     if (upgraded.isEmpty()) {
       return false;
     }
-    // withPropertiesOf copies every property both blocks share, such as farmland's moisture.
+    // Keeps the properties both blocks share, such as farmland's moisture.
     level.setBlockAndUpdate(pos, upgraded.get().withPropertiesOf(level.getBlockState(pos)));
     level.playSound(null, pos, SoundEvents.COMPOSTER_FILL_SUCCESS, SoundSource.BLOCKS, 1.0F, 1.0F);
     level.sendParticles(

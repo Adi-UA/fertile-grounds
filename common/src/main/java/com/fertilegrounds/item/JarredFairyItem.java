@@ -37,7 +37,6 @@ public class JarredFairyItem extends Item {
     if (level.isClientSide() || !(owner instanceof ServerPlayer player)) {
       return;
     }
-    // Find this exact stack, offhand and armor slots included, to swap it for a flower.
     final Inventory inventory = player.getInventory();
     for (int index = 0; index < inventory.getContainerSize(); index++) {
       if (inventory.getItem(index) == stack) {

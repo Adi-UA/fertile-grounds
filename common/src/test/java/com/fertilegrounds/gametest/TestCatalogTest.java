@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 /** The tests every loader runs, built from the {@link FertileTest} annotations. */
 class TestCatalogTest {
 
-  /** Same ids Fabric API's {@code @GameTest} gave, so filters and old reports still match. */
+  /** Test ids are the class and method name in snake case, as Fabric API names them. */
   @Test
   void idsMatchFabricApiNaming() {
     assertEquals(

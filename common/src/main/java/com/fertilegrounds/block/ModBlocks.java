@@ -11,14 +11,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Registers all blocks this mod adds; their items live in {@link com.fertilegrounds.item.ModItems},
- * the way vanilla splits {@code Blocks} and {@code Items}. Registration order matters here: each
- * "farmland" tier's dried-out target references an already-declared sibling field, which only works
- * because static fields initialize top-to-bottom in declaration order.
+ * Registers the mod's blocks; their items live in {@link com.fertilegrounds.item.ModItems}. Each
+ * farmland names its dirt field, so the dirt must come first in declaration order.
  */
 public final class ModBlocks {
-
-  // ---- Tier 1: Enriched — cheap ingredients, modest boost ----
 
   public static final Block ENRICHED_DIRT =
       register(
@@ -34,8 +30,6 @@ public final class ModBlocks {
                   properties, ModGameRules.ENRICHED_BOOST_CHANCE, ENRICHED_DIRT, SoilTier.ENRICHED),
           ModBlockProperties.farmlandProperties());
 
-  // ---- Tier 2: Enriched Sand — boosts existing sand-grown plants, no tilling ----
-
   public static final Block ENRICHED_SAND =
       register(
           "enriched_sand",
@@ -43,8 +37,6 @@ public final class ModBlocks {
               new GrowthBoostedSandBlock(
                   properties, ModGameRules.ENRICHED_BOOST_CHANCE, SoilTier.ENRICHED),
           ModBlockProperties.sandProperties());
-
-  // ---- Tier 3: Super Enriched — Glowstone Dust gated, ~3.3x boost ----
 
   public static final Block SUPER_ENRICHED_DIRT =
       register(
@@ -62,8 +54,6 @@ public final class ModBlocks {
                   SUPER_ENRICHED_DIRT,
                   SoilTier.SUPER_ENRICHED),
           ModBlockProperties.farmlandProperties());
-
-  // ---- Fairy Hotels: lanterns a caught fairy can live in ----
 
   public static final Block EMPTY_FAIRY_HOTEL =
       register(
