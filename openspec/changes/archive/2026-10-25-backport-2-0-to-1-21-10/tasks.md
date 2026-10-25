@@ -29,4 +29,4 @@ All work happens on the local `1.21.10` branch in the worktree `../fertile-groun
 ## 5. Release (only after the gate passes)
 
 - [x] 5.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, `SECURITY.md`, and the porting and release skills on `main` and every 2.0 branch to list 1.21.10. Verify: the `release-2-0` scenarios read true.
-- [ ] 5.2 The maintainer pushes; Claude publishes the jars to Modrinth and CurseForge with the store skills, leaving the 1.2.0 files. Verify: the store skills' read-back steps.
+- [x] 5.2 The maintainer pushes; Claude publishes the jars to Modrinth and CurseForge with the store skills, leaving the 1.2.0 files (1.21.11 shipped its glass fix as 2.0.1, since Modrinth locks a version's jar). Verify: the store skills' read-back steps.
