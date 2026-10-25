@@ -7,9 +7,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
 
 /**
- * Registers every in-world test function on Forge, as a dev-only mod of its own, the way Forge's
- * own test mods do. The test instances that run the functions come from the data files {@link
- * TestCatalog} writes.
+ * Registers every in-world test function on Forge, as a dev-only mod of its own. The test instances
+ * that run the functions come from the data files {@link TestCatalog} writes.
  */
 @Mod("fertilegrounds_gametest")
 public final class FertileGroundsForgeGameTests {

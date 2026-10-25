@@ -23,15 +23,13 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 /**
- * The Wandering Trader's rare trades. Since 26.1 trades are data: each is a {@code villager_trade}
- * file, and the trader rolls 2 from the {@code wandering_trader/uncommon} tag. Rolling is random,
- * so these tests read the pool and build each offer the way the trader does.
+ * The Wandering Trader's rare trades. On 26.x each trade is a {@code villager_trade} file, and the
+ * trader rolls 2 from the {@code wandering_trader/uncommon} tag, so these tests read the pool and
+ * build each offer the way the trader does.
  */
 public class TraderTests {
 
-  /**
-   * Vanilla's rare pool in 26.2 has 15 trades (26.3 has 16); the mod adds to it and removes none.
-   */
+  /** Vanilla's rare pool has 15 trades on this version; the mod adds to it and removes none. */
   private static final int VANILLA_RARE_TRADES = 15;
 
   @FertileTest

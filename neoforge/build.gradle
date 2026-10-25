@@ -9,7 +9,6 @@ base {
 }
 
 sourceSets {
-	// In-world tests: never shipped, only added to the dev runs below.
 	gametest {
 		compileClasspath += main.output
 		runtimeClasspath += main.output
@@ -55,7 +54,6 @@ neoForge {
 		"${mod_id}" {
 			sourceSet sourceSets.main
 		}
-		// The tests are a separate dev-only mod, as on Fabric.
 		"fertilegrounds_gametest" {
 			sourceSet sourceSets.gametest
 		}
@@ -63,8 +61,7 @@ neoForge {
 }
 
 dependencies {
-	// Jade is optional: compiled against, never bundled. Dev runs include it; pass -PnoJade to
-	// check the mod works without it.
+	// Pass -PnoJade to check the mod works without Jade.
 	compileOnly "maven.modrinth:jade:${jade_neoforge_version}"
 	gametestCompileOnly "maven.modrinth:jade:${jade_neoforge_version}"
 	if (!project.hasProperty('noJade')) {

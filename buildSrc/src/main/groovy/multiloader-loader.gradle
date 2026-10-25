@@ -1,8 +1,5 @@
-// A loader project builds its jar from :common's sources plus its own. commonSources('client')
-// compiles common's client folder into the loader's client source set, or into another one, such
-// as main on loaders without a separate client source set, so a loader never needs a copy of
-// shared code. Adapted from jaredlll08/MultiLoader-Template (branch 26.1.1), extended to the
-// client and gametest source sets.
+// commonSources(commonSet, sourceSet) compiles one of :common's source sets into a loader's source
+// set. Adapted from jaredlll08/MultiLoader-Template (branch 26.1.1).
 plugins {
 	id 'multiloader-common'
 }

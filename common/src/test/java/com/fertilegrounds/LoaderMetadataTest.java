@@ -49,9 +49,7 @@ class LoaderMetadataTest {
     }
   }
 
-  /**
-   * Fabric's {@code ~26.3} and the range the other loaders read both start at the branch's version.
-   */
+  /** Every loader's Minecraft range starts at the branch's version. */
   @Test
   void everyLoaderTargetsTheBranchVersion() throws IOException {
     final Properties gradle = new Properties();

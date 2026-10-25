@@ -12,8 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * Saves the mod's data with Fabric API's data attachments, which store it alongside the world or
- * player. Worlds from 2.0.0 already hold these attachments, so their ids must stay the same.
+ * Saves the mod's data with Fabric API's data attachments on the world or player. Saved worlds hold
+ * these attachments, so their ids never change.
  */
 public final class FabricPlatform implements Platform {
 

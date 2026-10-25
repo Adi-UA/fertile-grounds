@@ -22,8 +22,7 @@ loom {
 		configureEach {
 			runDir "../run"
 		}
-		// A headless server in its own folder, so scripts/demo/build_demo_world.py can build the
-		// demo world without touching run/'s client settings.
+		// Its own folder, so scripts/demo/build_demo_world.py leaves run/'s client settings alone.
 		demoServer {
 			server()
 			configName = "Demo Server"
@@ -33,9 +32,7 @@ loom {
 	}
 }
 
-// In-world tests with Fabric API's GameTest module. Loom adds a separate "gametest" source set,
-// which never ships in the mod jar, and a runGameTest task that runs every test on a headless
-// server and fails the build if any test fails. The tests themselves live in common/src/gametest.
+// Adds a gametest source set that never ships, and runGameTest, which fails the build on a failed test.
 fabricApi {
 	configureTests {
 		createSourceSet = true
@@ -50,8 +47,7 @@ commonSources('main')
 commonSources('client')
 commonSources('gametest')
 
-// Every GameTest run writes a JUnit-style report, and `-PgametestFilter=<pattern>` (for example
-// '*fertilizer*') runs only the tests whose ids match.
+// A JUnit-style report, and `-PgametestFilter=<pattern>` runs only matching tests.
 loom.runs.matching { it.name == "gameTest" }.configureEach {
 	vmArg "-Dfabric-api.gametest.report-file=${rootProject.layout.buildDirectory.file("gametest-fabric-report.xml").get().asFile}"
 	if (project.hasProperty("gametestFilter")) {
@@ -60,14 +56,12 @@ loom.runs.matching { it.name == "gameTest" }.configureEach {
 }
 
 dependencies {
-	// Minecraft ${minecraft_version} ships unobfuscated, so there's no mapping step and mod
-	// dependencies use plain `implementation` instead of `modImplementation`.
+	// Minecraft 26.x ships unobfuscated, so mods use `implementation`, not `modImplementation`.
 	minecraft "com.mojang:minecraft:${minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
-	// Jade is optional: compiled against, never bundled, and only loaded through its own
-	// entrypoint. Dev runs include it; pass -PnoJade to check the mod works without it.
+	// Pass -PnoJade to check the mod works without Jade.
 	compileOnly "maven.modrinth:jade:${jade_version}"
 	clientCompileOnly "maven.modrinth:jade:${jade_version}"
 	gametestCompileOnly "maven.modrinth:jade:${jade_version}"
@@ -75,8 +69,7 @@ dependencies {
 		localRuntime "maven.modrinth:jade:${jade_version}"
 	}
 
-	// Shaders for recording the demo world: -Pshaders adds Sodium and Iris to dev runs only, so
-	// a shader pack in run/shaderpacks/ can be turned on. Neither ships in or touches the mod jar.
+	// -Pshaders adds Sodium and Iris to dev runs only, for a shader pack in run/shaderpacks/.
 	if (project.hasProperty("shaders")) {
 		localRuntime "maven.modrinth:sodium:${sodium_version}"
 		localRuntime "maven.modrinth:iris:${iris_version}"
