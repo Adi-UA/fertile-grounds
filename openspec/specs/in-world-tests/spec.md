@@ -25,7 +25,7 @@ A single command SHALL start a test world, run every in-world check, and exit no
 - **THEN** the same checks run on that loader's test server and report pass or fail the same way
 
 ### Requirement: Checks that need a player run automatically
-In-world checks SHALL be able to act as a player: use an item on a block, stand near a visit, receive messages, and earn advancements. Every behavior that previously needed the in-game checklist only because the test server had no player SHALL be checked this way.
+In-world checks SHALL be able to act as a player: use an item on a block, stand near a visit, receive messages, and earn advancements. Every behavior a player triggers SHALL be checked this way, not on the in-game checklist.
 
 #### Scenario: Fairy Dust by hand
 - **WHEN** a check has a player use Fairy Dust on a half-grown crop at night
@@ -38,13 +38,6 @@ In-world checks SHALL be able to act as a player: use an item on a block, stand 
 #### Scenario: Cooldown
 - **WHEN** that player owns another visit the next night
 - **THEN** no gift drops
-
-### Requirement: Existing checks keep working
-Every check the smoke test performs at the start of this change SHALL still run, with the same pass and fail behavior, including each check labeled with the bug commit it guards.
-
-#### Scenario: Old regression
-- **WHEN** Enriched Farmland's revert target is changed to vanilla dirt
-- **THEN** the trample and dry-out checks fail, as they did in the smoke test
 
 ### Requirement: What still needs a person
 The in-game checklist SHALL contain only what an automated check can't judge: how things look and sound, and sleeping through a night with real players. Each change's tasks SHALL say which of its checks are automated and which are on the checklist.
