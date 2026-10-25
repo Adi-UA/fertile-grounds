@@ -33,7 +33,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SERVER_DIR = ROOT / "run" / "demo-server"
-LEVEL_NAME = "Fertile Grounds Demo"
+LEVEL_NAME = "Fertile Grounds Demo 1.21.10"
 WORLD = SERVER_DIR / LEVEL_NAME
 SAVES = Path.home() / "Library" / "Application Support" / "minecraft" / "saves"
 # Each loader's dev client keeps its own saves (see the runs in each loader's build.gradle).
