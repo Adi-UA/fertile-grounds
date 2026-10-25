@@ -17,17 +17,17 @@ All game code, data, and assets live in `common/`, compiled against plain Minecr
 | `grove/` | The Fairy Grove: `GroveLayout` (pure), `GroveShrine` (the shrine check), `FairyGrove` (start and safety scan), `GroveBuilder` (saved jobs, column building, builder fairies) |
 | `platform/` | What shared code needs from a loader (`Platform`: saved data and `isModLoaded`), found with `ServiceLoader` |
 | `compat/jade/` | Optional Jade tooltips: server data providers here, tooltip lines in `common/src/client/.../compat/jade/`; Fabric loads them through the `jade` entrypoint, NeoForge by `@WailaPlugin`, and Forge leaves them out (Jade has no Forge build for 1.21.11) |
-| `mixin/` | Small mixins, only where no loader has a hook (container opened, item entity tick, creeper goals, crops and stems on mod farmland, farmland trampling); Fabric's farmland growth mixin lives in `fabric/` |
+| `mixin/` | Small mixins, only where no loader has a hook (container opened, item entity tick, creeper goals, crops and stems on mod farmland, farmland trampling, the ranged gamerule constructor); Fabric's farmland growth mixin lives in `fabric/` |
 | `util/` | Shared helpers: ids, tags (`ModTags`), gamerules (`ModGameRules`), saved data (`ModSavedData`), bone-meal boost, full crop growth |
 | `common/src/client/` | Fairy model and renderer, Jade tooltip lines |
 | `common/src/test/` | JUnit tests for the Minecraft-free logic, plus `AssetConsistencyTest` and `LoaderMetadataTest` for resource files |
 | `common/src/gametest/` | GameTests: in-world checks with mock players, one class per feature, listed in `TestCatalog`, with their test environments and structures under `resources/` |
 | `fabric/`, `neoforge/`, `forge/` | Each loader's entry points (registration, events, tilling, attributes, creative tab, client renderers), `Platform` implementation, metadata, and dev-only test mod |
-| `scripts/` | `run_gametests.py` runs the GameTests and fails on data-load errors; `client_log_check.py` boots a client and fails on asset warnings; `compare_release_jar.py` diffs a build against a released jar |
+| `scripts/` | `run_gametests.py` runs the GameTests and fails on data-load errors; `client_log_check.py` boots a client and fails on asset warnings; `demo/build_demo_world.py` builds the demo world |
 | `openspec/` | Feature designs (specs with WHEN/THEN scenarios, tasks); `docs/ROADMAP.md` lists what ships and what is next |
 | `art_source/` | Hand-painted textures (`block/`, `item/`) |
 
-Keep one job per class. Registration lives in the `Mod*` classes, and each one only touches its own registry while it loads, because NeoForge and Forge run it inside that registry's event. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Loader code reads like that loader's own docs; when sharing would need an awkward abstraction, each loader gets its own short copy instead. Comments explain Minecraft quirks for someone new to modding, not what the code already says.
+Keep one job per class. Registration lives in the `Mod*` classes, and each one only touches its own registry while it loads, because NeoForge and Forge run it inside that registry's event. Logic that doesn't need Minecraft types goes in its own class so JUnit can test it without starting the game (see `FairyTiming`). Loader code reads like that loader's own docs; when sharing would need an awkward abstraction, each loader gets its own short copy instead. Comments stay minimal and describe the code as it is today: a short doc line on classes, methods, and fields, and inline only a one-line why for a Minecraft quirk the code can't show, never a step-by-step walk through the logic or a history of past versions.
 
 ## Branches
 
