@@ -9,7 +9,6 @@ base {
 }
 
 sourceSets {
-	// In-world tests: never shipped, run as their own dev-only mod (see src/gametest/resources).
 	gametest {
 		compileClasspath += main.output
 		runtimeClasspath += main.output
@@ -24,8 +23,8 @@ commonSources('main')
 commonSources('client', 'main')
 commonSources('gametest')
 
-// Jade publishes no Forge build for Minecraft 1.21.11, so the Forge jar leaves out the Jade
-// integration and its tests.
+// Jade has no Forge build for this Minecraft version, so the Forge jar leaves out Jade and its
+// tests.
 tasks.named('compileJava', JavaCompile) {
 	exclude 'com/fertilegrounds/compat/jade/**', 'com/fertilegrounds/client/compat/jade/**'
 }
@@ -52,8 +51,8 @@ repositories {
 	maven fg.minecraftLibsMaven
 }
 
-// Minecraft 1.21.11's Apple Silicon build of lwjgl-freetype ("natives-macos-patch") is only on
-// Mojang's library maven, so Maven Central must not claim the module first.
+// This Minecraft version's Apple Silicon build of lwjgl-freetype ("natives-macos-patch") is only
+// on Mojang's library maven, so Maven Central must not claim the module first.
 repositories.named('MavenRepo') {
 	content { excludeModule 'org.lwjgl', 'lwjgl-freetype' }
 }
@@ -73,8 +72,7 @@ minecraft {
 			args '--mixin.config', 'fertilegrounds.mixins.json'
 		}
 		register('client') {
-			// macOS only lets a program open windows from its first thread; Loom and ModDevGradle
-			// add this flag on their own.
+			// macOS opens windows only from a program's first thread; Loom and ModDevGradle add this.
 			if (System.getProperty('os.name').toLowerCase().contains('mac')) {
 				jvmArgs '-XstartOnFirstThread'
 			}
@@ -99,8 +97,7 @@ processResources {
 	filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
 		expand props
 	}
-	// Forge ships upstream Mixin, which logs an error for a config without minVersion, so Forge's
-	// copy says Mixin 0.8.
+	// Forge's upstream Mixin logs an error for a config without minVersion, so Forge's copy says 0.8.
 	inputs.property 'mixinConfigForForge', 'minVersion 0.8'
 	filesMatching('fertilegrounds.mixins.json') {
 		filter { line ->

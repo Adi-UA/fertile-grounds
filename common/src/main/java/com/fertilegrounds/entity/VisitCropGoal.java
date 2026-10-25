@@ -93,17 +93,15 @@ class VisitCropGoal extends Goal {
     final FairyVisit assigned = this.fairy.getVisit();
     final BlockPos crop = assigned != null ? assigned.pos() : findNearestCrop();
     if (crop == null) {
-      // Nothing to grow (a spawn-egg fairy far from any crop), so just fly away.
       this.target = this.fairy.blockPosition();
       nextPhase(Phase.LEAVE);
       return;
     }
     this.target = crop;
-    // A spawn-egg fairy has no visit, so it gets an unowned one: it grows crops but gives no gift.
+    // A spawn-egg fairy gets an unowned visit: it grows crops but gives no gift.
     this.visit =
         assigned != null ? assigned : FairyVisit.of(crop, 0, FairyVisit.Source.UNOWNED, null);
-    // A covered crop (under glass or a roof) keeps the fly-through-blocks path; an open one
-    // gets a floor 1 block above the crop so the fairy never dips into the ground.
+    // Only open-sky crops get a floor, so the fairy can still fly through a roof to covered ones.
     if (level().canSeeSky(crop.above())) {
       this.fairy.keepAbove(crop.getY() + 1);
     }

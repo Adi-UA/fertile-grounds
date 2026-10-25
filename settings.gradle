@@ -23,8 +23,7 @@ plugins {
 
 rootProject.name = 'fertilegrounds'
 
-// One shared project for all game code and assets, plus one project per mod loader that builds
-// that loader's jar from it. See AGENTS.md for which code goes where.
+// common holds all game code and assets; each loader project builds its own jar from it.
 include('common')
 include('fabric')
 include('neoforge')

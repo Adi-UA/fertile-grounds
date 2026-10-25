@@ -14,8 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 
 /**
  * What each loader wires up with its own API instead of shared code: hoe tilling (a Fabric API
- * helper on Fabric, a data map on NeoForge) and the Bean Fairy's attributes. The other hooks
- * (ticks, joins, saved data) are covered by the feature tests.
+ * helper on Fabric, a data map on NeoForge) and the Bean Fairy's attributes.
  */
 public class LoaderHookTests {
 

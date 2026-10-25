@@ -19,10 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 
 /**
- * The mod's advancements load and are earned through real actions; the visit and gift ones are in
- * {@code VisitFeedbackTests} and {@code FairyGiftTests}. The test data's advancements on each
- * custom trigger load too. An unknown trigger or a broken file makes the advancement loader skip
- * that file with only a log line.
+ * The mod's advancements, and the test data's ones on each custom trigger, load and are earned
+ * through real actions, since the loader skips a broken file with only a log line.
  */
 public class AdvancementTests {
 
@@ -75,9 +73,8 @@ public class AdvancementTests {
   }
 
   /**
-   * Each recipe advancement puts its recipe in the player's recipe book. Vanilla skips an unknown
-   * key in an advancement's rewards with no log line, so a misnamed key ships silently: the 26.1
-   * and 26.2 jars of 2.0.0 said "recipe" instead of "recipes".
+   * Each recipe advancement puts its recipe in the player's recipe book, since vanilla skips an
+   * unknown rewards key with no log line.
    */
   @FertileTest
   public void recipeAdvancementsUnlockTheirRecipes(final GameTestHelper helper) {

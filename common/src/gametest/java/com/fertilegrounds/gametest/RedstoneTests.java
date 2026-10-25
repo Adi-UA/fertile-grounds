@@ -94,10 +94,9 @@ public class RedstoneTests {
   }
 
   /**
-   * Sets {@code block} on stone with a comparator east of it reading it. A comparator reads the
-   * block in the direction it faces. The comparator goes down first: a block with a comparator
-   * output updates the comparators next to it when placed, while a comparator set without a player
-   * skips its own first reading.
+   * Sets {@code block} on stone with a comparator east of it reading it. The comparator goes down
+   * first, since a comparator set without a player skips its own first reading, while the block
+   * updates its neighbor comparators when placed.
    */
   private static void placeWithComparator(
       final GameTestHelper helper, final BlockPos pos, final Block block) {

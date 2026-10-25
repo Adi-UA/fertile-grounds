@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 /**
  * Stops trampling near occupied Fairy Hotels. It wraps only the call in {@code fallOn}, so farmland
- * still dries out. Before 26.3 the mod's own tiers reimplement {@code fallOn}, so {@code
+ * still dries out. The mod's own tiers reimplement {@code fallOn}, so {@code
  * GrowthBoostedFarmlandBlock} makes the same check itself.
  */
 @Mixin(FarmBlock.class)

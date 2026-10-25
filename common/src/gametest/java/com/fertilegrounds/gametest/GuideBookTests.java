@@ -50,9 +50,7 @@ public class GuideBookTests {
     helper.succeed();
   }
 
-  /**
-   * The guide flag is saved with the player, so leaving and joining again gives no second guide.
-   */
+  /** The guide flag is saved with the player, so rejoining gives no second guide. */
   @FertileTest
   public void rejoiningGivesNoSecondGuide(final GameTestHelper helper) {
     final TestPlayer rejoined = TestPlayer.join(helper).rejoin(helper);

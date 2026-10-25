@@ -7,23 +7,14 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-/**
- * Shared "passively fertilize the plant above me" behavior used by every boosted block in this mod
- * (both farmland tiers and enriched sand), so each block's randomTick is a single call instead of a
- * copy-pasted check.
- */
+/** How every boosted soil block passively fertilizes the plant above it. */
 public final class GrowthBoostUtil {
 
   private GrowthBoostUtil() {}
 
   /**
-   * Attempts one bone-meal-equivalent growth stage on whatever is directly above {@code pos}, with
-   * a {@code chancePercent} in 100 chance per call. Mirrors the check-and-apply sequence vanilla's
-   * BoneMealItem uses on a right-click, minus the item-consumption side effects, since no item is
-   * involved here.
-   *
-   * <p>The random roll happens before any world/block-state reads, so the common case (a failed
-   * roll at low chance values) costs nothing.
+   * Has a {@code chancePercent} in 100 chance to apply one bone meal step to the plant above {@code
+   * pos}, as vanilla's bone meal does. The roll comes first, so a miss reads no blocks.
    */
   public static void tryBoostAbove(
       final ServerLevel world,

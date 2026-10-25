@@ -16,11 +16,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 
 /**
- * The data the server sends Jade for each tooltip. Jade builds its own accessor for the block a
- * player looks at; these tests hand the providers a stand-in with the same level, block, and
- * position. They only run when Jade is installed, since the mod must also work without it ({@code
- * -PnoJade}); every Jade type stays in {@link JadeProbe}, which only loads when a test runs,
- * because the test runner reads this class's methods even without Jade.
+ * The data the server sends Jade for each tooltip, when Jade is installed. Every Jade type stays in
+ * {@link JadeProbe}, since the test runner reads this class's methods even without Jade.
  */
 public class JadeDataTests {
 

@@ -57,8 +57,8 @@ class FairyGiftTablesTest {
       final JsonObject e = entry.getAsJsonObject();
       final int weight = e.get("weight").getAsInt();
       if (e.get("type").getAsString().equals("minecraft:loot_table")) {
-        // The flower entry: a nested table holding one expanded tag entry with the count. Before
-        // 26.3 a tag entry names its tag under "name", without the "#".
+        // The flower entry: a nested table holding one expanded tag entry with the count. On this
+        // Minecraft version a tag entry names its tag under "name", without the "#".
         final JsonObject tag = onlyPoolEntries(e.getAsJsonObject("value")).get(0).getAsJsonObject();
         found.put("#" + tag.get("name").getAsString(), row(tag, weight));
       } else {

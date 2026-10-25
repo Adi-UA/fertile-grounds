@@ -109,7 +109,6 @@ public class FairyGroveTests {
         () -> {
           helper.assertTrue(
               GroveBuilder.jobs(helper.getLevel()).isEmpty(), Component.literal("grove finished"));
-          // Plots: wet Enriched Farmland around water.
           helper.assertBlockState(
               SOIL.offset(10, 0, 9),
               state ->
@@ -119,7 +118,6 @@ public class FairyGroveTests {
                   net.minecraft.network.chat.Component.literal("moist farmland, got " + state));
           helper.assertBlockPresent(Blocks.WATER, SOIL.offset(-10, 0, -10));
           helper.assertBlockPresent(Blocks.AIR, SOIL.offset(10, 1, 9));
-          // Crossings: hives inside, hedges outside, each with a lantern.
           helper.assertBlockPresent(Blocks.BEEHIVE, SOIL.offset(5, 1, -5));
           helper.assertBlockPresent(Blocks.LANTERN, SOIL.offset(5, 2, -5));
           helper.assertBlockProperty(SOIL.offset(15, 1, 5), LeavesBlock.PERSISTENT, true);
@@ -130,7 +128,6 @@ public class FairyGroveTests {
           helper.assertBlockPresent(Blocks.AIR, hill.above(6));
           helper.assertBlockPresent(Blocks.AIR, SOIL.offset(12, 2, -12));
           helper.assertBlockPresent(Blocks.DIRT, SOIL.offset(10, -8, 10));
-          // The shrine is untouched.
           helper.assertBlockPresent(ModBlocks.CHIME_FAIRY_HOTEL, HOTEL);
           helper.assertBlockPresent(ModBlocks.SUPER_ENRICHED_DIRT, SOIL);
           helper.assertBlockPresent(ModBlocks.FAIRY_HOTEL, HOTEL.north(3));

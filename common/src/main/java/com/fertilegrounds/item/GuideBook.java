@@ -10,12 +10,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.WrittenBookContent;
 
 /**
- * The Fertile Grounds Guide: a vanilla written book whose pages are translation keys, so each
- * player reads it in their own language. The book's title field only holds plain text, so it stays
- * blank and a translated item name names the book instead.
- *
- * <p>The crafting recipe ({@code recipe/guide_book.json}) writes the same components in JSON, and a
- * GameTest checks the two books match.
+ * A vanilla written book whose pages are translation keys, so each player reads it in their own
+ * language. The title field holds only plain text, so a translated item name names the book. The
+ * recipe {@code recipe/guide_book.json} builds the same book in JSON.
  */
 public final class GuideBook {
 

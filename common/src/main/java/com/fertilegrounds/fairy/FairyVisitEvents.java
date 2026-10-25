@@ -27,7 +27,6 @@ public final class FairyVisitEvents {
   /**
    * Called once each time a visit grows crops.
    *
-   * @param visit the visit that grew, with its owner for gifts
    * @param overnight true when the visit grew at dawn because no fairy flew during the night
    * @return the players near the visit
    */

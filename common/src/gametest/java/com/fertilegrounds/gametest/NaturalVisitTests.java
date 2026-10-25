@@ -8,10 +8,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 
 /**
- * At {@code fairy_visit_chance 100}, nightfall schedules a natural visit to the crop near a player,
- * owned by that player. Regression for b4c5267: a lone crop used to be missed. The scheduler checks
- * once a second and only a nightfall after a day counts, so the clock jumps to day, then to night,
- * waiting 30 ticks each time.
+ * At {@code fairy_visit_chance 100}, nightfall schedules a natural visit to a lone crop near a
+ * player, owned by that player. The scheduler checks once a second and only counts a nightfall
+ * after a day, so the clock jumps to day, then to night, waiting 30 ticks each time.
  */
 public class NaturalVisitTests {
 

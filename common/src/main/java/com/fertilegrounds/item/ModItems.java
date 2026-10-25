@@ -55,10 +55,8 @@ public final class ModItems {
   }
 
   /**
-   * Like vanilla's {@code Items.registerBlock}: the item shares the block's id, fills {@code
-   * Item.BY_BLOCK} (the map {@code Block.asItem()} reads), and takes the block's translation key
-   * through {@code useBlockDescriptionPrefix()}, since the lang file only defines {@code
-   * block.fertilegrounds.*} names for blocks.
+   * Like vanilla's {@code Items.registerBlock}. The item takes the block's translation key, since
+   * the lang file names only {@code block.fertilegrounds.*} keys for blocks.
    */
   private static Item registerBlock(final Block block) {
     final ResourceKey<Item> key =

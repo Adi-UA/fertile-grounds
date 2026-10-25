@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 """Builds the "Fertile Grounds Demo" world on a headless dev server.
 
-The script starts `./gradlew :fabric:runDemoServer` on a fresh world, picks a flower forest or cherry
-grove, and writes an `fgdemo` datapack whose functions flatten a plot and build every station from
-`fill` and `setblock` commands. It talks to the server over RCON (local only, random password),
-checks the result, stops the server, turns cheats on in level.dat, and copies the world into the
-Minecraft saves folder and each loader's dev client saves (Fabric, NeoForge, Forge). The datapack stays in the save, so `/function fgdemo:reset/<station>` and
-`/function fgdemo:mode/<mode>` work while testing.
+Writes an `fgdemo` datapack that builds every station, checks the result over local RCON, and
+copies the world into the Minecraft saves folder and each loader's dev client saves. The datapack
+stays in the save, so `/function fgdemo:reset/<station>` and `/function fgdemo:mode/<mode>` work
+while testing.
 
     python3 scripts/demo/build_demo_world.py            # build, check, copy to saves
     python3 scripts/demo/build_demo_world.py --no-copy  # build and check only
@@ -101,9 +99,8 @@ class Site:
 def sign(lines: list[str], command: str | None = None, wall: str | None = None, rotation: int = 0):
     """A waxed oak sign; clicking it runs `command` when there is one.
 
-    Since 26.3 a sign runs click commands only with `allow_op_features`, which only an operator's
-    command (such as this setblock) can set; without it, clicking says click actions are disabled.
-    Older versions drop the unknown tag and run the command anyway.
+    From 26.3 a sign runs click commands only with `allow_op_features`, which only an operator's
+    command (such as this setblock) can set; older versions ignore the tag.
     """
     first = json.dumps(lines[0])
     extra = ""
@@ -192,7 +189,6 @@ def build_spawn(s: Site) -> list[str]:
     item = f'{{id:"{book["id"]}",count:1,components:{snbt(book["components"])}}}'
     c.append(s.set(3, 1, -4, f"lectern[facing=south,has_book=true]{{Book:{item}}}"))
     c.append(s.set(3, 1, -5, sign(["Guide book", "every feature,", "page by page", ""], rotation=0)))
-    # Supply chests.
     supplies = [
         [
             ("diamond", 64), (f"{MOD}:fairy_dust", 64), (f"{MOD}:fertilizer", 64),
@@ -231,7 +227,7 @@ def build_path(s: Site) -> list[str]:
                 s.set(x, 2, z, "spruce_fence"),
                 s.set(x, 3, z, "lantern"),
             ]
-    # A soft edge of petals, grass, and a few flowers between the lamp posts.
+    # A soft edge of petals, grass, and scattered flowers between the lamp posts.
     for x in range(-1, 97):
         for z in (-2, 2):
             if x % 10 and rng.random() < 0.6:
@@ -428,9 +424,8 @@ def build_hero(s: Site) -> list[str]:
 
 
 def hero_fairies(s: Site) -> list[str]:
-    """About 30 Bean Fairies posed over the hero grove. With no AI they hover in place, wings still
-    beating, and never fly off. The mod never saves fairies to disk, so hero/tick summons them again
-    whenever a player comes near and none are there."""
+    """About 30 Bean Fairies with no AI posed over the hero grove. The mod never saves fairies to
+    disk, so hero/tick summons them again when a player comes near and none are there."""
     rng = random.Random(33)
     spots = [(dx, dz) for dx in (-10, 0, 10) for dz in (-10, 0, 10) if (dx, dz) != (0, 0)]
     c = []
@@ -701,8 +696,7 @@ def start_server(log_path: Path) -> subprocess.Popen:
             "./gradlew",
             ":fabric:runDemoServer",
             "--console=plain",
-            # Jade lists the mod's client tooltip plugin, which the dev server's split classpath
-            # leaves out (the shipped jar has it), so the dev server runs without Jade.
+            # Jade names the mod's client tooltip plugin, which the dev server's classpath leaves out.
             "-PnoJade",
         ],
         cwd=ROOT,

@@ -19,12 +19,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * Every in-world test, in a form all three loaders run the same way. Since 1.21.5, a vanilla test
- * is two parts: a test function in the {@code test_function} registry, which each loader's gametest
- * code registers from {@link #functions()}, and a test-instance data file naming that function plus
- * its environment, structure, and time limit. {@link #main} writes those files at build time, the
- * way Forge's own test mod generates them. Test ids match the ones Fabric API's {@code @GameTest}
- * gave: the class and method name in snake case.
+ * Every in-world test, in a form all three loaders run the same way: each loader registers a {@code
+ * test_function} from {@link #functions()}, and {@link #main} writes the matching test-instance
+ * files at build time.
  */
 public final class TestCatalog {
 
@@ -63,8 +60,7 @@ public final class TestCatalog {
           LoaderHookTests.class);
 
   /**
-   * Jade publishes no Forge build for Minecraft 1.21.11, so the Forge build leaves the Jade
-   * integration and these tests out; the other loaders compile and run them.
+   * Jade has no Forge build for this Minecraft version, so the Forge build leaves these tests out.
    */
   private static final String JADE_TESTS = "com.fertilegrounds.gametest.JadeDataTests";
 

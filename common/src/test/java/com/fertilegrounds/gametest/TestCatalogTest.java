@@ -12,7 +12,7 @@ class TestCatalogTest {
 
   private static final Map<ResourceLocation, JsonObject> INSTANCES = TestCatalog.instances();
 
-  /** Same ids Fabric API's {@code @GameTest} gave, so filters and old reports still match. */
+  /** Test ids are the class and method name in snake case, as Fabric API names them. */
   @Test
   void idsMatchFabricApiNaming() {
     assertEquals(

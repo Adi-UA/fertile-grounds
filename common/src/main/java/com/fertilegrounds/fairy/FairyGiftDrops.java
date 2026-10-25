@@ -60,7 +60,7 @@ final class FairyGiftDrops {
     if (level.getRandom().nextInt(100) >= chance) {
       return;
     }
-    // Count the farm only after the roll succeeds, so most visits skip this bigger scan.
+    // Count the farm only after the roll succeeds, so failed rolls skip this bigger scan.
     final FairyGifts.Tier tier = FairyGifts.tier(countFairyCrops(level, visit.pos()), harvestMoon);
     drop(level, visit.pos(), tier);
     FairyGiftCooldowns.recordGift(level, owner, today);

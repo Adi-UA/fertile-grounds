@@ -31,7 +31,6 @@ public final class FairyTiming {
    * @param wasNight the night state from the previous check, or null on the first check after the
    *     server starts (no transition is reported then, so a restart at night doesn't count as a new
    *     night)
-   * @param isNight the night state now
    */
   public static Transition transition(@Nullable final Boolean wasNight, final boolean isNight) {
     if (wasNight == null || wasNight == isNight) {
@@ -92,8 +91,8 @@ public final class FairyTiming {
   public static final int HERALD_LEAD_TICKS = 1200;
 
   /**
-   * Whether fireflies should herald a pending visit: at night, from a minute before it's due. A
-   * visit scheduled less than a minute ahead (Fairy Dust after dark) is heralded right away.
+   * Whether fireflies herald a pending visit: at night, from a minute before it's due. A visit
+   * scheduled less than a minute ahead (Fairy Dust after dark) is heralded right away.
    */
   public static boolean isHeraldTime(
       final long arrivalTick, final long now, final boolean isNight) {

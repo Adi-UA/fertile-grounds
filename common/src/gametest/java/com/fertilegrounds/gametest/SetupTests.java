@@ -15,8 +15,7 @@ public class SetupTests {
   public void nightEnvironmentIsDarkWithNoRandomTicks(final GameTestHelper helper) {
     helper.assertTrue(
         helper.getLevel().isDarkOutside(), Component.literal("the night environment is dark"));
-    // The test server's clock runs while a test waits for its chunks to load, so the night
-    // environment also stops it; otherwise a slow machine could reach dawn before the test starts.
+    // The clock runs while a test waits for its chunks, so the night environment stops it.
     helper.assertValueEqual(
         helper.getLevel().getDayTime(), 18000L, Component.literal("clock time"));
     helper.assertValueEqual(

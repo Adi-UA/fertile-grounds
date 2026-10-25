@@ -10,14 +10,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FarmBlock;
 
-/** Past soil bugs, each guarded by the commit that fixed it. */
+/** Farmland trampling and drying, Enriched Sand's tag, and stems on mod farmland. */
 public class SoilRegressionTests {
 
   private static final BlockPos SOIL = new BlockPos(3, 1, 3);
 
   /**
-   * Regression for 83fd1fb: trampled farmland reverts to its own dirt tier, not vanilla dirt. A cow
-   * dropped 10 blocks always passes vanilla's trample roll (random below fall distance minus 0.5).
+   * Trampled farmland reverts to its own dirt tier, not vanilla dirt. A cow dropped 10 blocks
+   * always passes vanilla's trample roll (random below fall distance minus 0.5).
    */
   @FertileTest(environment = "fertilegrounds:no_random_ticks", skyAccess = true, maxTicks = 200)
   public void enrichedFarmlandTramplesToEnrichedDirt(final GameTestHelper helper) {
@@ -29,7 +29,7 @@ public class SoilRegressionTests {
     trample(helper, ModBlocks.SUPER_ENRICHED_FARMLAND, ModBlocks.SUPER_ENRICHED_DIRT);
   }
 
-  /** Regression for 83fd1fb: dry farmland with no water, rain, or crop reverts to its own dirt. */
+  /** Dry farmland with no water, rain, or crop reverts to its own dirt tier. */
   @FertileTest(environment = "fertilegrounds:fast_random_ticks", maxTicks = 400)
   public void enrichedFarmlandDriesToEnrichedDirt(final GameTestHelper helper) {
     dryOut(helper, ModBlocks.ENRICHED_FARMLAND, ModBlocks.ENRICHED_DIRT);
@@ -40,7 +40,7 @@ public class SoilRegressionTests {
     dryOut(helper, ModBlocks.SUPER_ENRICHED_FARMLAND, ModBlocks.SUPER_ENRICHED_DIRT);
   }
 
-  /** Regression for 1e5d483: sugar cane needs Enriched Sand in #minecraft:sand. */
+  /** Sugar cane needs Enriched Sand in #minecraft:sand. */
   @FertileTest
   public void enrichedSandCountsAsSand(final GameTestHelper helper) {
     helper.setBlock(SOIL, ModBlocks.ENRICHED_SAND);
@@ -48,11 +48,7 @@ public class SoilRegressionTests {
     helper.succeed();
   }
 
-  /**
-   * Melon and pumpkin stems stand on both farmland tiers. 26.x stems read the {@code
-   * supports_crops} tag through {@code supports_stem_crops}; 1.21.11 and older check vanilla
-   * farmland, so {@code StemBlockMixin} and {@code AttachedStemBlockMixin} allow it there.
-   */
+  /** Melon and pumpkin stems stand on both farmland tiers. */
   @FertileTest
   public void stemsStandOnModFarmland(final GameTestHelper helper) {
     for (final Block farmland :
