@@ -6,7 +6,7 @@
 
 [![Modrinth downloads](https://img.shields.io/modrinth/dt/fertile-grounds?logo=modrinth&label=Modrinth)](https://modrinth.com/mod/fertile-grounds) [![CurseForge downloads](https://img.shields.io/curseforge/dt/1627313?logo=curseforge&label=CurseForge)](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds)
 
-> **This branch stays on Fertile Grounds 1.2.0.** Version 2.0 adds Fertilizer, Fairy Hotels, Chime Hotels, Fairy Groves, and much more, but only for Minecraft 26.1 and newer. Minecraft 26.1 ships its code unscrambled, so Fabric mods there are much easier to build and keep working across updates, and every future version of Fertile Grounds will support 26.1 onward only. If you can, come play the new version on 26.x! :) See the [`main` branch](https://github.com/Adi-UA/fertile-grounds/tree/main) for 2.0.
+> **This branch stays on Fertile Grounds 1.2.0.** Version 2.0 adds Fertilizer, Fairy Hotels, Chime Hotels, Fairy Groves, and much more, on Minecraft 1.21.1, 1.21.10, 1.21.11, and 26.1 and newer. Older Minecraft scrambles its code, so each older version takes extra work, and 1.20.1 is too far back to bring along. If you can, come play 2.0 on one of those versions! :) See the [`main` branch](https://github.com/Adi-UA/fertile-grounds/tree/main) for 2.0.
 
 I originally started this little farming mod for my partner and me to play on our private server. Version 1.2.0 is the cozy beginning: richer soils that save you from bone-mealing the same field over and over, and a shy Bean Fairy who visits at night. Get it on [Modrinth](https://modrinth.com/mod/fertile-grounds) or [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fertile-grounds).
 
