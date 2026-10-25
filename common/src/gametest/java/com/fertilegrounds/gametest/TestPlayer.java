@@ -79,8 +79,7 @@ final class TestPlayer extends ServerPlayer {
         new net.minecraft.network.Connection(PacketFlow.SERVERBOUND);
     new EmbeddedChannel(connection);
     server.getPlayerList().placeNewPlayer(connection, player, cookie);
-    // Joining applies the server's default game mode, so set survival afterward; this also
-    // updates the player's abilities, which decide whether items get used up.
+    // Joining applies the server's default game mode, so set survival afterward.
     player.setGameMode(GameType.SURVIVAL);
     return player;
   }

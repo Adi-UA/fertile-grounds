@@ -22,7 +22,7 @@ public record FairyVisit(BlockPos pos, long arrivalTick, Source source, Optional
     NATURAL,
     /** A player used Fairy Dust. */
     DUST,
-    /** No player to reward: a dispenser, or a visit saved before owners existed (1.2.0). */
+    /** No player to reward: a dispenser, or an older save without an owner. */
     UNOWNED;
 
     public static final Codec<Source> CODEC = StringRepresentable.fromEnum(Source::values);
@@ -34,8 +34,8 @@ public record FairyVisit(BlockPos pos, long arrivalTick, Source source, Optional
   }
 
   /**
-   * Tells Fabric how to save a visit to disk, so a dust-summoned visit survives a restart. Source
-   * and owner are optional, so visits saved by 1.2.0 still load, as unowned.
+   * Saves a visit to disk, so a dust-summoned visit survives a restart. Source and owner are
+   * optional, so older saved visits still load, as unowned.
    */
   public static final Codec<FairyVisit> CODEC =
       RecordCodecBuilder.create(

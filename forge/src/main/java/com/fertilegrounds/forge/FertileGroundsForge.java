@@ -113,11 +113,9 @@ public final class FertileGroundsForge {
   }
 
   /**
-   * Hoe tilling for both dirt tiers, built like Fabric API's tilling helper and vanilla's own hoe
-   * rule: only with air above, never from below, with the hoe sound. Forge has no hook into the
-   * hoe's data-driven block transformer, so {@link #onRightClickBlock} runs this one first. It sits
-   * in its own class so the blocks it names load on first use, after registration, not while Forge
-   * constructs the mod.
+   * Hoe tilling for both dirt tiers, with vanilla's hoe rule. Forge has no hook into the hoe's
+   * block transformer, so {@link #onRightClickBlock} runs this one first. Its own class delays
+   * loading the blocks it names until after registration.
    */
   private static final class Tilling {
     static final BlockTransformer TRANSFORMER =

@@ -90,7 +90,7 @@ public class FairyGroveTests {
         BlockPos.betweenClosed(hill.offset(-1, -8, -1), hill.offset(1, 6, 1))) {
       helper.setBlock(pos, Blocks.STONE);
     }
-    // Grass in the scanned area: since 26.1 it isn't in #minecraft:dirt, which once refused it.
+    // Grass isn't in #minecraft:dirt on 26.x, and the safety scan must still allow it.
     helper.setBlock(hill.above(6), Blocks.GRASS_BLOCK);
     helper.setBlock(SOIL.offset(12, 0, 12), Blocks.GRASS_BLOCK);
     helper.setBlock(SOIL.offset(12, 1, -12), Blocks.OAK_LOG);
@@ -105,7 +105,6 @@ public class FairyGroveTests {
     helper.succeedWhen(
         () -> {
           helper.assertTrue(GroveBuilder.jobs(helper.getLevel()).isEmpty(), "grove finished");
-          // Plots: wet Enriched Farmland around water.
           helper.assertBlockState(
               SOIL.offset(10, 0, 9),
               state ->
@@ -115,7 +114,6 @@ public class FairyGroveTests {
                   net.minecraft.network.chat.Component.literal("moist farmland, got " + state));
           helper.assertBlockPresent(Blocks.WATER, SOIL.offset(-10, 0, -10));
           helper.assertBlockPresent(Blocks.AIR, SOIL.offset(10, 1, 9));
-          // Crossings: hives inside, hedges outside, each with a lantern.
           helper.assertBlockPresent(Blocks.BEEHIVE, SOIL.offset(5, 1, -5));
           helper.assertBlockPresent(Blocks.LANTERN, SOIL.offset(5, 2, -5));
           helper.assertBlockProperty(SOIL.offset(15, 1, 5), LeavesBlock.PERSISTENT, true);
@@ -126,7 +124,6 @@ public class FairyGroveTests {
           helper.assertBlockPresent(Blocks.AIR, hill.above(6));
           helper.assertBlockPresent(Blocks.AIR, SOIL.offset(12, 2, -12));
           helper.assertBlockPresent(Blocks.DIRT, SOIL.offset(10, -8, 10));
-          // The shrine is untouched.
           helper.assertBlockPresent(ModBlocks.CHIME_FAIRY_HOTEL, HOTEL);
           helper.assertBlockPresent(ModBlocks.SUPER_ENRICHED_DIRT, SOIL);
           helper.assertBlockPresent(ModBlocks.FAIRY_HOTEL, HOTEL.north(3));

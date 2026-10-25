@@ -32,7 +32,7 @@ public final class FairyGifts {
 
   /**
    * The gift chance in percent: the gamerule for the visit's source, plus a point per distinct
-   * flower type nearby. Unowned visits (dispensers, 1.2.0 saves) never give gifts.
+   * flower type nearby. Unowned visits (dispensers, older saves) never give gifts.
    */
   public static int chance(
       final FairyVisit.Source source,

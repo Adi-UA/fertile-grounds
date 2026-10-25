@@ -5,9 +5,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 /**
- * The mod's custom advancement triggers. Each only needs "this happened to a player", so they reuse
- * vanilla's {@link PlayerTrigger}, the same class vanilla registers for its own simple triggers
- * (sleeping in a bed, starting to ride, and others).
+ * The mod's advancement triggers. Each fires when something happens to a player, so each is a
+ * vanilla {@link PlayerTrigger}, as vanilla uses for sleeping in a bed.
  */
 public final class ModCriteria {
 

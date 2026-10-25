@@ -49,7 +49,7 @@ public class BeanFairy extends PathfinderMob {
 
   public BeanFairy(final EntityType<? extends BeanFairy> type, final Level level) {
     super(type, level);
-    // Same flying setup as vanilla's Allay: steer straight toward a point and hover there.
+    // Flies like vanilla's Allay: steers straight to a point and hovers there.
     this.moveControl = new FlyingMoveControl<>(this, 20, true);
     this.setNoGravity(true);
   }
@@ -63,8 +63,7 @@ public class BeanFairy extends PathfinderMob {
     this.noPhysics = true;
     super.tick();
     this.noPhysics = false;
-    // Flying through blocks also means nothing stops the fly-in from overshooting into the
-    // ground, so an open-sky visit holds the fairy at its floor instead.
+    // Nothing stops a fly-through-blocks mob sinking into the ground, so the floor holds it.
     if (this.floorY != null && this.getY() < this.floorY) {
       this.setPos(this.getX(), this.floorY, this.getZ());
       final Vec3 motion = this.getDeltaMovement();
@@ -103,9 +102,8 @@ public class BeanFairy extends PathfinderMob {
   }
 
   /**
-   * Makes this fairy a Fairy Grove builder: it flies wherever {@link #setGroveTarget} says instead
-   * of visiting a crop, and the grove removes it when done. Builders never finish growing, so they
-   * can't be caught.
+   * True for a Fairy Grove builder, which flies to {@link #setGroveTarget} instead of visiting a
+   * crop. Builders never finish growing, so they can't be caught.
    */
   public boolean isGroveBuilder() {
     return this.groveTarget != null;
@@ -179,7 +177,7 @@ public class BeanFairy extends PathfinderMob {
     return true;
   }
 
-  /** Never written to disk: if its chunk unloads mid-visit, the fairy just disappears. */
+  /** Never written to disk: if its chunk unloads mid-visit, the fairy disappears. */
   @Override
   public boolean shouldBeSaved() {
     return false;
