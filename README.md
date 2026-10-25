@@ -89,7 +89,7 @@ Compatible with Sodium, Iris, Farmer's Delight, AppleSkin, etc., and plays nicel
 
 ## Versions
 
-This branch is Fertile Grounds 2.0.0 for Minecraft **1.21.11**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**, whose jars need nothing else. Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for 1.21.11. Older Minecraft scrambles its code, so it needs more workarounds, and updates reach 1.21.x slowly. This version stays on 2.0.0; new features after that come to 26.1 and newer. Everything works the same as on 26.1.
+This branch is Fertile Grounds 2.0.1 for Minecraft **1.21.11**, on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), on **NeoForge**, and on **Forge**, whose jars need nothing else. Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for 1.21.11. Older Minecraft scrambles its code, so it needs more workarounds, and updates reach 1.21.x slowly. This version stays on 2.0; new features after that come to 26.1 and newer. Everything works the same as on 26.1.
 
 ## For modpack makers
 
