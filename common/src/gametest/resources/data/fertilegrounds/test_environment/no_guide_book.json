@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:game_rules",
+  "bool_rules": [
+    {
+      "rule": "fertilegrounds:give_guide_book",
+      "value": false
+    }
+  ],
+  "int_rules": []
+}

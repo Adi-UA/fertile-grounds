@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:all_of",
+  "definitions": [
+    "fertilegrounds:no_random_ticks",
+    {
+      "type": "minecraft:time_of_day",
+      "time": 18000
+    },
+    {
+      "type": "minecraft:game_rules",
+      "bool_rules": [
+        {
+          "rule": "doDaylightCycle",
+          "value": false
+        }
+      ],
+      "int_rules": []
+    }
+  ]
+}

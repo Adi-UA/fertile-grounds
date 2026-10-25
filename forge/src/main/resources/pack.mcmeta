@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "${pack_description}",
+    "min_format": ${data_pack_format},
+    "max_format": ${data_pack_format}
+  }
+}

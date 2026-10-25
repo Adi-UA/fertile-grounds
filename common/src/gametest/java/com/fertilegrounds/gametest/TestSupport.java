@@ -1,0 +1,45 @@
+package com.fertilegrounds.gametest;
+
+import com.fertilegrounds.entity.BeanFairy;
+import com.fertilegrounds.entity.ModEntities;
+import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.level.block.Blocks;
+
+/** Small helpers shared by the test classes. */
+final class TestSupport {
+
+  /** Leaving fairies climb 12 blocks before vanishing, above the test area, so look higher. */
+  private static final double FAIRY_SEARCH_HEIGHT = 20;
+
+  /** Less than the 5-block gap between tests, so the next test's fairy stays out of the search. */
+  private static final double FAIRY_SEARCH_SIDE = 4;
+
+  private TestSupport() {}
+
+  /** Every fairy around this test, including one flying away above it. */
+  static List<BeanFairy> fairies(final GameTestHelper helper) {
+    return helper
+        .getLevel()
+        .getEntities(
+            ModEntities.BEAN_FAIRY,
+            helper.getBounds().inflate(FAIRY_SEARCH_SIDE, FAIRY_SEARCH_HEIGHT, FAIRY_SEARCH_SIDE),
+            f -> true);
+  }
+
+  /** Runs a console command, such as {@code time set 13000}, with its output hidden. */
+  static void command(final GameTestHelper helper, final String command) {
+    final MinecraftServer server = helper.getLevel().getServer();
+    server
+        .getCommands()
+        .performPrefixedCommand(server.createCommandSourceStack().withSuppressedOutput(), command);
+  }
+
+  /** Plants young wheat at {@code pos} on farmland. */
+  static void plantWheat(final GameTestHelper helper, final BlockPos pos) {
+    helper.setBlock(pos.below(), Blocks.FARMLAND);
+    helper.setBlock(pos, Blocks.WHEAT);
+  }
+}

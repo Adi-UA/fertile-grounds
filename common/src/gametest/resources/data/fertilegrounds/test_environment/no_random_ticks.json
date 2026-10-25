@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:all_of",
+  "definitions": [
+    {
+      "type": "minecraft:game_rules",
+      "bool_rules": [],
+      "int_rules": [
+        {
+          "rule": "randomTickSpeed",
+          "value": 0
+        },
+        {
+          "rule": "fertilegrounds:fairy_visit_chance",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "type": "minecraft:weather",
+      "weather": "clear"
+    }
+  ]
+}

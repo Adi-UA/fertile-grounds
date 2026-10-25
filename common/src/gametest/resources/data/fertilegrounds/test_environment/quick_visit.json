@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:all_of",
+  "definitions": [
+    "fertilegrounds:no_random_ticks",
+    {
+      "type": "minecraft:game_rules",
+      "bool_rules": [],
+      "int_rules": [
+        {
+          "rule": "fertilegrounds:fairy_linger_seconds",
+          "value": 0
+        }
+      ]
+    }
+  ]
+}

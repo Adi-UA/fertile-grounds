@@ -1,0 +1,6 @@
+{
+  "values": [
+    "#minecraft:small_flowers",
+    { "id": "#c:flowers/small", "required": false }
+  ]
+}

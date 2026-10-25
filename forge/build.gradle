@@ -1,0 +1,125 @@
+plugins {
+	id 'multiloader-loader'
+	id 'net.minecraftforge.gradle'
+	id 'maven-publish'
+}
+
+base {
+	archivesName = "${mod_id}-forge"
+}
+
+sourceSets {
+	// In-world tests: never shipped, run as their own dev-only mod (see src/gametest/resources).
+	gametest {
+		compileClasspath += main.output
+		runtimeClasspath += main.output
+	}
+}
+configurations {
+	gametestImplementation.extendsFrom implementation
+}
+
+commonSources('main')
+// Forge has no separate client source set; client classes only load on the client.
+commonSources('client', 'main')
+commonSources('gametest')
+
+// Jade publishes no Forge build for Minecraft 1.21.11, so the Forge jar leaves out the Jade
+// integration and its tests.
+tasks.named('compileJava', JavaCompile) {
+	exclude 'com/fertilegrounds/compat/jade/**', 'com/fertilegrounds/client/compat/jade/**'
+}
+tasks.named('compileGametestJava', JavaCompile) {
+	exclude 'com/fertilegrounds/gametest/JadeDataTests.java', 'com/fertilegrounds/gametest/JadeProbe.java'
+}
+tasks.named('sourcesJar', Jar) {
+	exclude 'com/fertilegrounds/compat/jade/**', 'com/fertilegrounds/client/compat/jade/**'
+}
+tasks.named('processGametestResources', ProcessResources) {
+	exclude 'data/fertilegrounds-gametest/test_instance/jade_data_tests_*.json'
+}
+
+// Forge finds a mod's mixins through this manifest entry; dev runs get it as an argument below.
+jar {
+	manifest {
+		attributes 'MixinConfigs': 'fertilegrounds.mixins.json'
+	}
+}
+
+repositories {
+	minecraft.mavenizer(it)
+	maven fg.forgeMaven
+	maven fg.minecraftLibsMaven
+}
+
+// Minecraft 1.21.11's Apple Silicon build of lwjgl-freetype ("natives-macos-patch") is only on
+// Mojang's library maven, so Maven Central must not claim the module first.
+repositories.named('MavenRepo') {
+	content { excludeModule 'org.lwjgl', 'lwjgl-freetype' }
+}
+
+dependencies {
+	implementation minecraft.dependency("net.minecraftforge:forge:${forge_minecraft_version}-${forge_version}")
+	annotationProcessor "net.minecraftforge:eventbus-validator:${eventbus_version}"
+	gametestAnnotationProcessor "net.minecraftforge:eventbus-validator:${eventbus_version}"
+}
+
+minecraft {
+	runs {
+		configureEach {
+			workingDir = rootProject.layout.projectDirectory.dir("run/forge-${it.name}")
+			// The gametest source set's runs (runGametestGameTestServer) add the test mod.
+			systemProperty 'forge.enabledGameTestNamespaces', 'fertilegrounds-gametest'
+			args '--mixin.config', 'fertilegrounds.mixins.json'
+		}
+		register('client') {
+			// macOS only lets a program open windows from its first thread; Loom and ModDevGradle
+			// add this flag on their own.
+			if (System.getProperty('os.name').toLowerCase().contains('mac')) {
+				jvmArgs '-XstartOnFirstThread'
+			}
+		}
+		register('server') {
+			args '--nogui'
+		}
+		register('gameTestServer') {
+			// A JUnit-style report, and `-PgametestFilter=<pattern>` runs only matching tests.
+			args '--report', rootProject.file('build/gametest-forge-report.xml').absolutePath
+			if (project.hasProperty('gametestFilter')) {
+				args '--tests', project.property('gametestFilter')
+			}
+		}
+	}
+}
+
+processResources {
+	def props = [version: project.version, minecraft_version_range: minecraft_version_range, forge_version: forge_version,
+			data_pack_format: data_pack_format, pack_description: 'Fertile Grounds resources']
+	inputs.properties props
+	filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+		expand props
+	}
+	// Forge ships upstream Mixin, which logs an error for a config without minVersion, so Forge's
+	// copy says Mixin 0.8.
+	inputs.property 'mixinConfigForForge', 'minVersion 0.8'
+	filesMatching('fertilegrounds.mixins.json') {
+		filter { line ->
+			line.replace('"required": true,', '"required": true,\n  "minVersion": "0.8",')
+		}
+	}
+}
+processGametestResources {
+	def props = [data_pack_format: data_pack_format, pack_description: 'Fertile Grounds GameTests']
+	inputs.properties props
+	filesMatching('pack.mcmeta') {
+		expand props
+	}
+}
+
+publishing {
+	publications {
+		create('mavenJava', MavenPublication) {
+			from components.java
+		}
+	}
+}

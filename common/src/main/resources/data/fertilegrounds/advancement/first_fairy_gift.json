@@ -1,0 +1,24 @@
+{
+  "parent": "fertilegrounds:first_fairy_visit",
+  "criteria": {
+    "done": {
+      "trigger": "fertilegrounds:fairy_gift"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_carrot"
+    },
+    "title": {
+      "translate": "advancements.fertilegrounds.first_fairy_gift.title"
+    },
+    "description": {
+      "translate": "advancements.fertilegrounds.first_fairy_gift.description"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}
