@@ -6,10 +6,10 @@ Teaches players every Fertile Grounds mechanic in game through a vanilla written
 ## Requirements
 
 ### Requirement: Book on first join
-A player joining a world for the first time with 2.0.0 or later SHALL receive one Fertile Grounds Guide, unless `fertilegrounds:give_guide_book` is false (default true). A player SHALL receive it only once per world.
+A player joining a world for the first time SHALL receive one Fertile Grounds Guide, unless `fertilegrounds:give_guide_book` is false (default true). A player SHALL receive it only once per world, and players from a world saved before the guide existed SHALL get it on their next join.
 
 #### Scenario: Existing world after update
-- **WHEN** a player who played in 1.2.0 joins the same world on 2.0.0
+- **WHEN** a player who played a world in 1.2.0 joins it again
 - **THEN** they receive the guide once
 
 #### Scenario: Rejoin
@@ -32,14 +32,14 @@ The game SHALL craft a Fertile Grounds Guide from a shapeless recipe of 1 Book a
 - **THEN** they get a guide matching the installed mod version
 
 ### Requirement: Translated content
-Every page and the title SHALL use translation keys, so the book shows in each player's own language.
+Every page and the book's name SHALL use translation keys, so the book shows in each player's own language.
 
 #### Scenario: Other language
 - **WHEN** a player with a translated language selected opens the guide
 - **THEN** the pages show in that language
 
 ### Requirement: Coverage
-The guide SHALL have pages for soil tiers, Fertilizer, fairy visits, what attracts fairies, Harvest Moon, gifts, catching fairies, Fairy Hotels, hotel effects and petting, the Chime Hotel, and redstone.
+The guide SHALL have pages for soil tiers, Fertilizer, fairy visits, what attracts fairies, Harvest Moon, gifts, catching fairies, Fairy Hotels, hotel effects and petting, the Chime Hotel, redstone, and the Fairy Grove.
 
 #### Scenario: Reader looks up hotels
 - **WHEN** a player opens the guide to the hotel pages
