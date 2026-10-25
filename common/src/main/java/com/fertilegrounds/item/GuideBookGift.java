@@ -9,10 +9,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Gives each player the guide on their first join to a world, including players from before the
- * guide existed. A flag saved on the player ({@link ModSavedData#RECEIVED_GUIDE}, kept through
- * death) makes sure it happens once. Each loader calls {@link #giveOnFirstJoin} when a player
- * joins.
+ * Gives each player the guide once, on their first join to a world, tracked by a flag saved on the
+ * player ({@link ModSavedData#RECEIVED_GUIDE}).
  */
 public final class GuideBookGift {
 

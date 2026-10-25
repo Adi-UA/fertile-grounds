@@ -13,10 +13,8 @@ import net.minecraft.world.level.gamerules.GameRuleTypeVisitor;
 
 /**
  * Every tunable number in the mod, as a per-world gamerule ({@code /gamerule
- * fertilegrounds:<name>}). Gamerules only store whole numbers, so chances are percentages from 0 to
- * 100. Code reads a rule each time it needs it, so a change applies without a restart. Rules are
- * built the way vanilla's {@code GameRules} builds its own, which is also all Fabric API's {@code
- * GameRuleBuilder} does for whole-number and true/false rules.
+ * fertilegrounds:<name>}). Gamerules store only whole numbers, so chances are percentages from 0 to
+ * 100, and code reads a rule each time it needs it, so a change applies without a restart.
  */
 public final class ModGameRules {
 
@@ -28,7 +26,7 @@ public final class ModGameRules {
   public static final GameRule<Integer> ENRICHED_BOOST_CHANCE =
       percent("enriched_boost_chance", 15, GameRuleCategory.UPDATES);
 
-  /** Same for Super Enriched Farmland: about 3.3x tier 1, gated behind Glowstone Dust. */
+  /** The same chance for Super Enriched Farmland. */
   public static final GameRule<Integer> SUPER_ENRICHED_BOOST_CHANCE =
       percent("super_enriched_boost_chance", 50, GameRuleCategory.UPDATES);
 

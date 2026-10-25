@@ -1,9 +1,7 @@
 """Runs the mod's in-world GameTests and reports pass/fail per test.
 
-The tests live in common/src/gametest and run on each loader's headless test server through
-Gradle. Gradle already fails when a test fails; this script adds what tests can't see: data files
-that fail to load without crashing (a broken tag or advancement only logs an error), so it also
-exits 1 if the log shows one of those.
+Also exits 1 when the log shows a data file that failed to load without failing a test (a broken
+tag or advancement only logs an error).
 
 Usage (from the repo root):
     python3 scripts/run_gametests.py                          # every test on Fabric
@@ -19,14 +17,11 @@ import xml.etree.ElementTree as ElementTree
 from pathlib import Path
 
 LOADERS = ("fabric", "neoforge", "forge")
-# The Gradle task that runs the test server, per loader.
 TASKS = {"fabric": ":fabric:runGameTest", "neoforge": ":neoforge:runGameTestServer", "forge": ":forge:runGametestGameTestServer"}
 TEST_NAMESPACE = "fertilegrounds-gametest"
 LOG = Path("build/gametest.log")
 
-# Log lines that mean data silently failed to load. Copied from the 26.3 sources: recipes,
-# advancements, and loot tables load as registries (RegistryDataLoader), tags load in TagLoader,
-# and the rest are validation passes that skip the broken entry and keep going.
+# Log lines that mean data silently failed to load, from Minecraft's data loaders and validators.
 ERROR_MARKERS = (
     "Registry loading errors",
     "Failed to load datapacks",
@@ -52,8 +47,7 @@ def main() -> int:
     args = parser.parse_args()
     loaders = LOADERS if args.loader == "all" else (args.loader,)
 
-    # One Gradle run with every chosen loader's test task; Gradle runs tasks from different
-    # projects in parallel, so all three test servers run at the same time.
+    # One Gradle run, so tasks from different projects run their test servers in parallel.
     command = ["./gradlew", *(TASKS[loader] for loader in loaders), "--continue", "--console=plain"]
     if args.filter:
         # Test ids are namespace:path, and the matcher's * doesn't cross the colon.

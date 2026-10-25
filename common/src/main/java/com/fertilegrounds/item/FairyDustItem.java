@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 
 /**
  * Sprinkled on a growing crop, Fairy Dust guarantees that a Bean Fairy visits it. Fairies only come
- * at night: within half a minute if it's already dark, otherwise as soon as night falls.
+ * at night: within half a minute if it's already dark, otherwise once night falls.
  */
 public class FairyDustItem extends Item {
 
