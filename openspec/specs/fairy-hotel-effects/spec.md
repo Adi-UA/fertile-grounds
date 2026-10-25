@@ -1,7 +1,7 @@
 # fairy-hotel-effects Specification
 
 ## Purpose
-Defines how an occupied Fairy Hotel guards and gently helps the farm around it, so a hotel fairy is a useful farm companion.
+Defines how an occupied Fairy Hotel guards and helps the farm around it.
 
 ## Requirements
 

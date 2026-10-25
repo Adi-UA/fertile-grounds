@@ -1,7 +1,7 @@
 # fairy-hotel Specification
 
 ## Purpose
-Defines how players catch a Bean Fairy, how long a caught fairy waits, and how a Fairy Hotel gives it a permanent home, so keeping a fairy takes effort and no fairy stays trapped.
+Defines how players catch a Bean Fairy, how long a caught fairy waits in its bottle, and how a Fairy Hotel gives it a home for good.
 
 ## Requirements
 

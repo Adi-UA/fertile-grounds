@@ -1,19 +1,19 @@
 # fairy-gifts Specification
 
 ## Purpose
-Defines the occasional gift a Bean Fairy leaves after a visit, balanced so gifts stay special and scale with how much a player farms.
+Defines the gift a Bean Fairy can leave after a visit, which stays rare and grows with the size of the farm.
 
 ## Requirements
 
 ### Requirement: Visit owner
-Each visit SHALL record its owner: the player whose nightly roll scheduled it, or the player who used the Fairy Dust. A visit from a dispenser or spawn egg SHALL have no owner. Visits saved by 1.2.0 SHALL load with no owner.
+Each visit SHALL record its owner: the player whose nightly roll scheduled it, or the player who used the Fairy Dust. A visit from a dispenser or spawn egg SHALL have no owner. Visits saved by 1.2.0, which stored no owner, SHALL load with no owner.
 
 #### Scenario: Old save
-- **WHEN** a 1.2.0 world with a pending dust visit loads in 2.0.0
+- **WHEN** a world saved by 1.2.0 with a pending dust visit loads
 - **THEN** the visit still happens and gives no gift
 
 ### Requirement: Gift chance
-When a visit with an owner grows crops, the mod SHALL roll a gift with `fertilegrounds:fairy_gift_chance_natural` (default 30) for natural visits or `fertilegrounds:fairy_gift_chance_dust` (default 10) for Fairy Dust visits, plus 1 percentage point per distinct `#fertilegrounds:fairy_flowers` block type within 8 blocks, capped at 10 points.
+When a visit with an owner grows crops, the mod SHALL roll a gift with `fertilegrounds:fairy_gift_chance_natural` (default 30) for natural visits or `fertilegrounds:fairy_gift_chance_dust` (default 10) for Fairy Dust visits, plus 1 percentage point per distinct `#fertilegrounds:fairy_flowers` block type within 8 blocks horizontally and 4 vertically, capped at 10 points. A gamerule set to 0 SHALL give no gifts, whatever flowers grow nearby.
 
 #### Scenario: Dispenser dust
 - **WHEN** a dispenser-applied Fairy Dust visit grows crops
@@ -31,7 +31,7 @@ After a player receives a gift, that player SHALL get no further gifts until `fe
 - **THEN** no gift is rolled for that visit
 
 ### Requirement: Gift tier from farm size
-The gift tier SHALL depend on the number of fairy crop blocks within 16 blocks horizontally and 4 vertically of the visit: fewer than 25 uses common, 25 to 99 uses uncommon, 100 or more uses rare. On a Harvest Moon night, the tier SHALL move up one step, and rare SHALL stay rare.
+The gift tier SHALL depend on the number of fairy crop blocks within 16 blocks horizontally and 4 vertically of the visit: under 25 uses common, 25 to 99 uses uncommon, 100 or more uses rare. On a Harvest Moon night, the tier SHALL move up one step, and rare SHALL stay rare.
 
 #### Scenario: Large farm
 - **WHEN** a gift is rolled at a visit with 140 fairy crops nearby on a normal night
@@ -42,7 +42,7 @@ The gift tier SHALL depend on the number of fairy crop blocks within 16 blocks h
 - **THEN** the gift comes from the uncommon table
 
 ### Requirement: Gift delivery
-A gift SHALL drop as items from the loot table `fertilegrounds:gameplay/fairy_gift/<tier>` at the visit's crop, with sparkle particles, and the items SHALL never despawn. The owner SHALL see a translated message if within 32 blocks, and SHALL earn the first gift advancement.
+A gift SHALL drop as items from the loot table `fertilegrounds:gameplay/fairy_gift/<tier>` at the visit's crop, with sparkle particles, and the items SHALL never despawn. The owner SHALL see a translated action bar message if within 32 blocks, and SHALL earn the first gift advancement while online.
 
 #### Scenario: Plain item drops
 - **WHEN** a gift drops

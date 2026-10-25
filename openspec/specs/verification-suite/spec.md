@@ -1,7 +1,7 @@
 # verification-suite Specification
 
 ## Purpose
-Defines the automatic checks that prove a branch works beyond compiling, so past bugs can't silently return during features or ports.
+Defines the automatic checks that prove a branch works beyond compiling, so fixed bugs can't return unnoticed during features or ports.
 
 ## Requirements
 

@@ -6,7 +6,7 @@ Defines how a visiting Bean Fairy behaves from arrival to departure, so a visit 
 ## Requirements
 
 ### Requirement: Heralds before arrival
-For a visit within 32 blocks of a player, firefly particles SHALL drift over the visit's patch starting 60 seconds before the fairy arrives, or from when the visit is scheduled if that is later, with a quiet firefly bush ambient sound.
+At night, for a visit within 32 blocks of a player, firefly particles SHALL drift over the visit's patch starting 60 seconds before the fairy arrives, or from when the visit is scheduled if that is later, with a quiet firefly bush sound every 5 seconds.
 
 #### Scenario: Natural visit
 - **WHEN** a natural visit is due in 2 minutes and a player stands 10 blocks from its crop
@@ -24,7 +24,7 @@ On reaching its crop, the fairy SHALL spin above it for 3 seconds, then grow the
 - **THEN** the center grows first, then the 8 crops around it, then the outer 16, with three rising chimes
 
 ### Requirement: Linger after growing
-After growing its patch, the fairy SHALL stay for `fertilegrounds:fairy_linger_seconds` (default 60), drifting slowly between crops within its patch, playing a soft ambient hum every few seconds. Then it SHALL fly up and vanish as before.
+After growing its patch, the fairy SHALL stay for `fertilegrounds:fairy_linger_seconds` (default 60), drifting slowly between crops within its patch and playing a soft hum every 4 to 8 seconds. Then it SHALL fly up and vanish.
 
 #### Scenario: Default linger
 - **WHEN** a fairy finishes growing its patch with default gamerules

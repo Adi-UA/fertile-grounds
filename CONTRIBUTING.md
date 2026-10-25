@@ -61,7 +61,7 @@ Small fixes don't need a plan. Open an issue first for anything bigger, so we ca
 
 ## How testing works
 
-A green build only proves the code compiles, so most features have tests that run the game.
+A green build only proves the code compiles, so each feature also has tests that run the game.
 
 | What | Command | What it checks |
 |---|---|---|

@@ -1,12 +1,12 @@
 # in-world-tests Specification
 
 ## Purpose
-Defines the automated in-world checks every change must pass, including checks that need a player, so features are verified on every build instead of on a manual checklist.
+Defines the automated in-world checks every change must pass, including checks that need a player, so every build tests features without a manual checklist.
 
 ## Requirements
 
 ### Requirement: One command runs every in-world check
-A single command SHALL start a test world, run every in-world check, and exit non-zero if any check fails or the server logs a recipe, advancement, loot table, or tag load error. A developer SHALL be able to run one feature's checks on their own, and SHALL be able to pick the loader, Fabric, NeoForge, or Forge, with Fabric as the default.
+A single command SHALL start a test world, run every in-world check, and exit non-zero if any check fails or the server logs a recipe, advancement, loot table, or tag load error. A developer SHALL be able to run one feature's checks on their own, and SHALL be able to pick Fabric, NeoForge, Forge, or all three, with Fabric as the default.
 
 #### Scenario: All checks pass
 - **WHEN** a developer runs the in-world check command on a clean branch
@@ -46,8 +46,8 @@ The in-game checklist SHALL contain only what an automated check can't judge: ho
 - **WHEN** a change adds a particle or sound
 - **THEN** its tasks put "see and hear it" on the checklist and automate everything else about the moment
 
-### Requirement: Same checks on both loaders
-Every in-world check SHALL be written once and run on Fabric, NeoForge, and Forge. A check that some loader can't run SHALL say which loader and why, next to the check.
+### Requirement: Same checks on every loader
+Every in-world check SHALL be written once and run on Fabric, NeoForge, and Forge. A check that a loader can't run SHALL say which loader and why, next to the check.
 
 #### Scenario: New check
 - **WHEN** a developer adds a GameTest for a new feature
