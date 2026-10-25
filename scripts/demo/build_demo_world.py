@@ -99,8 +99,8 @@ class Site:
 def sign(lines: list[str], command: str | None = None, wall: str | None = None, rotation: int = 0):
     """A waxed oak sign; clicking it runs `command` when there is one.
 
-    On 26.3 a sign runs click commands only with `allow_op_features`, which only an operator's
-    command (such as this setblock) can set.
+    From 26.3 a sign runs click commands only with `allow_op_features`, which only an operator's
+    command (such as this setblock) can set; older versions ignore the tag.
     """
     first = json.dumps(lines[0])
     extra = ""

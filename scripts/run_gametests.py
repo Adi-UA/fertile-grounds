@@ -21,7 +21,7 @@ TASKS = {"fabric": ":fabric:runGameTest", "neoforge": ":neoforge:runGameTestServ
 TEST_NAMESPACE = "fertilegrounds-gametest"
 LOG = Path("build/gametest.log")
 
-# Log lines that mean data silently failed to load, from Minecraft 26.3's data loaders and validators.
+# Log lines that mean data silently failed to load, from Minecraft's data loaders and validators.
 ERROR_MARKERS = (
     "Registry loading errors",
     "Failed to load datapacks",
