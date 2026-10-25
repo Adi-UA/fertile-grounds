@@ -19,7 +19,10 @@ import net.minecraft.world.item.trading.MerchantOffer;
  */
 public class TraderTests {
 
-  /** Vanilla's rare list in 1.21.11 has 15 offers; the mod adds to it and removes none. */
+  /**
+   * Vanilla's rare list on this Minecraft version has 15 offers; the mod adds to it and removes
+   * none.
+   */
   private static final int VANILLA_RARE_OFFERS = 15;
 
   @FertileTest

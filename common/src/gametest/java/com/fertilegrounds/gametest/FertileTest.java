@@ -7,8 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Marks a method as an in-world test. {@link TestCatalog} turns each one into a vanilla test
- * function plus a test-instance file, which every loader's test server runs the same way. The
- * fields and defaults match Fabric API's {@code @GameTest}, which these tests first used.
+ * function plus a test-instance file, which every loader's test server runs the same way.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

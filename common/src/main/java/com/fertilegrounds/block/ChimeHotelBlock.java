@@ -21,11 +21,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
- * An occupied Fairy Hotel with a note block and a spyglass: it does everything an occupied hotel
- * does, and chimes once when the crops around it are ready to harvest.
- *
- * <p>Every 5 seconds a scheduled tick checks the field. Scheduled ticks save with the chunk, so the
- * checks carry on after a reload, and unlike random ticks they come at a steady pace.
+ * An occupied Fairy Hotel that chimes once when the crops around it are ready to harvest. A
+ * scheduled tick checks the field every 5 seconds, since scheduled ticks save with the chunk.
  */
 public class ChimeHotelBlock extends FairyHotelBlock {
 
@@ -35,9 +32,8 @@ public class ChimeHotelBlock extends FairyHotelBlock {
   public static final BooleanProperty READY = BooleanProperty.create("ready");
 
   /**
-   * The hotel just rang for a ready field: comparators read 15 until the next check, 20 ticks
-   * later, so a harvest alarm gets a 1-second pulse. The placement chime doesn't pulse, so placing
-   * a hotel next to an auto-harvester never starts it.
+   * The hotel rang for a ready field, so comparators read 15 for 20 ticks. The placement chime
+   * doesn't pulse, so placing a hotel never starts an auto-harvester.
    */
   public static final BooleanProperty RINGING = BooleanProperty.create("ringing");
 

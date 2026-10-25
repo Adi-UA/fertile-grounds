@@ -14,16 +14,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRule;
 
 /**
- * A sand variant that passively fertilizes whatever grows directly on top of it (cactus, sugar
- * cane, melon/pumpkin stems), without introducing any new plantable surface — unlike the farmland
- * tiers, ordinary crops still can't be planted here; this only speeds up things that already grow
- * on sand. Falls under gravity exactly like vanilla sand ({@link FallingBlock}).
+ * Sand that passively fertilizes what grows on it (cactus, sugar cane, stems). Crops still can't be
+ * planted on it, and it falls like vanilla sand.
  */
 public class GrowthBoostedSandBlock extends FallingBlock {
 
   /**
-   * Before 26.3, every falling block names a codec. Vanilla only uses it to describe the block
-   * type, so it rebuilds the one Enriched Sand the mod registers.
+   * This Minecraft version makes every falling block name a codec. Vanilla only uses it to describe
+   * the block type, so it rebuilds the one Enriched Sand the mod registers.
    */
   public static final MapCodec<GrowthBoostedSandBlock> CODEC =
       simpleCodec(
@@ -36,10 +34,8 @@ public class GrowthBoostedSandBlock extends FallingBlock {
   private final SoilTier tier;
 
   /**
-   * @param properties block properties, e.g. from {@code ModBlockProperties.sandProperties()}
-   * @param boostChanceRule the gamerule holding the per-random-tick percent chance of fertilizing
-   *     the plant above, read on every tick so {@code /gamerule} changes apply at once
-   * @param tier the tier a comparator reads
+   * @param boostChanceRule the percent chance per random tick of fertilizing the plant above, read
+   *     on every tick so {@code /gamerule} changes apply at once
    */
   public GrowthBoostedSandBlock(
       final Properties properties, final GameRule<Integer> boostChanceRule, final SoilTier tier) {

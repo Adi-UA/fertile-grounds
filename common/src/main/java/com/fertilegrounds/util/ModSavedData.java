@@ -12,8 +12,8 @@ import java.util.UUID;
 
 /**
  * Everything the mod saves on worlds and players. Each loader stores these its own way (Fabric and
- * NeoForge as data attachments, Forge as saved data), so there's no save file handling to write
- * here. The ids are part of every saved world, so they never change.
+ * NeoForge as data attachments, Forge as saved data). The ids are part of every saved world, so
+ * they never change.
  */
 public final class ModSavedData {
 

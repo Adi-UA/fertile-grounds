@@ -22,15 +22,10 @@ import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A farmland variant that passively fertilizes whatever crop is planted on top of it, on top of
- * vanilla farmland's normal moisture/hydration behavior.
- *
- * <p>Vanilla {@link FarmBlock} has two ways to revert to dirt on its own (trampling and drying
- * out), and before 26.3 both hardcode the target as {@code Blocks.DIRT}. Left unchanged, either
- * would silently downgrade a crafted block into plain vanilla dirt instead of this tier's own dirt
- * block. Both are reimplemented here to revert to {@link #driedOutBlock} instead — same vanilla
- * conditions and odds, just a corrected target. Trampling also skips farmland near an occupied
- * Fairy Hotel, like {@code FarmlandBlockMixin} does for vanilla farmland.
+ * Farmland that passively fertilizes the crop on top. This Minecraft version's {@link FarmBlock}
+ * reverts to plain dirt when trampled or dried out, so both are reimplemented here, with vanilla's
+ * conditions and odds, to revert to {@link #driedOutBlock}. Trampling also skips farmland near an
+ * occupied Fairy Hotel, like {@code FarmlandBlockMixin} does for vanilla farmland.
  */
 public class GrowthBoostedFarmlandBlock extends FarmBlock {
 
@@ -50,11 +45,8 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
   private final SoilTier tier;
 
   /**
-   * @param properties block properties, e.g. from {@code ModBlockProperties.farmlandProperties()}
-   * @param boostChanceRule the gamerule holding the per-random-tick percent chance of fertilizing
-   *     the plant above, read on every tick so {@code /gamerule} changes apply at once
-   * @param driedOutBlock the block this reverts to on trample or drought (this tier's own dirt)
-   * @param tier the tier a comparator reads
+   * @param boostChanceRule the percent chance per random tick of fertilizing the plant above, read
+   *     on every tick so {@code /gamerule} changes apply at once
    */
   public GrowthBoostedFarmlandBlock(
       final Properties properties,
@@ -107,14 +99,9 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
   }
 
   /**
-   * Same trample roll and conditions as vanilla {@code FarmBlock.fallOn}: only living entities
-   * heavy/wide enough, only when mobGriefing allows it for non-players, harder falls are more
-   * likely to trigger it. The only changes are the revert target (see {@link
-   * #revertToDriedOutBlock}) and the hotel check.
-   *
-   * <p>Written as early-return guard clauses, in the same order as vanilla's original {@code &&}
-   * chain, so the client-side check still runs first and the RNG roll still never happens on the
-   * client — collapsing this into eagerly-evaluated booleans up front would change that.
+   * Vanilla {@code FarmBlock.fallOn}'s trample roll, with this tier's revert target and the hotel
+   * check. The guards keep vanilla's order, so the client check runs first and the client never
+   * rolls the random number.
    */
   private void maybeTrampleToDirt(
       final Level level,
@@ -149,9 +136,8 @@ public class GrowthBoostedFarmlandBlock extends FarmBlock {
   }
 
   /**
-   * Reimplementation of {@code FarmBlock}'s moisture tick: vanilla's version is unusable as a base
-   * to extend because its water/maintenance checks are private, and its dry-out case is hardcoded
-   * to revert to {@code Blocks.DIRT}.
+   * {@code FarmBlock}'s moisture tick, rewritten because its water checks are private and it dries
+   * out to {@code Blocks.DIRT}.
    */
   private void tickMoisture(final BlockState state, final ServerLevel world, final BlockPos pos) {
     final int moisture = state.getValue(MOISTURE);
