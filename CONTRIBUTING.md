@@ -37,7 +37,7 @@ The game code lives in `common/`, and `fabric/`, `neoforge/`, and `forge/` each 
 
 [AGENTS.md](AGENTS.md) maps out the code: which folder holds what, and every command. It's written for AI coding agents, but it's the quickest tour for people too.
 
-**Branches.** Each Minecraft version has its own branch. `main` is the newest (26.3), and `26.2` and `26.1` get each change after it works on `main`. Target `main` with your pull request unless a fix only applies to an older version. The `1.21.11` and `1.21.1` branches carry 2.0 and get no later features; `1.21.10` gets 2.0.0 later, and `1.20.1` stays on 1.2.0.
+**Branches.** Each Minecraft version has its own branch. `main` is the newest (26.3), and `26.2` and `26.1` get each change after it works on `main`. Target `main` with your pull request unless a fix only applies to an older version. The `1.21.11`, `1.21.10`, and `1.21.1` branches carry 2.0 and get no later features, and `1.20.1` stays on 1.2.0.
 
 ## How features get planned
 
@@ -61,7 +61,7 @@ Small fixes don't need a plan. Open an issue first for anything bigger, so we ca
 
 ## How testing works
 
-A green build only proves the code compiles, so most features have tests that run the game.
+A green build only proves the code compiles, so each feature also has tests that run the game.
 
 | What | Command | What it checks |
 |---|---|---|
@@ -81,7 +81,7 @@ Some things a test server can't judge: how a block looks, how a sound feels, or 
 
 1. Run `./gradlew spotlessApply` to format the code, then `./gradlew build`.
 2. Use [Conventional Commits](https://www.conventionalcommits.org/), like `fix: Let the Fairy Grove clear grass`.
-3. Keep each class to one job, and write comments that explain Minecraft quirks to someone new to modding. AGENTS.md has the rest of the house style.
+3. Keep each class to one job and let names explain the code. Comments are short doc lines on classes, methods, and fields, plus a one-line why for a Minecraft quirk the code can't show. AGENTS.md has the rest of the house style.
 4. Every player-facing line goes through a translation key in `en_us.json`, written in plain, friendly English. If you change a guide book page, update [docs/GUIDE.md](docs/GUIDE.md) too; the unit tests check that they match.
 5. Don't edit textures. Every texture is drawn by hand, so suggest art changes in an issue instead.
 

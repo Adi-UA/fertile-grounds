@@ -6,9 +6,9 @@ context: |
   mods (Farmer's Delight, Jade) instead of copying them, read shared tags so other mods' content
   works without code, and keep the vanilla look. docs/ROADMAP.md holds the release plan and the
   implementation order of changes.
-  Release 2.0.0 targets Minecraft 26.1, 26.2, 26.3, 1.21.11, and 1.21.1 (1.21.10 to follow); versions
-  from 1.21.1 up to 26.1 get 2.0.0 only, and 1.20.1 stays on 1.2.0. Build every change on 26.3
-  (main) first; backport to older branches only after every 2.0.0 change works on 26.3.
+  Release 2.0 targets Minecraft 26.1, 26.2, 26.3, 1.21.11, 1.21.10, and 1.21.1; versions from 1.21.1
+  up to 26.1 get 2.0 only, and 1.20.1 stays on 1.2.0. New features land on 26.3 (main) first, then
+  get backported to 26.2 and 26.1.
   Every tunable number sits behind a gamerule. Every player-facing string uses a translation key.
   No AI art ships: the maintainer draws or traces every texture in Aseprite from vanilla textures, and AI
   only supplies guides, templates, palettes, and placeholders. Specs describe the look, never pixels.

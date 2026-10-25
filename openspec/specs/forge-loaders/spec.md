@@ -46,7 +46,7 @@ On NeoForge and Forge, these SHALL behave as on Fabric:
 - **THEN** they get the guide book once
 
 ### Requirement: Saved data survives restarts
-On NeoForge and Forge, pending fairy visits, gift cooldowns, Fairy Grove build jobs, and each player's guide book flag SHALL persist across a world save and reload. A world moved between loaders SHALL keep every block, item, and entity. It SHALL also load without errors, though the saved per-world and per-player data starts fresh.
+On NeoForge and Forge, pending fairy visits, gift cooldowns, Fairy Grove build jobs, and each player's guide book flag SHALL persist across a world save and reload. A world moved between loaders SHALL keep every block, item, and entity. It SHALL also load without errors, and the mod's saved per-world and per-player data SHALL start fresh.
 
 #### Scenario: Grove build across a restart
 - **WHEN** a Fairy Grove is half built and the Forge server restarts
@@ -67,5 +67,5 @@ With Jade installed on NeoForge, the soil, visit, hotel, and chime tooltips SHAL
 The NeoForge and Forge jars SHALL run on a dedicated server, where no client classes exist, without loading any client-only class.
 
 #### Scenario: Server start
-- **WHEN** the Forge jar runs on a dedicated 26.1 server
+- **WHEN** the Forge jar runs on a dedicated 26.3 server
 - **THEN** the server starts and logs no class-loading error for `fertilegrounds`
