@@ -18,12 +18,17 @@ The port checks out `1.21.10` and cherry-picks the three 1.21.11 commits after i
 
 ### What 1.21.10 lacks
 
-Known from the porting table before the first build; the compiler and the 1.21.10 sources will add to this list:
+Each of these follows vanilla 1.21.10 or the 1.21.1 branch, checked against the 1.21.10 sources:
 
-- **`Identifier`:** 1.21.10 still names it `ResourceLocation` (`net.minecraft.resources`), so every reference goes back to the old name.
-- **Gamerules:** 1.21.10 has `GameRules.Key<IntegerValue>` with camelCase names, not the `GameRule` registry. The mod's gamerules go through 1.21.1's `Platform.intRule` and `boolRule` (Fabric `GameRuleRegistry`, NeoForge and Forge the `IntegerRuleInvoker` mixin), and test environments and `TestSupport` use `randomTickSpeed` and `doDaylightCycle`.
-- **Forge 60:** `loaderVersion "[60,)"` in both `mods.toml` files and `data_pack_format` 88 (1.21.10's `version.json`). Forge 60's EventBus, MixinExtras, and `lwjgl-freetype` repository fix get checked against its sources and build, not assumed from Forge 61.
-- **Jade 20:** 1.21.10 has Jade 20.x, where 1.21.11 has 21.1.x, so `compat/jade/` gets checked against the Jade 20 API jar for changed provider methods.
+- **`Identifier`:** 1.21.10 still names it `ResourceLocation`, and `ResourceKey.identifier()` is `location()`.
+- **Package moves:** `advancements.critereon.PlayerTrigger`, `animal.Bee`, `net.minecraft.Util`, and `npc.VillagerTrades`, as on 1.21.1.
+- **Gamerules:** 1.21.10 has `GameRules.Key<IntegerValue>` with camelCase names, not the `GameRule` registry. The mod's gamerules go through 1.21.1's `Platform.intRule` and `boolRule`: Fabric `GameRuleRegistry`, NeoForge and Forge `GameRules.register` with the `IntegerRuleInvoker` mixin, whose ranged `create` takes a `FeatureFlagSet` here (not on 1.21.1). Each loader loads `ModGameRules` from its entry point. Rule names stay `fertilegrounds:<name>`; 1.2.0 had no gamerules, so no saved value changes name. Jade reads `server.getGameRules()`, which 1.21.10 has and 1.21.11 lacks.
+- **Moon phase:** `level.getMoonPhase() == 0`, as on 1.21.1; 1.21.11's environment attribute doesn't exist yet.
+- **Wandering Trader:** the same three pools as 1.21.11 (`RARE` stays 1), but `ItemListing.getOffer` takes only the trader and the random source.
+- **GameTests:** 1.21.10's `GameTestHelper` asserts take a `Component`, not a `String`, so every message goes in `Component.literal`. Test environments list `bool_rules` and `int_rules` as `{"rule", "value"}` entries with camelCase vanilla names (`randomTickSpeed`, `doDaylightCycle`); the demo script uses camelCase names too. `TuningGameruleTests` reads defaults from `new GameRules(enabledFeatures)`.
+- **Forge 60:** `loaderVersion "[60,)"` in both `mods.toml` files and `data_pack_format` 88 (1.21.10's `version.json`). Forge 60's build, EventBus, and MixinExtras work as on Forge 61.
+- **Jade 20:** `compat/jade/` compiles unchanged against Jade 20.0.5 for NeoForge, and the Jade GameTests pass on Fabric and NeoForge.
+- **Data and assets:** vanilla's JSON formats for every kind the mod ships match 1.21.11's, and 1.21.10 has the `gui` atlas, so no data file changes.
 
 ### Old worlds
 
