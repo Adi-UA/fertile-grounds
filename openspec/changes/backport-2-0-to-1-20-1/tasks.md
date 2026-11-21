@@ -39,9 +39,9 @@ All work happens in a worktree on the local `1.20.1` branch. Nothing gets pushed
 
 - [x] 6.1 Add every new difference to the porting skill's table (now `differences.md`, since `SKILL.md` reached the 150-line cap) under "1.20.1 (from 1.21.1)", and update the `1.20.1` README per the `release-2-0` spec. Verify: each row names code checked in this port.
 - [x] 6.2 Commit the port on `1.20.1` as `feat: Backport 2.0.1 to Minecraft 1.20.1`, with smaller commits per group where they build. Verify: `git log` shows the commits on top of `origin/1.20.1`.
-- [ ] 6.3 Check the design's Look and sound table in `runClient` on Fabric and Forge, and give the maintainer an in-game checklist: fairy look and wings, soil and hotel textures, unlit glow layers, the glow and chime heralds, the Glow Berries hotel recipe, Jade on Forge, a 1.2.0 Fabric world opened in 2.0.1, and sleeping through a visit night. Verify: the maintainer marks every item.
+- [x] 6.3 Check the design's Look and sound table in `runClient` on Fabric and Forge, and give the maintainer an in-game checklist: fairy look and wings, soil and hotel textures, unlit glow layers, the glow and chime heralds, the Glow Berries hotel recipe, Jade on Forge, a 1.2.0 Fabric world opened in 2.0.1, and sleeping through a visit night. Verify: the maintainer marks every item.
 
 ## 7. Release (only after the gate passes)
 
 - [ ] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` and every 2.0 branch to list 1.20.1, drop "1.20.1 stays on 1.2.0", and add NeoForge on 1.20.1 as TBD to `docs/ROADMAP.md`. Verify: the `release-2-0` scenarios read true from those files.
-- [ ] 7.2 The maintainer pushes and publishes, then Claude mirrors the jars to Modrinth and CurseForge with the store skills, listing the Forge jar for Forge only, and leaving the 1.2.0 file in place. Verify: the store skills' read-back steps.
+- [x] 7.2 The maintainer pushes and publishes, then Claude mirrors the jars to Modrinth and CurseForge with the store skills, listing the Forge jar for Forge only, and leaving the 1.2.0 file in place. Verify: the store skills' read-back steps.

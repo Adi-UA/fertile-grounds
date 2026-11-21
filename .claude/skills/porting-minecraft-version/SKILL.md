@@ -5,7 +5,7 @@ description: Port Fertile Grounds to a new Minecraft version, or backport a feat
 
 # Porting between Minecraft versions
 
-Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 26.1), and port all three loaders in the same hop. Since 2.0 the targets are `26.2` and `26.1`. `1.21.1` got 2.0.0 straight from 26.1 (its rows are "1.21.2 to 26.1"), `1.21.11` got it from 26.1 in one hop (rows "26.1" give the 1.21.11 form, and rows "1.21.2 to 1.21.11" changed by then), `1.21.10` got it from `1.21.11` (rows "1.21.11" give what that hop undid), and versions before 26.1 get 2.0.0 only; `1.20.1` stays on 1.2.0. Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
+Move one version hop at a time (26.3 to 26.2, then 26.2 to 26.1, never 26.3 straight to 26.1), and port all three loaders in the same hop. Since 2.0 the targets are `26.2` and `26.1`. `1.21.1` got 2.0.0 straight from 26.1 (its rows are "1.21.2 to 26.1"), `1.21.11` got it from 26.1 in one hop (rows "26.1" give the 1.21.11 form, and rows "1.21.2 to 1.21.11" changed by then), `1.21.10` got it from `1.21.11` (rows "1.21.11" give what that hop undid), `1.20.1` got 2.0.1 from `1.21.1` (rows "1.20.2 to 1.21.1"), and versions before 26.1 get 2.0.x only. Finish and verify each branch before starting the next one, because each hop's fixes feed into the next.
 
 ## 1. Set up the branch
 
