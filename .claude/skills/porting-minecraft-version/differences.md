@@ -15,6 +15,22 @@ These loader facts were checked on 26.3, and 26.2 and 26.1 match them except for
 | Fabric | Access wideners | Fabric API opens `Blocks.always`, `CreativeModeTab.Output`, and `UseOnContext`'s level constructor; shared code avoids them (see the add-forge-and-neoforge design) |
 | All | Dev-only checks | Dev builds throw when a positional environment attribute (moon phase) is read without a position; only NeoForge's and Forge's dev runs set that flag |
 
+## Mixins per branch
+
+Shared code adds a mixin only where neither vanilla nor a loader has a hook, so older branches carry more. Every branch has `ServerPlayerMixin` (container opened), `ItemEntityMixin` (item entity tick) and `CreeperMixin` (creeper goals); the table lists the rest, read from each branch's `fertilegrounds.mixins.json` and `fertilegrounds.fabric.mixins.json`:
+
+| Branch | Extra shared mixins | Fabric-only mixins | Why the extras exist |
+|---|---|---|---|
+| 26.1 to 26.3 | `FarmlandBlockMixin` (no trampling near hotels; wraps `turnToBaseBlock`, `turnToDirt` on 26.2 and 26.1) | None | Crops find mod farmland through the `supports_crops` and `grows_crops` tags |
+| 1.21.11 | `FarmlandBlockMixin` (wraps `turnToDirt`); `CropBlockMixin`, `PitcherCropBlockMixin`, `StemBlockMixin`, `AttachedStemBlockMixin` (`mayPlaceOn` accepts any `FarmBlock`) | `CropBlockMixin` (growth speed on any `FarmBlock`) | Crops check `Blocks.FARMLAND`; NeoForge and Forge give growth speed through their own hooks |
+| 1.21.10 | 1.21.11's, plus `IntegerRuleInvoker` | 1.21.11's | No gamerule registry: NeoForge and Forge call the private ranged `IntegerValue.create` |
+| 1.21.1 | The four crop mixins and `IntegerRuleInvoker` | `CropBlockMixin`, `FarmlandBlockMixin` | Forge has no MixinExtras for `@WrapOperation`; NeoForge and Forge cancel `FarmlandTrampleEvent` instead |
+| 1.20.1 | 1.21.1's, plus `CriteriaTriggersInvoker` and `GameRuleTypeAccessor` | 1.21.1's | No trigger registry, and no ranged `IntegerValue.create`, so Forge swaps the rule's argument type |
+
+The mixins use `@Inject`, `@Invoker`, `@Accessor` and MixinExtras' `@WrapOperation` (which chains with other mods' wrappers); none use `@Overwrite` or `@Redirect`, which break when another mod targets the same code. A new mixin on any branch gets a row here.
+
+## Changes by version
+
 | Changed in | Loader | Area | Before | After |
 |---|---|---|---|---|
 | 26.3 | All | Hoe tilling | `TillableBlockRegistry.register` | `BlockTransformerHelper.registerTilling(BlockPredicate, Block)`; tilling is a data-driven block transformer |
