@@ -32,11 +32,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SERVER_DIR = ROOT / "run" / "demo-server"
 # Its own name, so it never replaces another Minecraft version's demo world in the launcher's saves.
-LEVEL_NAME = "Fertile Grounds Demo 1.21.1"
+LEVEL_NAME = "Fertile Grounds Demo 1.20.1"
 WORLD = SERVER_DIR / LEVEL_NAME
 SAVES = Path.home() / "Library" / "Application Support" / "minecraft" / "saves"
 # Each loader's dev client keeps its own saves (see the runs in each loader's build.gradle).
-DEV_SAVES = (ROOT / "run" / "saves", ROOT / "run" / "neoforge" / "saves", ROOT / "run" / "forge-client" / "saves")
+DEV_SAVES = (ROOT / "run" / "saves", ROOT / "run" / "forge-client" / "saves")
 SEED = "fertilegrounds"
 RCON_PORT = 25599
 SERVER_PORT = 25598
@@ -52,11 +52,11 @@ CLEAR_HEIGHT = 48  # air this high above the grass
 
 # Ground cover for the meadow and path edges; every one is natural, so the grove can clear it.
 EDGE_PLANTS = [
-    "short_grass", "short_grass", "pink_petals[flower_amount=3]", "pink_petals[flower_amount=4]",
+    "grass", "grass", "pink_petals[flower_amount=3]", "pink_petals[flower_amount=4]",
     "lily_of_the_valley", "azure_bluet",
 ]  # fmt: skip
 MEADOW_PLANTS = EDGE_PLANTS + [
-    "short_grass", "short_grass", "fern", "oxeye_daisy", "cornflower",
+    "grass", "grass", "fern", "oxeye_daisy", "cornflower",
 ]  # fmt: skip
 
 AZALEA = ["flowering_azalea_leaves[persistent=true]", "azalea_leaves[persistent=true]"]
@@ -112,20 +112,23 @@ def sign(lines: list[str], command: str | None = None, wall: str | None = None, 
     return f"{state}{{is_waxed:1b,front_text:{{messages:[{messages}]}}}}"
 
 
-def snbt(value) -> str:
-    """JSON value to SNBT, for item components copied from a recipe."""
-    if isinstance(value, dict):
-        return "{" + ",".join(f"{json.dumps(k)}:{snbt(v)}" for k, v in value.items()) + "}"
-    if isinstance(value, list):
-        return "[" + ",".join(snbt(v) for v in value) + "]"
-    if isinstance(value, bool):
-        return "true" if value else "false"
-    return json.dumps(value)
+def guide_book() -> str:
+    """The guide as item SNBT, built from GuideBook.java so it matches the join gift."""
+    source = (ROOT / f"common/src/main/java/com/{MOD}/item/GuideBook.java").read_text()
+    pages = int(re.search(r"PAGE_COUNT = (\d+);", source).group(1))
+    author = re.search(r'AUTHOR = "([^"]+)";', source).group(1)
+    page_text = ",".join(
+        json.dumps(json.dumps({"translate": f"book.{MOD}.guide.page.{page}"}))
+        for page in range(1, pages + 1)
+    )
+    name = json.dumps(json.dumps({"translate": f"item.{MOD}.guide_book", "italic": False}))
+    tag = f"{{title:\"\",author:{json.dumps(author)},pages:[{page_text}],resolved:1b,display:{{Name:{name}}}}}"
+    return f'{{id:"minecraft:written_book",Count:1b,tag:{tag}}}'
 
 
 def chest(items: list[tuple[str, int]], facing: str = "north") -> str:
     slots = ",".join(
-        f'{{Slot:{slot}b,id:"{item}",count:{count}}}' for slot, (item, count) in enumerate(items)
+        f'{{Slot:{slot}b,id:"{item}",Count:{count}b}}' for slot, (item, count) in enumerate(items)
     )
     return f"chest[facing={facing}]{{Items:[{slots}]}}"
 
@@ -178,13 +181,8 @@ def build_spawn(s: Site) -> list[str]:
         row, col = divmod(i, 4)
         command = f"/function fgdemo:{path}" if path else None
         c.append(s.set(-4, 3 - row, -3 + 2 * col, sign(lines, command, wall="east")))
-    # The guide book on a lectern, built from the guide book recipe's own result.
-    recipe = json.loads(
-        (ROOT / f"common/src/main/resources/data/{MOD}/recipe/guide_book.json").read_text()
-    )
-    book = recipe["result"]
-    item = f'{{id:"{book["id"]}",count:1,components:{snbt(book["components"])}}}'
-    c.append(s.set(3, 1, -4, f"lectern[facing=south,has_book=true]{{Book:{item}}}"))
+    # The guide book on a lectern, the same book the join gift gives.
+    c.append(s.set(3, 1, -4, f"lectern[facing=south,has_book=true]{{Book:{guide_book()}}}"))
     c.append(s.set(3, 1, -5, sign(["Guide book", "every feature,", "page by page", ""], rotation=0)))
     supplies = [
         [
@@ -401,7 +399,7 @@ def build_hero(s: Site) -> list[str]:
                 elif roll < 10:
                     c.append(s.set(x, 1, dz, rng.choice(FLOWERS + EDGE_PLANTS)))
                 elif roll < 16:
-                    c.append(s.set(x, 1, dz, "short_grass"))
+                    c.append(s.set(x, 1, dz, "grass"))
     # The shrine in the middle, ringed by a flower bed and four blossoming azaleas.
     c.append(s.set(HERO_X, 0, 0, f"{MOD}:super_enriched_dirt"))
     c.append(s.set(HERO_X, 1, 0, f"{MOD}:chime_fairy_hotel"))
@@ -577,7 +575,7 @@ def write_datapack(site: Site) -> None:
     pack = WORLD / "datapacks" / "fgdemo"
     if pack.exists():
         shutil.rmtree(pack)
-    functions = pack / "data" / "fgdemo" / "function"
+    functions = pack / "data" / "fgdemo" / "functions"
     fmt = data_pack_format()
     (pack).mkdir(parents=True)
     (pack / "pack.mcmeta").write_text(
@@ -620,7 +618,7 @@ def write_datapack(site: Site) -> None:
             " unless entity @e[tag=fgdemo_hero,distance=..40] run function fgdemo:hero/fairies"
         ],
     )
-    tick = pack / "data" / "minecraft" / "tags" / "function" / "tick.json"
+    tick = pack / "data" / "minecraft" / "tags" / "functions" / "tick.json"
     tick.parent.mkdir(parents=True)
     tick.write_text(json.dumps({"values": ["fgdemo:hero/tick"]}, indent=2))
     for mode, lines in gamerule_modes().items():
@@ -878,7 +876,7 @@ def run_checks(rcon: Rcon, s: Site) -> list[str]:
         rule_is(f"{MOD}:{name}", value)
     rule_is("randomTickSpeed", "3")
 
-    # The Chime Hotel field would ripen on fast random ticks, but 1.21.1 only random-ticks chunks near
+    # The Chime Hotel field would ripen on fast random ticks, but this version only random-ticks chunks near
     # a player and this server has none, so the playtest covers it instead.
     rcon.run("function fgdemo:reset/chime")
     return f
@@ -943,7 +941,7 @@ def main() -> int:
             process.wait(timeout=120)
         except subprocess.TimeoutExpired:
             process.kill()
-    # Minecraft 1.21.1 logs the data fixer line for every mod entity type on Fabric; it's harmless.
+    # Minecraft logs the data fixer line for every mod entity type on Fabric; it's harmless.
     errors = [
         line
         for line in log_path.read_text(errors="replace").splitlines()
