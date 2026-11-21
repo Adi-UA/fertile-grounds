@@ -72,7 +72,7 @@ A cozy farm is fun. Breaking 400 dirt blocks to build one the first time is not.
 
 ## Little extras
 
-- Optional **[Jade](https://modrinth.com/mod/jade)** tooltips show soil boosts, coming visits, and how many crops are ready, on Fabric and NeoForge.
+- Optional **[Jade](https://modrinth.com/mod/jade)** tooltips show soil boosts, coming visits, and how many crops are ready, on Fabric and NeoForge (on 1.20.1, Fabric and Forge show whether a hotel's fairy was petted).
 - Wandering Traders sometimes sell Fairy Dust and Fertilizer.
 - Its own advancement tab, with seven advancements to earn.
 
@@ -89,7 +89,7 @@ Compatible with Sodium, Iris, Farmer's Delight, AppleSkin, etc., and plays nicel
 
 ## Versions
 
-Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, 26.3, 1.21.11, 1.21.10, and 1.21.1** on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), **NeoForge**, and **Forge**, whose jars need nothing else (on 26.1, they need Minecraft 26.1.2). Jade tooltips work on Fabric and NeoForge, since Jade has no Forge build for these versions. Older Minecraft scrambles its code and lacks some newer blocks, so 1.21.1, 1.21.10, and 1.21.11 stay on 2.0; new features after that come to 26.1 and newer, and 1.20.1 stays on 1.2.0. On 1.21.1 a few details differ: for example, the Empty Fairy Hotel takes Glow Berries instead of a Firefly Bush.
+Fertile Grounds 2.0 runs on Minecraft **26.1, 26.2, 26.3, 1.21.11, 1.21.10, 1.21.1, and 1.20.1** on **Fabric** with [Fabric API](https://modrinth.com/mod/fabric-api), **NeoForge**, and **Forge**, whose jars need nothing else (on 26.1, they need Minecraft 26.1.2). On 1.20.1 there are Fabric and Forge jars, and a NeoForge jar is TBD. Jade tooltips work on Fabric and NeoForge, and on 1.20.1 on Fabric and Forge, since Jade has no Forge build for the newer versions. Older Minecraft scrambles its code and lacks some newer blocks, so 1.20.1 and 1.21.x stay on 2.0; new features after that come to 26.1 and newer. On 1.21.1 and 1.20.1 a few details differ: for example, the Empty Fairy Hotel takes Glow Berries instead of a Firefly Bush.
 
 ## For modpack makers
 
