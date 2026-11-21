@@ -38,7 +38,7 @@ All work happens in a worktree on the local `1.20.1` branch. Nothing gets pushed
 ## 6. Docs and the playtest gate
 
 - [x] 6.1 Add every new difference to the porting skill's table (now `differences.md`, since `SKILL.md` reached the 150-line cap) under "1.20.1 (from 1.21.1)", and update the `1.20.1` README per the `release-2-0` spec. Verify: each row names code checked in this port.
-- [ ] 6.2 Commit the port on `1.20.1` as `feat: Backport 2.0.1 to Minecraft 1.20.1`, with smaller commits per group where they build. Verify: `git log` shows the commits on top of `origin/1.20.1`.
+- [x] 6.2 Commit the port on `1.20.1` as `feat: Backport 2.0.1 to Minecraft 1.20.1`, with smaller commits per group where they build. Verify: `git log` shows the commits on top of `origin/1.20.1`.
 - [ ] 6.3 Check the design's Look and sound table in `runClient` on Fabric and Forge, and give the maintainer an in-game checklist: fairy look and wings, soil and hotel textures, unlit glow layers, the glow and chime heralds, the Glow Berries hotel recipe, Jade on Forge, a 1.2.0 Fabric world opened in 2.0.1, and sleeping through a visit night. Verify: the maintainer marks every item.
 
 ## 7. Release (only after the gate passes)
