@@ -42,3 +42,9 @@ replay_*.log
 *.hprof
 *.jfr
 
+
+# Minecraft logging from JUnit runs
+logs/
+
+# python
+__pycache__/

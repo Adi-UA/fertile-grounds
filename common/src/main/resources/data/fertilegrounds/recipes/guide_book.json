@@ -1,0 +1,15 @@
+{
+  "type": "fertilegrounds:guide_book",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    }
+  ],
+  "result": {
+    "item": "minecraft:written_book"
+  }
+}

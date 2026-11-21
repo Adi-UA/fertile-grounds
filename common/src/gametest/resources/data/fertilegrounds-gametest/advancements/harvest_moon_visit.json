@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "done": {
+      "trigger": "fertilegrounds:harvest_moon_visit"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

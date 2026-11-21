@@ -1,0 +1,7 @@
+{
+  "parent": "fertilegrounds:block/template_chime_fairy_hotel_hanging",
+  "textures": {
+    "lantern": "fertilegrounds:block/chime_fairy_hotel",
+    "glow": "fertilegrounds:block/chime_fairy_hotel_glow"
+  }
+}

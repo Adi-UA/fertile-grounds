@@ -1,0 +1,7 @@
+{
+  "parent": "fertilegrounds:block/template_fairy_hotel",
+  "textures": {
+    "lantern": "fertilegrounds:block/empty_fairy_hotel",
+    "glow": "fertilegrounds:block/empty_fairy_hotel_glow"
+  }
+}

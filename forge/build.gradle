@@ -1,0 +1,139 @@
+plugins {
+	id 'multiloader-loader'
+	id 'net.neoforged.moddev.legacyforge'
+	id 'maven-publish'
+}
+
+base {
+	archivesName = "${mod_id}-forge"
+}
+
+sourceSets {
+	gametest {
+		compileClasspath += main.output
+		runtimeClasspath += main.output
+	}
+}
+
+commonSources('main')
+// Forge has no separate client source set; client classes only load on the client.
+commonSources('client', 'main')
+commonSources('gametest')
+
+legacyForge {
+	// -PneoforgeCompat builds and tests against NeoForge 1.20.1 instead. It doesn't load the mod today:
+	// NeoForge 47.1 locks vanilla registries inside RegisterEvent, and it reports itself as Forge
+	// 47.1.106, below the jar's minimum.
+	if (project.hasProperty('neoforgeCompat')) {
+		enable {
+			neoForgeVersion = "${forge_minecraft_version}-${neoforge_compat_version}"
+		}
+	} else {
+		version = "${forge_minecraft_version}-${forge_version}"
+	}
+	addModdingDependenciesTo(sourceSets.gametest)
+
+	runs {
+		configureEach {
+			// Tests only register in the dev runs, where the gametest classes exist. Only the test mod
+			// registers tests, so Forge's name filter (forge.enabledGameTestNamespaces) stays off.
+			sourceSet = sourceSets.gametest
+		}
+		client {
+			client()
+			gameDirectory = rootProject.file('run/forge-client')
+		}
+		server {
+			server()
+			gameDirectory = rootProject.file('run/forge-server')
+			programArgument '--nogui'
+		}
+		gameTestServer {
+			type = 'gameTestServer'
+			gameDirectory = rootProject.file('run/forge-gameTestServer')
+			// A JUnit-style report, and `-PgametestFilter=<pattern>` runs only matching tests; TestCatalog
+			// reads both.
+			systemProperty 'fertilegrounds.gametest.report', rootProject.file('build/gametest-forge-report.xml').absolutePath
+			if (project.hasProperty('gametestFilter')) {
+				systemProperty 'fertilegrounds.gametest.filter', project.property('gametestFilter')
+			}
+		}
+	}
+
+	mods {
+		"${mod_id}" {
+			sourceSet sourceSets.main
+		}
+		"fertilegrounds_gametest" {
+			sourceSet sourceSets.gametest
+		}
+	}
+}
+
+// Forge 47's test server loads its world the way a dedicated server does, from server.properties and
+// the last run's save, so each run starts a fresh flat world without structures, as vanilla's test
+// server always does.
+tasks.matching { it.name == 'runGameTestServer' }.configureEach {
+	doFirst {
+		def dir = rootProject.file('run/forge-gameTestServer')
+		project.delete(new File(dir, 'world'))
+		dir.mkdirs()
+		new File(dir, 'server.properties').text = 'level-type=minecraft\\:flat\ngenerate-structures=false\n'
+	}
+}
+
+// Forge 47 runs with its own (SRG) names, so the jar is renamed for release and the mixins need a
+// refmap, which the Mixin annotation processor writes.
+mixin {
+	add(sourceSets.main, "${mod_id}.refmap.json")
+	config("${mod_id}.mixins.json")
+}
+
+jar {
+	finalizedBy('reobfJar')
+	manifest {
+		attributes 'MixinConfigs': 'fertilegrounds.mixins.json'
+	}
+}
+
+dependencies {
+	annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+
+	// Pass -PnoJade to check the mod works without Jade.
+	modCompileOnly "maven.modrinth:jade:${jade_forge_version}"
+	if (!project.hasProperty('noJade')) {
+		modRuntimeOnly "maven.modrinth:jade:${jade_forge_version}"
+	}
+}
+
+processResources {
+	def props = [version: project.version, minecraft_version_range: minecraft_version_range, forge_version: forge_version,
+			data_pack_format: data_pack_format, pack_description: 'Fertile Grounds resources']
+	inputs.properties props
+	filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+		expand props
+	}
+	// Forge's Mixin logs an error without minVersion and needs the refmap named, so Forge's copy of
+	// the shared config adds both.
+	inputs.property 'mixinConfigForForge', 'minVersion 0.8, refmap'
+	filesMatching('fertilegrounds.mixins.json') {
+		filter { line ->
+			line.replace('"required": true,', '"required": true,\n  "minVersion": "0.8",\n  "refmap": "fertilegrounds.refmap.json",')
+		}
+	}
+}
+processGametestResources {
+	def props = [data_pack_format: data_pack_format, pack_description: 'Fertile Grounds GameTests']
+	inputs.properties props
+	filesMatching('pack.mcmeta') {
+		expand props
+	}
+}
+
+publishing {
+	publications {
+		create('mavenJava', MavenPublication) {
+			from components.java
+		}
+	}
+}

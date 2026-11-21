@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fertilegrounds:item/chime_fairy_hotel",
+    "layer1": "fertilegrounds:item/chime_fairy_hotel_glow"
+  }
+}

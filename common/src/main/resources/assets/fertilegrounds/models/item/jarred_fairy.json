@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fertilegrounds:item/jarred_fairy",
+    "layer1": "fertilegrounds:item/jarred_fairy_glow"
+  }
+}

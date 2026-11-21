@@ -1,0 +1,95 @@
+plugins {
+	id 'multiloader-loader'
+	id 'net.fabricmc.fabric-loom-remap'
+	id 'maven-publish'
+}
+
+base {
+	archivesName = mod_id
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"fertilegrounds" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
+	runs {
+		configureEach {
+			runDir "../run"
+		}
+		// Its own folder, so scripts/demo/build_demo_world.py leaves run/'s client settings alone.
+		demoServer {
+			server()
+			configName = "Demo Server"
+			runDir "../run/demo-server"
+			ideConfigGenerated false
+		}
+	}
+}
+
+// Adds a gametest source set that never ships, and runGameTest, which fails the build on a failed test.
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "fertilegrounds-gametest"
+		enableGameTests = true
+		enableClientGameTests = false
+		eula = true
+	}
+}
+
+commonSources('main')
+commonSources('client')
+commonSources('gametest')
+
+// A JUnit-style report, and `-PgametestFilter=<pattern>` runs only matching tests. TestCatalog
+// reads both.
+loom.runs.matching { it.name == "gameTest" }.configureEach {
+	vmArg "-Dfertilegrounds.gametest.report=${rootProject.layout.buildDirectory.file("gametest-fabric-report.xml").get().asFile}"
+	if (project.hasProperty("gametestFilter")) {
+		vmArg "-Dfertilegrounds.gametest.filter=${project.property("gametestFilter")}"
+	}
+}
+
+dependencies {
+	// Minecraft ${minecraft_version} ships obfuscated, so mod dependencies use the remapping mod*
+	// configurations.
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	mappings loom.officialMojangMappings()
+	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+	// Pass -PnoJade to check the mod works without Jade.
+	modCompileOnly "maven.modrinth:jade:${jade_version}"
+	if (!project.hasProperty("noJade")) {
+		modLocalRuntime "maven.modrinth:jade:${jade_version}"
+	}
+
+	// -Pshaders adds Sodium and Iris to dev runs only, for a shader pack in run/shaderpacks/.
+	if (project.hasProperty("shaders")) {
+		modLocalRuntime "maven.modrinth:sodium:${sodium_version}"
+		modLocalRuntime "maven.modrinth:iris:${iris_version}"
+	}
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			from components.java
+		}
+	}
+}

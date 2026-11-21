@@ -1,0 +1,34 @@
+// commonSources(commonSet, sourceSet) compiles one of :common's source sets into a loader's source
+// set. Adapted from jaredlll08/MultiLoader-Template (branches 26.1.1 and 1.21.1).
+plugins {
+	id 'multiloader-common'
+}
+
+ext.commonSources = { String commonSet, String sourceSet = commonSet ->
+	def suffix = commonSet.capitalize()
+	def java = configurations.maybeCreate("commonJava${suffix}")
+	def resources = configurations.maybeCreate("commonResources${suffix}")
+	java.canBeResolved = true
+	java.canBeConsumed = false
+	resources.canBeResolved = true
+	resources.canBeConsumed = false
+	dependencies.add(java.name, dependencies.project(path: ':common', configuration: "commonJava${suffix}"))
+	dependencies.add(resources.name, dependencies.project(path: ':common', configuration: "commonResources${suffix}"))
+
+	def set = sourceSets.getByName(sourceSet)
+	tasks.named(set.compileJavaTaskName, JavaCompile) {
+		dependsOn(java)
+		source(java)
+	}
+	tasks.named(set.processResourcesTaskName, ProcessResources) {
+		dependsOn(resources)
+		from(resources)
+	}
+	if (sourceSet != 'gametest') {
+		tasks.named('sourcesJar', Jar) {
+			dependsOn(java, resources)
+			from(java)
+			from(resources)
+		}
+	}
+}
