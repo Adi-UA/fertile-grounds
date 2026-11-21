@@ -43,5 +43,5 @@ All work happens in a worktree on the local `1.20.1` branch. Nothing gets pushed
 
 ## 7. Release (only after the gate passes)
 
-- [ ] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` and every 2.0 branch to list 1.20.1, drop "1.20.1 stays on 1.2.0", and add NeoForge on 1.20.1 as TBD to `docs/ROADMAP.md`. Verify: the `release-2-0` scenarios read true from those files.
+- [x] 7.1 Update the README, `docs/DETAILS.md`, `docs/ROADMAP.md`, `openspec/config.yaml`, and the porting and release skills on `main` and every 2.0 branch to list 1.20.1, drop "1.20.1 stays on 1.2.0", and add NeoForge on 1.20.1 as TBD to `docs/ROADMAP.md`. Verify: the `release-2-0` scenarios read true from those files.
 - [x] 7.2 The maintainer pushes and publishes, then Claude mirrors the jars to Modrinth and CurseForge with the store skills, listing the Forge jar for Forge only, and leaving the 1.2.0 file in place. Verify: the store skills' read-back steps.
